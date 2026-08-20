@@ -9,7 +9,7 @@ Configurar la estructura inicial del repositorio y establecer el flujo de trabaj
 - Configurar las ramas principales `master` y `develop`.
 - Configurar las reglas de protección de las ramas.
 - Preparar la estructura inicial del repositorio.
-- Crear el archivo `plan.md` con los requerimientos funcionales del proyecto.
+- Crear el archivo `plan.md` con los requerimientos funcionales del proyecto utilizando GitHub Copilot en modo agente.
 - Configurar las plantillas para Pull Requests.
 - Administrar y revisar las Pull Requests del equipo.
 - Preparar la rama `release/actividad-obligatoria-1`.
