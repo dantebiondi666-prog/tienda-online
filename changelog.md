@@ -7,22 +7,23 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ## [Unreleased]
 
 ### Added
-- [feature/estructura-base] Estructura inicial del proyecto.  
-  PR: [#1](link) - @usuario1 (Coordinador / DevOps)
+- [feature/coordinador-setup-repo-and-pages] Estructura inicial del proyecto, creación de plan.md, changelog.md, templates para PR de release y feature, redacción de spec-devops.md y actualización de changelog.md.  
+  PR: [#6](https://github.com/dantebiondi666-prog/tienda-online/pull/6) - @dantebiondi666-prog (Coordinador / DevOps)
 
-- [feature/ia-prompts] Documentación de 5 prompts de IA.  
-  PR: [#4](link) - @usuario4 (Especialista en IA)
+  Issues:
+  [#1](https://github.com/dantebiondi666-prog/tienda-online/issues/1)
+  [#2](https://github.com/dantebiondi666-prog/tienda-online/issues/2) 
+  [#3](https://github.com/dantebiondi666-prog/tienda-online/issues/3) 
+  [#4](https://github.com/dantebiondi666-prog/tienda-online/issues/4) 
+  [#5](https://github.com/dantebiondi666-prog/tienda-online/issues/5) 
+     
+
 
 ### Changed
-- [feature/readme-y-mockup] Actualización README.md con mockup.  
-  PR: [#3](link) - @usuario3 (Documentador / Diseñador UX)
 
-- [feature/index-html] Estructura HTML5 básica.  
-  PR: [#2](link) - @usuario2 (Desarrollador Frontend)
 
 ### Fixed
-- [feature/fix-rutas] Corrección de rutas en README.md.  
-  PR: [#5](link) - @usuario3 (Documentador / Diseñador UX)
+
 
 ---
 
