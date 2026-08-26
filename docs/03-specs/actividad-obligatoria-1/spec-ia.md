@@ -63,7 +63,7 @@ perdería la trazabilidad entre specs y `plan.md` que exige la consigna
 
 ### 4. Uso de IA en esta tarea
 
-- **Modelo utilizado:** [Completar — ej. Claude / ChatGPT / Copilot]
+- **Modelo utilizado:** [Claude]
 - **Qué se le pidió (resumen):** Investigar la metodología SDD a partir de
   un artículo de referencia y redactar la documentación de decisiones y el
   template de specs para el proyecto.
