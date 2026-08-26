@@ -55,8 +55,8 @@ Decidimos aplicar SDD a la Tienda Digital por tres razones concretas:
 | Paso | Responsable | Artefacto |
 |---|---|---|
 | 1. Generar el spec maestro del proyecto a partir de la consigna | Coordinador/DevOps | `plan.md` |
-| 2. Definir metodología SDD y template de specs | Especialista en IA | `docs/02-prompts/sdd-decisions.md` (este archivo) y `docs/03-specs/spec-[rol].md` |
-| 3. Redactar spec individual antes de desarrollar | Cada rol | `docs/03-specs/entrega-1/spec-[rol].md` |
+| 2. Definir metodología SDD y template de specs | Especialista en IA | `docs/02-prompts/sdd-decisions.md` (este archivo) y `docs/03-specs/actividad-obligatoria-1/spec-[rol].md` |
+| 3. Redactar spec individual antes de desarrollar | Cada rol | `docs/03-specs/actividad-obligatoria-1/spec-[rol].md` |
 | 4. Desarrollar y abrir PR incluyendo la spec | Cada rol | PR hacia `develop` |
 | 5. Revisar que el código cumpla con la spec, y que la spec se corresponda con `plan.md` | Coordinador/DevOps | Comentarios de revisión en el PR |
 
@@ -82,6 +82,42 @@ Cada spec individual debe responder, como mínimo, tres preguntas:
    template y `plan.md`, antes de escribir cualquier línea de código o
    diseño.
 
+   Además, el template incluye una cuarta sección, **"Uso de IA en esta
+tarea"**, no exigida como pregunta obligatoria pero sí como evidencia de
+proceso.
+
+### Por qué se eligió esta estructura
+
+Cada sección del template no es arbitraria: cada una cumple una función
+puntual en la trazabilidad contra `plan.md` y en la calidad del code
+review.
+
+- **"Qué se va a hacer"** obliga a que el integrante reformule la tarea con
+  sus propias palabras, en lugar de copiar la consigna de la actividad.
+  Esto evidencia que entendió el alcance real de lo que va a construir, no
+  solo que leyó el enunciado.
+- **"Por qué se hace"** es la sección que materializa la trazabilidad: acá
+  el integrante debe señalar explícitamente qué requerimiento de `plan.md`
+  cubre su tarea. Sin este campo, sería imposible para el revisor (o para
+  el propio equipo, más adelante) reconstruir por qué se hizo cada cosa. Es
+  el punto de anclaje entre el spec maestro y cada spec individual.
+- **"Criterios de aceptación"**, en formato checklist verificable, convierte
+  la spec en un documento accionable durante el code review: el revisor no
+  evalúa "si le gusta" el resultado, sino si se cumplieron condiciones
+  objetivas pactadas de antemano. Esto reduce la subjetividad y agiliza la
+  aprobación o el *request changes*.
+- **"Uso de IA en esta tarea"** responde al requisito transversal del
+  proyecto de que el uso de IA sea explícito y auditable, no un detalle
+  informal. Registrar acá el modelo, lo que se pidió y qué se corrigió
+  manualmente deja evidencia reutilizable para la etapa final del rol de
+  IA (comparativa de modelos y documentación de prompts), sin depender de
+  que alguien recuerde el detalle días después.
+
+En conjunto, estas cuatro secciones aseguran que cualquier spec individual
+pueda leerse de forma aislada y aun así reconstruirse su origen (`plan.md`),
+su alcance y su forma de verificación, que es precisamente el objetivo de
+aplicar SDD en este proyecto.
+
 ### Cómo se validan las specs contra `plan.md`
 
 Antes de aprobar un PR, el revisor verifica dos cosas:
@@ -99,10 +135,35 @@ corresponda.
 
 Se verificó que todos los integrantes del equipo tengan instalada:
 
-- [x] La extensión de **GitHub Copilot** en modo Agente (VS Code).
-- [x] La extensión de **GitHub Pull Requests** (VS Code).
+- [ ] La extensión de **GitHub Copilot** en modo Agente (VS Code).
+- [ ] La extensión de **GitHub Pull Requests** (VS Code).
 
-## 5. Referencia bibliográfica
+*(Completar con el detalle de verificación por integrante al momento de
+confirmarlo en el equipo.)*
+
+## 5. Nota sobre el orden real de implementación en esta entrega
+
+Durante esta primera entrega, el setup de SDD (este documento, el template
+`spec-[rol].md` y `spec-ia.md`) fue mergeado a `develop` **después** de que
+los PRs de Frontend y UX ya estaban en curso, lo cual contradice el orden
+que esta misma metodología establece: el setup de SDD debe existir antes de
+que empiecen los desarrollos que dependen de él.
+
+**Causa:** [Completar — ej. coordinación tardía entre roles, disponibilidad
+del equipo en los primeros días de la entrega, etc.]
+
+**Acción correctiva para esta entrega:** se revisó retroactivamente que las
+specs de Frontend y UX ya existentes cumplan con la estructura del template
+y con la trazabilidad contra `plan.md`. No se solicitó rehacer su trabajo,
+pero se dejó esta constancia para que quede documentado el desvío.
+
+**Acción correctiva para las próximas entregas:** el PR de setup de SDD
+(spec-ia.md + sdd-decisions.md + template) deberá estar mergeado a
+`develop` antes de que se habilite cualquier otro PR de desarrollo. El
+Coordinador/DevOps será responsable de verificar este orden antes de
+aprobar nuevas ramas `feature/`.
+
+## 6. Referencia bibliográfica
 
 Este documento se basa en el artículo *"Spec-driven development: Unpacking
 one of 2025's key new AI-assisted engineering practices"*, de Liu Shangqi
