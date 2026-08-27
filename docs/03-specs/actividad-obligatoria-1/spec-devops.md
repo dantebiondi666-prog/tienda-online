@@ -4,7 +4,7 @@
 
 Configurar la estructura inicial del repositorio y establecer el flujo de trabajo con Git y GitHub que utilizará el equipo durante la Actividad Obligatoria N°1.
 
-## 1. ¿Qué se va a realizar?
+## 1. ¿Qué se va a hacer?
 
 - Configurar las ramas principales `master` y `develop`.
 - Configurar las reglas de protección de las ramas.

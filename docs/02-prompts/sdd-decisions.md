@@ -1,7 +1,7 @@
 # Decisiones de Spec-Driven Development (SDD)
 
 **Rol responsable:** Especialista en IA y Prompt Engineering
-**Proyecto:** Tienda Digital (simulador de e-commerce)
+**Proyecto:** Tienda Online (simulador de e-commerce)
 **Entrega:** Actividad Obligatoria N°1
 
 ---
