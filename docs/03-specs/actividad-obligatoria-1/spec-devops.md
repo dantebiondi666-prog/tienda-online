@@ -21,15 +21,21 @@ Para establecer un flujo de trabajo colaborativo organizado, mantener protegidas
 
 ## 3. Criterios de aceptación
 
-- [ ] La rama `master` existe en el repositorio remoto.
-- [ ] La rama `develop` existe en el repositorio remoto.
-- [ ] Las ramas `master` y `develop` poseen reglas de protección.
-- [ ] La estructura inicial del proyecto se encuentra creada.
-- [ ] Existe un archivo `plan.md` con los requerimientos funcionales del proyecto.
-- [ ] Existen plantillas para las Pull Requests.
-- [ ] Cada integrante trabaja desde una rama `feature`.
-- [ ] Cada Pull Request recibe al menos una revisión antes del merge.
-- [ ] El archivo `changelog.md` registra las contribuciones y Pull Requests.
+### Criterios de aceptación de esta PR inicial
+
+- [x] La rama `master` existe en el repositorio remoto.
+- [x] La rama `develop` existe en el repositorio remoto.
+- [x] Las ramas `master` y `develop` poseen reglas de protección.
+- [x] La estructura inicial del proyecto se encuentra creada.
+- [x] Existe un archivo `plan.md` con los requerimientos, criterios de aceptación y alcance del proyecto.
+- [x] Existen plantillas para las Pull Requests.
+- [x] El archivo `changelog.md` registra la contribución correspondiente.
+- [x] Existe una o más Issues vinculadas a las tareas de esta PR.
+
+### Criterios correspondientes a la etapa final del rol
+
+- [ ] Las Pull Requests del equipo fueron revisadas antes del merge.
+- [ ] Se realizaron las revisiones asistidas con IA requeridas.
 - [ ] Se crea la rama `release/actividad-obligatoria-1` desde `develop`.
 - [ ] La entrega se encuentra publicada mediante GitHub Pages.
 
