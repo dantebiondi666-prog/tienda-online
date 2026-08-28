@@ -22,7 +22,7 @@ Ofrecer una experiencia simple para consultar prendas, comparar sus característ
 - Selección de talle disponible
 - Filtrado de productos por tipo de prenda, talle y estilo
 - Carrito de compras simulado, con resumen y cálculo de totales
-- Formulario de contacto / newsletter
+- - Formulario de contacto
 
 ## Maqueta de diseño web
 
@@ -32,7 +32,7 @@ El mockup de la página principal fue diseñado en Figma, siguiendo lineamientos
 
 - Descripción del proyecto: e-commerce de ropa en HTML5, primera entrega centrada en la estructura semántica.
 - Objetivo del entregable actual: construir la estructura base del sitio (index.html) y su documentación asociada (README, mockup, specs).
-- Mockup: [docs/01-mockup/diseño-inicial.png](docs/01-mockup/diseño-inicial.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
+- Mockup: [docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png](docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
 - Prompts de IA utilizados: [docs/02-prompts/prompts.md](docs/02-prompts/prompts.md)
 
 ## Integrantes
@@ -40,6 +40,6 @@ El mockup de la página principal fue diseñado en Figma, siguiendo lineamientos
 | Nombre y apellido | Usuario de GitHub | Matrícula | Carrera | Materia |
 |---|---|---|---|---|
 | Lucas Ivan Fischer | LucasFUces | 152159 | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
-| [Nombre del Coordinador] | [usuario] | [matrícula] | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
-| [Nombre del Frontend] | [usuario] | [matrícula] | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
-| [Nombre del Especialista en IA] | [usuario] | [matrícula] | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
+| Dante Biondi | dantebiondi666-prog | 156462 | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
+| Juan Martin Britos | juanmartinbritos7-cmd | 155984 | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
+| Sebastian Viel | Zikoloogo | 156880 | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
