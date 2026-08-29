@@ -17,6 +17,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   [#4](https://github.com/dantebiondi666-prog/tienda-online/issues/4) 
     [#5](https://github.com/dantebiondi666-prog/tienda-online/issues/5) 
 
+- [feature/frontend-add-html-structure] Implementación de la estructura HTML5 inicial de la tienda online, basada en el mockup de Figma y en los requerimientos definidos en `plan.md`. Se incorporaron etiquetas semánticas, catálogo de productos, filtros, guía de talles, formulario de contacto y comentarios para futuras implementaciones de CSS y JavaScript.
+  PR: [#12](https://github.com/dantebiondi666-prog/tienda-online/pull/12) - @juanmartinbritos7-cmd (Desarrollador Frontend)
+
+  Issues:
+  [#11](https://github.com/dantebiondi666-prog/tienda-online/issues/11)
+
 - [feature/doc-ux-add-readme-and-mockup] Agrega README.md con carátula, objetivos, tecnologías y funcionalidades previstas; mockup inicial de la tienda en docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png; especificación spec-ux.md con trazabilidad a plan.md.
   PR: [#7](https://github.com/dantebiondi666-prog/tienda-online/pull/7) - @LucasFUces (Documentador / UX)
 

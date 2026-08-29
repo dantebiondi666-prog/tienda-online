@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tienda Online | Ropa moderna</title>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="#inicio" aria-label="Ir al inicio">Tienda Online</a>
+      </div>
+
+      <form action="#" method="get" aria-label="Buscar prendas">
+        <label for="busqueda" class="visually-hidden">Buscar productos</label>
+        <input id="busqueda" name="busqueda" type="search" placeholder="Buscar..." />
+      </form>
+
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href="#mujer">Mujer</a></li>
+          <li><a href="#hombre">Hombre</a></li>
+          <li><a href="#ninos">Niños</a></li>
+          <li><a href="#todos">Ver todo</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="inicio">
+      <section aria-labelledby="titulo-tienda">
+        <h1 id="titulo-tienda">Ropa cómoda para cada momento del día</h1>
+        <p>
+          En Tienda Online encontrarás prendas esenciales para trabajo, descanso y
+          actividades diarias, con una selección pensada para combinar estilo,
+          versatilidad y confort.
+        </p>
+        <p>
+          Nuestra colección combina básicos de temporada, piezas funcionales y
+          opciones para toda la familia, con atención a la claridad de la compra y
+          la experiencia de compra online.
+        </p>
+      </section>
+
+      <section aria-labelledby="categorias">
+        <h2 id="categorias">Categorías destacadas</h2>
+        <ul>
+          <li><a href="#remeras">Remeras</a></li>
+          <li><a href="#pantalones">Pantalones</a></li>
+          <li><a href="#camperas">Camperas</a></li>
+          <li><a href="#accesorios">Accesorios</a></li>
+        </ul>
+      </section>
+
+      <div>
+        <aside aria-labelledby="filtros-titulo">
+          <h2 id="filtros-titulo">Filtros</h2>
+
+          <form action="#" method="get">
+            <fieldset>
+              <legend>Tipo de prenda</legend>
+              <label><input type="checkbox" name="tipo" value="remera" /> Remera</label>
+              <label><input type="checkbox" name="tipo" value="pantalon" /> Pantalón</label>
+              <label><input type="checkbox" name="tipo" value="campera" /> Campera</label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Talles</legend>
+              <label><input type="checkbox" name="talle" value="s" /> S</label>
+              <label><input type="checkbox" name="talle" value="m" /> M</label>
+              <label><input type="checkbox" name="talle" value="l" /> L</label>
+              <label><input type="checkbox" name="talle" value="xl" /> XL</label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Estilo / temática</legend>
+              <label><input type="checkbox" name="estilo" value="casual" /> Casual</label>
+              <label><input type="checkbox" name="estilo" value="deportivo" /> Deportivo</label>
+              <label><input type="checkbox" name="estilo" value="urban" /> Urbano</label>
+            </fieldset>
+
+            <button type="reset">Restablecer filtros</button>
+          </form>
+        </aside>
+
+        <section aria-labelledby="catalogo-titulo">
+          <h2 id="catalogo-titulo">Catálogo de productos</h2>
+
+          <article aria-labelledby="remera-titulo">
+            <figure>
+              <img
+                src="https://i5.walmartimages.com/asr/495e5368-2786-42de-b027-b88c06cc4070.a90013cdfb29606a028f413f885354e0.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF"
+                alt="Remera de algodón en color blanco con cuello redondo y corte casual"
+                width="300"
+                height="300"
+              />
+            </figure>
+            <h3 id="remera-titulo">Remera</h3>
+            <p>Categoría: <span>Indumentaria superior</span></p>
+            <p>Precio: <strong>$15.000</strong></p>
+            <p>Talles disponibles: S / M / L</p>
+          </article>
+
+          <article aria-labelledby="pantalon-titulo">
+            <figure>
+              <img
+                src="https://gw.alicdn.com/imgextra/O1CN01aVELO81MGuSJWwSYm_!!6000000001408-0-yinhe.jpg_540x540.jpg"
+                alt="Pantalón de vestir de color azul oscuro con silueta recta"
+                width="300"
+                height="300"
+              />
+            </figure>
+            <h3 id="pantalon-titulo">Pantalón</h3>
+            <p>Categoría: <span>Indumentaria inferior</span></p>
+            <p>Precio: <strong>$22.000</strong></p>
+            <p>Talles disponibles: 38 / 40 / 42</p>
+          </article>
+
+          <article aria-labelledby="campera-titulo">
+            <figure>
+              <img
+                src="https://www-cdn.solodeportes.com.ar/media/catalog/product/c/a/campera-de-abrigo-con-capucha-nylon-mujer-beige-722021217411003-1.jpg?width=525&height=525&store=solourbano&image-type=image"
+                alt="Campera de abrigo en color beige con cierre frontal y estilo urbano"
+                width="300"
+                height="300"
+              />
+            </figure>
+            <h3 id="campera-titulo">Campera</h3>
+            <p>Categoría: <span>Abrigo</span></p>
+            <p>Precio: <strong>$48.000</strong></p>
+            <p>Talles disponibles: M / L / XL</p>
+          </article>
+        </section>
+      </div>
+
+      <section aria-labelledby="guia-talles">
+        <h2 id="guia-talles">Guía de talles</h2>
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Talle</th>
+              <th scope="col">Ancho de pecho</th>
+              <th scope="col">Largo total</th>
+              <th scope="col">US</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">S</th>
+              <td>88 cm</td>
+              <td>64 cm</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <th scope="row">M</th>
+              <td>94 cm</td>
+              <td>66 cm</td>
+              <td>6</td>
+            </tr>
+            <tr>
+              <th scope="row">L</th>
+              <td>100 cm</td>
+              <td>68 cm</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <th scope="row">XL</th>
+              <td>106 cm</td>
+              <td>70 cm</td>
+              <td>10</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section aria-labelledby="contacto-titulo">
+        <h2 id="contacto-titulo">Contacto</h2>
+        <p>Si querés consultar por stock, envíos o una prenda en especial, contáctanos.</p>
+
+        <form action="#" method="post">
+          <div>
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" />
+          </div>
+
+          <div>
+            <label for="email">E-mail</label>
+            <input id="email" name="email" type="email" />
+          </div>
+
+          <div>
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" rows="5"></textarea>
+          </div>
+
+          <button type="submit">Enviar</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2026 Tienda Online</p>
+      <p>Ropa para todos los días, con atención a la comodidad y la elección inteligente.</p>
+      <nav aria-label="Enlaces del pie de página">
+        <ul>
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#catalogo-titulo">Catálogo</a></li>
+          <li><a href="#contacto-titulo">Contacto</a></li>
+        </ul>
+      </nav>
+    </footer>
+
+    <!-- FUTURO CSS:
+         El header y la navegación principal se convertirán en una barra de marca
+         con búsqueda y categorías visualmente destacadas. -->
+    <!-- FUTURO CSS:
+         El catálogo se transformará en una grilla responsive de tarjetas,
+         adaptando la cantidad de columnas según el ancho de pantalla. -->
+    <!-- FUTURO CSS:
+         Las secciones de filtros, guía de talles y contacto recibirán un layout
+         más claro y una jerarquía visual distinta para lectura en desktop y mobile. -->
+    <!-- FUTURO JAVASCRIPT:
+         Aquí se implementará la lógica de filtros por tipo de prenda, talle y estilo. -->
+    <!-- FUTURO JAVASCRIPT:
+         Se agregará la futura búsqueda de productos en el campo de entrada del header. -->
+    <!-- FUTURO JAVASCRIPT:
+         La selección de talles y la acción de agregar al carrito quedarán definidas aquí. -->
+    <!-- FUTURO JAVASCRIPT:
+         La validación del formulario de contacto y los mensajes de interacción se integrarán aquí. -->
+  </body>
+</html>
