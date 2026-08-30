@@ -5,6 +5,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ---
 
 ## [Unreleased]
+- [feature/ia-add-prompts-1-to-5] Redacción de `docs/02-prompts/comparativa-modelos.md` con comparación entre Claude Sonnet 5 Medium y GitHub Copilot Agent. Documentación completa del uso de IA en `prompts.md` y en `prompts-1.md` a `prompts-5.md`, incluyendo modelo, método de prompting, prompt exacto, resultado esperado, resultado obtenido, correcciones manuales y archivo aplicado.  
+  PR: [#15](https://github.com/dantebiondi666-prog/tienda-online/pull/15) - @Zikoloogo (Especialista en IA)
+
+  Issues:
+  [#13](https://github.com/dantebiondi666-prog/tienda-online/issues/13)
+  [#14](https://github.com/dantebiondi666-prog/tienda-online/issues/14)
 
 ### Added
 - [feature/coordinador-setup-repo-and-pages] Estructura inicial del proyecto, creación de plan.md, changelog.md, templates para PR de release y feature, redacción de spec-devops.md y actualización de changelog.md.  
