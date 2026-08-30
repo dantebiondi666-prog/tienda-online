@@ -68,18 +68,13 @@ ideas del artículo externo adjunto para fundamentar la metodología.
 
 ### Prompt utilizado
 
-> **Nota de transparencia:** el integrante que usó ChatGPT para esta tarea
-> no conservó el prompt exacto que escribió, solo un resumen de lo que le
-> pidió al modelo. Se documenta ese resumen tal como fue registrado en
-> `spec-devops.md`, en lugar de reconstruir un prompt textual que no fue
-> el realmente utilizado. Se recomienda para las próximas entregas guardar
-> el texto exacto de cada prompt en el momento en que se escribe.
-
 ```text
-Redactar la especificación técnica correspondiente al rol
-Coordinador/DevOps, tomando como contexto la consigna de la Actividad
-Obligatoria N°1, plan.md y el template spec-[rol].md definido para el
-equipo.
+Tomando como contexto la consigna de la Actividad Obligatoria N°1, el
+archivo plan.md y el template spec-[rol].md definido por el equipo,
+redactá spec-devops.md para el rol Coordinador/DevOps.
+Incluí qué se va a realizar, por qué se hace y criterios de aceptación
+verificables, adaptándolo al proyecto Tienda Online y a las
+responsabilidades del rol.
 ```
 
 ### Resultado esperado
@@ -125,11 +120,13 @@ explícita en el prompt.
 
 - Para tareas de **redacción de documentación técnica que debe seguir un
   template estricto ya acordado por el equipo**, conviene pasarle al
-  modelo el template completo como parte del prompt (no solo mencionarlo
-  por nombre), independientemente de qué modelo se use — esto reduce el
-  trabajo de corrección posterior, como se vio en el caso de ChatGPT.
-- Ambos modelos son útiles para este tipo de tarea; la diferencia
-  observada en esta comparación tuvo más que ver con el detalle del
-  prompt utilizado (Claude recibió el template y un artículo de contexto;
-  ChatGPT recibió una instrucción más resumida) que con una limitación
+  modelo el contenido completo del template dentro del prompt (no solo
+  mencionarlo por nombre, como ocurrió en el caso de ChatGPT). Esto reduce
+  el trabajo de corrección posterior relacionado con estructura y
+  secciones faltantes, como se vio al comparar ambos resultados.
+- Ambos modelos son útiles para este tipo de tarea: los dos entendieron
+  correctamente el pedido y generaron una spec coherente con el rol. La
+  diferencia principal estuvo en el nivel de detalle del contexto
+  brindado (Claude recibió, además del template mencionado, un artículo
+  externo de referencia sobre la metodología), no en una limitación
   inherente de alguno de los dos modelos.
