@@ -37,7 +37,7 @@ El resultado debía servir como guía tanto para la elaboración del mockup en F
 
 **Resultado obtenido:**
 
-GitHub Copilot devolvió una propuesta de estructura compuesta inicialmente por 12 secciones: topbar, header, navegación por categorías, breadcrumbs, main, aside de filtros, catálogo con artículos por producto, guía de talles, sección CTA, formulario y footer.
+Microsoft Copilot devolvió una propuesta de estructura compuesta inicialmente por 12 secciones: topbar, header, navegación por categorías, breadcrumbs, main, aside de filtros, catálogo con artículos por producto, guía de talles, sección CTA, formulario y footer.
 
 La respuesta también indicó las etiquetas semánticas correspondientes, el contenido esperado de cada sección, la jerarquía visual recomendada y la ubicación de la tabla comparativa de talles y del formulario.
 
