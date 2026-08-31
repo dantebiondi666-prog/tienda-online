@@ -13,6 +13,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   [#14](https://github.com/dantebiondi666-prog/tienda-online/issues/14)
 
 ### Added
+- [feature/ia-setup-sdd] Definición de la metodología Spec-Driven Development (SDD) para el proyecto: redacción de spec-ia.md, investigación y documentación de decisiones SDD en sdd-decisions.md, y creación del template spec-[rol].md para uso de todos los roles del equipo.
+  
+  PR: [#9](https://github.com/dantebiondi666-prog/tienda-online/pull/9) - @zikoloogo (Especialista en IA y Prompt Engineering)
+
+  Issues:
+  [#8](https://github.com/dantebiondi666-prog/tienda-online/issues/8)
+  
 - [feature/coordinador-setup-repo-and-pages] Estructura inicial del proyecto, creación de plan.md, changelog.md, templates para PR de release y feature, redacción de spec-devops.md y actualización de changelog.md.  
   PR: [#6](https://github.com/dantebiondi666-prog/tienda-online/pull/6) - @dantebiondi666-prog (Coordinador / DevOps)
 
