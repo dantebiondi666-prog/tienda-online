@@ -44,4 +44,4 @@ Para establecer un flujo de trabajo colaborativo organizado, mantener protegidas
 - **Modelo utilizado:** ChatGPT
 - **Qué se le pidió (resumen):** Redactar la especificación técnica correspondiente al rol Coordinador/DevOps, tomando como contexto la consigna de la Actividad Obligatoria N°1, `plan.md` y el template `spec-[rol].md` definido para el equipo.
 - **Qué se aceptó del resultado y qué se corrigió manualmente:** Se utilizó la estructura y los criterios propuestos como base. Luego se revisaron y ajustaron manualmente las tareas, criterios de aceptación y referencias para que coincidieran con el flujo de trabajo real del repositorio.
-- **Prompt documentado en:** `docs/02-prompts/prompts-X.md`
+- **Prompt documentado en:** `docs/02-prompts/comparativa-modelos.md`
