@@ -206,4 +206,4 @@ Las especificaciones técnicas individuales deberán trazarse contra los código
 - **Modelo utilizado:** GitHub Copilot — modo Agente.
 - **Uso realizado:** Se utilizó IA para generar la estructura inicial de `plan.md` tomando como contexto la consigna de la Actividad Obligatoria N°1 y la idea definida por el equipo para la Tienda Online.
 - **Revisión manual:** El resultado generado fue revisado y ajustado manualmente para definir el alcance, los requerimientos funcionales y no funcionales, los criterios de aceptación y las funcionalidades futuras del proyecto.
-- **Prompt completo:** `docs/02-prompts/prompts-X.md`
+- **Prompt completo:** `docs/02-prompts/prompts-2.md`

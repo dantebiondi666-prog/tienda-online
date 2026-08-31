@@ -63,15 +63,19 @@ perdería la trazabilidad entre specs y `plan.md` que exige la consigna
 
 ### 4. Uso de IA en esta tarea
 
-- **Modelo utilizado:** [Claude]
+- **Modelo utilizado:** Claude
 - **Qué se le pidió (resumen):** Investigar la metodología SDD a partir de
   un artículo de referencia y redactar la documentación de decisiones y el
   template de specs para el proyecto.
-- **Qué se aceptó del resultado y qué se corrigió manualmente:** [Completar
-  — detallar qué partes del contenido generado se usaron tal cual y qué se
-  ajustó a mano, por ejemplo nombres de rutas o referencias a `plan.md`]
-- **Prompt documentado en:** `docs/02-prompts/prompts-x.md` (a completar en
-  la Etapa 2)
+- **Qué se aceptó del resultado y qué se corrigió manualmente:** Se aceptó
+  la estructura general propuesta por el modelo (contexto del rol,
+  definición de SDD, tabla de flujo de trabajo y checklist de criterios de
+  aceptación por etapa). Se corrigió manualmente la ruta de los archivos
+  (de `entrega-1` a `actividad-obligatoria-1`), los títulos de sección
+  para que coincidieran con el template, y se agregó por completo la
+  sección "Uso de IA en esta tarea" en ambas etapas, ausente en la
+  primera versión generada.
+- **Prompt documentado en:** `docs/02-prompts/prompts-1.md`
 
 ---
 
@@ -115,10 +119,10 @@ documentación).
 
 ### 4. Uso de IA en esta tarea
 
-- **Modelo utilizado:** [Completar al cierre de la entrega]
-- **Qué se le pidió (resumen):** [Completar]
-- **Qué se aceptó del resultado y qué se corrigió manualmente:** [Completar]
-- **Prompt documentado en:** `docs/02-prompts/prompts-x.md`
+- **Modelo utilizado:** Grok (xAI)
+- **Qué se le pidió (resumen):** Auditar spec-ia.md y sdd-decisions.md contra el checklist de obligaciones del rol, identificando qué estaba cubierto, qué faltaba y qué corregir antes de entregar.
+- **Qué se aceptó del resultado y qué se corrigió manualmente:** Se aceptó el diagnóstico completo (desvío de orden temporal, checklist de herramientas incompleto, ausencia del bloque de PR final). Se reordenó la respuesta para que coincidiera con el formato de tres puntos pedido y se agregaron referencias explícitas a las obligaciones del checklist.
+- **Prompt documentado en:** `docs/02-prompts/prompts-5.md`
 
 ---
 
