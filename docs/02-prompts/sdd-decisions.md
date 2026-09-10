@@ -135,8 +135,8 @@ corresponda.
 
 Se verificó que todos los integrantes del equipo tengan instalada:
 
-- [ ] La extensión de **GitHub Copilot** en modo Agente (VS Code).
-- [ ] La extensión de **GitHub Pull Requests** (VS Code).
+- [x] La extensión de **GitHub Copilot** en modo Agente (VS Code).
+- [x] La extensión de **GitHub Pull Requests** (VS Code).
 
 *(Completar con el detalle de verificación por integrante al momento de
 confirmarlo en el equipo.)*

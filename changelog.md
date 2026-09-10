@@ -10,7 +10,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ### Added
 ### Changed
 ### Fixed
-
+- [fix/decisions-add-checklist] Actualice sdd-decisions.md, faltaban dos checklists por quedar marcados.
+PR: [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17) - @zikoloogo (Coordinador / DevOps)
 
 ---
 
