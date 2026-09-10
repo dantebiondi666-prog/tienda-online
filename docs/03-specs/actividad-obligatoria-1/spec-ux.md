@@ -56,7 +56,54 @@ Topbar de promociones y breadcrumbs: no aportan a los requisitos de esta entrega
 - **RNF-08** (diseño adaptable futuro): la estructura en secciones permite adaptar el layout a distintos tamaños de pantalla cuando se incorpore CSS.
 - **CA-11** (decisiones visuales claras, legibles y con baja sobrecarga): se aplicó en la elección de una estructura simple, sin elementos decorativos innecesarios en esta etapa.
 
+## Consulta a IA (GitHub Copilot – modo Agente) — Redacción del README.md
+
+### Prompt completo utilizado
+
+Actuá como documentador técnico de un proyecto académico. Necesito el README.md 
+para "Tienda Online", un proyecto de e-commerce de ropa correspondiente a la 
+Actividad Obligatoria N°1 de Programación Web I (Tecnicatura Universitaria en 
+Programación de Sistemas).
+
+Contexto del proyecto:
+- Primera entrega: solo estructura HTML5 semántica (sin CSS/JS funcional todavía)
+- Tecnologías: HTML5, CSS y JavaScript (estos dos últimos a incorporar en próximas 
+  entregas), Git/GitHub para control de versiones, Figma para el mockup, y 
+  GitHub Copilot en modo Agente como asistencia de IA
+- Funcionalidades previstas: catálogo de prendas por categoría (nombre, imagen, 
+  talle, precio), detalle de cada prenda, selección de talle, filtros por tipo/
+  talle/estilo, carrito de compras simulado con totales, y formulario de contacto
+
+Generá un README.md con estas secciones, en este orden:
+1. Título y descripción breve del proyecto
+2. Objetivos del proyecto
+3. Tecnologías utilizadas (lista)
+4. Funcionalidades previstas (lista)
+5. Maqueta de diseño web: mención de que el mockup se hizo en Figma, con 
+   lineamientos de diseño limpio y jerarquía visual clara
+6. Documentación: descripción del proyecto, objetivo del entregable actual, 
+   link al mockup (docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png) 
+   y a la versión en Figma, y link a los prompts de IA usados 
+   (docs/02-prompts/prompts.md)
+7. Tabla de integrantes con columnas: Nombre y apellido, Usuario de GitHub, 
+   Matrícula, Carrera, Materia
+
+Estilo: profesional, en español, formato Markdown estándar para GitHub.
+
+### Contexto pasado
+Se incluyó directamente en el prompt el contexto del proyecto (alcance de la entrega, tecnologías, funcionalidades previstas y rutas de los archivos de documentación), ya que Copilot no tenía acceso al resto del repositorio al momento de la consulta.
+
+### Salida recibida
+Copilot generó el borrador completo del README.md, con las siete secciones solicitadas, en el orden indicado y con el contenido correspondiente a cada una (título y descripción, objetivos, tecnologías, funcionalidades previstas, maqueta, documentación y tabla de integrantes).
+
+### Qué se usó
+La estructura completa propuesta por Copilot se usó como base del README.md final: los siete apartados, sus encabezados y el formato Markdown generado.
+
+### Qué se ajustó manualmente
+Se revisó el borrador generado y se corrigieron manualmente: los datos reales de la tabla de integrantes (nombres, usuarios de GitHub, matrículas), los enlaces finales a `docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png`, a la versión de Figma y a `docs/02-prompts/prompts.md`, y pequeños ajustes de redacción para que el texto reflejara con precisión el alcance real de esta entrega.
+
 ## Criterios de aceptación
 - Mockup subido a docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png
 - Enlace a la versión online del mockup en Figma incluido en el README.md
 - README.md completo con carátula, objetivos, tecnologías, funcionalidades previstas y enlaces a docs/01-mockup y docs/02-prompts/prompts.md
+- README.md generado con GitHub Copilot en modo Agente a partir de un prompt específico, y revisado manualmente por el equipo antes de su publicación
