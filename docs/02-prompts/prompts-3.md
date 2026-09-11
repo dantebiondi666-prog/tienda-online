@@ -2,10 +2,9 @@
 
 **Modelo:** GPT-5.6 Luna
 
-**Método de prompt:** Role prompting + contexto documental estructurado
-(se asigna explícitamente un rol al modelo — "Actuá como asistente para
-la documentación técnica..." — y se detalla el formato exacto de salida
-esperado, sección por sección)
+**Método de prompt:** Structured output prompting (se especifica de forma
+exhaustiva el formato de salida: 4 secciones fijas con el contenido
+exacto de cada una).
 
 **Prompt exacto:**
 ```
