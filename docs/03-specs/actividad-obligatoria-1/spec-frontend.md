@@ -60,33 +60,33 @@ Esta primera implementación funcionará como base para incorporar posteriorment
 
 ## 3. Criterios de aceptación
 
-- [ ] El archivo `index.html` utiliza `<!DOCTYPE html>`.
-- [ ] El elemento `<html>` incluye el atributo `lang="es"`.
-- [ ] El `<head>` incluye `charset`, `viewport` y `<title>`.
-- [ ] Existe un título visible relacionado con la tienda.
-- [ ] El contenido de la página está relacionado específicamente con una tienda online de ropa.
-- [ ] Se incluyen párrafos relacionados con los productos y/o la tienda.
-- [ ] Se incluyen imágenes de productos con atributos `alt` descriptivos.
-- [ ] Se incluyen enlaces con `href` y textos descriptivos.
-- [ ] Se utiliza al menos una lista HTML.
-- [ ] Se incluye una guía de talles mediante una tabla con `<th>` y `<td>`.
-- [ ] Se incluye un formulario de contacto con al menos tres campos relevantes.
-- [ ] Los campos del formulario cuentan con sus correspondientes `<label>`.
-- [ ] Se utilizan las etiquetas semánticas `<header>`, `<main>` y `<footer>`.
-- [ ] Se utilizan etiquetas semánticas adicionales como `<nav>`, `<section>`, `<article>` y `<aside>`.
-- [ ] El catálogo incluye como mínimo los productos representados en el mockup: Remera, Pantalón y Campera.
-- [ ] Cada producto muestra nombre, imagen, categoría, precio y talles disponibles.
-- [ ] La estructura implementada toma como referencia el mockup obtenido mediante Figma MCP.
-- [ ] Se incluyen comentarios específicos indicando dónde se aplicará CSS en futuras entregas.
-- [ ] Se incluyen comentarios específicos indicando dónde se incorporará JavaScript en futuras entregas.
-- [ ] No se implementan estilos CSS funcionales en esta entrega.
-- [ ] No se implementa JavaScript funcional en esta entrega.
-- [ ] La estructura queda preparada para incorporar posteriormente filtros, búsqueda, selección de talles y carrito simulado.
-- [ ] Documentación en el código incluida donde corresponda mediante comentarios de futuras implementaciones CSS/JS.
-- [ ] Rama `feature/` propia, con al menos un commit relevante.
-- [ ] PR asociado creado hacia `develop`, usando el template de PR correspondiente.
-- [ ] Entrada agregada en `changelog.md` con link a la PR.
-- [ ] Issue vinculada a la tarea, cerrada tras el merge.
+- [x] El archivo `index.html` utiliza `<!DOCTYPE html>`.
+- [x] El elemento `<html>` incluye el atributo `lang="es"`.
+- [x] El `<head>` incluye `charset`, `viewport` y `<title>`.
+- [x] Existe un título visible relacionado con la tienda.
+- [x] El contenido de la página está relacionado específicamente con una tienda online de ropa.
+- [x] Se incluyen párrafos relacionados con los productos y/o la tienda.
+- [x] Se incluyen imágenes de productos con atributos `alt` descriptivos.
+- [x] Se incluyen enlaces con `href` y textos descriptivos.
+- [x] Se utiliza al menos una lista HTML.
+- [x] Se incluye una guía de talles mediante una tabla con `<th>` y `<td>`.
+- [x] Se incluye un formulario de contacto con al menos tres campos relevantes.
+- [x] Los campos del formulario cuentan con sus correspondientes `<label>`.
+- [x] Se utilizan las etiquetas semánticas `<header>`, `<main>` y `<footer>`.
+- [x] Se utilizan etiquetas semánticas adicionales como `<nav>`, `<section>`, `<article>` y `<aside>`.
+- [x] El catálogo incluye como mínimo los productos representados en el mockup: Remera, Pantalón y Campera.
+- [x] Cada producto muestra nombre, imagen, categoría, precio y talles disponibles.
+- [x] La estructura implementada toma como referencia el mockup obtenido mediante Figma MCP.
+- [x] Se incluyen comentarios específicos indicando dónde se aplicará CSS en futuras entregas.
+- [x] Se incluyen comentarios específicos indicando dónde se incorporará JavaScript en futuras entregas.
+- [x] No se implementan estilos CSS funcionales en esta entrega.
+- [x] No se implementa JavaScript funcional en esta entrega.
+- [x] La estructura queda preparada para incorporar posteriormente filtros, búsqueda, selección de talles y carrito simulado.
+- [x] Documentación en el código incluida donde corresponda mediante comentarios de futuras implementaciones CSS/JS.
+- [x] Rama `feature/` propia, con al menos un commit relevante.
+- [x] PR asociado creado hacia `develop`, usando el template de PR correspondiente.
+- [x] Entrada agregada en `changelog.md` con link a la PR.
+- [x] Issue vinculada a la tarea, cerrada tras el merge.
 
 ---
 

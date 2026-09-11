@@ -8,8 +8,7 @@ exacto de cada una).
 
 **Prompt exacto:**
 ```
-Actuá como asistente para la documentación técnica de un proyecto
-grupal de Programación Web I.
+
 Necesito generar la especificación técnica correspondiente al rol de
 Desarrollador Frontend para la Actividad Obligatoria N.º 1 del proyecto
 "Tienda Online de Ropa".
