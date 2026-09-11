@@ -14,7 +14,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 PR: [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17) - @zikoloogo (Coordinador / DevOps)
 - [fix/add-prompt-de-README] Actualizamos README.md y spec-ux.md, agregamos el prompt usado para generar README.md.
 PR: [#18](https://github.com/dantebiondi666-prog/tienda-online/pull/18) - @zikoloogo (Coordinador / DevOps)
-- [fix/prompt-fixes] Se agregaron las imágenes de los prompts y se actualizaron los archivosprompts-3.md, prompts-4.md, sdd-decisions.md, spec-ux.md, changelog.md.
+- [fix/prompt-fixes] Se agregaron las imágenes de los prompts y se actualizaron los archivos prompts-3.md, prompts-4.md, sdd-decisions.md, spec-ux.md, changelog.md.
 PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikoloogo (Coordinador / DevOps)
 
 ---

@@ -7,14 +7,10 @@ artículo externo como base de la investigación)
 
 **Prompt exacto:**
 ```
-Escribí docs/03-specs/entrega-1/spec-ia.md. Este es tu propio spec, y
-debe redactarse ANTES del resto de tu trabajo. Tiene que describir las
-dos etapas de tu rol (PR inicial y PR final) con criterios de aceptación
-para cada una. Formato checklist: qué vas a hacer, por qué, y cómo se
-sabe que está terminado.
+"Escribí docs/03-specs/entrega-1/spec-ia.mdEste es tu propio spec, y debe redactarse ANTES del resto de tu trabajo. Tiene que describir las dos etapas de tu rol (PR inicial y PR final) con criterios de aceptación para cada una. Formato checklist: qué vas a hacer, por qué, y cómo se sabe que está terminado."
 
-nuestro proyecto va a ser una tienda digital. haz tu la redaccion de la
-spec-ia.md aqui te paso el archivo en el cual basarse la investigacion.
+nuestro proyecto va a ser una tienda digital. haz tu la redaccion de la spec-ia.md
+aqui te paso el archivo en el cual basarse la investigacion.
 ```
 *(se adjuntó el artículo "Spec-driven development: Unpacking one of 2025's
 key new AI-assisted engineering practices", de Thoughtworks, en PDF)*
