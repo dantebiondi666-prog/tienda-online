@@ -6,34 +6,6 @@ Diseñar el mockup en Figma de la tienda de ropa (home con catálogo, guía de t
 ## Por qué
 Establecer la base visual y documental del proyecto antes de que el Desarrollador Frontend convierta el diseño en HTML5.
 
-## Consulta a IA (GitHub Copilot – modo Agente)
-
-### Prompt completo utilizado
-
-Actuá como un diseñador UX/UI senior especializado en e-commerce.
-
-Contexto del proyecto (plan.md):
-- Nombre provisorio: "Tienda Online"
-- Es un e-commerce de ropa. Primera entrega: solo estructura HTML5 semántica, sin CSS ni JS funcional.
-- Alcance de esta entrega: catálogo de prendas (nombre, imagen, categoría, talle, precio), navegación por categorías, tabla comparativa de talles/características, un formulario con 3+ campos relacionado a la tienda, y comentarios marcando dónde irá CSS/JS futuro.
-- Funcionalidades futuras (NO implementar ahora, solo dejar previstas): selección de talle, carrito de compras, filtros por tipo/talle/estilo, resumen de compra con totales.
-- Público objetivo: personas que buscan explorar y comparar prendas rápido antes de una compra simulada.
-- Lineamientos de UX/UI del plan: diseño limpio, profesional, colores claros y agradables; paleta reducida y coherente; evitar sobrecarga de información y ruido visual; jerarquía visual clara entre navegación, categorías, productos y acciones; navegación, exploración y filtrado fáciles; experiencia simple e intuitiva.
-- Requisitos técnicos obligatorios del HTML: header, main, footer, más al menos 2 etiquetas semánticas entre nav/section/article/aside; al menos 1 lista, 1 tabla (th/td), 1 formulario con 3+ campos, imágenes con alt descriptivo, enlaces con texto claro.
-
-Tarea:
-Con este contexto, proponeme una estructura de layout para la página principal (index.html) de esta tienda de ropa. Necesito que me digas:
-1. Qué secciones debería tener la página, en qué orden de arriba hacia abajo.
-2. Qué etiqueta semántica de HTML5 corresponde a cada sección y por qué.
-3. Qué contenido debería llevar cada sección (sin escribir el contenido final, solo qué tipo de información).
-4. Cómo se refleja la jerarquía visual pedida (qué va más destacado, qué va secundario).
-5. Dónde ubicarían la tabla comparativa de talles y el formulario, y por qué esa ubicación tiene sentido en la experiencia de usuario.
-
-No generes código HTML todavía, quiero solamente la propuesta de estructura y layout en forma de lista o esquema.
-
-### Contexto pasado
-El contenido completo de plan.md se incluyó directamente en el prompt (ver arriba), ya que al momento de la consulta el archivo aún no estaba disponible en la rama local por falta de merge desde develop.
-
 ### Sugerencias recibidas
 Topbar de promociones, header con marca/búsqueda, nav de categorías, breadcrumbs, aside de filtros y atajos, sección de catálogo con articles por producto, sección de guía de talles con tabla, sección CTA de colección destacada, formulario en footer o en cada producto.
 
