@@ -16,6 +16,8 @@ PR: [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17) - @zikol
 PR: [#18](https://github.com/dantebiondi666-prog/tienda-online/pull/18) - @zikoloogo (Coordinador / DevOps)
 - [fix/prompt-fixes] Se agregaron las imágenes de los prompts y se actualizaron los archivos prompts-3.md, prompts-4.md, sdd-decisions.md, spec-ux.md, changelog.md.
 PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikoloogo (Coordinador / DevOps)
+- [fix/more-changes] Se enlazaron las imagenes de los prompts y nos hechamos para atras con algunos cambios.
+PR: [#20](https://github.com/dantebiondi666-prog/tienda-online/pull/20) - @zikoloogo (Coordinador / DevOps)
 
 ---
 
