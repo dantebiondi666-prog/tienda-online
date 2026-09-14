@@ -151,7 +151,7 @@ Verificación realizada por cada integrante mediante la vista de **Extensiones**
 ## 5. Nota sobre el orden real de implementación en esta entrega
 
 Durante esta primera entrega, el setup de SDD (este documento, el template
-`spec-[rol].md` y `spec-ia.md`) fue mergeado a `develop` **antes** de que
+`spec-[rol].md` y `spec-ia.md`) fue mergeado a `develop` **despues** de que
 los PRs de Frontend y UX: el setup de SDD debe existir antes de
 que empiecen los desarrollos que dependen de él.
 

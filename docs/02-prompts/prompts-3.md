@@ -1,14 +1,15 @@
 # Prompt 3 — Redacción de spec-frontend.md (Desarrollador Frontend)
 
-**Modelo:** GPT-5.6 Luna
+**Modelo:** GPT-5.6 Sol
 
-**Método de prompt:** Structured output prompting (se especifica de forma
-exhaustiva el formato de salida: 4 secciones fijas con el contenido
-exacto de cada una).
+**Método de prompt:** Role prompting + contexto documental estructurado
+(se asigna explícitamente un rol al modelo — "Actuá como asistente para
+la documentación técnica..." — y se detalla el formato exacto de salida
+esperado, sección por sección)
 
 **Prompt exacto:**
 ```
-
+Actuá como asistente para la documentación técnica de un proyecto grupal de Programación Web I.
 Necesito generar la especificación técnica correspondiente al rol de
 Desarrollador Frontend para la Actividad Obligatoria N.º 1 del proyecto
 "Tienda Online de Ropa".
