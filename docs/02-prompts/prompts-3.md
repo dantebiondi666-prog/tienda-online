@@ -1,6 +1,6 @@
 # Prompt 3 — Redacción de spec-frontend.md (Desarrollador Frontend)
 
-**Modelo:** GPT-5.6 Luna
+**Modelo:** GPT-5.6 Sol
 
 **Método de prompt:** Structured output prompting (se especifica de forma
 exhaustiva el formato de salida: 4 secciones fijas con el contenido
