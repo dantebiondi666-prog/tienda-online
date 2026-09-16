@@ -5,7 +5,7 @@
 **Método de prompt:** Role prompting + contexto documental (se adjuntó un
 artículo externo como base de la investigación)
 
-**Prompt exacto:**
+**Prompt exacto [(captura de pantalla)](/docs/02-prompts/images/prompt-1.png):**
 ```
 "Escribí docs/03-specs/entrega-1/spec-ia.mdEste es tu propio spec, y debe redactarse ANTES del resto de tu trabajo. Tiene que describir las dos etapas de tu rol (PR inicial y PR final) con criterios de aceptación para cada una. Formato checklist: qué vas a hacer, por qué, y cómo se sabe que está terminado."
 

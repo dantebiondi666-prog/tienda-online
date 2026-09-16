@@ -7,7 +7,7 @@
 la documentación técnica..." — y se detalla el formato exacto de salida
 esperado, sección por sección)
 
-**Prompt exacto:**
+**Prompt exacto [(captura de pantalla)](/docs/02-prompts/images/prompt-3.jpeg):**
 ```
 Actuá como asistente para la documentación técnica de un proyecto grupal de Programación Web I.
 Necesito generar la especificación técnica correspondiente al rol de

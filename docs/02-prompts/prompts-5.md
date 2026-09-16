@@ -5,7 +5,7 @@
 **Método de prompt:** Zero-shot (chat vacío, sin historial previo ni
 contexto adicional)
 
-**Prompt exacto:**
+**Prompt exacto [(captura de pantalla)](/docs/02-prompts/images/prompt-5.png):**
 ```
 Estoy trabajando en un proyecto universitario de Programación Web I: una
 tienda online de ropa, desarrollada en equipo con 4 roles (Coordinador/

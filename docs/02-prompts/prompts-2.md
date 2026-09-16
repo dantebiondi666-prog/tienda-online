@@ -7,7 +7,7 @@ al agente a analizar la consigna y el estado del repositorio antes de
 generar el archivo, y a verificar el resultado después de crearlo, en
 lugar de generarlo directamente)
 
-**Prompt exacto:**
+**Prompt exacto [(captura de pantalla)](/docs/02-prompts/images/prompt-2.jpeg):**
 ```
 Prompt para GitHub Copilot Agent — Generación de plan.md
 
