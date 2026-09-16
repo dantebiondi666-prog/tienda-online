@@ -4,7 +4,7 @@
 
 *Método de prompt:* Role prompting (se le asignó el rol de "diseñador UX/UI senior especializado en e-commerce")
 
-*Prompt exacto:*
+**Prompt exacto [(captura de pantalla)](/docs/02-prompts/images/prompt-4.jpeg):**
 
 ```
 
