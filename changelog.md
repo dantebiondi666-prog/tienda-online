@@ -18,6 +18,8 @@ PR: [#18](https://github.com/dantebiondi666-prog/tienda-online/pull/18) - @zikol
 PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikoloogo (Coordinador / DevOps)
 - [fix/more-changes] Se enlazaron las imagenes de los prompts y nos echamos para atras con algunos cambios.
 PR: [#20](https://github.com/dantebiondi666-prog/tienda-online/pull/20) - @zikoloogo (Coordinador / DevOps)
+- [fix/pascalcase-fix] Se corrigieron los nombres de los archivos de imagenes prompts de 1 al 5 y sus enlaces en prompts.md.
+PR: [#21](https://github.com/dantebiondi666-prog/tienda-online/pull/21) - @zikoloogo (Coordinador / DevOps)
 
 ---
 
