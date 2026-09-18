@@ -6,34 +6,6 @@ Diseñar el mockup en Figma de la tienda de ropa (home con catálogo, guía de t
 ## Por qué
 Establecer la base visual y documental del proyecto antes de que el Desarrollador Frontend convierta el diseño en HTML5.
 
-## Consulta a IA (GitHub Copilot – modo Agente)
-
-### Prompt completo utilizado
-
-Actuá como un diseñador UX/UI senior especializado en e-commerce.
-
-Contexto del proyecto (plan.md):
-- Nombre provisorio: "Tienda Online"
-- Es un e-commerce de ropa. Primera entrega: solo estructura HTML5 semántica, sin CSS ni JS funcional.
-- Alcance de esta entrega: catálogo de prendas (nombre, imagen, categoría, talle, precio), navegación por categorías, tabla comparativa de talles/características, un formulario con 3+ campos relacionado a la tienda, y comentarios marcando dónde irá CSS/JS futuro.
-- Funcionalidades futuras (NO implementar ahora, solo dejar previstas): selección de talle, carrito de compras, filtros por tipo/talle/estilo, resumen de compra con totales.
-- Público objetivo: personas que buscan explorar y comparar prendas rápido antes de una compra simulada.
-- Lineamientos de UX/UI del plan: diseño limpio, profesional, colores claros y agradables; paleta reducida y coherente; evitar sobrecarga de información y ruido visual; jerarquía visual clara entre navegación, categorías, productos y acciones; navegación, exploración y filtrado fáciles; experiencia simple e intuitiva.
-- Requisitos técnicos obligatorios del HTML: header, main, footer, más al menos 2 etiquetas semánticas entre nav/section/article/aside; al menos 1 lista, 1 tabla (th/td), 1 formulario con 3+ campos, imágenes con alt descriptivo, enlaces con texto claro.
-
-Tarea:
-Con este contexto, proponeme una estructura de layout para la página principal (index.html) de esta tienda de ropa. Necesito que me digas:
-1. Qué secciones debería tener la página, en qué orden de arriba hacia abajo.
-2. Qué etiqueta semántica de HTML5 corresponde a cada sección y por qué.
-3. Qué contenido debería llevar cada sección (sin escribir el contenido final, solo qué tipo de información).
-4. Cómo se refleja la jerarquía visual pedida (qué va más destacado, qué va secundario).
-5. Dónde ubicarían la tabla comparativa de talles y el formulario, y por qué esa ubicación tiene sentido en la experiencia de usuario.
-
-No generes código HTML todavía, quiero solamente la propuesta de estructura y layout en forma de lista o esquema.
-
-### Contexto pasado
-El contenido completo de plan.md se incluyó directamente en el prompt (ver arriba), ya que al momento de la consulta el archivo aún no estaba disponible en la rama local por falta de merge desde develop.
-
 ### Sugerencias recibidas
 Topbar de promociones, header con marca/búsqueda, nav de categorías, breadcrumbs, aside de filtros y atajos, sección de catálogo con articles por producto, sección de guía de talles con tabla, sección CTA de colección destacada, formulario en footer o en cada producto.
 
@@ -56,7 +28,54 @@ Topbar de promociones y breadcrumbs: no aportan a los requisitos de esta entrega
 - **RNF-08** (diseño adaptable futuro): la estructura en secciones permite adaptar el layout a distintos tamaños de pantalla cuando se incorpore CSS.
 - **CA-11** (decisiones visuales claras, legibles y con baja sobrecarga): se aplicó en la elección de una estructura simple, sin elementos decorativos innecesarios en esta etapa.
 
+## Consulta a IA (GitHub Copilot – modo Agente) — Redacción del README.md
+
+### Prompt completo utilizado
+
+Actuá como documentador técnico de un proyecto académico. Necesito el README.md 
+para "Tienda Online", un proyecto de e-commerce de ropa correspondiente a la 
+Actividad Obligatoria N°1 de Programación Web I (Tecnicatura Universitaria en 
+Programación de Sistemas).
+
+Contexto del proyecto:
+- Primera entrega: solo estructura HTML5 semántica (sin CSS/JS funcional todavía)
+- Tecnologías: HTML5, CSS y JavaScript (estos dos últimos a incorporar en próximas 
+  entregas), Git/GitHub para control de versiones, Figma para el mockup, y 
+  GitHub Copilot en modo Agente como asistencia de IA
+- Funcionalidades previstas: catálogo de prendas por categoría (nombre, imagen, 
+  talle, precio), detalle de cada prenda, selección de talle, filtros por tipo/
+  talle/estilo, carrito de compras simulado con totales, y formulario de contacto
+
+Generá un README.md con estas secciones, en este orden:
+1. Título y descripción breve del proyecto
+2. Objetivos del proyecto
+3. Tecnologías utilizadas (lista)
+4. Funcionalidades previstas (lista)
+5. Maqueta de diseño web: mención de que el mockup se hizo en Figma, con 
+   lineamientos de diseño limpio y jerarquía visual clara
+6. Documentación: descripción del proyecto, objetivo del entregable actual, 
+   link al mockup (docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png) 
+   y a la versión en Figma, y link a los prompts de IA usados 
+   (docs/02-prompts/prompts.md)
+7. Tabla de integrantes con columnas: Nombre y apellido, Usuario de GitHub, 
+   Matrícula, Carrera, Materia
+
+Estilo: profesional, en español, formato Markdown estándar para GitHub.
+
+### Contexto pasado
+Se incluyó directamente en el prompt el contexto del proyecto (alcance de la entrega, tecnologías, funcionalidades previstas y rutas de los archivos de documentación), ya que Copilot no tenía acceso al resto del repositorio al momento de la consulta.
+
+### Salida recibida
+Copilot generó el borrador completo del README.md, con las siete secciones solicitadas, en el orden indicado y con el contenido correspondiente a cada una (título y descripción, objetivos, tecnologías, funcionalidades previstas, maqueta, documentación y tabla de integrantes).
+
+### Qué se usó
+La estructura completa propuesta por Copilot se usó como base del README.md final: los siete apartados, sus encabezados y el formato Markdown generado.
+
+### Qué se ajustó manualmente
+Se revisó el borrador generado y se corrigieron manualmente: los datos reales de la tabla de integrantes (nombres, usuarios de GitHub, matrículas), los enlaces finales a `docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png`, a la versión de Figma y a `docs/02-prompts/prompts.md`, y pequeños ajustes de redacción para que el texto reflejara con precisión el alcance real de esta entrega.
+
 ## Criterios de aceptación
 - Mockup subido a docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png
 - Enlace a la versión online del mockup en Figma incluido en el README.md
 - README.md completo con carátula, objetivos, tecnologías, funcionalidades previstas y enlaces a docs/01-mockup y docs/02-prompts/prompts.md
+- README.md generado con GitHub Copilot en modo Agente a partir de un prompt específico, y revisado manualmente por el equipo antes de su publicación

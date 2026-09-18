@@ -7,8 +7,41 @@ al agente a analizar la consigna y el estado del repositorio antes de
 generar el archivo, y a verificar el resultado después de crearlo, en
 lugar de generarlo directamente)
 
-**Prompt exacto:**
+**Prompt exacto [(captura de pantalla)](/docs/02-prompts/images/prompt-2.jpeg):**
 ```
+Prompt para GitHub Copilot Agent — Generación de plan.md
+
+Te adjunto la consigna oficial de la Actividad Obligatoria N.º 1 de Programación Web I. Analizala detenidamente y utilizala como fuente principal para generar un archivo llamado plan.md en la raíz del repositorio.
+
+El objetivo es que plan.md funcione como la especificación maestra del proyecto, definiendo de forma clara qué debe hacer la aplicación web, cuál será su alcance durante la cursada y cuáles son sus requerimientos funcionales y criterios generales de aceptación.
+
+Contexto del proyecto
+
+El proyecto será una tienda online de ropa.
+
+La aplicación deberá evolucionar durante las distintas entregas de la materia. No se espera implementar todas las funcionalidades en la Actividad Obligatoria N.º 1.
+
+Funcionalidades previstas para el proyecto completo
+
+La aplicación deberá contemplar progresivamente:
+
+Catálogo de prendas.
+Visualización de información de cada producto.
+Selección de diferentes talles disponibles para una prenda.
+Carrito de compras.
+Agregar productos al carrito.
+Eliminar productos del carrito.
+Modificar las cantidades de productos del carrito.
+Visualizar un resumen de la compra.
+Filtrar productos por tipo de prenda.
+Filtrar productos por talle.
+Filtrar productos por temática o estilo.
+Navegar entre diferentes categorías de productos.
+Formularios relevantes para la experiencia de una tienda online.
+Posibilidad de incorporar posteriormente otras funcionalidades coherentes con una tienda de ropa online.
+Lineamientos de experiencia de usuario
+
+Todavía no existe un diseño visual definitivo, por lo que no definas detalles gráficos excesivamente específicos.
 Sin embargo, el proyecto deberá seguir estos principios generales:
 
 Diseño limpio y profesional.

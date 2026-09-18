@@ -135,18 +135,24 @@ corresponda.
 
 Se verificó que todos los integrantes del equipo tengan instalada:
 
-- [ ] La extensión de **GitHub Copilot** en modo Agente (VS Code).
-- [ ] La extensión de **GitHub Pull Requests** (VS Code).
+- [x] La extensión de **GitHub Copilot** en modo Agente (VS Code).
+- [x] La extensión de **GitHub Pull Requests** (VS Code).
 
-*(Completar con el detalle de verificación por integrante al momento de
-confirmarlo en el equipo.)*
+### Detalle de verificación por integrante
+
+| Integrante | GitHub Copilot (Agente) | GitHub Pull Requests | Verificado |
+| Lucas Ivan Fischer | ✅ Instalada | ✅ Instalada | 
+| Dante Biondi | ✅ Instalada | ✅ Instalada | 
+| Juan Martin Britos | ✅ Instalada | ✅ Instalada |
+| Sebastian Viel | ✅ Instalada | ✅ Instalada |
+
+Verificación realizada por cada integrante mediante la vista de **Extensiones** de VS Code (`Ctrl+Shift+X`), confirmando en el chat/canal del equipo la presencia de ambas extensiones antes de mergear el PR [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17).
 
 ## 5. Nota sobre el orden real de implementación en esta entrega
 
 Durante esta primera entrega, el setup de SDD (este documento, el template
-`spec-[rol].md` y `spec-ia.md`) fue mergeado a `develop` **después** de que
-los PRs de Frontend y UX ya estaban en curso, lo cual contradice el orden
-que esta misma metodología establece: el setup de SDD debe existir antes de
+`spec-[rol].md` y `spec-ia.md`) fue mergeado a `develop` **despues** de que
+los PRs de Frontend y UX: el setup de SDD debe existir antes de
 que empiecen los desarrollos que dependen de él.
 
 **Causa:** [Completar — ej. coordinación tardía entre roles, disponibilidad

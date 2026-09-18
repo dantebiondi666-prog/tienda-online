@@ -5,12 +5,26 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ---
 
 ## [Unreleased]
-- [feature/ia-add-prompts-1-to-5] Redacción de `docs/02-prompts/comparativa-modelos.md` con comparación entre Claude Sonnet 5 Medium y GitHub Copilot Agent. Documentación completa del uso de IA en `prompts.md` y en `prompts-1.md` a `prompts-5.md`, incluyendo modelo, método de prompting, prompt exacto, resultado esperado, resultado obtenido, correcciones manuales y archivo aplicado.  
-  PR: [#15](https://github.com/dantebiondi666-prog/tienda-online/pull/15) - @Zikoloogo (Especialista en IA)
 
-  Issues:
-  [#13](https://github.com/dantebiondi666-prog/tienda-online/issues/13)
-  [#14](https://github.com/dantebiondi666-prog/tienda-online/issues/14)
+
+### Added
+### Changed
+### Fixed
+- [fix/decisions-add-checklist] Actualice sdd-decisions.md, faltaban dos checklists por quedar marcados.
+PR: [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17) - @zikoloogo (Coordinador / DevOps)
+- [fix/add-prompt-de-README] Actualizamos README.md y spec-ux.md, agregamos el prompt usado para generar README.md.
+PR: [#18](https://github.com/dantebiondi666-prog/tienda-online/pull/18) - @zikoloogo (Coordinador / DevOps)
+- [fix/prompt-fixes] Se agregaron las imágenes de los prompts y se actualizaron los archivos prompts-3.md, prompts-4.md, sdd-decisions.md, spec-ux.md, changelog.md.
+PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikoloogo (Coordinador / DevOps)
+- [fix/more-changes] Se enlazaron las imagenes de los prompts y nos echamos para atras con algunos cambios.
+PR: [#20](https://github.com/dantebiondi666-prog/tienda-online/pull/20) - @zikoloogo (Coordinador / DevOps)
+- [fix/pascalcase-fix] Se corrigieron los nombres de los archivos de imagenes prompts de 1 al 5 y sus enlaces en prompts.md.
+PR: [#21](https://github.com/dantebiondi666-prog/tienda-online/pull/21) - @zikoloogo (Coordinador / DevOps)
+- [backport/release-actividad-obligatoria-1] Sincronización de develop con las correcciones de la Actividad N°1 aprobadas y mergeadas a master.
+PR: [#23](https://github.com/dantebiondi666-prog/tienda-online/pull/23) - @zikoloogo (Coordinador / DevOps)
+---
+
+## [Release Actividad Obligatoria N°1] - 2026-08-30
 
 ### Added
 - [feature/ia-setup-sdd] Definición de la metodología Spec-Driven Development (SDD) para el proyecto: redacción de spec-ia.md, investigación y documentación de decisiones SDD en sdd-decisions.md, y creación del template spec-[rol].md para uso de todos los roles del equipo.
@@ -39,16 +53,21 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 - [feature/doc-ux-add-readme-and-mockup] Agrega README.md con carátula, objetivos, tecnologías y funcionalidades previstas; mockup inicial de la tienda en docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png; especificación spec-ux.md con trazabilidad a plan.md.
   PR: [#7](https://github.com/dantebiondi666-prog/tienda-online/pull/7) - @LucasFUces (Documentador / UX)
 
-### Changed
-### Fixed
+  Issues:
+  [#10](https://github.com/dantebiondi666-prog/tienda-online/issues/10)
+
+- [feature/ia-add-prompts-1-to-5] Redacción de `docs/02-prompts/comparativa-modelos.md` con comparación entre Claude Sonnet 5 Medium y GitHub Copilot Agent. Documentación completa del uso de IA en `prompts.md` y en `prompts-1.md` a `prompts-5.md`, incluyendo modelo, método de prompting, prompt exacto, resultado esperado, resultado obtenido, correcciones manuales y archivo aplicado.  
+  PR: [#15](https://github.com/dantebiondi666-prog/tienda-online/pull/15) - @Zikoloogo (Especialista en IA)
+
+  Issues:
+  [#13](https://github.com/dantebiondi666-prog/tienda-online/issues/13)
+  [#14](https://github.com/dantebiondi666-prog/tienda-online/issues/14)
 
 
----
+- [release/actividad-obligatoria-1] changelog update, emprolijamiento del proyecto borrando .gitkeeps pendientes.  
+  PR: [#16](https://github.com/dantebiondi666-prog/tienda-online/pull/16) - @dantebiondi666-prog (Coordinador / DevOps)
 
-## [Release Actividad Obligatoria N°1] - 2025-08-10
 
-Aquí se listarán todas las Pull Requests que entraron en esta release.  
-Actualmente están en la sección [Unreleased] porque sólo están en la rama `develop`.
 
 ---
 
