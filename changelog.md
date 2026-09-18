@@ -20,7 +20,8 @@ PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikol
 PR: [#20](https://github.com/dantebiondi666-prog/tienda-online/pull/20) - @zikoloogo (Coordinador / DevOps)
 - [fix/pascalcase-fix] Se corrigieron los nombres de los archivos de imagenes prompts de 1 al 5 y sus enlaces en prompts.md.
 PR: [#21](https://github.com/dantebiondi666-prog/tienda-online/pull/21) - @zikoloogo (Coordinador / DevOps)
-
+- [backport/release-actividad-obligatoria-1] Sincronización de develop con las correcciones de la Actividad N°1 aprobadas y mergeadas a master.
+PR: [#23](https://github.com/dantebiondi666-prog/tienda-online/pull/23) - @zikoloogo (Coordinador / DevOps)
 ---
 
 ## [Release Actividad Obligatoria N°1] - 2026-08-30
