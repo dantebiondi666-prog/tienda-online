@@ -8,20 +8,14 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 
 ### Added
+- [feature/coord-devops-update-figma-and-readme] Definición del sistema de diseño (paleta, tipografía, espaciados, estados de interacción) en spec-devops.md; actualización del mockup en Figma con esos estilos; actualización de README.md y plan.md.
+PR: [#25](https://github.com/dantebiondi666-prog/tienda-online/pull/25) - @zikoloogo (Coordinador / DevOps)
+
+  Issues:
+  [#24](https://github.com/dantebiondi666-prog/tienda-online/issues/24)
 ### Changed
 ### Fixed
-- [fix/decisions-add-checklist] Actualice sdd-decisions.md, faltaban dos checklists por quedar marcados.
-PR: [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17) - @zikoloogo (Coordinador / DevOps)
-- [fix/add-prompt-de-README] Actualizamos README.md y spec-ux.md, agregamos el prompt usado para generar README.md.
-PR: [#18](https://github.com/dantebiondi666-prog/tienda-online/pull/18) - @zikoloogo (Coordinador / DevOps)
-- [fix/prompt-fixes] Se agregaron las imágenes de los prompts y se actualizaron los archivos prompts-3.md, prompts-4.md, sdd-decisions.md, spec-ux.md, changelog.md.
-PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikoloogo (Coordinador / DevOps)
-- [fix/more-changes] Se enlazaron las imagenes de los prompts y nos echamos para atras con algunos cambios.
-PR: [#20](https://github.com/dantebiondi666-prog/tienda-online/pull/20) - @zikoloogo (Coordinador / DevOps)
-- [fix/pascalcase-fix] Se corrigieron los nombres de los archivos de imagenes prompts de 1 al 5 y sus enlaces en prompts.md.
-PR: [#21](https://github.com/dantebiondi666-prog/tienda-online/pull/21) - @zikoloogo (Coordinador / DevOps)
-- [backport/release-actividad-obligatoria-1] Sincronización de develop con las correcciones de la Actividad N°1 aprobadas y mergeadas a master.
-PR: [#23](https://github.com/dantebiondi666-prog/tienda-online/pull/23) - @zikoloogo (Coordinador / DevOps)
+
 ---
 
 ## [Release Actividad Obligatoria N°1] - 2026-08-30
@@ -67,7 +61,19 @@ PR: [#23](https://github.com/dantebiondi666-prog/tienda-online/pull/23) - @zikol
 - [release/actividad-obligatoria-1] changelog update, emprolijamiento del proyecto borrando .gitkeeps pendientes.  
   PR: [#16](https://github.com/dantebiondi666-prog/tienda-online/pull/16) - @dantebiondi666-prog (Coordinador / DevOps)
 
-
+### Fixed
+- [fix/decisions-add-checklist] Actualice sdd-decisions.md, faltaban dos checklists por quedar marcados.
+PR: [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17) - @zikoloogo (Coordinador / DevOps)
+- [fix/add-prompt-de-README] Actualizamos README.md y spec-ux.md, agregamos el prompt usado para generar README.md.
+PR: [#18](https://github.com/dantebiondi666-prog/tienda-online/pull/18) - @zikoloogo (Coordinador / DevOps)
+- [fix/prompt-fixes] Se agregaron las imágenes de los prompts y se actualizaron los archivos prompts-3.md, prompts-4.md, sdd-decisions.md, spec-ux.md, changelog.md.
+PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikoloogo (Coordinador / DevOps)
+- [fix/more-changes] Se enlazaron las imagenes de los prompts y nos echamos para atras con algunos cambios.
+PR: [#20](https://github.com/dantebiondi666-prog/tienda-online/pull/20) - @zikoloogo (Coordinador / DevOps)
+- [fix/pascalcase-fix] Se corrigieron los nombres de los archivos de imagenes prompts de 1 al 5 y sus enlaces en prompts.md.
+PR: [#21](https://github.com/dantebiondi666-prog/tienda-online/pull/21) - @zikoloogo (Coordinador / DevOps)
+- [backport/release-actividad-obligatoria-1] Sincronización de develop con las correcciones de la Actividad N°1 aprobadas y mergeadas a master.
+PR: [#23](https://github.com/dantebiondi666-prog/tienda-online/pull/23) - @zikoloogo (Coordinador / DevOps)
 
 ---
 
