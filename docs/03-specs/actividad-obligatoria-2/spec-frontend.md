@@ -195,9 +195,9 @@ Una vez redactada y commiteada esta especificación, se seguirá el siguiente fl
 
 ### Herramientas utilizadas
 
-- **Modelo / herramienta:** [Pendiente]
-- **Servidor MCP:** Figma MCP
-- **Entorno:** Visual Studio Code + GitHub Copilot Agent
+- **Modelo / herramienta:** GitHub Copilot en modo Agente.
+- **Servidor MCP:** Figma MCP.
+- **Entorno:** Visual Studio Code + GitHub Copilot Agent.
 
 ### Contexto proporcionado al agente
 
@@ -210,28 +210,164 @@ Una vez redactada y commiteada esta especificación, se seguirá el siguiente fl
 ### Prompt exacto utilizado
 
 ```text
-[Pendiente de completar luego de ejecutar la tarea con Copilot Agent + Figma MCP]
+Actuá como Desarrollador Frontend/CSS del proyecto Tienda Online para la
+Actividad Obligatoria N.º 2 de Programación Web I.
+
+Usá como contexto obligatorio:
+- `docs/03-specs/actividad-obligatoria-2/spec-frontend.md`
+- `plan.md`
+- `index.html`
+- el archivo Figma actualizado accesible mediante Figma MCP:
+  https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1
+
+Antes de escribir código, analizá el Figma mediante MCP y contrastalo con
+`plan.md` y `spec-frontend.md`.
+
+Si no podés acceder correctamente al Figma mediante MCP, detené la tarea y
+avisame. No inventes el diseño ni simules haber usado Figma MCP.
+
+Luego implementá únicamente el alcance correspondiente al rol Frontend/CSS:
+
+1. Crear `css/styles.css` con:
+   - variables CSS en `:root`;
+   - reset y estilos globales;
+   - tipografías y colores;
+   - layout base;
+   - estilos generales coherentes con el sistema visual de `plan.md` y Figma.
+
+2. Crear `css/components.css` con los estilos de:
+   - header y marca;
+   - buscador;
+   - navegación;
+   - filtros;
+   - catálogo;
+   - cards de productos;
+   - guía de talles;
+   - formulario de contacto;
+   - footer;
+   - estados `hover` y `focus` donde corresponda.
+
+3. Vincular ambos archivos CSS en `index.html` si todavía no están vinculados,
+cargando primero `styles.css` y después `components.css`.
+
+Requisitos técnicos:
+- respetar la paleta y tipografías definidas en `plan.md`;
+- mantener fidelidad con el diseño de Figma;
+- utilizar correctamente selectores, herencia y especificidad;
+- aplicar box model mediante margin, padding y border;
+- mantener el código organizado y mantenible;
+- agregar comentarios solo donde expliquen decisiones técnicas relevantes.
+
+IMPORTANTE:
+- No crear ni modificar `responsive.css`.
+- No agregar media queries.
+- No implementar todavía el responsive mobile/tablet/desktop.
+- No agregar JavaScript.
+- No implementar funcionalidad real de filtros, búsqueda, carrito o talles.
+- No modificar contenido HTML salvo cambios mínimos necesarios para vincular
+  los CSS o aplicar clases/estructura estrictamente necesarias para el estilado.
+- No hacer commit ni push.
+
+Si Figma MCP no permite obtener algún valor exacto de espaciado, tamaño o estado,
+no lo presentes como dato extraído de Figma. Si necesitás inferir un valor para
+completar el CSS, usá una opción razonable y al final listala como
+"decisión inferida para revisión manual".
+
+Al finalizar:
+1. indicá qué archivos creaste o modificaste;
+2. resumí las decisiones de estilo principales;
+3. indicá cualquier diferencia entre Figma, `plan.md` e `index.html`;
+4. listá las decisiones inferidas que debamos revisar manualmente.
+
+No modifiques todavía `spec-frontend.md`; la evidencia del resultado y los
+ajustes manuales se completará después de que revisemos la implementación.
 ```
 
 ### Resultado obtenido
 
-[Pendiente de completar]
+GitHub Copilot Agent utilizó como contexto `spec-frontend.md`, `plan.md`,
+`index.html` y el mockup actualizado mediante Figma MCP.
+
+Como resultado:
+
+- creó `css/styles.css`;
+- creó `css/components.css`;
+- vinculó ambas hojas de estilo desde `index.html`;
+- definió variables CSS para colores, tipografías, espaciados, radios y sombras;
+- incorporó reset y estilos globales;
+- aplicó las tipografías Playfair Display y Work Sans;
+- generó el layout base de la página;
+- estilizó header, buscador, navegación, filtros, catálogo, tarjetas de
+  productos, guía de talles, formulario de contacto y footer;
+- incorporó estados `hover` y `focus-visible`;
+- utilizó selectores, herencia, especificidad, box model y distintos valores
+  de `display` según las necesidades de los componentes.
+
+No se generó `responsive.css`, no se agregaron media queries ni se incorporó
+JavaScript, respetando el alcance definido para el rol Frontend/CSS.
 
 ### Partes aceptadas del resultado
 
-[Pendiente de completar]
+Se mantuvo la mayor parte de la estructura propuesta por Copilot, especialmente:
+
+- la organización separada entre `styles.css` y `components.css`;
+- las variables CSS definidas mediante `:root`;
+- el reset y los estilos globales;
+- la paleta y tipografías definidas en `plan.md`;
+- el layout general basado en Flexbox y Grid;
+- los estilos del área de filtros y del catálogo;
+- la estructura visual de las tarjetas de productos;
+- los estilos de la guía de talles y del formulario de contacto;
+- los estados `hover` y `focus-visible`;
+- el uso de selectores específicos sin modificar innecesariamente el HTML;
+- la ausencia de media queries, JavaScript y comportamiento interactivo,
+  manteniendo esos aspectos fuera del alcance de este rol.
 
 ### Ajustes manuales realizados
 
-[Pendiente de completar]
+Luego de comparar el resultado generado con el mockup y revisar visualmente la
+página en el navegador, se realizaron los siguientes ajustes manuales:
+
+- se reemplazó el color hexadecimal aislado utilizado en el borde de la
+  navegación por la variable `var(--color-sage)`, para mantener consistencia
+  con el sistema de diseño;
+- se modificó el fondo del área de imagen de las tarjetas de productos de
+  `var(--color-gold)` a `var(--color-sand)`;
+- se redujo la altura del `textarea` del formulario de contacto para acercarlo
+  a las proporciones del mockup;
+- se agregó el contenedor `.header-top` en `index.html` para separar visualmente
+  la marca y el buscador de la navegación principal;
+- se alineó el buscador hacia el extremo derecho del header;
+- se separó visualmente la barra de navegación del bloque superior del header,
+  manteniendo ambos con el mismo ancho;
+- se redujo el espacio vertical de la sección "Categorías destacadas";
+- se reorganizaron las categorías en una disposición horizontal;
+- se agregaron estados visuales para los enlaces de categorías manteniendo
+  coherencia con el resto del sitio.
 
 ### Motivo de los ajustes manuales
 
-[Pendiente de completar]
+Los ajustes se realizaron para mejorar la fidelidad con el mockup actualizado,
+mantener consistencia con las variables y colores definidos en `plan.md` y
+mejorar la jerarquía visual de algunos sectores.
+
+También se buscó reducir espacios innecesarios, aprovechar mejor el ancho
+disponible y mantener el CSS organizado y mantenible.
+
+Las modificaciones sobre `index.html` fueron mínimas y se limitaron a agregar
+una estructura necesaria para aplicar correctamente los estilos del header,
+sin modificar el contenido ni incorporar nuevas funcionalidades.
 
 ### Pruebas de integración realizadas
 
-[Pendiente de completar]
+Se realizó una verificación manual inicial en el entorno local, comprobando que:
+
+- `styles.css` y `components.css` cargan correctamente desde `index.html`;
+- la página aplica la paleta y tipografías previstas;
+- los principales componentes se visualizan correctamente;
+- los cambios manuales realizados sobre header, navegación, categorías,
+  catálogo y formulario se reflejan correctamente en el navegador;
+- no se incorporaron errores visibles en la estructura HTML existente.
 
 ---
 
