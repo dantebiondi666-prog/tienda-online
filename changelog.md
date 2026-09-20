@@ -13,6 +13,15 @@ PR: [#25](https://github.com/dantebiondi666-prog/tienda-online/pull/25) - @zikol
 
   Issues:
   [#24](https://github.com/dantebiondi666-prog/tienda-online/issues/24)
+
+- [feature/dev-frontend-css-add-styles]  Se incorporaron los estilos base y componentes visuales de la tienda en `styles.css` y `components.css`.
+ Se aplicó el diseño de Figma y se realizaron ajustes manuales de header, navegación, categorías y formulario. PR #XX
+PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dantebiondi666-prog (Desarrollador Frontend)
+
+  Issues:
+  [#26](https://github.com/dantebiondi666-prog/tienda-online/issues/26)
+  [#27](https://github.com/dantebiondi666-prog/tienda-online/issues/27)
+
 ### Changed
 ### Fixed
 
