@@ -22,7 +22,7 @@ Ofrecer una experiencia simple para consultar prendas, comparar sus característ
 - Selección de talle disponible
 - Filtrado de productos por tipo de prenda, talle y estilo
 - Carrito de compras simulado, con resumen y cálculo de totales
-- - Formulario de contacto
+- Formulario de contacto
 
 ## Maqueta de diseño web
 
@@ -33,8 +33,9 @@ El mockup de la página principal fue diseñado en Figma, siguiendo lineamientos
 - Descripción del proyecto: e-commerce de ropa en HTML5, primera entrega centrada en la estructura semántica.
 - Objetivo del entregable actual: construir la estructura base del sitio (index.html) y su documentación asociada (README, mockup, specs).
 - Mockup: [docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png](docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
+- Mockup Actividad N°2 (con sistema de diseño aplicado): [docs/01-mockup/actividad-obligatoria-2/diseño-con-estilos.png](docs/01-mockup/actividad-obligatoria-2/diseño-con-estilos.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
 - Prompts de IA utilizados: [docs/02-prompts/prompts.md](docs/02-prompts/prompts.md)
-- Redacción del README: generado con GitHub Copilot (modo Agente) a partir de un prompt específico y revisado manualmente por el equipo — ver la consulta documentada en:[docs\03-specs\actividad-obligatoria-1\spec-ux.md](docs\03-specs\actividad-obligatoria-1\spec-ux.md)
+- Redacción del README: generado con GitHub Copilot (modo Agente) a partir de un prompt específico y revisado manualmente por el equipo — ver la consulta documentada en:[docs\03-specs\actividad-obligatoria-1\spec-ux.md](/docs/03-specs/actividad-obligatoria-1/spec-ux.md)
 
 ## Integrantes
 

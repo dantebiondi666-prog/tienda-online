@@ -123,6 +123,31 @@ Esta entrega tiene como objetivo construir la estructura inicial del proyecto. E
 
 Durante esta entrega, el usuario no deberá poder ejecutar un carrito, aplicar filtros dinámicos, seleccionar productos de forma interactiva ni enviar un flujo de compra real. Esas capacidades deberán quedar documentadas como evolución futura y no simularse mediante JavaScript.
 
+### 10.1 Alcance específico de la Actividad Obligatoria N.º 2
+
+Esta entrega incorpora estilos visuales, diseño responsive y un proceso de QA
+asistido por herramientas de automatización sobre la base HTML5 construida en
+la Actividad N.º 1.
+
+#### Incluido en esta entrega
+
+- hojas de estilo organizadas por responsabilidad: `css/styles.css`
+  (variables, reset, tipografías, layout base), `css/components.css`
+  (componentes reutilizables) y `css/responsive.css` (diseño adaptable);
+- aplicación del sistema de diseño definido en la Sección 12.1
+  (paleta de colores y tipografías);
+- diseño responsive con media queries para mobile, tablet y desktop,
+  sin overflow horizontal en ningún breakpoint;
+- proceso de QA con 5 test cases ejecutados mediante Playwright MCP,
+  documentados en `docs/04-testing/`;
+- registro de bugs como issues de GitHub generados con GitHub MCP.
+
+#### No incluido como comportamiento operativo
+
+Esta entrega no incorpora JavaScript ni comportamiento interactivo real
+(carrito, filtros dinámicos, selección de talles). Esas capacidades siguen
+documentadas como evolución futura según la Sección 9.
+
 ## 11. Elementos HTML5 requeridos en la primera entrega
 
 `index.html` deberá contener, de manera pertinente al tema de la tienda:
@@ -153,6 +178,32 @@ Estos lineamientos orientan el trabajo de UX y podrán refinarse mediante el moc
 - priorizar una experiencia simple e intuitiva;
 - reservar decisiones gráficas detalladas, como tipografías, medidas exactas y componentes visuales definitivos, para la especificación UX y el mockup.
 
+### 12.1 Sistema de diseño definitivo (Actividad Obligatoria N.º 2)
+
+En línea con los lineamientos generales de esta sección, el equipo definió
+el siguiente sistema de diseño, documentado en detalle en
+`docs/03-specs/actividad-obligatoria-2/spec-devops.md` y aplicado en el
+mockup de Figma (`docs/01-mockup/actividad-obligatoria-2/`):
+
+**Paleta de colores**
+
+| Rol | Nombre | Hex |
+|---|---|---|
+| Primario | Verde salvia | `#5B6F55` |
+| Secundario / fondo de secciones | Beige arena | `#E4D8C3` |
+| Acento | Dorado apagado | `#B08D57` |
+| Neutro medio | Gris cálido | `#8B8579` |
+| Fondo general | Crema | `#F7F3EC` |
+| Texto principal | Carbón | `#2E2B26` |
+
+**Tipografías**
+
+- Encabezados (h1–h3): Playfair Display, pesos 600/700
+- Cuerpo, labels, botones (h4–h6, body, small): Work Sans, pesos 400/500
+
+Espaciados y estados de interacción (hover/focus/disabled): pendientes de
+definición, se documentarán aquí una vez decididos.
+
 ## 13. Criterios generales de aceptación
 
 El proyecto podrá considerarse alineado con este plan cuando se verifique que:
@@ -168,6 +219,12 @@ El proyecto podrá considerarse alineado con este plan cuando se verifique que:
 - **CA-09:** La documentación del proyecto registra los aportes y enlaces a Pull Requests en `changelog.md`.
 - **CA-10:** La versión de entrega puede publicarse en GitHub Pages desde la rama de release correspondiente.
 - **CA-11:** Las decisiones visuales futuras respetan los lineamientos de claridad, legibilidad, navegación simple y baja sobrecarga visual.
+- **CA-12:** Las hojas de estilo aplican el sistema de diseño definido en
+  la Sección 12.1 de forma coherente en todo el sitio.
+- **CA-13:** El sitio se adapta correctamente a mobile, tablet y desktop,
+  sin overflow horizontal en ningún breakpoint.
+- **CA-14:** Los 5 test cases de QA están documentados con evidencia
+  (prompts, capturas, issues) en `docs/04-testing/`.
 
 ## 14. Fuera de alcance de la primera entrega
 
