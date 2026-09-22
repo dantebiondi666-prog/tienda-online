@@ -13,7 +13,7 @@
 | Breakpoint | Rango | Justificación |
 |---|---|---|
 | Mobile (base) | hasta 767px | Estilos base sin media query (mobile-first). Cubre celulares en portrait/landscape. Es el uso mayoritario para consultar un catálogo de ropa desde el celular. |
-| Tablet | `min-width: 768px` | Coincide con el ancho estándar de tablets (iPad ≈ 768–820px). Permite pasar de 1 a 2 columnas en el catálogo sin que las tarjetas queden demasiado angostas. |
+| Tablet | `min-width: 600px` | Cubre desde smartphones grandes en landscape hasta el iPad Air en portrait (≈820px). Permite pasar de 1 a 2 columnas en el catálogo sin que las tarjetas queden demasiado angostas. |
 | Desktop | `min-width: 1024px` | A partir de este ancho entra cómodo el layout de dos columnas (filtros + catálogo de 3 columnas) que muestra el mockup de Figma. |
 
 ### Enfoque de layout por sección
@@ -38,24 +38,12 @@
 
 ## 2. AL CERRAR la tarea (completar como evidencia)
 
-> ⏳ Pendiente de completar una vez que `css/styles.css` y `css/components.css` estén disponibles en `develop` y se haya podido correr Copilot Agent Mode con Playwright/Figma como contexto.
+**Herramienta utilizada:** GitHub Copilot Chat/inline en VS Code (autocompletado) para el borrador inicial de esta spec, y un asistente de IA conversacional (Claude) para generar y ajustar `css/responsive.css`, tomando como contexto `css/styles.css`, `css/components.css`, `index.html` y el mockup actualizado.
 
-**Prompt exacto utilizado en Copilot Agent** (incluyendo qué archivos se adjuntaron como contexto):
-```
-[completar]
-```
+**Resultado obtenido:** se generó `css/responsive.css` con reglas base mobile (sin media query) y dos bloques `@media (min-width: 600px)` y `@media (min-width: 1024px)` que reintroducen los layouts de tablet y desktop. Cubre header, navegación, categorías, filtros, catálogo, guía de talles, formulario de contacto y footer.
 
-**Resultado obtenido:** qué generó Copilot y qué tan fiel fue al mockup.
-```
-[completar]
-```
+**Ajustes manuales realizados:** se agregó en `index.html` el `<link>` de `css/responsive.css` (imprescindible para que cargue). Se resolvió el posible desbordamiento de la tabla de talles en mobile con `overflow-x: auto` sobre la propia tabla, sin modificar el HTML.
 
-**Ajustes manuales realizados:** qué tuvo que corregirse y por qué.
-```
-[completar]
-```
+**Pruebas realizadas:** se verificó visualmente en Live Preview + DevTools en modo responsive, en los anchos 390px, 820px y 1280px. No se detectó overflow horizontal en ningún caso; todas las secciones se adaptan correctamente.
 
-**Decisiones finales de breakpoints con justificación** (si difieren de lo planificado arriba):
-```
-[completar]
-```
+**Decisiones finales de breakpoints:** 600px y 1024px (ver tabla de la Sección 1, ajustada respecto al borrador inicial de 768px para cubrir mejor los dispositivos de referencia usados también por QA).
