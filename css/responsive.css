@@ -1,0 +1,192 @@
+/* ==========================================================================
+   responsive.css — Especialista en Responsive Design
+   Actividad Obligatoria N.º 2 — Tienda Online
+
+   Enfoque MOBILE-FIRST: este archivo se carga después de styles.css y
+   components.css. Las reglas de más abajo que NO tienen media query definen
+   la experiencia mobile y sobrescriben el layout desktop fijo que ya traen
+   esos dos archivos. Los bloques @media (min-width: ...) reintroducen
+   progresivamente los layouts de tablet y desktop.
+
+   Breakpoints (ver justificación en spec-responsive.md):
+   - Mobile:  hasta 599px  (iPhone 14 Pro 390px, Galaxy S23 412px)
+   - Tablet:  600px–1023px (iPad Air en portrait, 820px)
+   - Desktop: desde 1024px (layout original de styles.css/components.css,
+              pensado para --content-width: 1392px)
+   ========================================================================== */
+
+/* -------------------- MOBILE (base, sin media query) -------------------- */
+
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  margin: var(--space-1) auto;
+  padding: var(--space-2);
+}
+
+img {
+  max-width: 100%;
+}
+
+/* Header: marca arriba, buscador ocupa todo el ancho debajo */
+.header-top {
+  grid-template-columns: 1fr;
+}
+
+header form {
+  grid-column: 1;
+  grid-row: 2;
+  justify-self: stretch;
+  margin-top: var(--space-1);
+}
+
+header form input {
+  width: 100%;
+}
+
+/* Navegación principal: se envuelve en varias líneas en vez de desbordar */
+nav[aria-label='Navegación principal'] ul {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+/* Categorías destacadas: idem */
+main > section[aria-labelledby='categorias'] ul {
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* Filtros + catálogo: una sola columna (filtros arriba, catálogo debajo) */
+main > div {
+  grid-template-columns: 1fr;
+}
+
+/* Catálogo de productos: una tarjeta por fila */
+main > div > section {
+  grid-template-columns: 1fr;
+}
+
+article {
+  min-height: 0;
+}
+
+/* Guía de talles: scroll horizontal contenido, sin desbordar la página */
+main > section[aria-labelledby='guia-talles'] table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+/* Formulario de contacto: un campo por fila */
+main > section[aria-labelledby='contacto-titulo'] form {
+  grid-template-columns: 1fr;
+}
+
+main > section[aria-labelledby='contacto-titulo'] button {
+  justify-self: start;
+}
+
+/* Footer: bloques apilados */
+footer {
+  grid-template-columns: 1fr;
+}
+
+footer nav {
+  grid-column: 1;
+  grid-row: auto;
+}
+
+/* -------------------------- TABLET (>= 600px) ---------------------------- */
+
+@media (min-width: 600px) {
+  body {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .header-top {
+    grid-template-columns: 1fr auto;
+  }
+
+  header form {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
+    margin-top: 0;
+  }
+
+  header form input {
+    width: 160px;
+  }
+
+  /* Catálogo de productos: dos columnas */
+  main > div > section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Contacto: dos columnas; el mensaje y el botón ocupan todo el ancho */
+  main > section[aria-labelledby='contacto-titulo'] form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  main > section[aria-labelledby='contacto-titulo'] form div:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+
+  main > section[aria-labelledby='contacto-titulo'] button {
+    grid-column: 1 / -1;
+  }
+
+  /* Footer: dos columnas, como en el diseño original */
+  footer {
+    grid-template-columns: 1fr auto;
+  }
+
+  footer nav {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+}
+
+/* --------------------------- DESKTOP (>= 1024px) -------------------------- */
+
+@media (min-width: 1024px) {
+  body {
+    padding: var(--space-2) var(--space-5) var(--space-3);
+  }
+
+  /* Filtros + catálogo: layout original de dos columnas (sidebar + contenido) */
+  main > div {
+    grid-template-columns: 208px minmax(0, 1fr);
+  }
+
+  /* Catálogo de productos: tres columnas, como en el mockup */
+  main > div > section {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  article {
+    min-height: 368px;
+  }
+
+  header form input {
+    width: 116px;
+  }
+
+  /* Contacto: layout original de tres campos + botón en una sola fila */
+  main > section[aria-labelledby='contacto-titulo'] form {
+    grid-template-columns: repeat(3, 1fr) auto;
+  }
+
+  main > section[aria-labelledby='contacto-titulo'] form div:nth-child(3) {
+    grid-column: auto;
+  }
+
+  main > section[aria-labelledby='contacto-titulo'] button {
+    grid-column: auto;
+    justify-self: auto;
+  }
+}
