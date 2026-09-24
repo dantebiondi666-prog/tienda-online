@@ -127,65 +127,65 @@ Una vez redactada y commiteada esta especificación, se seguirá el siguiente fl
 
 ### Spec y flujo de trabajo
 
-- [ ] `spec-frontend.md` fue creada en `docs/03-specs/actividad-obligatoria-2/`.
-- [ ] La spec fue commiteada antes de crear o modificar cualquier archivo CSS correspondiente a esta tarea.
-- [ ] El desarrollo se realiza desde `feature/dev-frontend-css-add-styles`.
-- [ ] Se utiliza GitHub Copilot Agent junto con Figma MCP tomando como referencia el mockup actualizado.
-- [ ] El resultado generado mediante IA es revisado y ajustado manualmente.
+- [x] `spec-frontend.md` fue creada en `docs/03-specs/actividad-obligatoria-2/`.
+- [x] La spec fue commiteada antes de crear o modificar cualquier archivo CSS correspondiente a esta tarea.
+- [x] El desarrollo se realiza desde `feature/dev-frontend-css-add-styles`.
+- [x] Se utiliza GitHub Copilot Agent junto con Figma MCP tomando como referencia el mockup actualizado.
+- [x] El resultado generado mediante IA es revisado y ajustado manualmente.
 
 ### Archivos CSS
 
-- [ ] Existe `css/styles.css`.
-- [ ] Existe `css/components.css`.
-- [ ] Ambos archivos están correctamente vinculados desde `index.html`.
-- [ ] `css/styles.css` contiene variables CSS definidas mediante `:root`.
-- [ ] `css/styles.css` contiene reset y estilos globales.
-- [ ] `css/styles.css` contiene tipografías, colores y layout base.
-- [ ] `css/components.css` contiene los estilos correspondientes a componentes reutilizables.
+- [x] Existe `css/styles.css`.
+- [x] Existe `css/components.css`.
+- [x] Ambos archivos están correctamente vinculados desde `index.html`.
+- [x] `css/styles.css` contiene variables CSS definidas mediante `:root`.
+- [x] `css/styles.css` contiene reset y estilos globales.
+- [x] `css/styles.css` contiene tipografías, colores y layout base.
+- [x] `css/components.css` contiene los estilos correspondientes a componentes reutilizables.
 
 ### Sistema visual
 
-- [ ] Los colores utilizados corresponden al sistema de diseño definido en `plan.md` y el mockup.
-- [ ] Los encabezados utilizan Playfair Display según la jerarquía definida.
-- [ ] Los textos generales, labels y botones utilizan Work Sans.
-- [ ] El diseño mantiene una paleta reducida y coherente.
-- [ ] La página mantiene claridad visual y evita sobrecarga de información.
-- [ ] Los espaciados y tamaños implementados son coherentes con el mockup actualizado.
+- [x] Los colores utilizados corresponden al sistema de diseño definido en `plan.md` y el mockup.
+- [x] Los encabezados utilizan Playfair Display según la jerarquía definida.
+- [x] Los textos generales, labels y botones utilizan Work Sans.
+- [x] El diseño mantiene una paleta reducida y coherente.
+- [x] La página mantiene claridad visual y evita sobrecarga de información.
+- [x] Los espaciados y tamaños implementados son coherentes con el mockup actualizado.
 
 ### Componentes
 
-- [ ] El header y la marca poseen estilos coherentes con el mockup.
-- [ ] El buscador está estilizado.
-- [ ] La navegación principal está estilizada.
-- [ ] La sección de filtros está estilizada.
-- [ ] El catálogo posee un layout base coherente con el mockup.
-- [ ] Las tarjetas de productos están estilizadas.
-- [ ] La guía de talles está estilizada.
-- [ ] El formulario de contacto está estilizado.
-- [ ] El footer mantiene coherencia con el resto del sistema visual.
-- [ ] Los controles correspondientes incluyen estados `hover` y `focus` cuando corresponde.
+- [x] El header y la marca poseen estilos coherentes con el mockup.
+- [x] El buscador está estilizado.
+- [x] La navegación principal está estilizada.
+- [x] La sección de filtros está estilizada.
+- [x] El catálogo posee un layout base coherente con el mockup.
+- [x] Las tarjetas de productos están estilizadas.
+- [x] La guía de talles está estilizada.
+- [x] El formulario de contacto está estilizado.
+- [x] El footer mantiene coherencia con el resto del sistema visual.
+- [x] Los controles correspondientes incluyen estados `hover` y `focus` cuando corresponde.
 
 ### Requisitos técnicos de CSS
 
-- [ ] Se utilizan selectores CSS adecuados para los distintos elementos.
-- [ ] Se aprovecha la herencia donde resulte apropiado.
-- [ ] La especificidad se mantiene controlada y no genera conflictos innecesarios.
-- [ ] Se aplica el box model mediante `margin`, `padding` y `border`.
-- [ ] Se utilizan correctamente elementos y comportamientos inline y block cuando corresponde.
-- [ ] El código CSS está organizado y contiene comentarios donde una decisión técnica requiere explicación.
-- [ ] No se incorpora JavaScript nuevo.
-- [ ] No se implementan en esta rama las media queries ni el responsive completo correspondientes al rol Especialista en Responsive Design.
+- [x] Se utilizan selectores CSS adecuados para los distintos elementos.
+- [x] Se aprovecha la herencia donde resulte apropiado.
+- [x] La especificidad se mantiene controlada y no genera conflictos innecesarios.
+- [x] Se aplica el box model mediante `margin`, `padding` y `border`.
+- [x] Se utilizan correctamente elementos y comportamientos inline y block cuando corresponde.
+- [x] El código CSS está organizado y contiene comentarios donde una decisión técnica requiere explicación.
+- [x] No se incorpora JavaScript nuevo.
+- [x] No se implementan en esta rama las media queries ni el responsive completo correspondientes al rol Especialista en Responsive Design.
 
 ### Integración y entrega
 
-- [ ] Se realizan pruebas de integración junto al Especialista en Responsive Design.
-- [ ] Los bugs correspondientes a Frontend reportados por QA son resueltos antes del merge a `develop`.
-- [ ] Los Issues de bugs corregidos quedan vinculados a la PR correspondiente.
-- [ ] Existe una Issue vinculada a la tarea principal.
-- [ ] Se crea una Pull Request desde `feature/dev-frontend-css-add-styles` hacia `develop`.
-- [ ] La PR utiliza el template definido por el equipo.
-- [ ] `changelog.md` contiene la entrada correspondiente con link a la PR y resumen del aporte.
-- [ ] La Issue principal se cierra después del merge.
+- [x] Se realizan pruebas de integración junto al Especialista en Responsive Design.
+- [x] Los bugs correspondientes a Frontend reportados por QA son resueltos antes del merge a `develop`.
+- [x] Los Issues de bugs corregidos quedan vinculados a la PR correspondiente.
+- [x] Existe una Issue vinculada a la tarea principal.
+- [x] Se crea una Pull Request desde `feature/dev-frontend-css-add-styles` hacia `develop`.
+- [x] La PR utiliza el template definido por el equipo.
+- [x] `changelog.md` contiene la entrada correspondiente con link a la PR y resumen del aporte.
+- [x] La Issue principal se cierra después del merge.
 
 ---
 
@@ -344,6 +344,15 @@ página en el navegador, se realizaron los siguientes ajustes manuales:
 - se reorganizaron las categorías en una disposición horizontal;
 - se agregaron estados visuales para los enlaces de categorías manteniendo
   coherencia con el resto del sitio.
+- a partir del testing de accesibilidad realizado por QA con Playwright MCP y
+  axe-core 4.10.2, se corrigieron problemas de contraste de color detectados
+  en textos sobre fondos claros;
+- los textos que utilizaban `--color-warm-gray` fueron reemplazados por
+  `--color-charcoal` en los componentes afectados;
+- los textos de acento que utilizaban `--color-gold` se ajustaron a
+  `--color-sage` cuando correspondía, manteniendo el dorado para detalles
+  visuales y decorativos;
+- se ajustó también el color heredado por el footer para mejorar su contraste.
 
 ### Motivo de los ajustes manuales
 
@@ -357,18 +366,29 @@ disponible y mantener el CSS organizado y mantenible.
 Las modificaciones sobre `index.html` fueron mínimas y se limitaron a agregar
 una estructura necesaria para aplicar correctamente los estilos del header,
 sin modificar el contenido ni incorporar nuevas funcionalidades.
-
-### Pruebas de integración realizadas
-
-Se realizó una verificación manual inicial en el entorno local, comprobando que:
-
-- `styles.css` y `components.css` cargan correctamente desde `index.html`;
-- la página aplica la paleta y tipografías previstas;
-- los principales componentes se visualizan correctamente;
-- los cambios manuales realizados sobre header, navegación, categorías,
-  catálogo y formulario se reflejan correctamente en el navegador;
-- no se incorporaron errores visibles en la estructura HTML existente.
+Además, se realizaron correcciones de accesibilidad a partir de un issue
+reportado por QA. El análisis con axe-core detectó incumplimientos del criterio
+WCAG 1.4.3 (nivel AA) por contraste insuficiente en distintos textos de la
+interfaz. Se modificaron únicamente los usos problemáticos de los colores,
+manteniendo la paleta definida por el equipo.
 
 ---
 
-*Spec redactada antes de iniciar el desarrollo CSS de la Actividad Obligatoria N.º 2, conforme a la metodología Spec-Driven Development utilizada por el equipo.*
+### Pruebas de integración realizadas
+
+Se realizó una primera verificación manual local de la implementación Frontend
+y posteriormente QA ejecutó el Momento 1 de testing sobre la rama
+`feature/dev-frontend-css-add-styles` mediante Playwright MCP.
+
+Durante las pruebas de accesibilidad con axe-core 4.10.2 se detectó una
+violación de la regla `color-contrast`, con impacto `serious`, asociada al
+criterio WCAG 1.4.3 nivel AA. El hallazgo afectaba textos de navegación,
+filtros, productos, tabla, contacto y footer.
+
+A partir del issue generado por QA se ajustaron los colores de texto en
+`styles.css` y `components.css` para aumentar el contraste manteniendo el
+sistema visual definido en `plan.md`.
+
+
+
+

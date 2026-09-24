@@ -25,6 +25,12 @@ PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dante
 ### Changed
 ### Fixed
 
+- [feature/dev-frontend-css-add-styles]  Corrección de contraste WCAG AA detectada por QA.
+PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dantebiondi666-prog (Desarrollador Frontend)
+
+  Issues:
+  [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
+
 ---
 
 ## [Release Actividad Obligatoria N°1] - 2026-08-30
