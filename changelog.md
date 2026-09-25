@@ -14,10 +14,24 @@ PR: [#25](https://github.com/dantebiondi666-prog/tienda-online/pull/25) - @zikol
   Issues:
   [#24](https://github.com/dantebiondi666-prog/tienda-online/issues/24)
 
+- [feature/dev-frontend-css-add-styles]  Se incorporaron los estilos base y componentes visuales de la tienda en `styles.css` y `components.css`.
+ Se aplicó el diseño de Figma y se realizaron ajustes manuales de header, navegación, categorías y formulario. PR #XX
+PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dantebiondi666-prog (Desarrollador Frontend)
+
+  Issues:
+  [#26](https://github.com/dantebiondi666-prog/tienda-online/issues/26)
+  [#27](https://github.com/dantebiondi666-prog/tienda-online/issues/27)
+
 - [feature/responsive-design-add-responsive-styles] Creación de `css/responsive.css` con diseño mobile-first (breakpoints en 600px y 1024px) para header, navegación, filtros, catálogo, guía de talles, formulario de contacto y footer. Se vinculó `responsive.css` en `index.html`. Sin overflow horizontal verificado en 390px, 820px y 1280px.
 PR: [#29](https://github.com/dantebiondi666-prog/tienda-online/pull/29) - @LucasFUces (Especialista en Responsive Design)
 ### Changed
 ### Fixed
+
+- [feature/dev-frontend-css-add-styles]  Corrección de contraste WCAG AA detectada por QA.
+PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dantebiondi666-prog (Desarrollador Frontend)
+
+  Issues:
+  [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
 
 ---
 
