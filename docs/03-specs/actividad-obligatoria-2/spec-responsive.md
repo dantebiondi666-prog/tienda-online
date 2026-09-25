@@ -31,18 +31,35 @@
 - [x] Breakpoints definidos y documentados (mobile, tablet, desktop)
 - [x] Layout mobile-first implementado (estilos base = mobile, media queries con `min-width` para ampliar)
 - [x] Todas las secciones del mockup (header, nav, filtros, catálogo, guía de talles, contacto, footer) se adaptan correctamente en los tres breakpoints
-- [ ] No hay overflow horizontal en ningún breakpoint ni dispositivo
+- [x] No hay overflow horizontal en ningún breakpoint ni dispositivo
 - [ ] Pruebas de integración realizadas con el Desarrollador Frontend en GitHub Pages y localhost
 ---
 
 ## 2. AL CERRAR la tarea (completar como evidencia)
 
-**Herramienta utilizada:** GitHub Copilot Chat/inline en VS Code (autocompletado) para el borrador inicial de esta spec, y un asistente de IA conversacional (Claude) para generar y ajustar `css/responsive.css`, tomando como contexto `css/styles.css`, `css/components.css`, `index.html` y el mockup actualizado.
+**Herramienta utilizada:** GitHub Copilot Agent Mode en VS Code, con contexto de `spec-responsive.md`, `css/styles.css`, `css/components.css` y el mockup actualizado.
 
-**Resultado obtenido:** se generó `css/responsive.css` con reglas base mobile (sin media query) y dos bloques `@media (min-width: 600px)` y `@media (min-width: 1024px)` que reintroducen los layouts de tablet y desktop. Cubre header, navegación, categorías, filtros, catálogo, guía de talles, formulario de contacto y footer.
+**Prompt utilizado:** Actuá como especialista en diseño responsive. Con el spec adjunto (spec-responsive.md) como plan de trabajo, generá o revisá css/responsive.css para que:
 
-**Ajustes manuales realizados:** se agregó en `index.html` el `<link>` de `css/responsive.css` (imprescindible para que cargue). Se resolvió el posible desbordamiento de la tabla de talles en mobile con `overflow-x: auto` sobre la propia tabla, sin modificar el HTML.
+- Sea mobile-first: los estilos base (sin media query) definen el layout mobile, y dos bloques @media (min-width: 600px) y @media (min-width: 1024px) reintroducen los layouts de tablet y desktop.
+- Respete la tecnología de layout que ya usan styles.css y components.css (Grid o Flexbox según corresponda) en lugar de reemplazarla.
+- Adapte: header (logo + buscador + nav), navegación principal, categorías destacadas, el bloque de filtros + catálogo de productos, la guía de talles, el formulario de contacto y el footer.
+- Garantice que no haya overflow horizontal en ningún breakpoint.
+- Use las variables CSS ya definidas en styles.css (espaciados, colores) en vez de valores sueltos.
 
-**Pruebas realizadas:** se verificó visualmente en Live Preview + DevTools en modo responsive, en los anchos 390px, 820px y 1280px. No se detectó overflow horizontal en ningún caso; todas las secciones se adaptan correctamente.
+Ya tengo una versión propia de responsive.css escrita a mano; quiero que la revises contra el mockup adjunto y me señales inconsistencias o mejoras, no que la reescribas desde cero.
 
-**Decisiones finales de breakpoints:** 600px y 1024px (ver tabla de la Sección 1, ajustada respecto al borrador inicial de 768px para cubrir mejor los dispositivos de referencia usados también por QA).
+
+**Resultado obtenido:** Copilot Agent confirmó que la estructura mobile-first con los dos breakpoints (600px y 1024px) era correcta y que se respetaba el uso de Grid/Flexbox de `styles.css`/`components.css`. Señaló como punto débil que `overflow-x: hidden` era una solución que ocultaba el problema en vez de resolverlo, y recomendó reforzar con `min-width: 0` en los contenedores de Grid y `overflow-wrap: anywhere` en las tarjetas del catálogo. También sugirió ajustes estéticos de alineación (header, footer, formulario) que no se aplicaron por no estar contrastados contra el mockup real.
+
+**Ajustes manuales realizados:**
+- Se agregó en `index.html` el `<link>` de `css/responsive.css` (imprescindible para que cargue), después de `styles.css` y `components.css`.
+- Se aplicó `min-width: 0` en `main > div`, `main > div > section` y `article`, y `overflow-wrap: anywhere` en `article`, siguiendo la recomendación de Copilot Agent, para eliminar la causa real de overflow en vez de depender solo de `overflow-x: hidden`.
+- Se movió la regla de la tabla de talles (`display: block; overflow-x: auto; white-space: nowrap;`) a un bloque `@media (max-width: 599px)`, porque estaba aplicándose también en desktop y rompía el formato normal de tabla en pantallas grandes.
+- Se descartaron los ajustes estéticos sugeridos por Copilot (centrado de header, ancho del formulario, alineación del footer) porque la IA no tenía evidencia de haber comparado contra el mockup real; se dejan pendientes de revisión visual manual.
+
+**Pruebas realizadas:** se creó una rama temporal (`prueba-integracion`) a partir de la rama de Frontend (`feature/dev-frontend-css-add-styles`, que todavía no está mergeada a `develop`) para incorporar `responsive.css` sin alterar la rama de trabajo. Con Live Server, se verificó en DevTools (modo responsive) que `document.documentElement.scrollWidth > document.documentElement.clientWidth` devuelve `false` en los 6 anchos de referencia: 390px, 412px, 820px, 1280px, 1440px y 1920px. No se detectó overflow horizontal en ningún caso.
+
+**Decisiones finales de breakpoints:** 600px (tablet) y 1024px (desktop), sin cambios respecto al plan inicial de la Sección 1.
+
+**Pendiente:** repetir la prueba de integración una vez que el PR de Frontend (#28) esté mergeado a `develop`, esta vez trabajando directamente sobre `develop` en lugar de una rama temporal.
