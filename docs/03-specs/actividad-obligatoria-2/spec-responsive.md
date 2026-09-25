@@ -28,12 +28,11 @@
 
 ### Criterios de aceptación (checklist)
 
-- [ ] Breakpoints definidos y documentados (mobile, tablet, desktop)
-- [ ] Layout mobile-first implementado (estilos base = mobile, media queries con `min-width` para ampliar)
-- [ ] Todas las secciones del mockup (header, nav, filtros, catálogo, guía de talles, contacto, footer) se adaptan correctamente en los tres breakpoints
+- [x] Breakpoints definidos y documentados (mobile, tablet, desktop)
+- [x] Layout mobile-first implementado (estilos base = mobile, media queries con `min-width` para ampliar)
+- [x] Todas las secciones del mockup (header, nav, filtros, catálogo, guía de talles, contacto, footer) se adaptan correctamente en los tres breakpoints
 - [ ] No hay overflow horizontal en ningún breakpoint ni dispositivo
 - [ ] Pruebas de integración realizadas con el Desarrollador Frontend en GitHub Pages y localhost
-
 ---
 
 ## 2. AL CERRAR la tarea (completar como evidencia)

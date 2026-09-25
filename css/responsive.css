@@ -60,25 +60,30 @@ main > section[aria-labelledby='categorias'] ul {
   gap: var(--space-2);
 }
 
-/* Filtros + catálogo: una sola columna (filtros arriba, catálogo debajo) */
 main > div {
   grid-template-columns: 1fr;
+  min-width: 0;
 }
 
 /* Catálogo de productos: una tarjeta por fila */
 main > div > section {
   grid-template-columns: 1fr;
+  min-width: 0;
 }
 
 article {
   min-height: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
-/* Guía de talles: scroll horizontal contenido, sin desbordar la página */
-main > section[aria-labelledby='guia-talles'] table {
-  display: block;
-  overflow-x: auto;
-  white-space: nowrap;
+@media (max-width: 599px) {
+  /* Guía de talles: scroll horizontal contenido, sin desbordar la página */
+  main > section[aria-labelledby='guia-talles'] table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
 }
 
 /* Formulario de contacto: un campo por fila */
