@@ -1,0 +1,333 @@
+header {
+  margin: 0 auto;
+  max-width: var(--content-width);
+}
+
+.header-top {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+header > div a {
+  display: inline-block;
+  color: var(--color-charcoal);
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+header > div a:hover {
+  color: var(--color-sage);
+}
+
+header form {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: end;
+}
+
+header form input {
+  width: 116px;
+  height: 32px;
+  padding: 4px 8px;
+  border: 2px solid var(--color-warm-gray);
+  border-radius: 999px;
+  background: var(--color-sand);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+header form input::placeholder {
+  color: var(--color-charcoal);
+  opacity: 1;
+}
+
+nav[aria-label='Navegación principal'] {
+  margin: var(--space-2) 0 0;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-sage);
+  border-radius: var(--radius-medium);
+  background: var(--color-sage);
+}
+
+nav[aria-label='Navegación principal'] ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+nav[aria-label='Navegación principal'] a {
+  display: block;
+  color: var(--color-surface);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+nav[aria-label='Navegación principal'] a:hover,
+nav[aria-label='Navegación principal'] a:focus-visible {
+  color: var(--color-sand);
+}
+
+main > section[aria-labelledby='categorias'] {
+  padding: var(--space-2) var(--space-3);
+}
+
+main > section[aria-labelledby='categorias'] > h2 {
+  margin-bottom: var(--space-2);
+}
+
+main > section[aria-labelledby='categorias'] ul {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+main > section[aria-labelledby='categorias'] a {
+  display: inline-block;
+  color: var(--color-charcoal);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+main > section[aria-labelledby='categorias'] a:hover,
+main > section[aria-labelledby='categorias'] a:focus-visible {
+  color: var(--color-sage);
+}
+
+main > div > aside {
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+aside h2,
+main > div > section > h2,
+main > section > h2 {
+  margin-bottom: var(--space-3);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+aside form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+aside fieldset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: 0;
+  border: 0;
+}
+
+aside legend {
+  margin-bottom: var(--space-1);
+  font-weight: 500;
+}
+
+aside label {
+  display: block;
+  color: var(--color-charcoal);
+  font-size: 0.875rem;
+}
+
+aside input[type='checkbox'] {
+  accent-color: var(--color-sage);
+  margin: 0 var(--space-1) 0 0;
+}
+
+aside button {
+  align-self: flex-start;
+  padding: 4px 0;
+  border: 0;
+  border-bottom: 1px solid var(--color-sage);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-sage);
+  font-size: 0.875rem;
+}
+
+aside button:hover {
+  color: var(--color-charcoal);
+  border-color: var(--color-charcoal);
+}
+
+main > div > section {
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-soft);
+}
+
+main > div > section > h2 {
+  margin-left: var(--space-1);
+}
+
+main > div > section {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-2);
+}
+
+main > div > section > h2 {
+  grid-column: 1 / -1;
+}
+
+article {
+  display: flex;
+  flex-direction: column;
+  min-height: 368px;
+  padding: var(--space-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-medium);
+  background: var(--color-surface);
+}
+
+article:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--shadow-soft);
+}
+
+article figure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 157px;
+  margin-bottom: var(--space-3);
+  overflow: hidden;
+  border: 1px solid rgba(46, 43, 38, 0.25);
+  border-radius: var(--radius-medium);
+  background: var(--color-sand);
+}
+
+article img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+article h3 {
+  margin-bottom: var(--space-1);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+article p {
+  color: var(--color-charcoal);
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+article p strong {
+  color: var(--color-sage);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+main > section[aria-labelledby='guia-talles'] table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+main > section[aria-labelledby='guia-talles'] th,
+main > section[aria-labelledby='guia-talles'] td {
+  padding: var(--space-1) var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+  text-align: left;
+}
+
+main > section[aria-labelledby='guia-talles'] th {
+  color: var(--color-charcoal);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+main > section[aria-labelledby='guia-talles'] td {
+  color: var(--color-charcoal);
+}
+
+main > section[aria-labelledby='contacto-titulo'] > p {
+  margin-bottom: var(--space-3);
+  color: var(--color-charcoal);
+}
+
+main > section[aria-labelledby='contacto-titulo'] form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) auto;
+  align-items: end;
+  gap: var(--space-2);
+}
+
+main > section[aria-labelledby='contacto-titulo'] form div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+main > section[aria-labelledby='contacto-titulo'] label {
+  font-size: 0.875rem;
+}
+
+main > section[aria-labelledby='contacto-titulo'] input,
+main > section[aria-labelledby='contacto-titulo'] textarea {
+  width: 100%;
+  padding: var(--space-1) var(--space-2);
+  border-color: var(--color-sand);
+  background: var(--color-cream);
+}
+
+main > section[aria-labelledby='contacto-titulo'] textarea {
+  min-height: 40px;
+  height: 40px;
+  resize: vertical;
+}
+
+main > section[aria-labelledby='contacto-titulo'] button {
+  padding: var(--space-1) var(--space-2);
+  border-color: var(--color-sand);
+  background: var(--color-surface);
+  color: var(--color-charcoal);
+}
+
+main > section[aria-labelledby='contacto-titulo'] button:hover {
+  border-color: var(--color-sage);
+  background: var(--color-sage);
+  color: var(--color-surface);
+}
+
+footer p:first-child {
+  color: var(--color-charcoal);
+  font-weight: 500;
+}
+
+footer nav {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+footer nav ul {
+  display: flex;
+  gap: var(--space-2);
+}
+
+footer a:hover {
+  color: var(--color-sage);
+}
