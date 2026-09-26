@@ -143,8 +143,8 @@ Comprobar:
 - [x] testing-doc.md actualizado como índice general.
 - [x] Resultados del Momento 1 documentados.
 - [x] Resultados del Momento 2 documentados.
-- [ ] changelog.md actualizado con la contribución realizada.
-- [ ] Pull Request creada hacia develop.
+- [x] changelog.md actualizado con la contribución realizada.
+- [x] Pull Request creada hacia develop.
 ---
 
 ## 6. Evidencia de ejecución
