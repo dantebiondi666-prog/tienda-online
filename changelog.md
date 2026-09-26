@@ -24,6 +24,13 @@ PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dante
 
 - [feature/responsive-design-add-responsive-styles] Creación de `css/responsive.css` con diseño mobile-first (breakpoints en 600px y 1024px) para header, navegación, filtros, catálogo, guía de talles, formulario de contacto y footer. Se vinculó `responsive.css` en `index.html`. Sin overflow horizontal verificado en 390px, 820px y 1280px.
 PR: [#29](https://github.com/dantebiondi666-prog/tienda-online/pull/29) - @LucasFUces (Especialista en Responsive Design)
+
+- [feature/doc-qa-tester-add-test-cases] Documentación y ejecución del proceso de QA de la Actividad Obligatoria N.º 2. Se realizaron 5 test cases con Playwright MCP para compatibilidad desktop, responsive design, performance, accesibilidad y HTML semántico/validación. Se documentaron Momento 1 y Momento 2, evidencias, Issues #30 y #31, retests y verificación final de las correcciones de TC2 y TC4.
+PR: [#34](https://github.com/dantebiondi666-prog/tienda-online/pull/34) - @juanmartinbritos7-cmd (Documentador / QA Tester)
+
+ Issues:
+ [#30](https://github.com/dantebiondi666-prog/tienda-online/issues/30)
+ [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
 ### Changed
 ### Fixed
 
