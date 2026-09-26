@@ -111,3 +111,67 @@ Las tres configuraciones responsive solicitadas fueron ejecutadas mediante Playw
 El principal problema responsive detectado afecta a la guía de talles en los dos viewports móviles evaluados. En iPad Air el contenido se adapta correctamente.
 
 Además, en las ejecuciones se volvió a observar el error HTTP 404 correspondiente a `/favicon.ico`.
+---
+
+# Momento 2 — Post-merge
+
+**Rama evaluada:** `develop`  
+**URL evaluada:** `http://127.0.0.1:3000/index.html`  
+**Herramienta:** Playwright MCP  
+
+## Ejecución
+
+Se repitió el Test Case 2 sobre la rama `develop` una vez integrados los cambios del equipo.
+
+Se evaluaron nuevamente los siguientes viewports:
+
+| Dispositivo | Viewport | Resultado inicial |
+|---|---|---|
+| iPhone 14 Pro | 390x844 | FAIL |
+| Samsung Galaxy S23 | 412x915 | FAIL |
+| iPad Air | 820x1180 | PASS |
+
+En los viewports móviles de iPhone 14 Pro y Samsung Galaxy S23 se detectó nuevamente un problema en la guía de talles.
+
+La tabla permitía desplazamiento horizontal mediante `overflow-x: auto`, pero la columna "US" no quedaba completamente visible en la posición inicial.
+
+Mediciones obtenidas:
+
+- iPhone 14 Pro: `scrollWidth=364px` frente a `clientWidth=291px`.
+- Samsung Galaxy S23: `scrollWidth=364px` frente a `clientWidth=313px`.
+
+No se detectó overflow horizontal global en el documento ni otros recortes relevantes en las áreas principales de la página.
+
+### Resultado inicial
+
+**TC2 MOMENTO 2: FAIL**
+
+### Evidencias iniciales
+
+- `docs/04-testing/capturas/tc-2/momento-2/qa-tc2-m2-iphone14pro-390x844.png`
+- `docs/04-testing/capturas/tc-2/momento-2/qa-tc2-m2-galaxys23-412x915.png`
+- `docs/04-testing/capturas/tc-2/momento-2/qa-tc2-m2-ipadair-820x1180.png`
+
+## Retest posterior a la corrección
+
+Luego de la corrección realizada por el desarrollador responsable, se volvió a ejecutar el caso mediante Playwright MCP.
+
+En iPhone 14 Pro, el wrapper de la tabla midió `291/364px`, y en Samsung Galaxy S23 `313/364px`. La tabla quedó contenida dentro de un wrapper con desplazamiento horizontal controlado, sin provocar overflow horizontal global.
+
+También se verificó que:
+
+- La página no presenta overflow horizontal global.
+- La tabla puede recorrerse horizontalmente dentro de su contenedor.
+- La columna "US" puede visualizarse mediante el desplazamiento interno.
+- Los productos y sus imágenes cargan correctamente.
+- No se observaron roturas evidentes en el resto de la interfaz.
+
+### Evidencia del retest
+
+`docs/04-testing/capturas/tc-2/momento-2/qa-retest-tc2-responsive-fix.png`
+
+### Resultado final
+
+**RETEST TC2: PASS**
+
+La corrección aplicada fue validada y el comportamiento responsive de la guía de talles se considera resuelto.

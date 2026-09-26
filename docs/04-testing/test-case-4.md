@@ -113,3 +113,76 @@ El análisis de accesibilidad fue ejecutado correctamente mediante Playwright MC
 La prueba resultó FAIL debido a una violación `serious` de la regla `color-contrast`, relacionada con WCAG 1.4.3. La violación afecta a 41 elementos de la interfaz.
 
 El hallazgo debe registrarse como bug para su revisión antes del merge a `develop`.
+---
+
+# Momento 2 — Post-merge
+
+**Rama evaluada:** `develop`  
+**URL evaluada:** `http://127.0.0.1:3000/index.html`  
+**Herramientas:** Playwright MCP + axe-core 4.10.3  
+
+## Ejecución
+
+Se repitió el análisis de accesibilidad sobre la rama `develop` después de la integración de los cambios del equipo.
+
+axe-core 4.10.3 detectó inicialmente una violación de accesibilidad:
+
+| Impacto | Violaciones |
+|---|---:|
+| Critical | 0 |
+| Serious | 1 |
+| Moderate | 0 |
+| Minor | 0 |
+| **Total** | **1** |
+
+### Violación detectada — scrollable-region-focusable
+
+**Regla axe:** `scrollable-region-focusable`  
+**Impacto:** Serious  
+**Elementos afectados:** 1
+
+La violación indicaba que una región con contenido desplazable no era accesible mediante teclado. El elemento afectado correspondía a la tabla de la guía de talles.
+
+La regla `color-contrast`, detectada previamente durante el Momento 1, no volvió a aparecer como violación.
+
+### Resultado inicial
+
+**TC4 MOMENTO 2: FAIL**
+
+### Evidencia inicial
+
+`docs/04-testing/capturas/tc-4/momento-2/qa-tc4-m2-accessibility-axe.png`
+
+## Retest posterior a la corrección
+
+Luego de la corrección realizada por el desarrollador responsable, se volvió a ejecutar el análisis mediante Playwright MCP y axe-core 4.10.3.
+
+La tabla fue contenida dentro de un wrapper accesible configurado como región navegable mediante teclado.
+
+Durante el retest se verificó que:
+
+- El wrapper posee `role="region"`.
+- El wrapper posee `tabindex="0"`.
+- La navegación mediante `Tab` permite llevar el foco al contenedor.
+- El desplazamiento horizontal puede realizarse mediante teclado.
+- No se genera overflow horizontal global.
+- La regla `scrollable-region-focusable` ya no aparece.
+- La regla `color-contrast` tampoco aparece.
+
+axe-core reportó:
+
+- **Violaciones totales:** 0
+- **Reglas aprobadas:** 48
+- **Reglas incompletas:** 1
+
+La regla incompleta no fue contabilizada como una violación.
+
+### Evidencia del retest
+
+`docs/04-testing/capturas/tc-4/momento-2/qa-retest-tc4-accessibility-fix.png`
+
+### Resultado final
+
+**RETEST TC4: PASS**
+
+La corrección aplicada fue validada. El problema de accesibilidad relacionado con la región desplazable ya no se reproduce y no se detectaron violaciones de accesibilidad en el retest.
