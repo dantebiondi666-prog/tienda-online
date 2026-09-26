@@ -79,9 +79,11 @@ article {
 
 @media (max-width: 599px) {
   /* Guía de talles: scroll horizontal contenido, sin desbordar la página */
-  main > section[aria-labelledby='guia-talles'] table {
-    display: block;
+  main > section[aria-labelledby='guia-talles'] .tabla-talles-wrapper {
     overflow-x: auto;
+  }
+
+  main > section[aria-labelledby='guia-talles'] table {
     white-space: nowrap;
   }
 }
