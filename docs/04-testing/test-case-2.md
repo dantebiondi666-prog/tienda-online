@@ -175,3 +175,33 @@ También se verificó que:
 **RETEST TC2: PASS**
 
 La corrección aplicada fue validada y el comportamiento responsive de la guía de talles se considera resuelto.
+---
+
+## Verificación final — Momento 2
+
+Después de que la corrección de la guía de talles y accesibilidad fuera integrada a `develop`, se actualizaron los cambios en la rama de QA y se ejecutó una verificación final mediante Playwright MCP.
+
+### Resultados
+
+| Dispositivo | Viewport | Wrapper (client/scroll) | Tabla (client/scroll) | Documento (client/scroll) | Resultado |
+|---|---|---|---|---|---|
+| iPhone 14 Pro | 390x844 | 291/364 px | 364/364 px | 375/375 px | PASS |
+| Samsung Galaxy S23 | 412x915 | 313/364 px | 364/364 px | 397/397 px | PASS |
+| iPad Air | 820x1180 | 689/689 px | 689/689 px | 805/805 px | PASS |
+
+Se comprobó que:
+
+- No existe overflow horizontal global.
+- Los bloques principales permanecen dentro del viewport.
+- La tabla permanece dentro de su wrapper.
+- En dispositivos móviles el desplazamiento horizontal queda contenido dentro del wrapper.
+- Todas las columnas, incluida `US`, son accesibles mediante scroll interno.
+- No se detectaron elementos principales cortados o superpuestos.
+- Header, navegación, catálogo, guía de talles, formulario y footer permanecen presentes.
+- Las tres imágenes del catálogo cargaron correctamente.
+
+### Resultado definitivo
+
+**FINAL TC2 MOMENTO 2: PASS**
+
+La corrección permanece funcionando correctamente después de la integración de los últimos cambios de `develop`.

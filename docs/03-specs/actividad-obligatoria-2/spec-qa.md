@@ -124,28 +124,27 @@ Comprobar:
 
 ## 5. Criterios de aceptación
 
-- [ ] spec-qa.md creado antes de comenzar los test cases.
-- [ ] 5 test cases ejecutados utilizando Playwright MCP.
-- [ ] Testing realizado contra localhost.
-- [ ] Momento 1 ejecutado sobre las ramas feature correspondientes.
-- [ ] Momento 2 ejecutado sobre develop.
-- [ ] Compatibilidad desktop comprobada.
-- [ ] Diseño responsive comprobado en los dispositivos requeridos.
-- [ ] Performance y tiempos de carga evaluados.
-- [ ] Accesibilidad evaluada mediante axe-core.
-- [ ] Estructura HTML semántica verificada.
-- [ ] HTML validado mediante W3C.
+- [x] spec-qa.md creado antes de comenzar los test cases.
+- [x] 5 test cases ejecutados utilizando Playwright MCP.
+- [x] Testing realizado contra localhost.
+- [x] Momento 1 ejecutado sobre las ramas feature correspondientes.
+- [x] Momento 2 ejecutado sobre develop.
+- [ ] Compatibilidad desktop comprobada completamente en los cuatro motores requeridos.
+- [x] Diseño responsive comprobado en los dispositivos requeridos.
+- [x] Performance y tiempos de carga evaluados.
+- [x] Accesibilidad evaluada mediante axe-core.
+- [x] Estructura HTML semántica verificada.
+- [x] HTML validado mediante W3C.
 - [ ] Archivos CSS validados mediante W3C.
-- [ ] Capturas de pantalla almacenadas para los test cases.
-- [ ] Hallazgos relevantes registrados como issues de tipo bug.
-- [ ] Issues creados mediante GitHub MCP.
-- [ ] Responsables notificados sobre los bugs encontrados.
-- [ ] testing-doc.md actualizado como índice general.
-- [ ] Resultados del Momento 1 documentados.
-- [ ] Resultados del Momento 2 documentados.
+- [x] Capturas de pantalla almacenadas para los test cases.
+- [x] Hallazgos relevantes registrados como issues de tipo bug.
+- [x] Issues creados mediante GitHub MCP.
+- [x] Responsables notificados sobre los bugs encontrados.
+- [x] testing-doc.md actualizado como índice general.
+- [x] Resultados del Momento 1 documentados.
+- [x] Resultados del Momento 2 documentados.
 - [ ] changelog.md actualizado con la contribución realizada.
 - [ ] Pull Request creada hacia develop.
-
 ---
 
 ## 6. Evidencia de ejecución
@@ -305,3 +304,42 @@ Los valores `transferSize = 0` obtenidos para algunos recursos mediante Performa
 La imposibilidad de ejecutar la validación CSS mediante W3C CSS Validator fue registrada como una limitación externa debido a respuestas HTTP 500. No se asignó PASS ni FAIL a las hojas CSS.
 
 La compatibilidad específica con Firefox, Safari y Edge no se considera completamente verificada, ya que durante la ejecución del TC1 solamente estuvo disponible el navegador basado en Chromium.
+---
+
+## 7. Verificación final
+
+Después de que la corrección correspondiente a TC2 y TC4 fuera integrada a `develop`, se incorporaron los últimos cambios de `develop` a la rama de QA.
+
+Se ejecutó una verificación final mediante Playwright MCP.
+
+### TC2 — Responsive Design
+
+Los viewports de iPhone 14 Pro, Samsung Galaxy S23 e iPad Air fueron verificados nuevamente.
+
+No se detectó overflow horizontal global y la guía de talles permaneció contenida dentro de su wrapper, permitiendo desplazamiento horizontal interno cuando fue necesario.
+
+**FINAL TC2 MOMENTO 2: PASS**
+
+### TC4 — Accesibilidad
+
+Se ejecutó axe-core 4.10.3.
+
+**Violaciones detectadas: 0**
+
+La regla `scrollable-region-focusable` no volvió a aparecer como violación y se confirmó que el wrapper puede utilizarse mediante teclado.
+
+La regla `color-contrast` no fue reportada como violación, aunque quedó clasificada como `INCOMPLETE` para 6 elementos cuyo contraste axe-core no pudo determinar automáticamente.
+
+**FINAL TC4 MOMENTO 2: PASS**
+
+### Estado final
+
+Las correcciones detectadas durante el Momento 2 fueron verificadas nuevamente después de la integración de los cambios.
+
+TC2 y TC4 obtuvieron resultado definitivo PASS.
+
+Se mantienen documentadas las siguientes limitaciones:
+
+- La compatibilidad específica con motores reales de Firefox, Safari y Edge no pudo comprobarse completamente.
+- La validación de las hojas CSS mediante W3C CSS Validator no pudo completarse debido a respuestas HTTP 500 del servicio externo.
+- axe-core no pudo determinar automáticamente el contraste de 6 elementos durante la verificación final.

@@ -331,3 +331,84 @@ Después de las correcciones y retests realizados, los resultados verificados qu
 Los problemas funcionales y de accesibilidad detectados durante las pruebas fueron informados al equipo y posteriormente verificados mediante nuevos tests.
 
 La validación CSS permanece documentada como **NO EJECUTADO** debido a la respuesta HTTP 500 del servicio externo, sin atribuir ese inconveniente al código del proyecto.
+---
+
+# 7. Verificación final posterior a la integración
+
+Después de que la corrección de la guía de talles y accesibilidad fuera aprobada e integrada a `develop`, se incorporaron los últimos cambios de `develop` a la rama de QA.
+
+Posteriormente se ejecutó una verificación final mediante Playwright MCP para confirmar que las correcciones de TC2 y TC4 continuaran funcionando correctamente con los cambios integrados.
+
+## TC2 — Verificación final responsive
+
+Se evaluaron nuevamente:
+
+- iPhone 14 Pro — 390x844.
+- Samsung Galaxy S23 — 412x915.
+- iPad Air — 820x1180.
+
+Los tres dispositivos obtuvieron resultado PASS.
+
+Se confirmó:
+
+- ausencia de overflow horizontal global;
+- tabla contenida dentro de su wrapper;
+- scroll horizontal interno en dispositivos móviles;
+- acceso a todas las columnas, incluida `US`;
+- ausencia de elementos principales cortados o superpuestos;
+- funcionamiento general de header, navegación, catálogo, imágenes, guía de talles, formulario y footer.
+
+**FINAL TC2 MOMENTO 2: PASS**
+
+---
+
+## TC4 — Verificación final de accesibilidad
+
+Se ejecutó axe-core 4.10.3 sobre la versión con los últimos cambios integrados.
+
+Resultado:
+
+- Critical: 0.
+- Serious: 0.
+- Moderate: 0.
+- Minor: 0.
+- Total de violaciones: 0.
+
+La regla `scrollable-region-focusable` ya no aparece como violación.
+
+También se comprobó que el wrapper de la guía de talles:
+
+- es alcanzable mediante `Tab`;
+- presenta foco visible;
+- permite desplazamiento horizontal mediante teclado;
+- permite acceder a la columna `US`;
+- no provoca overflow horizontal global.
+
+La regla `color-contrast` no fue reportada como violación, aunque axe-core la dejó como `INCOMPLETE` para 6 elementos cuyo contraste no pudo determinar automáticamente.
+
+**FINAL TC4 MOMENTO 2: PASS**
+
+### Limitación
+
+El resultado de 0 violaciones no implica que axe-core haya confirmado automáticamente el contraste de los 6 elementos clasificados como `INCOMPLETE`.
+
+---
+
+# 8. Estado definitivo del testing
+
+Después de la integración de las correcciones y de la verificación final, el estado documentado es:
+
+| Test Case | Estado definitivo |
+|---|---|
+| TC1 — Compatibilidad Desktop | PASS con limitación de motores |
+| TC2 — Responsive Design | PASS |
+| TC3 — Performance | PASS |
+| TC4 — Accesibilidad | PASS |
+| TC5 — Semántica / HTML | PASS |
+| Validación CSS W3C | NO EJECUTADO |
+
+Los fallos encontrados en TC2 y TC4 durante el Momento 2 fueron corregidos y posteriormente verificados después de la integración de los cambios.
+
+La validación CSS mediante W3C CSS Validator permanece como `NO EJECUTADO` debido a la respuesta HTTP 500 del servicio externo.
+
+La compatibilidad específica con motores reales de Firefox, Safari y Edge permanece documentada como una limitación del TC1.

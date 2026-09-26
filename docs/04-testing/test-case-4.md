@@ -186,3 +186,53 @@ La regla incompleta no fue contabilizada como una violación.
 **RETEST TC4: PASS**
 
 La corrección aplicada fue validada. El problema de accesibilidad relacionado con la región desplazable ya no se reproduce y no se detectaron violaciones de accesibilidad en el retest.
+---
+
+## Verificación final — Momento 2
+
+Después de integrar la corrección a `develop` y actualizar la rama de QA con los últimos cambios, se ejecutó una verificación final de accesibilidad mediante Playwright MCP y axe-core.
+
+**Versión de axe-core:** 4.10.3
+
+### Resultado de axe-core
+
+| Impacto | Violaciones |
+|---|---:|
+| Critical | 0 |
+| Serious | 0 |
+| Moderate | 0 |
+| Minor | 0 |
+| **Total** | **0** |
+
+La regla `scrollable-region-focusable`, detectada anteriormente durante el Momento 2, ya no aparece como violación.
+
+El wrapper de la guía de talles fue verificado y se comprobó que:
+
+- Posee `role="region"`.
+- Tiene nombre accesible.
+- Es alcanzable mediante navegación con `Tab`.
+- Presenta foco visible.
+- El desplazamiento horizontal puede realizarse mediante teclado.
+- `ArrowRight` permitió desplazar el contenido horizontalmente.
+- La columna `US` pudo visualizarse mediante el desplazamiento interno.
+- El componente no genera overflow horizontal global.
+
+### Verificación de color-contrast
+
+La regla `color-contrast` no fue reportada como violación.
+
+Sin embargo, axe-core la clasificó como `INCOMPLETE` para 6 elementos, debido a que no pudo determinar automáticamente el contraste de esos elementos.
+
+Entre los elementos involucrados se encontraron celdas de la columna `US` y el campo `#mensaje`.
+
+Por este motivo, el resultado no se interpreta como una confirmación automática del contraste de esos 6 elementos, pero tampoco se registró una violación de contraste durante esta ejecución.
+
+### Resultado definitivo
+
+**FINAL TC4 MOMENTO 2: PASS**
+
+axe-core 4.10.3 reportó 0 violaciones en la verificación final. La corrección de accesibilidad de la región desplazable permanece funcionando después de la integración de los últimos cambios de `develop`.
+
+### Limitación
+
+El contraste de 6 elementos quedó registrado como `INCOMPLETE` por axe-core y, por lo tanto, no pudo verificarse automáticamente durante esta ejecución.
