@@ -236,3 +236,11 @@ axe-core 4.10.3 reportó 0 violaciones en la verificación final. La corrección
 ### Limitación
 
 El contraste de 6 elementos quedó registrado como `INCOMPLETE` por axe-core y, por lo tanto, no pudo verificarse automáticamente durante esta ejecución.
+
+### Bug registrado — Momento 2
+
+El hallazgo fue registrado para mantener la trazabilidad del proceso de QA.
+
+**GitHub Issue:** [#37](https://github.com/dantebiondi666-prog/tienda-online/issues/37)
+
+El issue documenta la violación `scrollable-region-focusable` detectada inicialmente por axe-core durante el Momento 2.
