@@ -89,3 +89,50 @@ Se obtuvieron correctamente las métricas obligatorias de `DOMContentLoaded`, `L
 La ejecución permitió comprobar también que las tres imágenes utilizadas por la aplicación estaban cargadas correctamente.
 
 Se volvió a detectar el error HTTP 404 correspondiente a `/favicon.ico`, previamente identificado en otros casos de prueba.
+---
+
+## Momento 2 — Post-merge
+
+**Rama evaluada:** `develop`  
+**URL evaluada:** `http://127.0.0.1:3000/index.html`  
+**Herramienta:** Playwright MCP — Performance API
+
+### Métricas obtenidas
+
+| Métrica | Resultado |
+|---|---:|
+| DOMContentLoaded | 23 ms |
+| Load Complete | 29.4 ms |
+| DOM Interactive | 22.7 ms |
+
+Las métricas fueron obtenidas nuevamente mediante la Performance API sobre la versión integrada en `develop`.
+
+### Recursos analizados
+
+Durante la ejecución se verificaron los recursos registrados por la Performance API.
+
+Se detectaron **3 imágenes** utilizadas por la aplicación y se verificó que se encontraban cargadas correctamente.
+
+Algunos recursos informaron `transferSize = 0 B`, comportamiento que puede producirse cuando el recurso es servido desde caché o cuando la información de transferencia no está disponible en la ejecución. Este valor no fue considerado por sí solo como un error de carga.
+
+### Errores detectados
+
+Durante la ejecución también se observó nuevamente el error:
+
+`GET /favicon.ico — 404`
+
+Este hallazgo ya había sido identificado previamente y no constituye un nuevo problema independiente del Momento 2.
+
+### Evidencia
+
+Captura correspondiente a la ejecución:
+
+`docs/04-testing/capturas/tc-3/momento-2/qa-tc3-m2-performance.png`
+
+### Conclusión del Momento 2
+
+Se obtuvieron correctamente las métricas obligatorias de `DOMContentLoaded`, `Load Complete` y `DOM Interactive`.
+
+También se verificó la carga de las imágenes utilizadas por la aplicación y se analizaron los recursos registrados mediante la Performance API.
+
+**Resultado TC3 — Momento 2: PASS.**
