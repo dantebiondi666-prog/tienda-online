@@ -205,3 +205,11 @@ Se comprobó que:
 **FINAL TC2 MOMENTO 2: PASS**
 
 La corrección permanece funcionando correctamente después de la integración de los últimos cambios de `develop`.
+
+### Bug registrado — Momento 2
+
+El hallazgo fue registrado para mantener la trazabilidad del proceso de QA.
+
+**GitHub Issue:** [#36](https://github.com/dantebiondi666-prog/tienda-online/issues/36)
+
+El issue documenta el comportamiento de la guía de talles detectado en los viewports móviles durante el Momento 2.
