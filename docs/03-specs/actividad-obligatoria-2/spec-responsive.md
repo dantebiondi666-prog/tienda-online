@@ -62,4 +62,4 @@ Ya tengo una versión propia de responsive.css escrita a mano; quiero que la rev
 
 **Decisiones finales de breakpoints:** 600px (tablet) y 1024px (desktop), sin cambios respecto al plan inicial de la Sección 1.
 
-**Pendiente:** repetir la prueba de integración una vez que el PR de Frontend (#28) esté mergeado a `develop`, esta vez trabajando directamente sobre `develop` en lugar de una rama temporal.
+**Resultado verificado:** la prueba de integración se repitió sobre `develop` tras el merge del PR de Frontend (#28), y quedó documentada en `docs/04-testing/evidencias-RC5/evidencia-integracion.md`. La validación confirmó que no hubo overflow horizontal en los anchos probados (375, 600 y 1024 px), y que la tabla de talles entra correctamente dentro del viewport sin romper el layout.
