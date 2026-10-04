@@ -136,3 +136,43 @@ Se obtuvieron correctamente las métricas obligatorias de `DOMContentLoaded`, `L
 También se verificó la carga de las imágenes utilizadas por la aplicación y se analizaron los recursos registrados mediante la Performance API.
 
 **Resultado TC3 — Momento 2: PASS.**
+
+---
+
+## Issue de seguimiento — TC3
+
+La ejecución del TC3 durante ambos momentos del proceso de QA quedó registrada en el siguiente issue:
+
+**GitHub Issue:** [#43](https://github.com/dantebiondi666-prog/tienda-online/issues/43)
+
+El issue documenta los resultados obtenidos mediante Playwright MCP y Performance API durante el Momento 1 y el Momento 2.
+
+### Momento 1 — Pre-merge
+
+| Métrica | Resultado |
+|---|---:|
+| DOMContentLoaded | 31.5 ms |
+| Load Complete | 35.8 ms |
+| DOM Interactive | 30.9 ms |
+
+Se verificó también la carga correcta de las 3 imágenes principales.
+
+**Resultado Momento 1:** PASS
+
+### Momento 2 — Post-merge
+
+| Métrica | Resultado |
+|---|---:|
+| DOMContentLoaded | 23 ms |
+| Load Complete | 29.4 ms |
+| DOM Interactive | 22.7 ms |
+
+Las 3 imágenes principales cargaron correctamente.
+
+Algunos recursos informaron `transferSize = 0 B`, lo cual no fue considerado por sí solo como un error de carga.
+
+**Resultado Momento 2:** PASS
+
+### Resultado final
+
+**TC3: PASS.**

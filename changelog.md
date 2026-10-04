@@ -42,6 +42,13 @@ PR: [#33](https://github.com/dantebiondi666-prog/tienda-online/pull/33) - @Lucas
  Issues:
  [#30](https://github.com/dantebiondi666-prog/tienda-online/issues/30)
  [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
+ [#36](https://github.com/dantebiondi666-prog/tienda-online/issues/36)
+ [#37](https://github.com/dantebiondi666-prog/tienda-online/issues/37)
+ [#38](https://github.com/dantebiondi666-prog/tienda-online/issues/38)
+ [#42](https://github.com/dantebiondi666-prog/tienda-online/issues/42)
+ [#43](https://github.com/dantebiondi666-prog/tienda-online/issues/43)
+ [#44](https://github.com/dantebiondi666-prog/tienda-online/issues/44)
+
 ### Changed
 ### Fixed
 
