@@ -42,15 +42,6 @@ PR: [#33](https://github.com/dantebiondi666-prog/tienda-online/pull/33) - @Lucas
  Issues:
  [#30](https://github.com/dantebiondi666-prog/tienda-online/issues/30)
  [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
-
-- [fix/actividad-obligatoria-2] Fix/actividad obligatoria 2 — Integra los ajustes finales de la tienda, las evidencias de QA y el cierre documental en la release.
-PR: [#41](https://github.com/dantebiondi666-prog/tienda-online/pull/41) - @Zikoloogo (Coordinador / DevOps)
-
-- [fix/test-case-issues] docs(qa): add issue traceability to test cases — Vincula TC1, TC3 y TC5 con sus issues y registra sus resultados y limitaciones de validación.
-PR: [#45](https://github.com/dantebiondi666-prog/tienda-online/pull/45) - @Zikoloogo (Coordinador / DevOps)
-
-- [fix/RC5] Update evidencia-integracion.md — Corrige los enlaces a las capturas de integración y agrega evidencia adicional.
-PR: [#46](https://github.com/dantebiondi666-prog/tienda-online/pull/46) - @Zikoloogo (Coordinador / DevOps)
  
 ### Changed
 ### Fixed
@@ -60,6 +51,22 @@ PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dante
 
   Issues:
   [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
+
+  - [fix/actividad-obligatoria-2] Fix/actividad obligatoria 2 — Integra los ajustes finales de la tienda, las evidencias de QA y el cierre documental en la release.
+PR: [#41](https://github.com/dantebiondi666-prog/tienda-online/pull/41) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/test-case-issues] docs(qa): add issue traceability to test cases — Vincula TC1, TC3 y TC5 con sus issues y registra sus resultados y limitaciones de validación.
+PR: [#45](https://github.com/dantebiondi666-prog/tienda-online/pull/45) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/RC5] Update evidencia-integracion.md — Corrige los enlaces a las capturas de integración y agrega evidencia adicional.
+PR: [#46](https://github.com/dantebiondi666-prog/tienda-online/pull/46) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/changelog-fix] docs(changelog): record PRs 41, 45, and 46 — Agrega al changelog de la Actividad Obligatoria N.º 2 las entradas de las PR #41, #45 y #46.
+PR: [#47](https://github.com/dantebiondi666-prog/tienda-online/pull/47) - @Zikoloogo (Coordinador / DevOps)
+
+
+
+
 
 ---
 
