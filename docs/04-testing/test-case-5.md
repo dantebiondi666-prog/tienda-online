@@ -194,3 +194,49 @@ La validación HTML obtuvo **0 errores**. Las advertencias e informaciones regis
 La validación de las tres hojas CSS no pudo completarse debido a la respuesta `HTTP 500` del W3C CSS Validator.
 
 **Resultado TC5 — Momento 2: PASS.**
+
+---
+
+## Issue de seguimiento — TC5
+
+La ejecución del TC5 durante ambos momentos del proceso de QA quedó registrada en el siguiente issue:
+
+**GitHub Issue:** [#44](https://github.com/dantebiondi666-prog/tienda-online/issues/44)
+
+El issue documenta las pruebas de HTML semántico y validación W3C realizadas durante el Momento 1 y el Momento 2.
+
+### Momento 1 — Pre-merge
+
+Se realizó la revisión de la estructura semántica mediante Playwright MCP.
+
+El Nu HTML Checker informó:
+
+- 0 errores HTML.
+- Avisos informativos.
+
+Se intentó validar `styles.css`, `components.css` y `responsive.css` mediante W3C CSS Validator, pero el servicio respondió con HTTP 500.
+
+**Semántica:** PASS  
+**HTML:** PASS  
+**CSS:** NO EJECUTADO
+
+### Momento 2 — Post-merge
+
+Se realizó nuevamente la inspección sobre la versión integrada en `develop`.
+
+El Nu HTML Checker informó:
+
+- 0 errores HTML.
+- 21 avisos informativos.
+
+La validación de las hojas CSS volvió a intentarse mediante W3C CSS Validator, pero el servicio respondió nuevamente con HTTP 500.
+
+La respuesta HTTP 500 corresponde a una limitación del servicio externo y no fue interpretada como un error de las hojas de estilo.
+
+**Semántica:** PASS  
+**HTML:** PASS  
+**CSS:** NO EJECUTADO
+
+### Resultado final
+
+**TC5: PASS en semántica y HTML. Validación CSS W3C: NO EJECUTADO.**
