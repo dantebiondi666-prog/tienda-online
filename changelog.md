@@ -27,7 +27,7 @@ PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dante
   [#26](https://github.com/dantebiondi666-prog/tienda-online/issues/26)
   [#27](https://github.com/dantebiondi666-prog/tienda-online/issues/27)
 
-- [feature/responsive-design-add-responsive-styles] Creación de `css/responsive.css` con diseño mobile-first (breakpoints en 600px y 1024px) para header, navegación, filtros, catálogo, guía de talles, formulario de contacto y footer. Se vinculó `responsive.css` en `index.html`. Sin overflow horizontal verificado en 390px, 820px y 1280px.
+- [feature/responsive-design-add-responsive-styles] [Actividad Obligatoria N°2] Responsive Design - Especialista en Responsive Design - Creación de `css/responsive.css` con diseño mobile-first (breakpoints en 600px y 1024px) para header, navegación, filtros, catálogo, guía de talles, formulario de contacto y footer. Se vinculó `responsive.css` en `index.html`. Sin overflow horizontal verificado en 390px, 820px y 1280px.
 PR: [#29](https://github.com/dantebiondi666-prog/tienda-online/pull/29) - @LucasFUces (Especialista en Responsive Design)
 
 Issues:
@@ -57,6 +57,22 @@ PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dante
 
   Issues:
   [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
+
+  - [fix/actividad-obligatoria-2] Fix/actividad obligatoria 2 — Integra los ajustes finales de la tienda, las evidencias de QA y el cierre documental en la release.
+PR: [#41](https://github.com/dantebiondi666-prog/tienda-online/pull/41) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/test-case-issues] docs(qa): add issue traceability to test cases — Vincula TC1, TC3 y TC5 con sus issues y registra sus resultados y limitaciones de validación.
+PR: [#45](https://github.com/dantebiondi666-prog/tienda-online/pull/45) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/RC5] Update evidencia-integracion.md — Corrige los enlaces a las capturas de integración y agrega evidencia adicional.
+PR: [#46](https://github.com/dantebiondi666-prog/tienda-online/pull/46) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/changelog-fix] docs(changelog): record PRs 41, 45, and 46 — Agrega al changelog de la Actividad Obligatoria N.º 2 las entradas de las PR #41, #45 y #46.
+PR: [#47](https://github.com/dantebiondi666-prog/tienda-online/pull/47) - @Zikoloogo (Coordinador / DevOps)
+
+
+
+
 
 ---
 
