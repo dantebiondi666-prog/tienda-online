@@ -74,8 +74,8 @@ PR: [#47](https://github.com/dantebiondi666-prog/tienda-online/pull/47) - @Zikol
 - [fix/changelog-tc4-fix] Update changelog and TC4 issue references — Corrige la trazabilidad de issues en el changelog y en la documentación de TC4.
 PR: [#49](https://github.com/dantebiondi666-prog/tienda-online/pull/49) - @Zikoloogo (Coordinador / DevOps)
 
-- [fix/RC21-RC22-changelog] PLACEGOLDER
-PR: [#x](https://github.com/dantebiondi666-prog/tienda-online/pull/x) - @Zikoloogo (Coordinador / DevOps)
+- [fix/RC21-RC22-changelog] docs(qa): actualización de changelog y referencias de issues de QA - Actualiza el changelog con la corrección de TC4, elimina la referencia obsoleta a retests.md y corrige el enlace al issue #37 en la documentación de TC4.
+PR: [#50](https://github.com/dantebiondi666-prog/tienda-online/pull/50) - @Zikoloogo (Coordinador / DevOps)
 
 ---
 
