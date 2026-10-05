@@ -27,7 +27,7 @@ PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dante
   [#26](https://github.com/dantebiondi666-prog/tienda-online/issues/26)
   [#27](https://github.com/dantebiondi666-prog/tienda-online/issues/27)
 
-- [feature/responsive-design-add-responsive-styles] [Actividad Obligatoria N°2] Responsive Design - Especialista en Responsive Design
+- [feature/responsive-design-add-responsive-styles] [Actividad Obligatoria N°2] Responsive Design - Especialista en Responsive Design - Creación de `css/responsive.css` con diseño mobile-first (breakpoints en 600px y 1024px) para header, navegación, filtros, catálogo, guía de talles, formulario de contacto y footer. Se vinculó `responsive.css` en `index.html`. Sin overflow horizontal verificado en 390px, 820px y 1280px.
 PR: [#29](https://github.com/dantebiondi666-prog/tienda-online/pull/29) - @LucasFUces (Especialista en Responsive Design)
 
 Issues:
