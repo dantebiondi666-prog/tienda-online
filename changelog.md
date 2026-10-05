@@ -13,14 +13,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
 
 ### Added
-- [feature/coord-devops-update-figma-and-readme] Ddocs: agregar sistema de diseño de Actividad N°2 (spec, mockup, README y plan)
+- [feature/coord-devops-update-figma-and-readme] docs: agregar sistema de diseño de Actividad N°2 (spec, mockup, README y plan)
 PR: [#25](https://github.com/dantebiondi666-prog/tienda-online/pull/25) - @zikoloogo (Coordinador / DevOps)
 
   Issues:
   [#24](https://github.com/dantebiondi666-prog/tienda-online/issues/24)
 
-- [feature/dev-frontend-css-add-styles]  Se incorporaron los estilos base y componentes visuales de la tienda en `styles.css` y `components.css`.
- Se aplicó el diseño de Figma y se realizaron ajustes manuales de header, navegación, categorías y formulario.
+- [feature/dev-frontend-css-add-styles]  [Actividad Obligatoria N°2] Frontend/CSS - estilos base y componentes - Se incorporaron los estilos base y componentes visuales de la tienda en `styles.css` y `components.css`. Se aplicó el diseño de Figma y se realizaron ajustes manuales de header, navegación, categorías y formulario.
 PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dantebiondi666-prog (Desarrollador Frontend)
 
   Issues:
@@ -35,6 +34,8 @@ Issues:
 
 - [fix/tabla-talles-accesibilidad] Fix: corrige overflow de tabla de talles y accesibilidad de scroll (TC2 y TC4)
 PR: [#33](https://github.com/dantebiondi666-prog/tienda-online/pull/33) - @LucasFUces (Especialista en Responsive Design)
+Issues:
+  [#48](https://github.com/dantebiondi666-prog/tienda-online/issues/48)
 
 - [feature/doc-qa-tester-add-test-cases] **docs(qa): agregar test cases y documentación de QA** — Documentación y ejecución del proceso de QA de la Actividad Obligatoria N.º 2. Se realizaron 5 test cases con Playwright MCP para compatibilidad desktop, responsive design, performance, accesibilidad y HTML semántico/validación. Se documentaron Momento 1 y Momento 2, evidencias, Issues #30 y #31, retests y verificación final de las correcciones de TC2 y TC4.  
   PR: [#34](https://github.com/dantebiondi666-prog/tienda-online/pull/34) - @juanmartinbritos7-cmd (Documentador / QA Tester)
