@@ -305,10 +305,6 @@ Ambos fueron sometidos a retesting después de las correcciones correspondientes
 
 Durante el Momento 2 se detectaron nuevos fallos relacionados con la guía de talles y su región desplazable. Estos fueron informados al equipo, corregidos y sometidos nuevamente a pruebas.
 
-Los detalles completos de los retests se encuentran en:
-
-`docs/04-testing/retests.md`
-
 ---
 
 # 5. Evidencias
