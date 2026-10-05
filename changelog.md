@@ -71,9 +71,11 @@ PR: [#46](https://github.com/dantebiondi666-prog/tienda-online/pull/46) - @Zikol
 - [fix/changelog-fix] docs(changelog): record PRs 41, 45, and 46 — Agrega al changelog de la Actividad Obligatoria N.º 2 las entradas de las PR #41, #45 y #46.
 PR: [#47](https://github.com/dantebiondi666-prog/tienda-online/pull/47) - @Zikoloogo (Coordinador / DevOps)
 
+- [fix/changelog-tc4-fix] Update changelog and TC4 issue references — Corrige la trazabilidad de issues en el changelog y en la documentación de TC4.
+PR: [#49](https://github.com/dantebiondi666-prog/tienda-online/pull/49) - @Zikoloogo (Coordinador / DevOps)
 
-
-
+- [fix/RC21-RC22-changelog] PLACEGOLDER
+PR: [#x](https://github.com/dantebiondi666-prog/tienda-online/pull/x) - @Zikoloogo (Coordinador / DevOps)
 
 ---
 
