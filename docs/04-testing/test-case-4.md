@@ -95,7 +95,7 @@ Entre los selectores reportados se encuentran:
 
 El hallazgo de contraste insuficiente fue registrado mediante GitHub MCP.
 
-**GitHub Issue:** [Issue [#37](https://github.com/dantebiondi666-prog/tienda-online/issues/37)]
+**GitHub Issue:** #31  
 **Título:** `[BUG][Accesibilidad] Contraste insuficiente en elementos de la interfaz`
 
 El issue documenta la violación `color-contrast` detectada por axe-core, con impacto `serious` y 41 elementos afectados.
@@ -120,7 +120,7 @@ El hallazgo debe registrarse como bug para su revisión antes del merge a `devel
 **Rama evaluada:** `develop`  
 **URL evaluada:** `http://127.0.0.1:3000/index.html`  
 **Herramientas:** Playwright MCP + axe-core 4.10.3  
-**GitHub Issue:** #37
+**GitHub Issue:** [Issue [#37](https://github.com/dantebiondi666-prog/tienda-online/issues/37)]
 
 ## Ejecución
 
