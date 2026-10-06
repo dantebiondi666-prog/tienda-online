@@ -80,6 +80,12 @@ PR: [#50](https://github.com/dantebiondi666-prog/tienda-online/pull/50) - @Zikol
 - [fix/retest-gone] docs(qa): eliminar referencias redundantes de retests — Elimina referencias redundantes a retests y actualiza la documentación QA para reflejar la estructura actual de evidencias.
 PR: [#51](https://github.com/dantebiondi666-prog/tienda-online/pull/51) - @Zikoloogo (Coordinador / DevOps)
 
+- [backport/release-actividad-obligatoria-2] [Backport] Backport de release/actividad-obligatoria-2 hacia develop - Sincronización de develop con las correcciones de la Actividad N°2 aprobadas y mergeadas a master, como base del Primer Parcial.
+PR: [#NN](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikoloogo (Coordinador / DevOps)
+
+  Issues:
+  [#51](https://github.com/dantebiondi666-prog/tienda-online/issues/51)
+
 ---
 
 ## [Release Actividad Obligatoria N°1] - 2026-08-30
