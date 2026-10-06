@@ -77,6 +77,9 @@ PR: [#49](https://github.com/dantebiondi666-prog/tienda-online/pull/49) - @Zikol
 - [fix/RC21-RC22-changelog] docs(qa): actualización de changelog y referencias de issues de QA - Actualiza el changelog con la corrección de TC4, elimina la referencia obsoleta a retests.md y corrige el enlace al issue #37 en la documentación de TC4.
 PR: [#50](https://github.com/dantebiondi666-prog/tienda-online/pull/50) - @Zikoloogo (Coordinador / DevOps)
 
+- [fix/retest-gone] docs(qa): eliminar referencias redundantes de retests — Elimina referencias redundantes a retests y actualiza la documentación QA para reflejar la estructura actual de evidencias.
+PR: [#51](https://github.com/dantebiondi666-prog/tienda-online/pull/51) - @Zikoloogo (Coordinador / DevOps)
+
 ---
 
 ## [Release Actividad Obligatoria N°1] - 2026-08-30
