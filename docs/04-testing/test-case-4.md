@@ -120,6 +120,7 @@ El hallazgo debe registrarse como bug para su revisión antes del merge a `devel
 **Rama evaluada:** `develop`  
 **URL evaluada:** `http://127.0.0.1:3000/index.html`  
 **Herramientas:** Playwright MCP + axe-core 4.10.3  
+**GitHub Issue:** [Issue #37](https://github.com/dantebiondi666-prog/tienda-online/issues/37)
 
 ## Ejecución
 

@@ -26,6 +26,13 @@ Los casos ejecutados fueron:
 
 ---
 
+## Índice de Test Cases
+
+- [TC1 — Compatibilidad Desktop](/docs/04-testing/test-case-1.md)
+- [TC2 — Responsive Design](/docs/04-testing/test-case-2.md)
+- [TC3 — Performance y tiempos de carga](/docs/04-testing/test-case-3.md)
+- [TC4 — Accesibilidad](/docs/04-testing/test-case-4.md)
+- [TC5 — HTML semántico y validación W3C](/docs/04-testing/test-case-5.md)
 # 2. Momento 1 — Pre-merge
 
 ## TC1 — Compatibilidad Desktop
@@ -34,7 +41,7 @@ Se realizaron pruebas de compatibilidad y visualización en los tamaños desktop
 
 La documentación detallada y sus evidencias se encuentran en:
 
-`docs/04-testing/test-case-1.md`
+- [TC1 — Compatibilidad Desktop](/docs/04-testing/test-case-1.md)
 
 > El detalle de este caso debe consultarse en su archivo individual.
 
@@ -281,18 +288,26 @@ La validación CSS no pudo completarse debido a respuestas HTTP 500 del servicio
 
 Durante el proceso de QA se registraron bugs relacionados con los hallazgos relevantes.
 
-Entre los issues documentados se encuentran:
+## Momento 1
 
-- **Issue #30:** problema responsive en la guía de talles.
-- **Issue #31:** contraste insuficiente detectado mediante axe-core.
+- [Issue #30 — Problema responsive en guía de talles](https://github.com/dantebiondi666-prog/tienda-online/issues/30)
+- [Issue #31 — Contraste insuficiente detectado mediante axe-core](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
 
-Ambos fueron sometidos a retesting después de las correcciones correspondientes y obtuvieron resultado PASS.
+Ambos issues fueron sometidos a retesting después de las correcciones correspondientes y obtuvieron resultado PASS.
 
-Durante el Momento 2 se detectaron nuevos fallos relacionados con la guía de talles y su región desplazable. Estos fueron informados al equipo, corregidos y sometidos nuevamente a pruebas.
+## Momento 2
 
-Los detalles completos de los retests se encuentran en:
+Durante el Momento 2 se detectaron dos nuevos fallos relacionados con la guía de talles y su accesibilidad:
 
-`docs/04-testing/retests.md`
+- [Issue #36 — Guía de talles genera overflow interno en viewports móviles](https://github.com/dantebiondi666-prog/tienda-online/issues/36)
+- [Issue #37 — Tabla de talles detectada como región desplazable no accesible por teclado](https://github.com/dantebiondi666-prog/tienda-online/issues/37)
+
+Los dos hallazgos fueron corregidos y posteriormente sometidos a retesting mediante Playwright MCP.
+
+Los resultados finales fueron
+
+- TC2 — Responsive Design: PASS después del retest.
+- TC4 — Accesibilidad: PASS después del retest.
 
 ---
 
@@ -309,9 +324,8 @@ La estructura utilizada separa:
 - `tc-3`
 - `tc-4`
 - `tc-5`
-- `retests`
 
-y dentro de los casos correspondientes se mantienen las evidencias de Momento 1, Momento 2 y retests.
+y dentro de los casos correspondientes se mantienen las evidencias de Momento 1 y Momento 2.
 
 ---
 

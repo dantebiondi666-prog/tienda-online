@@ -157,6 +157,21 @@ Los fallos de TC2 y TC4 fueron informados al equipo y sometidos posteriormente a
 
 ---
 
+## Issue de seguimiento — TC1
+
+La ejecución del TC1 durante ambos momentos del proceso de QA quedó registrada en el siguiente issue:
+
+**GitHub Issue:** [#42](https://github.com/dantebiondi666-prog/tienda-online/issues/42)
+
+El issue documenta las pruebas de compatibilidad desktop realizadas durante el Momento 1 sobre las ramas feature y su posterior ejecución durante el Momento 2 sobre `develop`.
+
+**Resultado Momento 1:** PASS  
+**Resultado Momento 2:** PASS con limitación de motores.
+
+Durante el Momento 2, Chromium/Chrome fue el motor disponible para la ejecución. Los tamaños correspondientes a Firefox, Safari y Edge fueron comprobados mediante Chromium, por lo que esta limitación quedó documentada y no se informaron esos navegadores como motores reales.
+
+---
+
 ## TC1 — Compatibilidad Desktop
 
 Se verificaron los tamaños:
@@ -290,10 +305,6 @@ Ambos fueron sometidos a retesting después de las correcciones correspondientes
 
 Durante el Momento 2 se detectaron nuevos fallos relacionados con la guía de talles y su región desplazable. Estos fueron informados al equipo, corregidos y sometidos nuevamente a pruebas.
 
-Los detalles completos de los retests se encuentran en:
-
-`docs/04-testing/retests.md`
-
 ---
 
 # 5. Evidencias
@@ -309,9 +320,8 @@ La estructura utilizada separa:
 - `tc-3`
 - `tc-4`
 - `tc-5`
-- `retests`
 
-y dentro de los casos correspondientes se mantienen las evidencias de Momento 1, Momento 2 y retests.
+y dentro de los casos correspondientes se mantienen las evidencias de Momento 1 y Momento 2.
 
 ---
 
