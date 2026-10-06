@@ -9,7 +9,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ### Added
 
 - [feature/coord-devops-update-figma-and-readme] [Primer Parcial] Coordinador/DevOps: mockup Bootstrap, README y plan.md - Spec del Primer Parcial, mockup con la migración a Bootstrap, actualización de README.md y plan.md (nombre Remer Us, sección 10.2 y criterios CA-15 a CA-17).
-PR: [#NN](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikoloogo (Coordinador / DevOps)
+PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikoloogo (Coordinador / DevOps)
 
   Issues:
   [#54](https://github.com/dantebiondi666-prog/tienda-online/issues/54)
