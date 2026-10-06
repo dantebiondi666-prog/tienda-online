@@ -321,7 +321,7 @@ La estructura utilizada separa:
 - `tc-4`
 - `tc-5`
 
-y dentro de los casos correspondientes se mantienen las evidencias de Momento 1, Momento 2 y retests.
+y dentro de los casos correspondientes se mantienen las evidencias de Momento 1 y Momento 2.
 
 ---
 

@@ -309,8 +309,6 @@ Los resultados finales fueron
 - TC2 — Responsive Design: PASS después del retest.
 - TC4 — Accesibilidad: PASS después del retest.
 
-Los detalles de los retests se encuentran documentados directamente en `test-case-2.md` y `test-case-4.md`.
-
 ---
 
 # 5. Evidencias
@@ -327,7 +325,7 @@ La estructura utilizada separa:
 - `tc-4`
 - `tc-5`
 
-y dentro de los casos correspondientes se mantienen las evidencias de Momento 1, Momento 2 y retests.
+y dentro de los casos correspondientes se mantienen las evidencias de Momento 1 y Momento 2.
 
 ---
 
