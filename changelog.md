@@ -6,20 +6,79 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Added
+
+---
+
+## [Release Actividad Obligatoria N°2] - 2026-09-27
 
 ### Added
+- [feature/coord-devops-update-figma-and-readme] docs: agregar sistema de diseño de Actividad N°2 (spec, mockup, README y plan)
+PR: [#25](https://github.com/dantebiondi666-prog/tienda-online/pull/25) - @zikoloogo (Coordinador / DevOps)
+
+  Issues:
+  [#24](https://github.com/dantebiondi666-prog/tienda-online/issues/24)
+
+- [feature/dev-frontend-css-add-styles]  [Actividad Obligatoria N°2] Frontend/CSS - estilos base y componentes - Se incorporaron los estilos base y componentes visuales de la tienda en `styles.css` y `components.css`. Se aplicó el diseño de Figma y se realizaron ajustes manuales de header, navegación, categorías y formulario.
+PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dantebiondi666-prog (Desarrollador Frontend)
+
+  Issues:
+  [#26](https://github.com/dantebiondi666-prog/tienda-online/issues/26)
+  [#27](https://github.com/dantebiondi666-prog/tienda-online/issues/27)
+
+- [feature/responsive-design-add-responsive-styles] [Actividad Obligatoria N°2] Responsive Design - Especialista en Responsive Design - Creación de `css/responsive.css` con diseño mobile-first (breakpoints en 600px y 1024px) para header, navegación, filtros, catálogo, guía de talles, formulario de contacto y footer. Se vinculó `responsive.css` en `index.html`. Sin overflow horizontal verificado en 390px, 820px y 1280px.
+PR: [#29](https://github.com/dantebiondi666-prog/tienda-online/pull/29) - @LucasFUces (Especialista en Responsive Design)
+
+Issues:
+  [#32](https://github.com/dantebiondi666-prog/tienda-online/issues/32)
+
+- [fix/tabla-talles-accesibilidad] Fix: corrige overflow de tabla de talles y accesibilidad de scroll (TC2 y TC4)
+PR: [#33](https://github.com/dantebiondi666-prog/tienda-online/pull/33) - @LucasFUces (Especialista en Responsive Design)
+Issues:
+  [#48](https://github.com/dantebiondi666-prog/tienda-online/issues/48)
+
+- [feature/doc-qa-tester-add-test-cases] **docs(qa): agregar test cases y documentación de QA** — Documentación y ejecución del proceso de QA de la Actividad Obligatoria N.º 2. Se realizaron 5 test cases con Playwright MCP para compatibilidad desktop, responsive design, performance, accesibilidad y HTML semántico/validación. Se documentaron Momento 1 y Momento 2, evidencias, Issues #30 y #31, retests y verificación final de las correcciones de TC2 y TC4.  
+  PR: [#34](https://github.com/dantebiondi666-prog/tienda-online/pull/34) - @juanmartinbritos7-cmd (Documentador / QA Tester)
+
+ Issues:
+ [#30](https://github.com/dantebiondi666-prog/tienda-online/issues/30)
+ [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
+ [#36](https://github.com/dantebiondi666-prog/tienda-online/issues/36)
+ [#37](https://github.com/dantebiondi666-prog/tienda-online/issues/37)
+ [#38](https://github.com/dantebiondi666-prog/tienda-online/issues/38)
+ [#42](https://github.com/dantebiondi666-prog/tienda-online/issues/42)
+ [#43](https://github.com/dantebiondi666-prog/tienda-online/issues/43)
+ [#44](https://github.com/dantebiondi666-prog/tienda-online/issues/44)
+
 ### Changed
 ### Fixed
-- [fix/decisions-add-checklist] Actualice sdd-decisions.md, faltaban dos checklists por quedar marcados.
-PR: [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17) - @zikoloogo (Coordinador / DevOps)
-- [fix/add-prompt-de-README] Actualizamos README.md y spec-ux.md, agregamos el prompt usado para generar README.md.
-PR: [#18](https://github.com/dantebiondi666-prog/tienda-online/pull/18) - @zikoloogo (Coordinador / DevOps)
-- [fix/prompt-fixes] Se agregaron las imágenes de los prompts y se actualizaron los archivos prompts-3.md, prompts-4.md, sdd-decisions.md, spec-ux.md, changelog.md.
-PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikoloogo (Coordinador / DevOps)
-- [fix/more-changes] Se enlazaron las imagenes de los prompts y nos echamos para atras con algunos cambios.
-PR: [#20](https://github.com/dantebiondi666-prog/tienda-online/pull/20) - @zikoloogo (Coordinador / DevOps)
-- [fix/pascalcase-fix] Se corrigieron los nombres de los archivos de imagenes prompts de 1 al 5 y sus enlaces en prompts.md.
-PR: [#21](https://github.com/dantebiondi666-prog/tienda-online/pull/21) - @zikoloogo (Coordinador / DevOps)
+
+- [feature/dev-frontend-css-add-styles]  Corrección de contraste WCAG AA detectada por QA.
+PR: [#28](https://github.com/dantebiondi666-prog/tienda-online/pull/28) - @dantebiondi666-prog (Desarrollador Frontend)
+
+  Issues:
+  [#31](https://github.com/dantebiondi666-prog/tienda-online/issues/31)
+
+  - [fix/actividad-obligatoria-2] Fix/actividad obligatoria 2 — Integra los ajustes finales de la tienda, las evidencias de QA y el cierre documental en la release.
+PR: [#41](https://github.com/dantebiondi666-prog/tienda-online/pull/41) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/test-case-issues] docs(qa): add issue traceability to test cases — Vincula TC1, TC3 y TC5 con sus issues y registra sus resultados y limitaciones de validación.
+PR: [#45](https://github.com/dantebiondi666-prog/tienda-online/pull/45) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/RC5] Update evidencia-integracion.md — Corrige los enlaces a las capturas de integración y agrega evidencia adicional.
+PR: [#46](https://github.com/dantebiondi666-prog/tienda-online/pull/46) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/changelog-fix] docs(changelog): record PRs 41, 45, and 46 — Agrega al changelog de la Actividad Obligatoria N.º 2 las entradas de las PR #41, #45 y #46.
+PR: [#47](https://github.com/dantebiondi666-prog/tienda-online/pull/47) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/changelog-tc4-fix] Update changelog and TC4 issue references — Corrige la trazabilidad de issues en el changelog y en la documentación de TC4.
+PR: [#49](https://github.com/dantebiondi666-prog/tienda-online/pull/49) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/RC21-RC22-changelog] docs(qa): actualización de changelog y referencias de issues de QA - Actualiza el changelog con la corrección de TC4, elimina la referencia obsoleta a retests.md y corrige el enlace al issue #37 en la documentación de TC4.
+PR: [#50](https://github.com/dantebiondi666-prog/tienda-online/pull/50) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/retest-gone] docs(qa): eliminar referencias redundantes de retests — Elimina referencias redundantes a retests y actualiza la documentación QA para reflejar la estructura actual de evidencias.
+PR: [#51](https://github.com/dantebiondi666-prog/tienda-online/pull/51) - @Zikoloogo (Coordinador / DevOps)
 
 ---
 
@@ -66,7 +125,19 @@ PR: [#21](https://github.com/dantebiondi666-prog/tienda-online/pull/21) - @zikol
 - [release/actividad-obligatoria-1] changelog update, emprolijamiento del proyecto borrando .gitkeeps pendientes.  
   PR: [#16](https://github.com/dantebiondi666-prog/tienda-online/pull/16) - @dantebiondi666-prog (Coordinador / DevOps)
 
-
+### Fixed
+- [fix/decisions-add-checklist] Actualice sdd-decisions.md, faltaban dos checklists por quedar marcados.
+PR: [#17](https://github.com/dantebiondi666-prog/tienda-online/pull/17) - @zikoloogo (Coordinador / DevOps)
+- [fix/add-prompt-de-README] Actualizamos README.md y spec-ux.md, agregamos el prompt usado para generar README.md.
+PR: [#18](https://github.com/dantebiondi666-prog/tienda-online/pull/18) - @zikoloogo (Coordinador / DevOps)
+- [fix/prompt-fixes] Se agregaron las imágenes de los prompts y se actualizaron los archivos prompts-3.md, prompts-4.md, sdd-decisions.md, spec-ux.md, changelog.md.
+PR: [#19](https://github.com/dantebiondi666-prog/tienda-online/pull/19) - @zikoloogo (Coordinador / DevOps)
+- [fix/more-changes] Se enlazaron las imagenes de los prompts y nos echamos para atras con algunos cambios.
+PR: [#20](https://github.com/dantebiondi666-prog/tienda-online/pull/20) - @zikoloogo (Coordinador / DevOps)
+- [fix/pascalcase-fix] Se corrigieron los nombres de los archivos de imagenes prompts de 1 al 5 y sus enlaces en prompts.md.
+PR: [#21](https://github.com/dantebiondi666-prog/tienda-online/pull/21) - @zikoloogo (Coordinador / DevOps)
+- [backport/release-actividad-obligatoria-1] Sincronización de develop con las correcciones de la Actividad N°1 aprobadas y mergeadas a master.
+PR: [#23](https://github.com/dantebiondi666-prog/tienda-online/pull/23) - @zikoloogo (Coordinador / DevOps)
 
 ---
 

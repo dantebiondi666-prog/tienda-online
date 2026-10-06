@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+    <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tienda Online | Ropa moderna</title>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="css/components.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
   </head>
   <body>
     <header>
+     <div class="header-top">    
       <div>
         <a href="#inicio" aria-label="Ir al inicio">Tienda Online</a>
       </div>
@@ -15,13 +19,13 @@
         <label for="busqueda" class="visually-hidden">Buscar productos</label>
         <input id="busqueda" name="busqueda" type="search" placeholder="Buscar..." />
       </form>
-
+      </div>
       <nav aria-label="Navegación principal">
         <ul>
-          <li><a href="#mujer">Mujer</a></li>
-          <li><a href="#hombre">Hombre</a></li>
-          <li><a href="#ninos">Niños</a></li>
-          <li><a href="#todos">Ver todo</a></li>
+          <li><a href="#catalogo">Mujer</a></li>
+          <li><a href="#catalogo">Hombre</a></li>
+          <li><a href="#catalogo">Niños</a></li>
+          <li><a href="#catalogo">Ver todo</a></li>
         </ul>
       </nav>
     </header>
@@ -47,7 +51,6 @@
           <li><a href="#remeras">Remeras</a></li>
           <li><a href="#pantalones">Pantalones</a></li>
           <li><a href="#camperas">Camperas</a></li>
-          <li><a href="#accesorios">Accesorios</a></li>
         </ul>
       </section>
 
@@ -82,13 +85,13 @@
           </form>
         </aside>
 
-        <section aria-labelledby="catalogo-titulo">
+        <section id="catalogo" aria-labelledby="catalogo-titulo">
           <h2 id="catalogo-titulo">Catálogo de productos</h2>
 
-          <article aria-labelledby="remera-titulo">
+          <article id="remeras" aria-labelledby="remera-titulo">
             <figure>
               <img
-                src="https://i5.walmartimages.com/asr/495e5368-2786-42de-b027-b88c06cc4070.a90013cdfb29606a028f413f885354e0.jpeg?odnHeight=612&odnWidth=612&odnBg=FFFFFF"
+                src="assets/img/remera-blanca.jpg"
                 alt="Remera de algodón en color blanco con cuello redondo y corte casual"
                 width="300"
                 height="300"
@@ -100,10 +103,10 @@
             <p>Talles disponibles: S / M / L</p>
           </article>
 
-          <article aria-labelledby="pantalon-titulo">
+          <article id="pantalones" aria-labelledby="pantalon-titulo">
             <figure>
               <img
-                src="https://gw.alicdn.com/imgextra/O1CN01aVELO81MGuSJWwSYm_!!6000000001408-0-yinhe.jpg_540x540.jpg"
+                src="assets/img/pantalon-azul.webp"
                 alt="Pantalón de vestir de color azul oscuro con silueta recta"
                 width="300"
                 height="300"
@@ -115,10 +118,10 @@
             <p>Talles disponibles: 38 / 40 / 42</p>
           </article>
 
-          <article aria-labelledby="campera-titulo">
+          <article id="camperas" aria-labelledby="campera-titulo">
             <figure>
               <img
-                src="https://www-cdn.solodeportes.com.ar/media/catalog/product/c/a/campera-de-abrigo-con-capucha-nylon-mujer-beige-722021217411003-1.jpg?width=525&height=525&store=solourbano&image-type=image"
+                src="assets/img/campera-beige.jpg"
                 alt="Campera de abrigo en color beige con cierre frontal y estilo urbano"
                 width="300"
                 height="300"
@@ -132,8 +135,9 @@
         </section>
       </div>
 
-      <section aria-labelledby="guia-talles">
+           <section aria-labelledby="guia-talles">
         <h2 id="guia-talles">Guía de talles</h2>
+        <div class="tabla-talles-wrapper" tabindex="0" role="region" aria-label="Tabla de guía de talles, desplazable horizontalmente">
         <table>
           <thead>
             <tr>
@@ -170,6 +174,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
       </section>
 
       <section aria-labelledby="contacto-titulo">
@@ -203,7 +208,7 @@
       <nav aria-label="Enlaces del pie de página">
         <ul>
           <li><a href="#inicio">Inicio</a></li>
-          <li><a href="#catalogo-titulo">Catálogo</a></li>
+          <li><a href="#catalogo">Catálogo</a></li>
           <li><a href="#contacto-titulo">Contacto</a></li>
         </ul>
       </nav>
