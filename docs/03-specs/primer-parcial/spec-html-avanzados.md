@@ -286,13 +286,13 @@ Las correcciones deberán quedar documentadas en `[Fixed]` dentro de
 
 ### Integración y entrega
 
-- [ ] La Issue principal queda vinculada a la Pull Request.
-- [ ] Se crea una Pull Request desde
+- [x] La Issue principal queda vinculada a la Pull Request.
+- [x] Se crea una Pull Request desde
       `feature/dev-comp-html-avanzados-add-components` hacia `develop`.
-- [ ] La PR es revisada y aprobada por otro integrante antes del merge.
-- [ ] `changelog.md` contiene la entrada correspondiente con link a la PR,
+- [x] La PR es revisada y aprobada por otro integrante antes del merge.
+- [x] `changelog.md` contiene la entrada correspondiente con link a la PR,
       Issues relacionadas y resumen del aporte.
-- [ ] Las Issues correspondientes se cierran después del merge.
+- [x] Las Issues correspondientes se cierran después del merge.
 
 ---
 
