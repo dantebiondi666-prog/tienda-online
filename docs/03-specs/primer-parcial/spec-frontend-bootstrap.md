@@ -21,8 +21,9 @@ La implementación debe aprovechar los componentes, utilidades y sistema de gril
 
 Las tareas correspondientes al rol Frontend / Bootstrap incluyen:
 
-- Integrar Bootstrap mediante CDN jsDelivr.
-- Mantener los estilos existentes del proyecto.
+- Integrar Bootstrap 5 mediante CDN jsDelivr.
+- Incorporar Bootstrap Bundle JS al final del `body` para permitir el funcionamiento de los componentes JavaScript de Bootstrap.
+- Mantener `css/styles.css`, `css/components.css` y `css/responsive.css` sin eliminarlos ni reemplazarlos.
 - Crear `css/bootstrap-overrides.css` para personalizaciones específicas.
 - Migrar la estructura necesaria de `index.html` al sistema de grillas de Bootstrap.
 - Utilizar componentes y utilidades Bootstrap cuando corresponda.
@@ -33,25 +34,29 @@ Las tareas correspondientes al rol Frontend / Bootstrap incluyen:
 - Documentar y ejecutar el Test Case 6.
 - Registrar mediante Issues los problemas detectados durante las pruebas.
 - Documentar las correcciones realizadas.
-
+- Mantener compatibilidad con los componentes Bootstrap avanzados desarrollados por el equipo.
+- Dar seguimiento a la implementación mediante GitHub Issue #58.
+  
 ---
 
 ## 4. Archivos involucrados
 
-La implementación podrá requerir modificaciones en:
+La implementación requerirá principalmente modificaciones en:
 
 - `index.html`
-- `css/styles.css`
-- `css/components.css`
-- `css/responsive.css`
 
 También se creará:
 
 - `css/bootstrap-overrides.css`
 - `docs/04-testing/test-case-6.md`
 
-Los estilos existentes no serán eliminados. Bootstrap será integrado como complemento de la implementación actual.
+Los archivos existentes:
 
+- `css/styles.css`
+- `css/components.css`
+- `css/responsive.css`
+
+se mantendrán como parte de la implementación previa. Las personalizaciones específicas necesarias para Bootstrap se centralizarán en `css/bootstrap-overrides.css`.
 ---
 
 ## 5. Plan de implementación
@@ -66,7 +71,7 @@ Los estilos existentes no serán eliminados. Bootstrap será integrado como comp
 ### Etapa 2 — Integración de Bootstrap
 
 1. Incorporar Bootstrap mediante CDN jsDelivr.
-2. Incorporar los recursos necesarios de Bootstrap.
+2. Incorporar Bootstrap Bundle JS al final del `body`.
 3. Crear `bootstrap-overrides.css`.
 4. Verificar que la integración inicial no genere regresiones visuales.
 
@@ -128,6 +133,10 @@ La tarea se considerará completada cuando:
 - [ ] Los problemas detectados durante QA sean registrados y corregidos.
 - [ ] Se actualice `changelog.md`.
 - [ ] La implementación sea integrada mediante Pull Request hacia `develop`.
+- [ ] Bootstrap Bundle JS se encuentre integrado al final del `body`.
+- [ ] `css/styles.css`, `css/components.css` y `css/responsive.css` se mantengan sin ser reemplazados.
+- [ ] La integración sea compatible con los componentes Bootstrap avanzados desarrollados por el equipo.
+- [ ] La implementación se encuentre vinculada a la GitHub Issue #58.
 
 ---
 
