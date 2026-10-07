@@ -3,7 +3,7 @@
     <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tienda Online | Ropa moderna</title>
+    <title>Remer Us | Ropa moderna</title>
 
     <!-- Bootstrap 5 -->
     <link
@@ -21,13 +21,29 @@
     <header>
      <div class="header-top">    
       <div>
-        <a href="#inicio" aria-label="Ir al inicio">Tienda Online</a>
+        <a href="#inicio" aria-label="Ir al inicio">Remer Us</a>
       </div>
 
       <form action="#" method="get" aria-label="Buscar prendas">
-        <label for="busqueda" class="visually-hidden">Buscar productos</label>
-        <input id="busqueda" name="busqueda" type="search" placeholder="Buscar..." />
-      </form>
+  <label for="busqueda" class="visually-hidden">Buscar productos</label>
+
+  <input
+    id="busqueda"
+    name="busqueda"
+    type="search"
+    list="sugerencias-busqueda"
+    placeholder="Buscar..."
+  />
+
+  <datalist id="sugerencias-busqueda">
+    <option value="Remera"></option>
+    <option value="Pantalón"></option>
+    <option value="Campera"></option>
+    <option value="Mujer"></option>
+    <option value="Hombre"></option>
+    <option value="Niños"></option>
+  </datalist>
+</form>
       </div>
       <nav aria-label="Navegación principal">
         <ul>
@@ -43,7 +59,7 @@
       <section aria-labelledby="titulo-tienda">
         <h1 id="titulo-tienda">Ropa cómoda para cada momento del día</h1>
         <p>
-          En Tienda Online encontrarás prendas esenciales para trabajo, descanso y
+          En Remer Us encontrarás prendas esenciales para trabajo, descanso y
           actividades diarias, con una selección pensada para combinar estilo,
           versatilidad y confort.
         </p>
@@ -188,6 +204,34 @@
         </div>
       </section>
 
+      <section aria-labelledby="preguntas-frecuentes-titulo">
+  <h2 id="preguntas-frecuentes-titulo">Preguntas frecuentes</h2>
+
+  <details>
+    <summary>¿Cómo se realizan los envíos?</summary>
+    <p>
+      Los envíos se coordinan según la ubicación del cliente y la disponibilidad
+      de los productos seleccionados.
+    </p>
+  </details>
+
+  <details>
+    <summary>¿Puedo realizar cambios?</summary>
+    <p>
+      Los cambios pueden solicitarse siempre que la prenda se encuentre en buenas
+      condiciones y conserve sus etiquetas.
+    </p>
+  </details>
+
+  <details>
+    <summary>¿Cómo elijo el talle correcto?</summary>
+    <p>
+      Podés consultar la guía de talles disponible en esta página antes de elegir
+      una prenda.
+    </p>
+  </details>
+</section>
+
       <section aria-labelledby="contacto-titulo">
         <h2 id="contacto-titulo">Contacto</h2>
         <p>Si querés consultar por stock, envíos o una prenda en especial, contáctanos.</p>
@@ -214,7 +258,7 @@
     </main>
 
     <footer>
-      <p>© 2026 Tienda Online</p>
+      <p>© 2026 Remer Us</p>
       <p>Ropa para todos los días, con atención a la comodidad y la elección inteligente.</p>
       <nav aria-label="Enlaces del pie de página">
         <ul>
