@@ -264,9 +264,6 @@ main > section[aria-labelledby='guia-talles'] td {
   color: var(--color-charcoal);
 }
 
-main > section[aria-labelledby='guia-talles'] td {
-  color: var(--color-charcoal);
-}
 
 /* Preguntas frecuentes */
 
@@ -295,10 +292,6 @@ main > section[aria-labelledby='preguntas-frecuentes-titulo'] details p {
   color: var(--color-charcoal);
 }
 
-main > section[aria-labelledby='contacto-titulo'] > p {
-  margin-bottom: var(--space-3);
-  color: var(--color-charcoal);
-}
 
 main > section[aria-labelledby='contacto-titulo'] > p {
   margin-bottom: var(--space-3);
