@@ -1,6 +1,6 @@
-# Tienda Online
+# Remer Us
 
-Proyecto de e-commerce de ropa, desarrollado como parte de la Actividad Obligatoria N°1 de Programación Web I.
+Proyecto de e-commerce de ropa (repositorio `tienda-online`), desarrollado como parte de las actividades de Programación Web I.
 
 ## Objetivos del proyecto
 
@@ -9,10 +9,12 @@ Ofrecer una experiencia simple para consultar prendas, comparar sus característ
 ## Tecnologías utilizadas
 
 - HTML5
-- CSS (a incorporar en próximas entregas)
-- JavaScript (a incorporar en próximas entregas)
+- CSS (sistema de diseño y estilos propios desde la Actividad Obligatoria N°2)
+- Bootstrap 5 (grilla de 12 columnas y componentes, vía CDN jsDelivr)
+- JavaScript (a incorporar en próximas entregas; el bundle de Bootstrap aporta el comportamiento del carrusel y el modal)
 - Git y GitHub (control de versiones y flujo colaborativo)
-- Figma (diseño de mockups)
+- GitHub Projects (tablero Kanban del equipo)
+- Figma / FigJam (diseño de mockups)
 - GitHub Copilot (asistencia de IA en modo Agente)
 
 ## Funcionalidades previstas
@@ -26,16 +28,21 @@ Ofrecer una experiencia simple para consultar prendas, comparar sus característ
 
 ## Maqueta de diseño web
 
-El mockup de la página principal fue diseñado en Figma, siguiendo lineamientos de diseño limpio, paleta clara y reducida, y jerarquía visual clara entre navegación, catálogo y acciones.
+El mockup de la página principal fue diseñado en Figma, siguiendo lineamientos de diseño limpio, paleta clara y reducida, y jerarquía visual clara entre navegación, catálogo y acciones. En el Primer Parcial se actualizó para reflejar la migración a Bootstrap: grilla de 12 columnas, navbar, carrusel en las imágenes de las prendas, modal de detalle y barra lateral colapsable de filtros.
 
 ## Documentación
 
-- Descripción del proyecto: e-commerce de ropa en HTML5, primera entrega centrada en la estructura semántica.
-- Objetivo del entregable actual: construir la estructura base del sitio (index.html) y su documentación asociada (README, mockup, specs).
-- Mockup: [docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png](docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
+- Descripción del proyecto: e-commerce de ropa que evoluciona por entregas: estructura semántica en HTML5 (Actividad Obligatoria N°1), estilos CSS, diseño responsive y QA automatizado (Actividad Obligatoria N°2) y migración a Bootstrap con componentes avanzados (Primer Parcial).
+- Objetivo de la Actividad Obligatoria N°1: construir la estructura base del sitio (index.html) y su documentación asociada (README, mockup, specs).
+- Objetivo de la Actividad Obligatoria N°2: incorporar estilos visuales mediante CSS, diseño responsive y un proceso de QA asistido por herramientas de automatización.
+- Objetivo del entregable actual (Primer Parcial): migrar el sitio a Bootstrap (grilla de 12 columnas y componentes avanzados) e incorporar componentes HTML avanzados.
+- Mockup Actividad N°1: [docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png](docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
 - Mockup Actividad N°2 (con sistema de diseño aplicado): [docs/01-mockup/actividad-obligatoria-2/diseño-con-estilos.png](docs/01-mockup/actividad-obligatoria-2/diseño-con-estilos.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
+- Mockup Primer Parcial (Bootstrap): [docs/01-mockup/disenio-bootstrap.png](docs/01-mockup/disenio-bootstrap.png) — [versión online en FigJam](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=0-1)
+- Índice de testing: [docs/04-testing/testing-doc.md](docs/04-testing/testing-doc.md)
+- Specs: [Actividad N°1](docs/03-specs/actividad-obligatoria-1/) · [Actividad N°2](docs/03-specs/actividad-obligatoria-2/) · [Primer Parcial](docs/03-specs/primer-parcial/)
 - Prompts de IA utilizados: [docs/02-prompts/prompts.md](docs/02-prompts/prompts.md)
-- Redacción del README: generado con GitHub Copilot (modo Agente) a partir de un prompt específico y revisado manualmente por el equipo — ver la consulta documentada en:[docs\03-specs\actividad-obligatoria-1\spec-ux.md](/docs/03-specs/actividad-obligatoria-1/spec-ux.md)
+- Redacción del README: generado con GitHub Copilot (modo Agente) a partir de un prompt específico y revisado manualmente por el equipo — ver la consulta documentada en: [docs/03-specs/actividad-obligatoria-1/spec-ux.md](docs/03-specs/actividad-obligatoria-1/spec-ux.md)
 
 ## Integrantes
 
