@@ -264,6 +264,42 @@ main > section[aria-labelledby='guia-talles'] td {
   color: var(--color-charcoal);
 }
 
+main > section[aria-labelledby='guia-talles'] td {
+  color: var(--color-charcoal);
+}
+
+/* Preguntas frecuentes */
+
+main > section[aria-labelledby='preguntas-frecuentes-titulo'] details {
+  padding: var(--space-2) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+main > section[aria-labelledby='preguntas-frecuentes-titulo'] details:first-of-type {
+  border-top: 1px solid var(--color-border);
+}
+
+main > section[aria-labelledby='preguntas-frecuentes-titulo'] summary {
+  color: var(--color-charcoal);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+main > section[aria-labelledby='preguntas-frecuentes-titulo'] summary:hover,
+main > section[aria-labelledby='preguntas-frecuentes-titulo'] summary:focus-visible {
+  color: var(--color-sage);
+}
+
+main > section[aria-labelledby='preguntas-frecuentes-titulo'] details p {
+  margin-top: var(--space-2);
+  color: var(--color-charcoal);
+}
+
+main > section[aria-labelledby='contacto-titulo'] > p {
+  margin-bottom: var(--space-3);
+  color: var(--color-charcoal);
+}
+
 main > section[aria-labelledby='contacto-titulo'] > p {
   margin-bottom: var(--space-3);
   color: var(--color-charcoal);

@@ -232,56 +232,57 @@ Las correcciones deberán quedar documentadas en `[Fixed]` dentro de
 
 ### Planificación
 
-- [ ] `spec-html-avanzados.md` existe en
+- [x] `spec-html-avanzados.md` existe en
       `docs/03-specs/primer-parcial/`.
-- [ ] La spec fue commiteada antes de realizar cualquier implementación de los
+- [x] La spec fue commiteada antes de realizar cualquier implementación de los
       componentes HTML avanzados.
-- [ ] El desarrollo se realiza desde
+- [x] El desarrollo se realiza desde
       `feature/dev-comp-html-avanzados-add-components`.
-- [ ] Existe una Issue principal asociada a la tarea.
+- [x] Existe una Issue principal asociada a la tarea.
 
 ### Componentes HTML avanzados
 
-- [ ] Se implementan al menos dos componentes HTML avanzados.
-- [ ] Existe una sección funcional basada en `<details>` y `<summary>`.
-- [ ] El contenido de `<details>` y `<summary>` es pertinente a la Tienda
+- [x] Se implementan al menos dos componentes HTML avanzados.
+- [x] Existe una sección funcional basada en `<details>` y `<summary>`.
+- [x] El contenido de `<details>` y `<summary>` es pertinente a la Tienda
       Online.
-- [ ] Existe un `<datalist>` correctamente asociado al buscador existente.
-- [ ] Las opciones del `datalist` corresponden con productos o categorías
+- [x] Existe un `<datalist>` correctamente asociado al buscador existente.
+- [x] Las opciones del `datalist` corresponden con productos o categorías
       reales del proyecto.
-- [ ] Los componentes funcionan mediante comportamiento HTML nativo.
-- [ ] No se agrega JavaScript personalizado para simular funcionalidades fuera
+- [x] Los componentes funcionan mediante comportamiento HTML nativo.
+- [x] No se agrega JavaScript personalizado para simular funcionalidades fuera
       del alcance de esta tarea.
-- [ ] La estructura HTML se mantiene semántica y accesible.
+- [x] La estructura HTML se mantiene semántica y accesible.
 
 ### Integración visual y responsive
 
-- [ ] Los nuevos componentes mantienen coherencia con el sistema visual de
+- [x] Los nuevos componentes mantienen coherencia con el sistema visual de
       `plan.md`.
-- [ ] Los componentes se integran correctamente con Bootstrap una vez
-      incorporada la migración.
-- [ ] Las customizaciones necesarias respetan
-      `css/bootstrap-overrides.css` cuando dicho archivo se encuentre
-      disponible.
-- [ ] Los estilos existentes no se rompen por la incorporación de los nuevos
+- [x] Los componentes se integran correctamente con Bootstrap.
+- [x] La integración respeta `css/bootstrap-overrides.css` sin requerir
+      modificaciones adicionales sobre dicho archivo.
+- [x] Se incorporaron los estilos necesarios en `css/components.css` para
+      mantener la coherencia visual de la sección de preguntas frecuentes.
+- [x] Los estilos existentes no se rompen por la incorporación de los nuevos
       componentes.
-- [ ] Los componentes funcionan correctamente en mobile.
-- [ ] Los componentes funcionan correctamente en tablet.
-- [ ] Los componentes funcionan correctamente en desktop.
-- [ ] No existe overflow horizontal provocado por los nuevos componentes.
+- [x] Los componentes funcionan correctamente en mobile.
+- [x] Los componentes funcionan correctamente en tablet.
+- [x] Los componentes funcionan correctamente en desktop.
+- [x] No existe overflow horizontal provocado por los nuevos componentes.
 
 ### Testing
 
-- [ ] `docs/04-testing/test-case-9.md` documenta las pruebas de
+- [x] `docs/04-testing/test-case-9.md` documenta las pruebas de
       `<details>/<summary>`.
-- [ ] `docs/04-testing/test-case-10.md` documenta las pruebas de `<datalist>`.
-- [ ] Ambos componentes fueron probados con Playwright MCP.
-- [ ] Se probaron iPhone 14 Pro, Samsung Galaxy S23 e iPad Air.
-- [ ] Se realizó también una prueba en vista desktop.
-- [ ] Los test cases contienen la evidencia solicitada por la consigna.
-- [ ] Los hallazgos relevantes fueron registrados mediante GitHub MCP.
-- [ ] Los bugs encontrados fueron corregidos mediante ramas `fix/` contra
-      `develop`.
+- [x] `docs/04-testing/test-case-10.md` documenta las pruebas de `<datalist>`.
+- [x] Ambos componentes fueron probados con Playwright MCP.
+- [x] Se probaron iPhone 14 Pro, Samsung Galaxy S23 e iPad Air.
+- [x] Se realizó también una prueba en vista desktop.
+- [x] Los test cases contienen la evidencia solicitada por la consigna.
+- [x] No se detectaron hallazgos relevantes que requirieran la creación de
+      Issues de tipo bug mediante GitHub MCP.
+- [x] No fue necesario crear ramas `fix/` debido a que los tests finales no
+      detectaron bugs que requirieran corrección.
 
 ### Integración y entrega
 
@@ -295,34 +296,303 @@ Las correcciones deberán quedar documentadas en `[Fixed]` dentro de
 
 ---
 
-## 5. Evidencia a completar al cierre
-
-> Esta sección se completará después de realizar la implementación y las
-> pruebas. No deben registrarse resultados, hallazgos o correcciones que
-> todavía no hayan ocurrido.
+## 5. Evidencia al cierre
 
 ### Herramientas utilizadas
 
 - **Entorno:** Visual Studio Code.
-- **Implementación / asistencia:** [Completar al cierre]
-- **Testing:** Playwright MCP.
-- **Gestión de bugs:** GitHub MCP.
-- **Modelo / herramienta de IA:** [Completar al cierre]
+- **Implementación / asistencia:** ChatGPT.
+- **Testing:** Playwright MCP desde GitHub Copilot Agent Mode.
+- **Gestión de bugs:** GitHub MCP desde GitHub Copilot Agent Mode.
+- **Modelo / herramienta de IA:** ChatGPT y GitHub Copilot.
 
-### Contexto proporcionado
+GitHub MCP fue configurado y verificado antes de comenzar los tests. Durante
+los test cases no fue necesario utilizarlo para crear Issues de tipo bug debido
+a que no se detectaron errores relevantes en los componentes implementados.
 
-- `docs/03-specs/primer-parcial/spec-html-avanzados.md`
-- `plan.md`
-- `index.html`
-- `css/styles.css`
-- `css/components.css`
-- `css/responsive.css`
-- `css/bootstrap-overrides.css`, una vez disponible
-- mockup actualizado de Bootstrap, una vez disponible
-- consigna del Primer Parcial
+### Contexto utilizado
 
-### Prompt exacto utilizado
+Para realizar la implementación y verificar su integración se utilizaron como
+referencia:
+
+- `docs/03-specs/primer-parcial/spec-html-avanzados.md`;
+- `plan.md`;
+- `index.html`;
+- `css/styles.css`;
+- `css/components.css`;
+- `css/responsive.css`;
+- `css/bootstrap-overrides.css`;
+- la integración de Bootstrap realizada previamente por el equipo;
+- la consigna correspondiente al Primer Parcial.
+
+La implementación se realizó de forma incremental con asistencia de ChatGPT.
+Los prompts formales utilizados para la validación de los componentes fueron
+ejecutados desde GitHub Copilot Agent Mode utilizando Playwright MCP.
+
+### Prompt exacto — Test Case 9
 
 ```text
-[Completar al momento de realizar la implementación y conservar exactamente
-el prompt utilizado.]
+Usá Playwright MCP para ejecutar el Test Case 9 sobre
+http://localhost:3000.
+
+El objetivo es validar la implementación del componente HTML avanzado
+<details> + <summary> de la sección "Preguntas frecuentes".
+
+No modifiques ningún archivo del proyecto.
+No crees Issues en GitHub todavía.
+Si encontrás un bug, informámelo primero y esperá mi confirmación antes de
+crear cualquier Issue.
+
+Probá los siguientes viewports:
+
+- Desktop: 1920x1080
+- iPad Air: 820x1180
+- iPhone 14 Pro: 390x844
+- Samsung Galaxy S23: 412x915
+
+En cada viewport verificá:
+
+1. Que la sección "Preguntas frecuentes" se renderice correctamente.
+2. Que existan los 3 elementos <details> y sus 3 <summary>.
+3. Que cada <summary> sea visible y legible.
+4. Que cada <details> pueda abrirse y cerrarse correctamente.
+5. Que al abrirlo aparezca su contenido correspondiente.
+6. Que el componente pueda operarse mediante teclado:
+   - navegación con Tab;
+   - apertura/cierre con Enter o Space cuando corresponda.
+7. Que no haya elementos cortados, superpuestos o fuera de pantalla.
+8. Que no exista overflow horizontal global.
+   Verificá comparando document.documentElement.scrollWidth con
+   document.documentElement.clientWidth.
+9. Que la sección mantenga una presentación coherente con el resto del sitio
+   y con la integración actual de Bootstrap.
+10. Registrá cualquier error de consola relevante para este componente.
+
+No consideres el 404 de favicon.ico como fallo del Test Case, ya que no afecta
+la funcionalidad evaluada.
+
+Al finalizar entregame:
+
+- resultado por viewport: PASS o FAIL;
+- detalle breve de cada comprobación;
+- cualquier diferencia encontrada entre viewports;
+- bugs o hallazgos relevantes;
+- resultado general del TC9.
+
+No modifiques código ni documentación.
+```
+
+### Resultado obtenido — Test Case 9
+
+El Test Case 9 obtuvo inicialmente resultado **PASS** en los cuatro viewports
+evaluados.
+
+Se verificó que:
+
+- existen tres elementos `<details>` con sus correspondientes `<summary>`;
+- todos pueden abrirse y cerrarse mediante su comportamiento HTML nativo;
+- los componentes pueden utilizarse mediante teclado;
+- los textos se muestran correctamente al expandir cada elemento;
+- no existen elementos cortados o superpuestos;
+- no se detecta overflow horizontal;
+- la sección mantiene una presentación coherente con el resto del sitio.
+
+Los resultados fueron documentados en:
+
+`docs/04-testing/test-case-9.md`
+
+con las capturas correspondientes dentro de:
+
+`docs/04-testing/capturas/tc-9/`
+
+### Ajuste visual y retest del Test Case 9
+
+Luego del primer test se incorporaron estilos específicos en
+`css/components.css` para mejorar la integración visual de la sección de
+preguntas frecuentes.
+
+Se agregaron:
+
+- separación mediante bordes entre los elementos `<details>`;
+- espaciado interno;
+- color y peso tipográfico para `<summary>`;
+- `cursor: pointer`;
+- estado visual para `hover` y `focus-visible`;
+- separación y color para el contenido desplegado.
+
+Después de esta modificación se realizó un retest con Playwright MCP.
+
+En una primera ejecución del retest se informó un `FAIL` porque se evaluaron
+propiedades como `background-color`, `border-radius`, `padding` y `display` del
+elemento `<summary>`, aunque esas propiedades no habían sido modificadas por la
+implementación.
+
+Se revisó el criterio de prueba y se ejecutó nuevamente validando únicamente
+los estilos realmente declarados en `components.css`.
+
+El retest final obtuvo resultado **PASS** en:
+
+- Desktop 1920x1080;
+- iPad Air 820x1180;
+- iPhone 14 Pro 390x844;
+- Samsung Galaxy S23 412x915.
+
+Se confirmó además que el comportamiento nativo de `<summary>` se mantiene,
+incluyendo su `display: list-item`.
+
+No se detectó ningún bug en la implementación.
+
+### Prompt exacto — Test Case 10
+
+```text
+Usá Playwright MCP para ejecutar el Test Case 10 sobre
+http://localhost:3000.
+
+El objetivo es validar la implementación del componente HTML avanzado
+<datalist> asociado al buscador principal de la tienda.
+
+No modifiques ningún archivo del proyecto.
+No crees Issues en GitHub todavía.
+Si encontrás un bug, informámelo primero y esperá mi confirmación antes de
+crear cualquier Issue.
+
+Probá los siguientes viewports:
+
+- Desktop: 1920x1080
+- iPad Air: 820x1180
+- iPhone 14 Pro: 390x844
+- Samsung Galaxy S23: 412x915
+
+En cada viewport verificá:
+
+1. Que exista el input de búsqueda con id="busqueda".
+2. Que el input mantenga type="search".
+3. Que el input tenga el atributo:
+   list="sugerencias-busqueda".
+4. Que exista un <datalist> con id="sugerencias-busqueda".
+5. Que el datalist contenga exactamente estas opciones:
+   - Remera
+   - Pantalón
+   - Campera
+   - Mujer
+   - Hombre
+   - Niños
+6. Que sea posible escribir normalmente dentro del buscador.
+7. Que el campo permita escribir también valores que no estén incluidos
+   en las sugerencias del datalist.
+8. Que la asociación entre el input y el datalist sea correcta.
+9. Que el label del buscador siga asociado correctamente al input y sea
+   accesible.
+10. Que la incorporación del datalist no altere el diseño del header.
+11. Que no haya elementos cortados, superpuestos o fuera de pantalla.
+12. Que no exista overflow horizontal global.
+    Verificá comparando document.documentElement.scrollWidth con
+    document.documentElement.clientWidth.
+13. Que el buscador continúe siendo usable mediante teclado.
+14. Registrá cualquier error de consola relevante para este componente.
+
+Tené en cuenta que la interfaz visual de sugerencias de <datalist> es
+controlada de forma nativa por el navegador. No consideres un fallo que
+el desplegable tenga una apariencia o posición diferente según el navegador,
+siempre que la asociación input-datalist y las opciones funcionen correctamente.
+
+No consideres el 404 de favicon.ico como fallo del Test Case, ya que no está
+relacionado con el componente evaluado.
+
+Al finalizar entregame:
+
+- resultado por viewport: PASS o FAIL;
+- cantidad y valores de las opciones encontradas;
+- confirmación de la asociación entre el input y el datalist;
+- resultado de escritura de un valor incluido en las sugerencias;
+- resultado de escritura de un valor libre que no esté en las sugerencias;
+- resultado de accesibilidad básica mediante teclado;
+- valores de scrollWidth y clientWidth por viewport;
+- cualquier diferencia encontrada entre viewports;
+- bugs o hallazgos relevantes;
+- resultado general del TC10.
+
+No modifiques código ni documentación.
+```
+
+### Resultado obtenido — Test Case 10
+
+El Test Case 10 obtuvo resultado **PASS** en los cuatro viewports evaluados.
+
+Se verificó que:
+
+- existe el input `#busqueda` y mantiene `type="search"`;
+- el atributo `list="sugerencias-busqueda"` se encuentra correctamente
+  configurado;
+- existe el `<datalist id="sugerencias-busqueda">`;
+- se encuentran las seis opciones esperadas: `Remera`, `Pantalón`, `Campera`,
+  `Mujer`, `Hombre` y `Niños`;
+- el usuario puede ingresar tanto valores sugeridos como texto libre;
+- el `<label>` permanece correctamente asociado al buscador;
+- el campo puede utilizarse mediante teclado;
+- la incorporación del componente no altera el layout del header;
+- no existe overflow horizontal en ninguno de los viewports evaluados.
+
+Los resultados fueron documentados en:
+
+`docs/04-testing/test-case-10.md`
+
+con sus capturas dentro de:
+
+`docs/04-testing/capturas/tc-10/`
+
+### Ajustes manuales realizados
+
+La estructura de los componentes se incorporó directamente en `index.html`,
+manteniendo el comportamiento nativo de HTML y sin agregar JavaScript
+personalizado.
+
+El `<datalist>` se vinculó al campo de búsqueda existente mediante el atributo
+`list`, evitando reemplazar o duplicar el buscador que ya formaba parte del
+header.
+
+La sección de preguntas frecuentes se ubicó entre la guía de talles y la
+sección de contacto, manteniendo el orden general de contenido previsto en la
+planificación.
+
+Luego del primer test de `<details>` y `<summary>`, se agregaron estilos
+específicos en `css/components.css` para mejorar su integración con el sistema
+visual existente.
+
+No fue necesario realizar modificaciones específicas en
+`css/bootstrap-overrides.css`, ya que los componentes HTML nativos se integraron
+correctamente con la estructura Bootstrap existente.
+
+### Hallazgos con Playwright MCP
+
+Los resultados finales fueron:
+
+- **Test Case 9 — `<details>/<summary>`:** PASS.
+- **Retest Test Case 9 posterior al ajuste CSS:** PASS.
+- **Test Case 10 — `<datalist>`:** PASS.
+
+No se detectaron bugs funcionales o responsive que requirieran la creación de
+Issues mediante GitHub MCP.
+
+Durante las pruebas se observó una respuesta `404` correspondiente a
+`favicon.ico`. Este recurso faltante no está relacionado con los componentes
+HTML avanzados implementados y no afecta su funcionamiento, por lo que no fue
+registrado como bug de esta tarea.
+
+Tampoco fue necesario crear ramas `fix/`, ya que no quedaron hallazgos
+relevantes pendientes de corrección.
+
+### Resultado final
+
+Los dos componentes HTML avanzados planificados fueron implementados y
+validados correctamente:
+
+1. `<details>` + `<summary>` para la sección de preguntas frecuentes.
+2. `<datalist>` asociado al buscador principal.
+
+Ambos mantienen comportamiento HTML nativo, se integran con Bootstrap y con
+los estilos existentes y funcionan correctamente en desktop, tablet y mobile
+sin generar overflow horizontal.
+
+Los Test Cases 9 y 10 quedaron documentados junto con sus respectivas
+evidencias.
