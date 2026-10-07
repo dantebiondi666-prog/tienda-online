@@ -4,9 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tienda Online | Ropa moderna</title>
+
+    <!-- Bootstrap 5 -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Estilos propios -->
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/bootstrap-overrides.css" />
   </head>
   <body>
     <header>
@@ -30,7 +39,7 @@
       </nav>
     </header>
 
-    <main id="inicio">
+    <main id="inicio" class="container py-4">
       <section aria-labelledby="titulo-tienda">
         <h1 id="titulo-tienda">Ropa cómoda para cada momento del día</h1>
         <p>
@@ -54,8 +63,8 @@
         </ul>
       </section>
 
-      <div>
-        <aside aria-labelledby="filtros-titulo">
+      <div class="row g-4">
+  <aside class="col-12 col-lg-3" aria-labelledby="filtros-titulo">
           <h2 id="filtros-titulo">Filtros</h2>
 
           <form action="#" method="get">
@@ -85,10 +94,10 @@
           </form>
         </aside>
 
-        <section id="catalogo" aria-labelledby="catalogo-titulo">
+        <section id="catalogo" class="col-12 col-lg-9" aria-labelledby="catalogo-titulo">
           <h2 id="catalogo-titulo">Catálogo de productos</h2>
-
-          <article id="remeras" aria-labelledby="remera-titulo">
+<div class="row g-3">
+          <article id="remeras" class="col-12 col-md-6 col-xl-4" aria-labelledby="remera-titulo">
             <figure>
               <img
                 src="assets/img/remera-blanca.jpg"
@@ -103,7 +112,7 @@
             <p>Talles disponibles: S / M / L</p>
           </article>
 
-          <article id="pantalones" aria-labelledby="pantalon-titulo">
+          <article id="pantalones" class="col-12 col-md-6 col-xl-4" aria-labelledby="pantalon-titulo">
             <figure>
               <img
                 src="assets/img/pantalon-azul.webp"
@@ -118,7 +127,7 @@
             <p>Talles disponibles: 38 / 40 / 42</p>
           </article>
 
-          <article id="camperas" aria-labelledby="campera-titulo">
+          <article id="camperas" class="col-12 col-md-6 col-xl-4" aria-labelledby="campera-titulo">
             <figure>
               <img
                 src="assets/img/campera-beige.jpg"
@@ -132,6 +141,8 @@
             <p>Precio: <strong>$48.000</strong></p>
             <p>Talles disponibles: M / L / XL</p>
           </article>
+
+          </div>
         </section>
       </div>
 
@@ -231,5 +242,10 @@
          La selección de talles y la acción de agregar al carrito quedarán definidas aquí. -->
     <!-- FUTURO JAVASCRIPT:
          La validación del formulario de contacto y los mensajes de interacción se integrarán aquí. -->
+         <!-- Bootstrap Bundle JS -->
+<script
+  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+></script>
+
   </body>
 </html>
