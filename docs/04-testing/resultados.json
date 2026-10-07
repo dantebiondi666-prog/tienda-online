@@ -1,0 +1,410 @@
+[
+  {
+    "device": "iphone-14-pro",
+    "comp": "Carousel",
+    "prueba": "Cantidad de diapositivas",
+    "esperado": 3,
+    "real": "3",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Carousel",
+    "prueba": "Boton siguiente",
+    "esperado": "0 -> 1",
+    "real": "0 -> 1",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Carousel",
+    "prueba": "Boton anterior",
+    "esperado": "vuelve a 0",
+    "real": "queda en 0",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Carousel",
+    "prueba": "Indicador 3",
+    "esperado": 2,
+    "real": "2",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Carousel",
+    "prueba": "Imagenes sin deformar",
+    "esperado": "ninguna deformada",
+    "real": "ok",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Carousel",
+    "prueba": "Sin scroll horizontal",
+    "esperado": "scrollWidth <= clientWidth",
+    "real": "393 vs 393",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Botones \"Ver detalle\"",
+    "esperado": 3,
+    "real": "3",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 1",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Remera\",\"img\":\"assets/img/remera-blanca.jpg\",\"texto\":\"Categoría: Indumentaria superior Precio: $15.000 Talles disponibles: S / M / L Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 cm 6\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 1",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Cierra con X",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Foco vuelve al boton",
+    "esperado": "#modalProducto",
+    "real": "#modalProducto",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Cierra con clic en fondo",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Cierra con Escape",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 2",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Pantalón\",\"img\":\"assets/img/pantalon-azul.webp\",\"texto\":\"Categoría: Indumentaria inferior Precio: $22.000 Talles disponibles: 38 / 40 / 42 Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 c\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 2",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 3",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Campera\",\"img\":\"assets/img/campera-beige.jpg\",\"texto\":\"Categoría: Abrigo Precio: $48.000 Talles disponibles: M / L / XL Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 cm 66 cm 6 L 100 c\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "iphone-14-pro",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 3",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Carousel",
+    "prueba": "Cantidad de diapositivas",
+    "esperado": 3,
+    "real": "3",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Carousel",
+    "prueba": "Boton siguiente",
+    "esperado": "0 -> 1",
+    "real": "0 -> 1",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Carousel",
+    "prueba": "Boton anterior",
+    "esperado": "vuelve a 0",
+    "real": "queda en 0",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Carousel",
+    "prueba": "Indicador 3",
+    "esperado": 2,
+    "real": "2",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Carousel",
+    "prueba": "Imagenes sin deformar",
+    "esperado": "ninguna deformada",
+    "real": "ok",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Carousel",
+    "prueba": "Sin scroll horizontal",
+    "esperado": "scrollWidth <= clientWidth",
+    "real": "360 vs 360",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Botones \"Ver detalle\"",
+    "esperado": 3,
+    "real": "3",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 1",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Remera\",\"img\":\"assets/img/remera-blanca.jpg\",\"texto\":\"Categoría: Indumentaria superior Precio: $15.000 Talles disponibles: S / M / L Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 cm 6\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 1",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Cierra con X",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Foco vuelve al boton",
+    "esperado": "#modalProducto",
+    "real": "#modalProducto",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Cierra con clic en fondo",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Cierra con Escape",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 2",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Pantalón\",\"img\":\"assets/img/pantalon-azul.webp\",\"texto\":\"Categoría: Indumentaria inferior Precio: $22.000 Talles disponibles: 38 / 40 / 42 Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 c\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 2",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 3",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Campera\",\"img\":\"assets/img/campera-beige.jpg\",\"texto\":\"Categoría: Abrigo Precio: $48.000 Talles disponibles: M / L / XL Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 cm 66 cm 6 L 100 c\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "galaxy-s23",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 3",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Carousel",
+    "prueba": "Cantidad de diapositivas",
+    "esperado": 3,
+    "real": "3",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Carousel",
+    "prueba": "Boton siguiente",
+    "esperado": "0 -> 1",
+    "real": "0 -> 1",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Carousel",
+    "prueba": "Boton anterior",
+    "esperado": "vuelve a 0",
+    "real": "queda en 0",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Carousel",
+    "prueba": "Indicador 3",
+    "esperado": 2,
+    "real": "2",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Carousel",
+    "prueba": "Imagenes sin deformar",
+    "esperado": "ninguna deformada",
+    "real": "ok",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Carousel",
+    "prueba": "Sin scroll horizontal",
+    "esperado": "scrollWidth <= clientWidth",
+    "real": "820 vs 820",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Botones \"Ver detalle\"",
+    "esperado": 3,
+    "real": "3",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 1",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Remera\",\"img\":\"assets/img/remera-blanca.jpg\",\"texto\":\"Categoría: Indumentaria superior Precio: $15.000 Talles disponibles: S / M / L Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 cm 6\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 1",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Cierra con X",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Foco vuelve al boton",
+    "esperado": "#modalProducto",
+    "real": "#modalProducto",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Cierra con clic en fondo",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Cierra con Escape",
+    "esperado": "cerrado",
+    "real": "cerrado",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 2",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Pantalón\",\"img\":\"assets/img/pantalon-azul.webp\",\"texto\":\"Categoría: Indumentaria inferior Precio: $22.000 Talles disponibles: 38 / 40 / 42 Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 c\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 2",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Abre tarjeta 3",
+    "esperado": "modal visible con datos del producto",
+    "real": "{\"titulo\":\"Campera\",\"img\":\"assets/img/campera-beige.jpg\",\"texto\":\"Categoría: Abrigo Precio: $48.000 Talles disponibles: M / L / XL Guía de talles Talle Pecho Largo US S 88 cm 64 cm 4 M 94 cm 66 cm 6 L 100 c\",\"sx\":false}",
+    "estado": "OK"
+  },
+  {
+    "device": "ipad-air",
+    "comp": "Modal",
+    "prueba": "Sin scroll horizontal tarjeta 3",
+    "esperado": "sin scroll",
+    "real": "false",
+    "estado": "OK"
+  }
+]
