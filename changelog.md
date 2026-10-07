@@ -18,6 +18,12 @@ PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikol
   
   PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - integrar Bootstrap y grilla responsive - @juanmartinbritos7-cmd
 
+- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel de destacados (3 productos) y Modal de detalle de producto con Bootstrap 5.3.8, personalizados en `css/bootstrap-overrides.css`. Se probaron en iPhone 14 Pro, Galaxy S23 e iPad Air con Playwright mediante script (Test Cases 7 y 8, 18 y 33 pruebas, todas PASS), porque las tools del Playwright MCP no llegaron al Agent. Sin bugs encontrados; se documentó una observación de contenido en la guía de talles.
+  PR: [#61](https://github.com/dantebiondi666-prog/tienda-online/pull/61) - @LucasFUces (Especialista en Componentes Bootstrap)
+
+  Issues:
+  [#61](https://github.com/dantebiondi666-prog/tienda-online/issues/61)
+
   Issues:
   [#58](https://github.com/dantebiondi666-prog/tienda-online/issues/58)
   [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
