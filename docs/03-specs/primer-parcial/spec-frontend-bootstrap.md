@@ -144,30 +144,130 @@ La tarea se considerará completada cuando:
 
 ### Prompt utilizado
 
-> Pendiente de completar durante la implementación.
+Durante la implementación se utilizó asistencia de IA mediante GitHub Copilot Agent Mode para revisar la integración de Bootstrap y ejecutar las verificaciones responsive con Playwright MCP.
+
+Para el proceso de testing se solicitó ejecutar el Test Case 6 sobre `http://localhost:3000` en los siguientes viewports:
+
+- Desktop: 1920x1080
+- Tablet: 820x1180
+- iPhone 14 Pro: 390x844
+- Samsung Galaxy S23: 412x915
+
+Se solicitó comprobar:
+
+- que no exista overflow horizontal global;
+- que los elementos no se corten ni se superpongan;
+- que la grilla de Bootstrap se adapte correctamente;
+- que la guía de talles continúe siendo utilizable;
+- que no se modifiquen automáticamente los archivos ante un problema detectado.
 
 ### Resultado obtenido
 
-Pendiente de completar durante la implementación.
+La implementación incorporó Bootstrap 5.3.8 mediante CDN jsDelivr y Bootstrap Bundle JS al final del `body`.
+
+La estructura principal fue adaptada al sistema de grillas de Bootstrap mediante clases como:
+
+- `container`
+- `row`
+- `col-12`
+- `col-md-6`
+- `col-lg-3`
+- `col-lg-9`
+- `col-xl-4`
+
+Durante la primera ejecución de Playwright MCP se detectó una regresión visual en desktop y tablet. Los estilos propios existentes interferían con la nueva grilla Bootstrap y provocaban una distribución incorrecta del catálogo.
+
+El hallazgo fue registrado en GitHub mediante el Issue #59.
+
+Después de aplicar la corrección se realizó un retest mediante Playwright MCP y los cuatro viewports obtuvieron resultado PASS.
 
 ### Ajustes manuales realizados
 
-Pendiente de completar durante la implementación.
+El código sugerido con asistencia de IA fue revisado manualmente antes de incorporarlo.
+
+Se mantuvieron los archivos de estilos existentes:
+
+- `css/styles.css`
+- `css/components.css`
+- `css/responsive.css`
+
+Las reglas necesarias para resolver incompatibilidades con Bootstrap se centralizaron en:
+
+`css/bootstrap-overrides.css`
+
+Se ajustó la convivencia entre las reglas CSS existentes y la grilla de Bootstrap sin eliminar los estilos previos del proyecto.
+
+Figma MCP estuvo disponible durante el proceso, aunque requirió autenticación durante esta etapa. La implementación se contrastó visualmente con el mockup actualizado disponible en el repositorio:
+
+`docs/01-mockup/primer-parcial/disenio-bootstrap.png`
 
 ---
 
 ## 9. Testing
 
-El proceso de testing será documentado en:
+El proceso de testing se encuentra documentado en:
 
 `docs/04-testing/test-case-6.md`
 
-Se utilizará Playwright MCP para verificar el comportamiento responsive de la migración a Bootstrap.
+El Test Case 6 fue ejecutado mediante Playwright MCP sobre la rama:
 
-Los resultados, evidencias, problemas encontrados y retests serán documentados una vez realizada la implementación.
+`feature/dev-frontend-bootstrap-migration`
+
+### Ejecución inicial
+
+| Viewport | Resultado |
+|---|---|
+| Desktop — 1920x1080 | FAIL |
+| Tablet — 820x1180 | Adaptación parcial |
+| iPhone 14 Pro — 390x844 | PASS |
+| Samsung Galaxy S23 — 412x915 | PASS |
+
+La ejecución inicial permitió detectar una regresión de la grilla Bootstrap en desktop y tablet.
+
+El problema fue registrado en:
+
+**GitHub Issue #59 — `[BUG][Frontend Bootstrap][TC6] Regresión de grilla en desktop y tablet`**
+
+### Corrección
+
+Se ajustó `css/bootstrap-overrides.css` para evitar que las reglas CSS anteriores interfirieran con la distribución realizada mediante Bootstrap.
+
+### Retest
+
+Después de la corrección se volvió a ejecutar el Test Case 6 mediante Playwright MCP.
+
+| Viewport | Retest |
+|---|---|
+| Desktop — 1920x1080 | PASS |
+| Tablet — 820x1180 | PASS |
+| iPhone 14 Pro — 390x844 | PASS |
+| Samsung Galaxy S23 — 412x915 | PASS |
+
+No se detectó overflow horizontal global ni elementos cortados o superpuestos.
+
+La guía de talles continuó siendo utilizable y mantuvo el desplazamiento horizontal interno cuando fue necesario en dispositivos móviles.
+
+**Resultado final TC6: PASS**
 
 ---
 
 ## 10. Resultado final
 
-Pendiente de completar al finalizar la implementación.
+Se completó la migración de la estructura principal de la interfaz al sistema de grillas de Bootstrap 5.
+
+La implementación final incluye:
+
+- Bootstrap 5.3.8 mediante CDN jsDelivr.
+- Bootstrap Bundle JS.
+- Uso del sistema de grillas responsive de Bootstrap.
+- Conservación de los estilos propios existentes.
+- Archivo `css/bootstrap-overrides.css` para compatibilidad y personalizaciones.
+- Adaptación responsive del área de filtros y catálogo.
+- Distribución responsive de las tarjetas de productos.
+- Test Case 6 documentado y ejecutado mediante Playwright MCP.
+- Registro del fallo detectado mediante GitHub Issue #59.
+- Corrección y retest exitoso en los cuatro viewports evaluados.
+
+La implementación mantiene la identidad visual existente y permite que Bootstrap conviva con los estilos desarrollados previamente por el equipo.
+
+La tarea se encuentra vinculada a la GitHub Issue #58 y queda preparada para su integración mediante Pull Request hacia `develop`.
