@@ -28,11 +28,17 @@ Los casos ejecutados fueron:
 
 ## Índice de Test Cases
 
-- [TC1 — Compatibilidad Desktop](/docs/04-testing/test-case-1.md)
-- [TC2 — Responsive Design](/docs/04-testing/test-case-2.md)
-- [TC3 — Performance y tiempos de carga](/docs/04-testing/test-case-3.md)
-- [TC4 — Accesibilidad](/docs/04-testing/test-case-4.md)
-- [TC5 — HTML semántico y validación W3C](/docs/04-testing/test-case-5.md)
+- [TC1 — Compatibilidad Desktop](./test-case-1.md)
+- [TC2 — Responsive Design](./test-case-2.md)
+- [TC3 — Performance y tiempos de carga](./test-case-3.md)
+- [TC4 — Accesibilidad](./test-case-4.md)
+- [TC5 — HTML semántico y validación W3C](./test-case-5.md)
+- [TC6 — Migración responsive a Bootstrap](./test-case-6.md)
+- [TC7 — Carousel de destacados (Bootstrap)](./test-case-7.md)
+- [TC8 — Modal de detalle de producto (Bootstrap)](./test-case-8.md)
+- [TC9 — Componente HTML avanzado details/summary](./test-case-9.md)
+- [TC10 — Componente HTML avanzado datalist](./test-case-10.md)
+
 # 2. Momento 1 — Pre-merge
 
 ## TC1 — Compatibilidad Desktop
