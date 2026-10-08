@@ -15,18 +15,18 @@ PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikol
   [#54](https://github.com/dantebiondi666-prog/tienda-online/issues/54)
 
 - [feature/dev-frontend-bootstrap-migration] [Primer Parcial] Desarrollador Frontend / Bootstrap: integración de Bootstrap 5 mediante CDN, migración de la interfaz al sistema de grillas responsive y creación de `css/bootstrap-overrides.css`. Se verificó el comportamiento responsive mediante Playwright MCP con el Test Case 6. Durante las pruebas se detectó una regresión visual, registrada en el Issue #59, corregida y verificada mediante retest con resultado PASS.
-  
   PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - integrar Bootstrap y grilla responsive - @juanmartinbritos7-cmd
-
-- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel de destacados (3 productos) y Modal de detalle de producto con Bootstrap 5.3.8, personalizados en `css/bootstrap-overrides.css`. Se probaron en iPhone 14 Pro, Galaxy S23 e iPad Air con Playwright mediante script (Test Cases 7 y 8, 18 y 33 pruebas, todas PASS), porque las tools del Playwright MCP no llegaron al Agent. Sin bugs encontrados; se documentó una observación de contenido en la guía de talles.
-  PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
-
-  Issues:
-  [#61](https://github.com/dantebiondi666-prog/tienda-online/issues/61)
 
   Issues:
   [#58](https://github.com/dantebiondi666-prog/tienda-online/issues/58)
   [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
+
+- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel de destacados (3 productos) y Modal de detalle de producto con Bootstrap 5.3.8, personalizados en `css/bootstrap-overrides.css`. Se probaron en iPhone 14 Pro, Galaxy S23 e iPad Air (viewports emulados en Chromium) con un script de Playwright, porque las tools del Playwright MCP no llegaron al Agent de Copilot: 51 pruebas (Test Cases 7 y 8), todas OK, incluso después de integrar develop. Sin bugs de funcionamiento. Se registró el hallazgo de contenido #64 (la guía de talles del modal es igual para los tres productos), sin corregir en este PR. El swipe y Safari real no se verificaron.
+  PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
+
+  Issues:
+  [#61](https://github.com/dantebiondi666-prog/tienda-online/issues/61)
+  [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
 
 - [feature/dev-comp-html-avanzados-add-components] [Primer Parcial] Desarrollador de Componentes HTML Avanzados: implementación de `<details>` y `<summary>` para la sección de preguntas frecuentes y `<datalist>` asociado al buscador principal. Se agregaron estilos en `css/components.css` para mantener la coherencia visual y se validaron ambos componentes mediante Playwright MCP con los Test Cases 9 y 10, obteniendo resultado final PASS en desktop, tablet y mobile.
 
