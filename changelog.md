@@ -8,42 +8,41 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
-- [feature/coord-devops-update-figma-and-readme] [Primer Parcial] Coordinador/DevOps: mockup Bootstrap, README y plan.md - Spec del Primer Parcial, mockup con la migración a Bootstrap, actualización de README.md y plan.md (nombre Remer Us, sección 10.2 y criterios CA-15 a CA-17).
-PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikoloogo (Coordinador / DevOps)
+## [Release Primer Parcial] - 2026-10-07
 
+### Added
+
+- [feature/coord-devops-update-figma-and-readme] [Primer Parcial] Coordinador/DevOps: mockup Bootstrap, README y plan.md - Actualiza el mockup, README y plan con la migración a Bootstrap y el alcance del parcial; agrega la especificación DevOps.
+  PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/56) - @Zikoloogo (Coordinador / DevOps)
   Issues:
   [#54](https://github.com/dantebiondi666-prog/tienda-online/issues/54)
 
-- [feature/dev-frontend-bootstrap-migration] [Primer Parcial] Desarrollador Frontend / Bootstrap: integración de Bootstrap 5 mediante CDN, migración de la interfaz al sistema de grillas responsive y creación de `css/bootstrap-overrides.css`. Se verificó el comportamiento responsive mediante Playwright MCP con el Test Case 6. Durante las pruebas se detectó una regresión visual, registrada en el Issue #59, corregida y verificada mediante retest con resultado PASS.
-  PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - integrar Bootstrap y grilla responsive - @juanmartinbritos7-cmd
-
+- [feature/dev-frontend-bootstrap-migration] [Primer Parcial] feat(frontend): integrar Bootstrap y grilla responsive - Integra Bootstrap 5 por CDN, migra la interfaz a la grilla responsive y agrega `css/bootstrap-overrides.css`; TC6 detectó una regresión visual que se corrigió y verificó con retest PASS.
+  PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - @juanmartinbritos7-cmd (Desarrollador Frontend / Bootstrap)
   Issues:
   [#58](https://github.com/dantebiondi666-prog/tienda-online/issues/58)
   [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
 
-- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel de destacados (3 productos) y Modal de detalle de producto con Bootstrap 5.3.8, personalizados en `css/bootstrap-overrides.css`. Se probaron en iPhone 14 Pro, Galaxy S23 e iPad Air (viewports emulados en Chromium) con un script de Playwright, porque las tools del Playwright MCP no llegaron al Agent de Copilot: 51 pruebas (Test Cases 7 y 8), todas OK, incluso después de integrar develop. Sin bugs de funcionamiento. Se registró el hallazgo de contenido #64 (la guía de talles del modal es igual para los tres productos), sin corregir en este PR. El swipe y Safari real no se verificaron.
+- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel y Modal - Implementa ambos componentes con Bootstrap 5.3.8 y los personaliza en `css/bootstrap-overrides.css`. Incluye la corrección del hallazgo #64: la guía de talles del Modal ya no muestra información incorrecta, y se mejoró la navegación por teclado, el cierre con Escape y la devolución del foco. TC7 y TC8 se verificaron en tres viewports emulados con Chromium; no se verificaron swipe ni Safari real.
   PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
-
   Issues:
+  [#55](https://github.com/dantebiondi666-prog/tienda-online/issues/55)
   [#61](https://github.com/dantebiondi666-prog/tienda-online/issues/61)
   [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
 
-- [feature/dev-comp-html-avanzados-add-components] [Primer Parcial] Desarrollador de Componentes HTML Avanzados: implementación de `<details>` y `<summary>` para la sección de preguntas frecuentes y `<datalist>` asociado al buscador principal. Se agregaron estilos en `css/components.css` para mantener la coherencia visual y se validaron ambos componentes mediante Playwright MCP con los Test Cases 9 y 10, obteniendo resultado final PASS en desktop, tablet y mobile.
-
+- [feature/dev-comp-html-avanzados-add-components] [Primer Parcial] Desarrollador HTML Avanzado: details, summary y datalist - Agrega `<details>`/`<summary>` para preguntas frecuentes y `<datalist>` al buscador, con estilos en `css/components.css`; TC9 y TC10 finalizaron PASS en desktop, tablet y mobile.
   PR: [#63](https://github.com/dantebiondi666-prog/tienda-online/pull/63) - @dantebiondi666-prog (Desarrollador de Componentes HTML Avanzados)
-
   Issues:
   [#57](https://github.com/dantebiondi666-prog/tienda-online/issues/57)
 
+### Changed
 
 ### Fixed
 
-- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Corrección del Modal de detalle de producto: se eliminó la guía de talles estática que mostraba información incorrecta para algunos productos y se mantuvieron únicamente los talles correspondientes al producto seleccionado. También se mejoró la accesibilidad por teclado del Modal, manteniendo el foco dentro del componente durante la navegación con Tab y Shift + Tab, permitiendo el cierre con Escape y devolviendo el foco al botón "Ver detalle" al cerrar.
-
-  PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
-
+- [backport/release-actividad-obligatoria-2] [Primer Parcial] [Backport] Backport de release/actividad-obligatoria-2 hacia develop - Sincroniza `develop` con las correcciones aprobadas de la Actividad N°2 para usarlo como base del Primer Parcial.
+  PR: [#53](https://github.com/dantebiondi666-prog/tienda-online/pull/53) - @Zikoloogo (Coordinador / DevOps)
   Issues:
-  [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
+  [#52](https://github.com/dantebiondi666-prog/tienda-online/issues/52)
 
 ---
 
@@ -118,7 +117,7 @@ PR: [#50](https://github.com/dantebiondi666-prog/tienda-online/pull/50) - @Zikol
 PR: [#51](https://github.com/dantebiondi666-prog/tienda-online/pull/51) - @Zikoloogo (Coordinador / DevOps)
 
 - [backport/release-actividad-obligatoria-2] [Backport] Backport de release/actividad-obligatoria-2 hacia develop - Sincronización de develop con las correcciones de la Actividad N°2 aprobadas y mergeadas a master, como base del Primer Parcial.
-PR: [#NN](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikoloogo (Coordinador / DevOps)
+PR: [#53](https://github.com/dantebiondi666-prog/tienda-online/pull/53) - @zikoloogo (Coordinador / DevOps)
 
   Issues:
   [#51](https://github.com/dantebiondi666-prog/tienda-online/issues/51)
