@@ -22,7 +22,7 @@ Usando Playwright MCP, en http://localhost:3000 probá el Modal Bootstrap (#moda
 
 **Resultado del intento 1:** el Agent respondió que no tenía las tools del servidor Playwright MCP disponibles y no ejecutó nada.
 
-**Intento 2 — Playwright por script.** Las mismas verificaciones se ejecutaron con `docs/04-testing/probar-componentes.cjs` (script generado con asistencia de IA y revisado por el equipo).
+**Intento 2 — Playwright por script.** Las mismas verificaciones se ejecutaron con el script de pruebas (retirado luego del repositorio a pedido del equipo)  (script generado con asistencia de IA y revisado por el equipo).
 
 ## Casos de prueba y resultados
 
@@ -62,7 +62,7 @@ La guía de talles del modal muestra la misma tabla (S, M, L, con medidas y tall
 - La prueba automática no compara el contenido del modal con el de la tarjeta; esa comparación se hizo mirando los resultados.
 
 ## Re-ejecución sobre develop integrado
-Después de integrar `develop`, se volvió a correr `probar-componentes.cjs` y se regeneraron las capturas. Resultado: las 33 pruebas del Modal dieron OK en los 3 viewports.
+Después de integrar `develop`, se volvió a correr el script y se regeneraron las capturas. Resultado: las 33 pruebas del Modal dieron OK en los 3 viewports.
 
 ## Issue registrada
 - [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64): la guía de talles del modal es la misma tabla para los tres productos y no coincide con los talles del Pantalón. Es un problema de contenido y se deja registrado sin corregir en este PR.

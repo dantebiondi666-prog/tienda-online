@@ -12,8 +12,8 @@ Verificar que el Carousel de destacados (3 productos) funciona y se ve bien en t
 
 ## Entorno
 - Sitio servido con `npx serve -l 3000 .` (http://localhost:3000)
-- Chromium headless con Playwright, vía script `docs/04-testing/probar-componentes.cjs`
-- Resultados completos en `docs/04-testing/resultados.json`
+- Chromium headless con Playwright, vía script de pruebas (retirado luego del repositorio a pedido del equipo)
+- Resultados completos: tablas de este documento y capturas en `docs/04-testing/capturas/`
 
 | Dispositivo | Viewport | Escala |
 |---|---|---|
@@ -30,7 +30,7 @@ Usando exclusivamente las tools del servidor Playwright MCP, abrí http://localh
 
 **Resultado del intento 1:** el Agent respondió que las tools del servidor Playwright MCP no estaban disponibles en la sesión y no ejecutó nada. El servidor figuraba "en ejecución" en VS Code, pero sus herramientas no llegaron al chat.
 
-**Intento 2 — Playwright por script.** Se reprodujo la misma batería de pruebas con un script Node (`probar-componentes.cjs`), generado con asistencia de IA (Claude) y revisado por el equipo. Se ejecutó con `node docs/04-testing/probar-componentes.cjs`.
+**Intento 2 — Playwright por script.** Se reprodujo la misma batería de pruebas con un script Node (retirado luego del repositorio a pedido del equipo), generado con asistencia de IA (Claude) y revisado por el equipo. Se ejecutó con Node.js.
 
 ## Casos de prueba y resultados
 Se ejecutaron las mismas 6 pruebas en los 3 dispositivos (18 en total).
@@ -58,7 +58,7 @@ Ninguna. Las 18 pruebas pasaron y no se detectaron problemas reales, por lo que 
 - No se probó con lectores de pantalla ni en navegadores distintos de Chromium.
 
 ## Re-ejecución sobre develop integrado
-Después de integrar `develop` (que incorporó `<details>` y `<datalist>` del rol de HTML avanzado), se volvió a correr `probar-componentes.cjs` y se regeneraron las capturas. Resultado: las 18 pruebas del Carousel dieron OK en los 3 viewports.
+Después de integrar `develop` (que incorporó `<details>` y `<datalist>` del rol de HTML avanzado), se volvió a correr el script y se regeneraron las capturas. Resultado: las 18 pruebas del Carousel dieron OK en los 3 viewports.
 
 ## Limitaciones y pendientes
 - **Swipe:** no se probó. El script no simula gestos táctiles, por lo que el criterio de swipe del spec queda sin verificar.

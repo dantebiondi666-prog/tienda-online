@@ -57,7 +57,7 @@ Usando Playwright MCP, en http://localhost:3000 probá el Modal Bootstrap (#moda
 
 Resultado de ambos: el Agent respondió que no tenía las tools del servidor Playwright MCP en la sesión y no ejecutó nada. El servidor aparecía en ejecución, pero sus herramientas no llegaron al chat, y en reinicios posteriores del Codespace figuró detenido o deshabilitado.
 
-**Ejecución real de las pruebas.** Se usó el script `docs/04-testing/probar-componentes.cjs` (Playwright sobre Chromium), escrito con asistencia de Claude en una conversación de chat y revisado manualmente. Se corrió dos veces: sobre la rama del rol y, luego, sobre la rama integrada con develop (que incluye details y datalist del otro rol).
+**Ejecución real de las pruebas.** Se usó el script de pruebas (retirado luego del repositorio a pedido del equipo) (Playwright sobre Chromium), escrito con asistencia de Claude en una conversación de chat y revisado manualmente. Se corrió dos veces: sobre la rama del rol y, luego, sobre la rama integrada con develop (que incluye details y datalist del otro rol).
 
 ### Resultado obtenido
 - Carousel de destacados con 3 productos y Modal de detalle de producto con Bootstrap 5.3.8, estilizados en css/bootstrap-overrides.css con las variables de styles.css.
