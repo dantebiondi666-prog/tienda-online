@@ -23,7 +23,7 @@
 - [x] Carousel funcional (controles e indicadores) sin overflow horizontal
 - [ ] Swipe del carrusel: no se verificó (ver sección 2)
 - [x] Modal abre y cierra (botón, fondo y Esc) y devuelve el foco al botón
-- [ ] Modal accesible por teclado: solo se verificó Esc y el retorno de foco, no la navegación con Tab
+- [x] Modal accesible por teclado: se verificó navegación con Tab y Shift + Tab, cierre con Esc y retorno del foco
 - [x] Ambos componentes personalizados en css/bootstrap-overrides.css
 - [ ] Coherencia visual con styles.css, components.css y responsive.css: pendiente de revisión visual final
 - [x] test-case-7.md y test-case-8.md documentados con prompt, resultados y capturas
@@ -73,6 +73,8 @@ Resultado de ambos: el Agent respondió que no tenía las tools del servidor Pla
 - Se corrigió la mención a iOS Safari de la planificación: los dispositivos se emularon en Chromium.
 
 ### Resumen de hallazgos
-- Sin bugs en el comportamiento de los componentes.
-- Hallazgo de contenido (#64): la guía de talles del modal es la misma tabla (S, M, L) para los tres productos, y no coincide con los talles del Pantalón (38 / 40 / 42). Registrado como issue y sin corregir en este PR.
-- Limitación del proceso: Playwright MCP no estuvo disponible en el Codespace, por eso las pruebas se hicieron con script. Quedan pendientes el swipe, Safari real y la navegación con Tab.
+- No se detectaron bugs en el comportamiento nativo de los componentes Bootstrap.
+- Se detectó el bug #64: la guía de talles estática del modal no coincidía con los talles reales de todos los productos.
+- El bug #64 se corrigió eliminando la tabla estática del modal y conservando los talles disponibles obtenidos del producto seleccionado.
+- Se verificó manualmente la navegación por teclado dentro del modal mediante Tab y Shift + Tab, el cierre con Escape y el retorno del foco.
+- Limitación del proceso: Playwright MCP no estuvo disponible en el Codespace, por eso las pruebas se hicieron con script. Quedan pendientes el swipe y la validación en Safari real.

@@ -338,25 +338,6 @@
             <p>Categoría: <span id="modalProductoCategoria"></span></p>
             <p>Precio: <strong id="modalProductoPrecio"></strong></p>
             <p id="modalProductoTalles"></p>
-            <h3 class="fs-5">Guía de talles</h3>
-            <div class="table-responsive">
-              <table class="table table-sm table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col">Talle</th>
-                    <th scope="col">Pecho</th>
-                    <th scope="col">Largo</th>
-                    <th scope="col">US</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr><th scope="row">S</th><td>88 cm</td><td>64 cm</td><td>4</td></tr>
-                  <tr><th scope="row">M</th><td>94 cm</td><td>66 cm</td><td>6</td></tr>
-                  <tr><th scope="row">L</th><td>100 cm</td><td>68 cm</td><td>8</td></tr>
-                  <tr><th scope="row">XL</th><td>106 cm</td><td>70 cm</td><td>10</td></tr>
-                </tbody>
-              </table>
-            </div>
           </div>
         </div>
       </div>
@@ -369,16 +350,66 @@
 
 <script>
   const modalProducto = document.getElementById('modalProducto');
+  let botonOrigenModal = null;
+
   modalProducto.addEventListener('show.bs.modal', (evento) => {
+    botonOrigenModal = evento.relatedTarget;
+
     const articulo = evento.relatedTarget.closest('article');
     const imagen = articulo.querySelector('img');
     const parrafos = articulo.querySelectorAll('p');
-    modalProducto.querySelector('#modalProductoTitulo').textContent = articulo.querySelector('h3').textContent;
-    modalProducto.querySelector('#modalProductoImg').src = imagen.getAttribute('src');
-    modalProducto.querySelector('#modalProductoImg').alt = imagen.getAttribute('alt');
-    modalProducto.querySelector('#modalProductoCategoria').textContent = articulo.querySelector('span').textContent;
-    modalProducto.querySelector('#modalProductoPrecio').textContent = articulo.querySelector('strong').textContent;
-    modalProducto.querySelector('#modalProductoTalles').textContent = parrafos[2].textContent;
+
+    modalProducto.querySelector('#modalProductoTitulo').textContent =
+      articulo.querySelector('h3').textContent;
+
+    modalProducto.querySelector('#modalProductoImg').src =
+      imagen.getAttribute('src');
+
+    modalProducto.querySelector('#modalProductoImg').alt =
+      imagen.getAttribute('alt');
+
+    modalProducto.querySelector('#modalProductoCategoria').textContent =
+      articulo.querySelector('span').textContent;
+
+    modalProducto.querySelector('#modalProductoPrecio').textContent =
+      articulo.querySelector('strong').textContent;
+
+    modalProducto.querySelector('#modalProductoTalles').textContent =
+      parrafos[2].textContent;
+  });
+
+  modalProducto.addEventListener('shown.bs.modal', () => {
+    const botonCerrar = modalProducto.querySelector('.btn-close');
+    botonCerrar.focus();
+  });
+
+  modalProducto.addEventListener('keydown', (evento) => {
+    if (evento.key !== 'Tab') {
+      return;
+    }
+
+    const elementosEnfocables = [
+      ...modalProducto.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      )
+    ];
+
+    const primero = elementosEnfocables[0];
+    const ultimo = elementosEnfocables[elementosEnfocables.length - 1];
+
+    if (evento.shiftKey && document.activeElement === primero) {
+      evento.preventDefault();
+      ultimo.focus();
+    } else if (!evento.shiftKey && document.activeElement === ultimo) {
+      evento.preventDefault();
+      primero.focus();
+    }
+  });
+
+  modalProducto.addEventListener('hidden.bs.modal', () => {
+    if (botonOrigenModal) {
+      botonOrigenModal.focus();
+    }
   });
 </script>
   </body>

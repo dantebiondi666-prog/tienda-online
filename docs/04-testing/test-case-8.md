@@ -5,7 +5,7 @@
 - **Componente:** Modal Bootstrap 5.3.8, `#modalProducto` en `index.html`, abierto desde "Ver detalle"
 - **Issue del rol:** [#61](https://github.com/dantebiondi666-prog/tienda-online/issues/61)
 - **Rama:** `feature/esp-componentes-bootstrap-add-components`
-- **Resultado global:** PASS (sin bugs del componente; una observación de contenido)
+- **Resultado global:** PASS (bug de contenido #64 corregido posteriormente)
 
 ## Objetivo
 Verificar que el modal abre con los datos del producto correcto, cierra de las tres formas esperadas, devuelve el foco al botón y no genera scroll horizontal en tres dispositivos.
@@ -46,15 +46,11 @@ Idéntico en los tres dispositivos:
 | 3 | Campera | `assets/img/campera-beige.jpg` | $48.000 | M / L / XL |
 
 ## Capturas (modal abierto, tarjeta 1)
-- ![iPhone 14 Pro](capturas/modal-iphone-14-pro.png)
-- ![Galaxy S23](capturas/modal-galaxy-s23.png)
-- ![iPad Air](capturas/modal-ipad-air.png)
+- ![iPhone 14 Pro](capturas/tc-8/modal-iphone-14-pro.png)
+- ![Galaxy S23](capturas/tc-8/modal-galaxy-s23.png)
+- ![iPad Air](capturas/tc-8/modal-ipad-air.png)
 
-## Issues de bug
-Ninguna. No se abrieron issues `bug` ni ramas `fix/`.
 
-## Observación (no es un bug del componente)
-La guía de talles del modal muestra la misma tabla (S, M, L, con medidas y talle US) para los tres productos. Para el Pantalón, cuyos talles son 38 / 40 / 42, esa tabla no coincide. Es una inconsistencia de contenido y no afecta el funcionamiento del modal. Se deja registrada como mejora futura.
 
 ## Alcance y limitaciones
 - Los datos mostrados (título, imagen, precio y talles) se verificaron en las tres tarjetas. Las capturas del modal son de la tarjeta 1.
@@ -64,10 +60,23 @@ La guía de talles del modal muestra la misma tabla (S, M, L, con medidas y tall
 ## Re-ejecución sobre develop integrado
 Después de integrar `develop`, se volvió a correr el script y se regeneraron las capturas. Resultado: las 33 pruebas del Modal dieron OK en los 3 viewports.
 
-## Issue registrada
-- [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64): la guía de talles del modal es la misma tabla para los tres productos y no coincide con los talles del Pantalón. Es un problema de contenido y se deja registrado sin corregir en este PR.
+## Issue de bug
+
+- [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64): la guía de talles estática del modal no coincidía con los talles reales del Pantalón.
+
+### Corrección aplicada
+
+Se eliminó la tabla de guía de talles estática del modal, ya que mostraba la misma información para productos con sistemas de talles diferentes. El modal conserva los talles disponibles obtenidos directamente de cada producto seleccionado.
+
+Luego de la corrección se verificó manualmente que:
+- Remera muestra S / M / L.
+- Pantalón muestra 38 / 40 / 42.
+- Campera muestra M / L / XL.
+- El foco permanece dentro del modal al navegar con Tab y Shift + Tab.
+- Escape cierra el modal.
+- Al cerrar, el foco vuelve al botón "Ver detalle" que abrió el modal.
 
 ## Limitaciones y pendientes
 - **Safari / iOS:** no se probó. Los dispositivos se emularon con viewports en Chromium.
-- **Teclado:** se verificaron Escape y el retorno del foco, pero no la navegación con Tab dentro del modal.
+- **Teclado:** se verificó manualmente la navegación con Tab y Shift + Tab dentro del modal, el cierre con Escape y el retorno del foco al botón que abrió el modal.
 - **Playwright MCP:** no estuvo disponible en el Codespace durante esta entrega. Las pruebas se hicieron con script.

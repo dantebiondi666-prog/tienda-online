@@ -35,6 +35,16 @@ PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikol
   Issues:
   [#57](https://github.com/dantebiondi666-prog/tienda-online/issues/57)
 
+
+### Fixed
+
+- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Corrección del Modal de detalle de producto: se eliminó la guía de talles estática que mostraba información incorrecta para algunos productos y se mantuvieron únicamente los talles correspondientes al producto seleccionado. También se mejoró la accesibilidad por teclado del Modal, manteniendo el foco dentro del componente durante la navegación con Tab y Shift + Tab, permitiendo el cierre con Escape y devolviendo el foco al botón "Ver detalle" al cerrar.
+
+  PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
+
+  Issues:
+  [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
+
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27

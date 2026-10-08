@@ -102,11 +102,6 @@ article .btn-outline-dark {
   color: var(--color-charcoal);
 }
 
-#modalProducto .table {
-  --bs-table-bg: var(--color-surface);
-  --bs-table-border-color: var(--color-border);
-  --bs-table-color: var(--color-charcoal);
-}
 
 #modalProducto .btn-secondary {
   --bs-btn-bg: var(--color-sage);

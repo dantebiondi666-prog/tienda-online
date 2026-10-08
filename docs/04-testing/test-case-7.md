@@ -45,9 +45,9 @@ Se ejecutaron las mismas 6 pruebas en los 3 dispositivos (18 en total).
 | Sin scroll horizontal | scrollWidth <= clientWidth | OK | OK | OK |
 
 ## Capturas
-- ![iPhone 14 Pro](capturas/carousel-iphone-14-pro.png)
-- ![Galaxy S23](capturas/carousel-galaxy-s23.png)
-- ![iPad Air](capturas/carousel-ipad-air.png)
+- ![iPhone 14 Pro](capturas/tc-7/carousel-iphone-14-pro.png)
+- ![Galaxy S23](capturas/tc-7/carousel-galaxy-s23.png)
+- ![iPad Air](capturas/tc-7/carousel-ipad-air.png)
 
 ## Issues de bug
 Ninguna. Las 18 pruebas pasaron y no se detectaron problemas reales, por lo que no se abrieron issues `bug` ni ramas `fix/`.
