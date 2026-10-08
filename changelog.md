@@ -14,7 +14,7 @@ PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikol
   Issues:
   [#54](https://github.com/dantebiondi666-prog/tienda-online/issues/54)
 
-  - [feature/dev-frontend-bootstrap-migration] [Primer Parcial] Desarrollador Frontend / Bootstrap: integración de Bootstrap 5 mediante CDN, migración de la interfaz al sistema de grillas responsive y creación de `css/bootstrap-overrides.css`. Se verificó el comportamiento responsive mediante Playwright MCP con el Test Case 6. Durante las pruebas se detectó una regresión visual, registrada en el Issue #59, corregida y verificada mediante retest con resultado PASS.
+- [feature/dev-frontend-bootstrap-migration] [Primer Parcial] Desarrollador Frontend / Bootstrap: integración de Bootstrap 5 mediante CDN, migración de la interfaz al sistema de grillas responsive y creación de `css/bootstrap-overrides.css`. Se verificó el comportamiento responsive mediante Playwright MCP con el Test Case 6. Durante las pruebas se detectó una regresión visual, registrada en el Issue #59, corregida y verificada mediante retest con resultado PASS.
   
   PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - integrar Bootstrap y grilla responsive - @juanmartinbritos7-cmd
 
@@ -27,6 +27,13 @@ PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikol
   Issues:
   [#58](https://github.com/dantebiondi666-prog/tienda-online/issues/58)
   [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
+
+- [feature/dev-comp-html-avanzados-add-components] [Primer Parcial] Desarrollador de Componentes HTML Avanzados: implementación de `<details>` y `<summary>` para la sección de preguntas frecuentes y `<datalist>` asociado al buscador principal. Se agregaron estilos en `css/components.css` para mantener la coherencia visual y se validaron ambos componentes mediante Playwright MCP con los Test Cases 9 y 10, obteniendo resultado final PASS en desktop, tablet y mobile.
+
+  PR: [#63](https://github.com/dantebiondi666-prog/tienda-online/pull/63) - @dantebiondi666-prog (Desarrollador de Componentes HTML Avanzados)
+
+  Issues:
+  [#57](https://github.com/dantebiondi666-prog/tienda-online/issues/57)
 
 ---
 
