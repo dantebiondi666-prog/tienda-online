@@ -14,7 +14,13 @@ Verificar que el modal abre con los datos del producto correcto, cierra de las t
 Igual que el Test Case 7 (http://localhost:3000, Chromium con Playwright, mismos tres viewports).
 
 ## Prompt utilizado
-**Intento 1 — Playwright MCP (sin éxito).** Se usó el prompt del modal: tres viewports, clic en "Ver detalle" de cada tarjeta, captura con modal abierto, cierre con X, fondo y Escape, y verificación del foco y del scroll horizontal. El Agent respondió que no tenía las tools del servidor Playwright MCP disponibles y no ejecutó nada.
+**Intento 1 — Playwright MCP (sin éxito).** Prompt exacto enviado al Agent de Copilot:
+
+```text
+Usando Playwright MCP, en http://localhost:3000 probá el Modal Bootstrap (#modalProducto) en los mismos tres viewports: iPhone 14 Pro (393x852), Samsung Galaxy S23 (360x780) e iPad Air (820x1180). En cada uno: 1) hacé clic en "Ver detalle" de cada una de las tres tarjetas y verificá que el título, la imagen, el precio y los talles correspondan a ese producto; 2) sacá una captura con el modal abierto y guardala en docs/04-testing/capturas/ como modal-<dispositivo>.png; 3) verificá que cierre con la X, con clic en el fondo y con la tecla Escape; 4) verificá que el foco vuelva al botón "Ver detalle" al cerrar y que la tabla de talles no genere scroll horizontal. Dame la misma tabla de resultados y listá cada problema con pasos para reproducirlo. No arregles nada todavía.
+```
+
+**Resultado del intento 1:** el Agent respondió que no tenía las tools del servidor Playwright MCP disponibles y no ejecutó nada.
 
 **Intento 2 — Playwright por script.** Las mismas verificaciones se ejecutaron con `docs/04-testing/probar-componentes.cjs` (script generado con asistencia de IA y revisado por el equipo).
 
@@ -54,3 +60,14 @@ La guía de talles del modal muestra la misma tabla (S, M, L, con medidas y tall
 - Los datos mostrados (título, imagen, precio y talles) se verificaron en las tres tarjetas. Las capturas del modal son de la tarjeta 1.
 - El cierre con X, fondo y Escape y el retorno del foco se probaron una vez por dispositivo, sobre la tarjeta 1.
 - La prueba automática no compara el contenido del modal con el de la tarjeta; esa comparación se hizo mirando los resultados.
+
+## Re-ejecución sobre develop integrado
+Después de integrar `develop`, se volvió a correr `probar-componentes.cjs` y se regeneraron las capturas. Resultado: las 33 pruebas del Modal dieron OK en los 3 viewports.
+
+## Issue registrada
+- [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64): la guía de talles del modal es la misma tabla para los tres productos y no coincide con los talles del Pantalón. Es un problema de contenido y se deja registrado sin corregir en este PR.
+
+## Limitaciones y pendientes
+- **Safari / iOS:** no se probó. Los dispositivos se emularon con viewports en Chromium.
+- **Teclado:** se verificaron Escape y el retorno del foco, pero no la navegación con Tab dentro del modal.
+- **Playwright MCP:** no estuvo disponible en el Codespace durante esta entrega. Las pruebas se hicieron con script.

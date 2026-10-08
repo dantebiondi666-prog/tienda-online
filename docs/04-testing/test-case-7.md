@@ -56,3 +56,11 @@ Ninguna. Las 18 pruebas pasaron y no se detectaron problemas reales, por lo que 
 - El autoplay se pausó durante la prueba para controlar la diapositiva activa.
 - La verificación de imágenes deformadas se basa en `object-fit` y proporción natural vs. renderizada; las capturas se revisaron manualmente.
 - No se probó con lectores de pantalla ni en navegadores distintos de Chromium.
+
+## Re-ejecución sobre develop integrado
+Después de integrar `develop` (que incorporó `<details>` y `<datalist>` del rol de HTML avanzado), se volvió a correr `probar-componentes.cjs` y se regeneraron las capturas. Resultado: las 18 pruebas del Carousel dieron OK en los 3 viewports.
+
+## Limitaciones y pendientes
+- **Swipe:** no se probó. El script no simula gestos táctiles, por lo que el criterio de swipe del spec queda sin verificar.
+- **Safari / iOS:** no se probó. Los dispositivos se emularon con viewports en Chromium, no con Safari ni con dispositivos reales.
+- **Playwright MCP:** no estuvo disponible en el Codespace durante esta entrega. Las pruebas se hicieron con script.
