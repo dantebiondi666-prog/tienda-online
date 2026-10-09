@@ -17,7 +17,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issues:
   [#54](https://github.com/dantebiondi666-prog/tienda-online/issues/54)
 
-- [feature/dev-frontend-bootstrap-migration] [Primer Parcial] feat(frontend): integrar Bootstrap y grilla responsive - Integra Bootstrap 5 por CDN, migra la interfaz a la grilla responsive y agrega `css/bootstrap-overrides.css`; TC6 detectó una regresión visual que se corrigió y verificó con retest PASS.
+- [feature/dev-frontend-bootstrap-migration] feat(frontend): integrar Bootstrap y grilla responsive - Integra Bootstrap 5 por CDN, migra la interfaz a la grilla responsive y agrega `css/bootstrap-overrides.css`; TC6 detectó una regresión visual que se corrigió y verificó con retest PASS.
   PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - @juanmartinbritos7-cmd (Desarrollador Frontend / Bootstrap)
   Issues:
   [#58](https://github.com/dantebiondi666-prog/tienda-online/issues/58)
@@ -26,7 +26,6 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 - [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel y Modal - Implementa ambos componentes con Bootstrap 5.3.8 y los personaliza en `css/bootstrap-overrides.css`. Incluye la corrección del hallazgo #64: la guía de talles del Modal ya no muestra información incorrecta, y se mejoró la navegación por teclado, el cierre con Escape y la devolución del foco. TC7 y TC8 se verificaron en tres viewports emulados con Chromium; no se verificaron swipe ni Safari real.
   PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
   Issues:
-  [#55](https://github.com/dantebiondi666-prog/tienda-online/issues/55)
   [#61](https://github.com/dantebiondi666-prog/tienda-online/issues/61)
   [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
 
@@ -39,10 +38,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
-- [backport/release-actividad-obligatoria-2] [Primer Parcial] [Backport] Backport de release/actividad-obligatoria-2 hacia develop - Sincroniza `develop` con las correcciones aprobadas de la Actividad N°2 para usarlo como base del Primer Parcial.
+- [backport/release-actividad-obligatoria-2] [Backport] Backport de release/actividad-obligatoria-2 hacia develop - Sincroniza `develop` con las correcciones aprobadas de la Actividad N°2 para usarlo como base del Primer Parcial.
   PR: [#53](https://github.com/dantebiondi666-prog/tienda-online/pull/53) - @Zikoloogo (Coordinador / DevOps)
   Issues:
   [#52](https://github.com/dantebiondi666-prog/tienda-online/issues/52)
+
+- [fix/spec-devops-primer-parcial] [Primer Parcial] DevOps: completar trazabilidad y documentación de entrega - Completa la trazabilidad y documentación de la entrega, actualiza la especificación DevOps, el índice de testing, el changelog y corrige la referencia al mockup en README.
+  PR: [#66](https://github.com/dantebiondi666-prog/tienda-online/pull/66) - @Zikoloogo (Coordinador / DevOps)
 
 ---
 
