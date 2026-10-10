@@ -1,0 +1,120 @@
+/*
+ * Bootstrap Overrides
+ * Primer Parcial - Programación Web I
+ * Rol: Desarrollador Frontend / Bootstrap
+ *
+ * Las personalizaciones de Bootstrap utilizadas para conservar
+ * la identidad visual del proyecto se centralizan en este archivo.
+ */
+ /* Compatibilidad entre la grilla Bootstrap y los estilos originales */
+
+main > div.row {
+  display: flex;
+  grid-template-columns: none;
+  gap: 0;
+}
+
+#catalogo {
+  display: block;
+}
+
+#catalogo > .row {
+  display: flex;
+}
+
+/* ===== Especialista en Componentes Bootstrap: Carousel y Modal ===== */
+
+/* --- Carousel de destacados --- */
+.carousel-destacados {
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius-medium);
+  background: var(--color-cream);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.carousel-destacados img {
+  display: block;
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+}
+
+.carousel-destacados .carousel-caption {
+  left: 15%;
+  right: 15%;
+  bottom: var(--space-2);
+  padding: 4px var(--space-2);
+  border-radius: var(--radius-small);
+  background: rgba(46, 43, 38, 0.78);
+  color: var(--color-cream);
+  font-family: var(--font-body);
+}
+
+.carousel-destacados .carousel-indicators [data-bs-target] {
+  background-color: var(--color-gold);
+}
+
+.carousel-destacados .carousel-control-prev-icon,
+.carousel-destacados .carousel-control-next-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background-color: rgba(91, 111, 85, 0.9);
+  background-size: 50%;
+}
+
+.carousel-destacados .carousel-control-prev:focus-visible,
+.carousel-destacados .carousel-control-next:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: -3px;
+}
+
+/* --- Botón "Ver detalle" de las tarjetas --- */
+article .btn-outline-dark {
+  --bs-btn-color: var(--color-sage);
+  --bs-btn-border-color: var(--color-sage);
+  --bs-btn-hover-color: var(--color-surface);
+  --bs-btn-hover-bg: var(--color-sage);
+  --bs-btn-hover-border-color: var(--color-sage);
+  --bs-btn-active-color: var(--color-surface);
+  --bs-btn-active-bg: var(--color-sage);
+  --bs-btn-active-border-color: var(--color-sage);
+  font-family: var(--font-body);
+}
+
+/* --- Modal de detalle de producto --- */
+#modalProducto .modal-content {
+  border: 1px solid var(--color-sand);
+  border-radius: var(--radius-medium);
+  background: var(--color-cream);
+  color: var(--color-charcoal);
+  font-family: var(--font-body);
+}
+
+#modalProducto .modal-header,
+#modalProducto .modal-footer {
+  border-color: var(--color-sand);
+}
+
+#modalProducto .modal-title {
+  font-family: var(--font-heading);
+  color: var(--color-charcoal);
+}
+
+
+#modalProducto .btn-secondary {
+  --bs-btn-bg: var(--color-sage);
+  --bs-btn-border-color: var(--color-sage);
+  --bs-btn-hover-bg: #4b5c46;
+  --bs-btn-hover-border-color: #4b5c46;
+  --bs-btn-active-bg: #4b5c46;
+  --bs-btn-active-border-color: #4b5c46;
+}
+
+/* --- Mobile --- */
+@media (max-width: 575.98px) {
+  .carousel-destacados img {
+    height: 220px;
+  }
+}

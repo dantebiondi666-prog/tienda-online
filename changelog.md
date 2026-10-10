@@ -8,6 +8,44 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
+## [Release Primer Parcial] - 2026-10-07
+
+### Added
+
+- [feature/coord-devops-update-figma-and-readme] [Primer Parcial] Coordinador/DevOps: mockup Bootstrap, README y plan.md - Actualiza el mockup, README y plan con la migración a Bootstrap y el alcance del parcial; agrega la especificación DevOps.
+  PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/56) - @Zikoloogo (Coordinador / DevOps)
+  Issues:
+  [#54](https://github.com/dantebiondi666-prog/tienda-online/issues/54)
+
+- [feature/dev-frontend-bootstrap-migration] feat(frontend): integrar Bootstrap y grilla responsive - Integra Bootstrap 5 por CDN, migra la interfaz a la grilla responsive y agrega `css/bootstrap-overrides.css`; TC6 detectó una regresión visual que se corrigió y verificó con retest PASS.
+  PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - @juanmartinbritos7-cmd (Desarrollador Frontend / Bootstrap)
+  Issues:
+  [#58](https://github.com/dantebiondi666-prog/tienda-online/issues/58)
+  [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
+
+- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel y Modal - Implementa ambos componentes con Bootstrap 5.3.8 y los personaliza en `css/bootstrap-overrides.css`. Incluye la corrección del hallazgo #64: la guía de talles del Modal ya no muestra información incorrecta, y se mejoró la navegación por teclado, el cierre con Escape y la devolución del foco. TC7 y TC8 se verificaron en tres viewports emulados con Chromium; no se verificaron swipe ni Safari real.
+  PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
+  Issues:
+  [#61](https://github.com/dantebiondi666-prog/tienda-online/issues/61)
+  [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
+
+- [feature/dev-comp-html-avanzados-add-components] [Primer Parcial] Desarrollador HTML Avanzado: details, summary y datalist - Agrega `<details>`/`<summary>` para preguntas frecuentes y `<datalist>` al buscador, con estilos en `css/components.css`; TC9 y TC10 finalizaron PASS en desktop, tablet y mobile.
+  PR: [#63](https://github.com/dantebiondi666-prog/tienda-online/pull/63) - @dantebiondi666-prog (Desarrollador de Componentes HTML Avanzados)
+  Issues:
+  [#57](https://github.com/dantebiondi666-prog/tienda-online/issues/57)
+
+### Changed
+
+### Fixed
+
+- [backport/release-actividad-obligatoria-2] [Backport] Backport de release/actividad-obligatoria-2 hacia develop - Sincroniza `develop` con las correcciones aprobadas de la Actividad N°2 para usarlo como base del Primer Parcial.
+  PR: [#53](https://github.com/dantebiondi666-prog/tienda-online/pull/53) - @Zikoloogo (Coordinador / DevOps)
+  Issues:
+  [#52](https://github.com/dantebiondi666-prog/tienda-online/issues/52)
+
+- [fix/spec-devops-primer-parcial] [Primer Parcial] DevOps: completar trazabilidad y documentación de entrega - Completa la trazabilidad y documentación de la entrega, actualiza la especificación DevOps, el índice de testing, el changelog y corrige la referencia al mockup en README.
+  PR: [#66](https://github.com/dantebiondi666-prog/tienda-online/pull/66) - @Zikoloogo (Coordinador / DevOps)
+
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
@@ -79,6 +117,12 @@ PR: [#50](https://github.com/dantebiondi666-prog/tienda-online/pull/50) - @Zikol
 
 - [fix/retest-gone] docs(qa): eliminar referencias redundantes de retests — Elimina referencias redundantes a retests y actualiza la documentación QA para reflejar la estructura actual de evidencias.
 PR: [#51](https://github.com/dantebiondi666-prog/tienda-online/pull/51) - @Zikoloogo (Coordinador / DevOps)
+
+- [backport/release-actividad-obligatoria-2] [Backport] Backport de release/actividad-obligatoria-2 hacia develop - Sincronización de develop con las correcciones de la Actividad N°2 aprobadas y mergeadas a master, como base del Primer Parcial.
+PR: [#53](https://github.com/dantebiondi666-prog/tienda-online/pull/53) - @zikoloogo (Coordinador / DevOps)
+
+  Issues:
+  [#51](https://github.com/dantebiondi666-prog/tienda-online/issues/51)
 
 ---
 

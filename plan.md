@@ -1,10 +1,10 @@
 # Plan maestro del proyecto: Tienda Online
 
-## 1. Nombre provisorio
+## 1. Nombre del proyecto
 
-**Tienda Online**
+**Remer Us**
 
-El nombre podrá reemplazarse por una identidad definitiva cuando el equipo defina la propuesta visual y de marca.
+El nombre del sitio pasó de la denominación provisoria "Tienda Online" a **Remer Us** a partir del Primer Parcial. "Tienda Online" se mantiene como nombre del proyecto y del repositorio (`tienda-online`).
 
 ## 2. Descripción general
 
@@ -148,6 +148,24 @@ Esta entrega no incorpora JavaScript ni comportamiento interactivo real
 (carrito, filtros dinámicos, selección de talles). Esas capacidades siguen
 documentadas como evolución futura según la Sección 9.
 
+### 10.2 Alcance específico del Primer Parcial
+
+Esta entrega integra las Actividades Obligatorias N.º 1 y N.º 2 y suma la migración a Bootstrap y la incorporación de componentes HTML avanzados. Además, el sitio pasa a llamarse Remer Us (ver Sección 1).
+
+#### Incluido en esta entrega
+
+- instalación de Bootstrap 5 mediante CDN, sin romper `css/styles.css`, `css/components.css` ni `css/responsive.css`;
+- uso del sistema de columnas de Bootstrap para mejorar la adaptación a dispositivos móviles;
+- al menos dos componentes avanzados de Bootstrap (por ejemplo carrusel, modal o barra de navegación);
+- al menos dos componentes HTML avanzados (por ejemplo iframe, audio, video, `details`/`summary`, `progress` o `meter`), adaptados a Bootstrap (por ejemplo con el helper `ratio` en los iframes);
+- personalizaciones de Bootstrap centralizadas en `css/bootstrap-overrides.css`, manteniendo la identidad visual de la Sección 12.1;
+- mockup actualizado con la migración a Bootstrap (`docs/01-mockup/primer-parcial/disenio-bootstrap.png`);
+- test cases 6 a 10 documentados en `docs/04-testing/` y release `release/primer-parcial` publicada en GitHub Pages.
+
+#### No incluido como comportamiento operativo
+
+Carrito, filtros dinámicos y selección interactiva de talles siguen siendo evolución futura según la Sección 9. El JavaScript de esta entrega se limita al que aporta Bootstrap para sus componentes.
+
 ## 11. Elementos HTML5 requeridos en la primera entrega
 
 `index.html` deberá contener, de manera pertinente al tema de la tienda:
@@ -201,8 +219,9 @@ mockup de Figma (`docs/01-mockup/actividad-obligatoria-2/`):
 - Encabezados (h1–h3): Playfair Display, pesos 600/700
 - Cuerpo, labels, botones (h4–h6, body, small): Work Sans, pesos 400/500
 
-Espaciados y estados de interacción (hover/focus/disabled): pendientes de
-definición, se documentarán aquí una vez decididos.
+Espaciados (escala de 8 px) y estados de interacción (hover, focus y disabled): definidos en `docs/03-specs/actividad-obligatoria-2/spec-devops.md` (secciones 3.3 y 3.4).
+
+En el Primer Parcial este sistema se mantiene sobre Bootstrap 5 mediante overrides en `css/bootstrap-overrides.css`. El mockup correspondiente se encuentra en `docs/01-mockup/primer-parcial/disenio-bootstrap.png`.
 
 ## 13. Criterios generales de aceptación
 
@@ -225,6 +244,9 @@ El proyecto podrá considerarse alineado con este plan cuando se verifique que:
   sin overflow horizontal en ningún breakpoint.
 - **CA-14:** Los 5 test cases de QA están documentados con evidencia
   (prompts, capturas, issues) en `docs/04-testing/`.
+- **CA-15:** Bootstrap está instalado sin romper los estilos de la Actividad N.º 2 y el sistema de columnas se aplica en las secciones relevantes del sitio.
+- **CA-16:** El sitio incluye al menos dos componentes avanzados de Bootstrap y al menos dos componentes HTML avanzados, integrados de forma coherente con el sistema de diseño.
+- **CA-17:** La migración a Bootstrap y los componentes avanzados están documentados con test cases (6 a 10) en `docs/04-testing/`.
 
 ## 14. Fuera de alcance de la primera entrega
 
