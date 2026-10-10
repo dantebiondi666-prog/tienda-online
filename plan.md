@@ -159,7 +159,7 @@ Esta entrega integra las Actividades Obligatorias N.º 1 y N.º 2 y suma la migr
 - al menos dos componentes avanzados de Bootstrap (por ejemplo carrusel, modal o barra de navegación);
 - al menos dos componentes HTML avanzados (por ejemplo iframe, audio, video, `details`/`summary`, `progress` o `meter`), adaptados a Bootstrap (por ejemplo con el helper `ratio` en los iframes);
 - personalizaciones de Bootstrap centralizadas en `css/bootstrap-overrides.css`, manteniendo la identidad visual de la Sección 12.1;
-- mockup actualizado con la migración a Bootstrap (`docs/01-mockup/disenio-bootstrap.png`);
+- mockup actualizado con la migración a Bootstrap (`docs/01-mockup/primer-parcial/disenio-bootstrap.png`);
 - test cases 6 a 10 documentados en `docs/04-testing/` y release `release/primer-parcial` publicada en GitHub Pages.
 
 #### No incluido como comportamiento operativo
@@ -221,7 +221,7 @@ mockup de Figma (`docs/01-mockup/actividad-obligatoria-2/`):
 
 Espaciados (escala de 8 px) y estados de interacción (hover, focus y disabled): definidos en `docs/03-specs/actividad-obligatoria-2/spec-devops.md` (secciones 3.3 y 3.4).
 
-En el Primer Parcial este sistema se mantiene sobre Bootstrap 5 mediante overrides en `css/bootstrap-overrides.css`. El mockup correspondiente se encuentra en `docs/01-mockup/disenio-bootstrap.png`.
+En el Primer Parcial este sistema se mantiene sobre Bootstrap 5 mediante overrides en `css/bootstrap-overrides.css`. El mockup correspondiente se encuentra en `docs/01-mockup/primer-parcial/disenio-bootstrap.png`.
 
 ## 13. Criterios generales de aceptación
 

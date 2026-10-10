@@ -53,7 +53,7 @@ Backport de `release/actividad-obligatoria-2` hacia `develop`: [PR #53](https://
   dorado apagado, gris cálido, crema, carbón) y las tipografías (Playfair
   Display y Work Sans) de la Act. N°2, aplicadas mediante overrides de
   Bootstrap. Los estados hover, focus y disabled se ajustan a los de Bootstrap.
-- **Entregables:** exportar a `docs/01-mockup/disenio-bootstrap.png` y
+- **Entregables:** exportar a `docs/01-mockup/primer-parcial/disenio-bootstrap.png` y
   actualizar `README.md` con la imagen y el enlace al archivo de Figma.
 
 ### 1.3 Coordinación y entrega
@@ -95,7 +95,7 @@ no está detallado en `plan.md`. Para mantener la trazabilidad (Sección 16 de
 - [ ] El mockup incluye los componentes avanzados de Bootstrap seleccionados.
 - [ ] El mockup indica dónde van los componentes HTML avanzados.
 - [ ] Paleta, tipografías y estados de interacción son coherentes con Bootstrap.
-- [ ] Mockup exportado en `docs/01-mockup/disenio-bootstrap.png`.
+- [ ] Mockup exportado en `docs/01-mockup/primer-parcial/disenio-bootstrap.png`.
 - [ ] `README.md` actualizado con la imagen y el enlace al archivo de Figma.
 - [ ] El enlace de Figma permite al Desarrollador Frontend/Bootstrap usar el MCP.
 - [ ] `plan.md` actualizado con el alcance del Primer Parcial (sección 10.2).
