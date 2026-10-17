@@ -12,6 +12,14 @@ main > div.row {
   display: flex;
   grid-template-columns: none;
   gap: 0;
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+main > div.row > aside,
+main > div.row > #catalogo {
+  min-width: 0;
 }
 
 #catalogo {
