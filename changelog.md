@@ -75,6 +75,9 @@ PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71) - @dante
 
 - [fix/rc14-carousel-controls] [RC14] Se ajustan los controles, indicadores y la posición de `.carousel-caption` para evitar superposiciones dentro del Carousel de productos destacados.
   PR: [#78](https://github.com/dantebiondi666-prog/tienda-online/pull/78) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc15-form-required] [RC15] Se agrega validación HTML nativa mediante `required` a los campos nombre, e-mail y mensaje del formulario de contacto para impedir envíos vacíos sin utilizar JavaScript.
+  PR: [#79](https://github.com/dantebiondi666-prog/tienda-online/pull/79) - @dantebiondi666-prog (Coordinador/Devops)
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
