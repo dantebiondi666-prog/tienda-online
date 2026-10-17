@@ -64,6 +64,8 @@ PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71)
 - [fix/rc10-textarea-resize] [RC10] Se limita el redimensionamiento vertical del campo de mensaje del formulario de contacto para evitar un crecimiento indefinido del `textarea`.
   PR: [#73](https://github.com/dantebiondi666-prog/tienda-online/pull/73)
 
+- [fix/rc11-mockup-modal] [RC11] Se actualiza el mockup del Primer Parcial para representar visualmente el Modal Bootstrap con su estructura, contenido y controles, manteniendo la composición general del diseño.
+  PR: [#74](https://github.com/dantebiondi666-prog/tienda-online/pull/74)
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
