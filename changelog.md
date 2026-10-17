@@ -69,6 +69,9 @@ PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71) - @dante
 
 - [fix/rc12-layout-widths] [RC12] Se unifican los anchos del bloque de filtros y catálogo con el resto de las secciones del sitio, manteniendo la distribución responsive en desktop, tablet y mobile.
   PR: [#75](https://github.com/dantebiondi666-prog/tienda-online/pull/75) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc13-carousel-images] [RC13] Se corrige el recorte de las imágenes del Carousel de productos destacados reemplazando `object-fit: cover` por `object-fit: contain`, permitiendo visualizar cada prenda completa sin deformaciones.
+  PR: [#76](https://github.com/dantebiondi666-prog/tienda-online/pull/76) - @dantebiondi666-prog (Coordinador/Devops)
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
