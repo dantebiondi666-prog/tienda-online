@@ -326,6 +326,7 @@ main > section[aria-labelledby='contacto-titulo'] textarea {
 main > section[aria-labelledby='contacto-titulo'] textarea {
   min-height: 40px;
   height: 40px;
+  max-height: 200px;
   resize: vertical;
 }
 
