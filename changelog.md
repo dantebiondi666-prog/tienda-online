@@ -46,6 +46,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 - [fix/spec-devops-primer-parcial] [Primer Parcial] DevOps: completar trazabilidad y documentación de entrega - Completa la trazabilidad y documentación de la entrega, actualiza la especificación DevOps, el índice de testing, el changelog y corrige la referencia al mockup en README.
   PR: [#66](https://github.com/dantebiondi666-prog/tienda-online/pull/66) - @Zikoloogo (Coordinador / DevOps)
 
+- [fix/issue-59-bootstrap-grid] [RC5] Trazabilidad del Issue #59: regresión de grilla Bootstrap en desktop y tablet. Se formaliza bajo `Fixed` el hallazgo detectado durante TC6 y la corrección ya integrada originalmente en la PR #60.
+  PR: pendiente
+  
+  Issue:
+  [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
+
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
