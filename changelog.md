@@ -47,8 +47,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#66](https://github.com/dantebiondi666-prog/tienda-online/pull/66) - @Zikoloogo (Coordinador / DevOps)
 
 - [fix/issue-59-bootstrap-grid] [RC5] Trazabilidad del Issue #59: regresión de grilla Bootstrap en desktop y tablet. Se formaliza bajo `Fixed` el hallazgo detectado durante TC6 y la corrección ya integrada originalmente en la PR #60.
-  PR: pendiente
-  
+  PR: [#70](https://github.com/dantebiondi666-prog/tienda-online/pull/70)
+
   Issue:
   [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
 
