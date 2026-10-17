@@ -49,9 +49,9 @@ main > div.row > #catalogo {
 }
 
 .carousel-destacados .carousel-caption {
-  left: 15%;
-  right: 15%;
-  bottom: var(--space-2);
+  left: 18%;
+  right: 18%;
+  bottom: 3.25rem;
   padding: 4px var(--space-2);
   border-radius: var(--radius-small);
   background: rgba(46, 43, 38, 0.78);
@@ -59,8 +59,17 @@ main > div.row > #catalogo {
   font-family: var(--font-body);
 }
 
+.carousel-destacados .carousel-indicators {
+  margin-bottom: 0.75rem;
+}
+
 .carousel-destacados .carousel-indicators [data-bs-target] {
   background-color: var(--color-gold);
+}
+
+.carousel-destacados .carousel-control-prev,
+.carousel-destacados .carousel-control-next {
+  width: 10%;
 }
 
 .carousel-destacados .carousel-control-prev-icon,

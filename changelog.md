@@ -72,6 +72,9 @@ PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71) - @dante
 
 - [fix/rc13-carousel-images] [RC13] Se corrige el recorte de las imágenes del Carousel de productos destacados reemplazando `object-fit: cover` por `object-fit: contain`, permitiendo visualizar cada prenda completa sin deformaciones.
   PR: [#77](https://github.com/dantebiondi666-prog/tienda-online/pull/77) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc14-carousel-controls] [RC14] Se ajustan los controles, indicadores y la posición de `.carousel-caption` para evitar superposiciones dentro del Carousel de productos destacados.
+  PR: [#78](https://github.com/dantebiondi666-prog/tienda-online/pull/78) - @dantebiondi666-prog (Coordinador/Devops)
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
