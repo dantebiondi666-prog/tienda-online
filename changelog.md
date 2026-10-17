@@ -52,6 +52,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue:
   [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
 
+- [fix/issue-64-modal-talles] [RC5] Trazabilidad del Issue #64: guía de talles incorrecta en el Modal. Se formaliza bajo `Fixed` el hallazgo detectado durante TC8 y la corrección ya integrada originalmente en la PR #62.
+  PR: pendiente
+
+  Issue:
+  [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
+
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
