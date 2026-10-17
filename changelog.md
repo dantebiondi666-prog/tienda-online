@@ -47,25 +47,28 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#66](https://github.com/dantebiondi666-prog/tienda-online/pull/66) - @Zikoloogo (Coordinador / DevOps)
 
 - [fix/issue-59-bootstrap-grid] [RC5] Trazabilidad del Issue #59: regresión de grilla Bootstrap en desktop y tablet. Se formaliza bajo `Fixed` el hallazgo detectado durante TC6 y la corrección ya integrada originalmente en la PR #60.
-  PR: [#70](https://github.com/dantebiondi666-prog/tienda-online/pull/70)
+  PR: [#70](https://github.com/dantebiondi666-prog/tienda-online/pull/70) - @dantebiondi666-prog (Coordinador/Devops)
 
   Issue:
   [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
 
 - [fix/issue-64-modal-talles] [RC5] Trazabilidad del Issue #64: guía de talles incorrecta en el Modal. Se formaliza bajo `Fixed` el hallazgo detectado durante TC8 y la corrección ya integrada originalmente en la PR #62.
-PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71)
+PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71) - @dantebiondi666-prog (Coordinador/Devops)
 
   Issue:
   [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
 
 - [fix/rc9-cname-trazabilidad] [RC9] Documentación de ingresos directos a `release/primer-parcial`. Se registran como desvíos históricos de GitFlow los commits `c2d9afaa25f29c91f23908aa8e4c09d7a92890c0` (`Create CNAME`) y `95d9f4ee5c141960b7dda6c7636c288dbb6c9c3a` (`Delete CNAME`), que fueron incorporados directamente a la release sin una PR `fix/*`.
-  PR: [#72](https://github.com/dantebiondi666-prog/tienda-online/pull/72)
+  PR: [#72](https://github.com/dantebiondi666-prog/tienda-online/pull/72) - @dantebiondi666-prog (Coordinador/Devops)
 
 - [fix/rc10-textarea-resize] [RC10] Se limita el redimensionamiento vertical del campo de mensaje del formulario de contacto para evitar un crecimiento indefinido del `textarea`.
-  PR: [#73](https://github.com/dantebiondi666-prog/tienda-online/pull/73)
+  PR: [#73](https://github.com/dantebiondi666-prog/tienda-online/pull/73) - @dantebiondi666-prog (Coordinador/Devops)
 
 - [fix/rc11-mockup-modal] [RC11] Se actualiza el mockup del Primer Parcial para representar visualmente el Modal Bootstrap con su estructura, contenido y controles, manteniendo la composición general del diseño.
-  PR: [#74](https://github.com/dantebiondi666-prog/tienda-online/pull/74)
+  PR: [#74](https://github.com/dantebiondi666-prog/tienda-online/pull/74) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc12-layout-widths] [RC12] Se unifican los anchos del bloque de filtros y catálogo con el resto de las secciones del sitio, manteniendo la distribución responsive en desktop, tablet y mobile.
+  PR: [#75](https://github.com/dantebiondi666-prog/tienda-online/pull/75) - @dantebiondi666-prog (Coordinador/Devops)
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
