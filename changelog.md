@@ -58,6 +58,9 @@ PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71)
   Issue:
   [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
 
+- [fix/rc9-cname-trazabilidad] [RC9] Documentación de ingresos directos a `release/primer-parcial`. Se registran como desvíos históricos de GitFlow los commits `c2d9afaa25f29c91f23908aa8e4c09d7a92890c0` (`Create CNAME`) y `95d9f4ee5c141960b7dda6c7636c288dbb6c9c3a` (`Delete CNAME`), que fueron incorporados directamente a la release sin una PR `fix/*`.
+  PR: pendiente
+
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
