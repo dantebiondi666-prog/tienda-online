@@ -81,6 +81,9 @@ PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71) - @dante
 
 - [fix/rc20-34-changelog-titles] [Fix RC20-RC34] Corregir títulos de trazabilidad en changelog
   PR: [#80](https://github.com/dantebiondi666-prog/tienda-online/pull/80) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc16-testing-final] [Fix RC16] Actualizar testing final del Primer Parcial
+  PR: [#81](https://github.com/dantebiondi666-prog/tienda-online/pull/81) - @dantebiondi666-prog (Coordinador/Devops)
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27

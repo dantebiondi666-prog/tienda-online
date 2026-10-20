@@ -1,30 +1,31 @@
-# Testing Doc — Actividad Obligatoria N.º 2
+# Testing Doc — Primer Parcial
 
 **Proyecto:** Tienda Online  
-**Rol:** Documentador / QA Tester  
-**Tester:** Juan Martin Britos  
-**Herramientas:** Playwright MCP, GitHub MCP, axe-core, Performance API y validadores W3C  
+**Entrega:** Primer Parcial — Programación Web I  
+**Alcance:** Test Cases TC6–TC10 y retest final sobre la release desplegada  
+**Herramienta de retest final:** Playwright MCP  
+**Deployment evaluado:** https://dantebiondi666-prog.github.io/tienda-online/  
+**Fecha del retest final:** 2026-10-19  
 
 ---
 
 ## 1. Objetivo
 
-Este documento centraliza los resultados del proceso de QA realizado durante la Actividad Obligatoria N.º 2.
+Este documento centraliza la evidencia de testing correspondiente al Primer Parcial de Programación Web I.
 
-Las pruebas fueron divididas en dos etapas:
+Para esta entrega se documentan los Test Cases TC6 a TC10, correspondientes a la migración responsive a Bootstrap, Carousel, Modal y componentes HTML avanzados.
 
-- **Momento 1 — Pre-merge:** evaluación de las ramas feature antes de su integración.
-- **Momento 2 — Post-merge:** evaluación del proyecto integrado y posterior verificación de las correcciones realizadas.
+Los archivos individuales de cada Test Case conservan la evidencia de las ejecuciones realizadas durante el desarrollo de las ramas feature. Como cierre de la entrega, se realizó además un retest final mediante Playwright MCP sobre el deployment público de `release/primer-parcial`.
 
-Los casos ejecutados fueron:
+Los casos correspondientes al Primer Parcial son:
 
-1. TC1 — Compatibilidad Desktop.
-2. TC2 — Responsive Design.
-3. TC3 — Performance y tiempos de carga.
-4. TC4 — Accesibilidad.
-5. TC5 — HTML semántico y validación W3C.
+1. TC6 — Migración responsive a Bootstrap.
+2. TC7 — Carousel de destacados.
+3. TC8 — Modal de detalle de producto.
+4. TC9 — Componente HTML avanzado `details/summary`.
+5. TC10 — Componente HTML avanzado `datalist`.
 
----
+La documentación de TC1 a TC5 se conserva en este archivo como antecedente histórico del proceso de QA realizado durante la Actividad Obligatoria N.º 2.
 
 ## Índice de Test Cases
 
@@ -38,6 +39,50 @@ Los casos ejecutados fueron:
 - [TC8 — Modal de detalle de producto (Bootstrap)](./test-case-8.md)
 - [TC9 — Componente HTML avanzado details/summary](./test-case-9.md)
 - [TC10 — Componente HTML avanzado datalist](./test-case-10.md)
+
+# Testing del Primer Parcial — TC6 a TC10
+
+## TC6 — Migración responsive a Bootstrap
+
+Se evaluó el comportamiento responsive de la interfaz después de la migración a Bootstrap 5.
+
+La ejecución original y sus correcciones se encuentran documentadas en:
+
+- [TC6 — Migración responsive a Bootstrap](./test-case-6.md)
+
+## TC7 — Carousel de destacados
+
+Se verificó el funcionamiento del Carousel Bootstrap, sus controles, indicadores, imágenes y comportamiento responsive.
+
+La ejecución original se encuentra documentada en:
+
+- [TC7 — Carousel de destacados](./test-case-7.md)
+
+## TC8 — Modal de detalle de producto
+
+Se verificó el funcionamiento del Modal Bootstrap, su contenido, controles de cierre y adaptación responsive.
+
+La ejecución original se encuentra documentada en:
+
+- [TC8 — Modal de detalle de producto](./test-case-8.md)
+
+## TC9 — Componente details/summary
+
+Se verificó el funcionamiento, accesibilidad mediante teclado y adaptación responsive del componente HTML avanzado `details/summary`.
+
+La ejecución original se encuentra documentada en:
+
+- [TC9 — details/summary](./test-case-9.md)
+
+## TC10 — Componente datalist
+
+Se verificó la asociación del buscador con el elemento `datalist`, sus opciones y su funcionamiento mediante teclado.
+
+La ejecución original se encuentra documentada en:
+
+- [TC10 — datalist](./test-case-10.md)
+
+---
 
 # 2. Momento 1 — Pre-merge
 
@@ -432,3 +477,124 @@ Los fallos encontrados en TC2 y TC4 durante el Momento 2 fueron corregidos y pos
 La validación CSS mediante W3C CSS Validator permanece como `NO EJECUTADO` debido a la respuesta HTTP 500 del servicio externo.
 
 La compatibilidad específica con motores reales de Firefox, Safari y Edge permanece documentada como una limitación del TC1.
+
+
+# Retest final — Release desplegada del Primer Parcial
+
+Como cierre del proceso de QA se ejecutó un retest final mediante Playwright MCP sobre el deployment público correspondiente a `release/primer-parcial`.
+
+**URL evaluada:**  
+https://dantebiondi666-prog.github.io/tienda-online/
+
+**Fecha:** 2026-10-19  
+**Herramienta:** Playwright MCP
+
+Las pruebas se realizaron sobre la versión desplegada y no sobre `localhost` ni sobre las ramas feature originales.
+
+## TC6 — Migración responsive a Bootstrap
+
+Se evaluaron:
+
+- Desktop — 1920x1080.
+- iPad Air — 820x1180.
+- iPhone 14 Pro — 390x844.
+- Samsung Galaxy S23 — 412x915.
+
+Resultados de overflow horizontal:
+
+| Viewport | scrollWidth | clientWidth | Resultado |
+|---|---:|---:|---|
+| Desktop | 1905 | 1905 | PASS |
+| iPad Air | 805 | 805 | PASS |
+| iPhone 14 Pro | 375 | 375 | PASS |
+| Samsung Galaxy S23 | 397 | 397 | PASS |
+
+Se confirmó:
+
+- correcta distribución responsive de filtros y catálogo;
+- tarjetas sin compresión ni superposición;
+- ausencia de overflow horizontal global;
+- guía de talles utilizable;
+- Carousel sin alteraciones sobre el ancho del layout;
+- ausencia de errores relevantes de consola.
+
+**RETEST FINAL TC6: PASS**
+
+---
+
+## TC7 — Carousel de destacados
+
+Se verificó el Carousel Bootstrap en desktop y mobile.
+
+Se confirmó:
+
+- funcionamiento de las diapositivas;
+- funcionamiento de controles e indicadores;
+- imágenes visibles correctamente;
+- ausencia de superposiciones relevantes;
+- ausencia de overflow horizontal.
+
+**RETEST FINAL TC7: PASS**
+
+---
+
+## TC8 — Modal de detalle de producto
+
+Se verificó el Modal Bootstrap en desktop y mobile.
+
+Se confirmó:
+
+- apertura desde los productos;
+- contenido correcto;
+- funcionamiento de los controles de cierre;
+- adaptación responsive;
+- ausencia de bugs relevantes.
+
+**RETEST FINAL TC8: PASS**
+
+---
+
+## TC9 — Componente details/summary
+
+Se verificó el componente `details/summary` en desktop y mobile.
+
+Se confirmó:
+
+- existencia y funcionamiento de los componentes;
+- apertura y cierre correctos;
+- funcionamiento mediante teclado;
+- ausencia de contenido cortado u overflow horizontal.
+
+**RETEST FINAL TC9: PASS**
+
+---
+
+## TC10 — Componente datalist
+
+Se verificó el componente `datalist` en desktop y mobile.
+
+Se confirmó:
+
+- asociación correcta con el campo de búsqueda;
+- presencia de las opciones definidas;
+- ingreso de valores sugeridos y libres;
+- utilización mediante teclado;
+- ausencia de contenido cortado u overflow horizontal.
+
+**RETEST FINAL TC10: PASS**
+
+---
+
+## Resultado final del Primer Parcial
+
+| Test Case | Resultado final |
+|---|---|
+| TC6 — Migración responsive a Bootstrap | PASS |
+| TC7 — Carousel de destacados | PASS |
+| TC8 — Modal de detalle de producto | PASS |
+| TC9 — details/summary | PASS |
+| TC10 — datalist | PASS |
+
+Los cinco Test Cases correspondientes al Primer Parcial obtuvieron resultado `PASS` durante el retest final ejecutado mediante Playwright MCP sobre la release desplegada.
+
+No se detectaron bugs relevantes que requirieran nuevas Issues o correcciones adicionales.
