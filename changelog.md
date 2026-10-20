@@ -61,6 +61,14 @@ PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71) - @dante
 - [fix/rc9-cname-trazabilidad] [Fix RC9] Documentar ingresos directos de CNAME.
   PR: [#72](https://github.com/dantebiondi666-prog/tienda-online/pull/72) - @dantebiondi666-prog (Coordinador/Devops)
 
+- [direct-release-commit] `Create CNAME` ingresó directamente a `release/primer-parcial` sin una PR `fix/*`.
+  Commit: [c2d9afaa25f29c91f23908aa8e4c09d7a92890c0](https://github.com/dantebiondi666-prog/tienda-online/commit/c2d9afaa25f29c91f23908aa8e4c09d7a92890c0)
+  Desvío histórico de GitFlow.
+
+- [direct-release-commit] `Delete CNAME` ingresó directamente a `release/primer-parcial` sin una PR `fix/*`.
+  Commit: [95d9f4ee5c141960b7dda6c7636c288dbb6c9c3a](https://github.com/dantebiondi666-prog/tienda-online/commit/95d9f4ee5c141960b7dda6c7636c288dbb6c9c3a)
+  Desvío histórico de GitFlow.
+
 - [fix/rc10-textarea-resize] [Fix RC10] Limitar redimensionamiento del textarea.
   PR: [#73](https://github.com/dantebiondi666-prog/tienda-online/pull/73) - @dantebiondi666-prog (Coordinador/Devops)
 
@@ -84,6 +92,9 @@ PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71) - @dante
 
 - [fix/rc16-testing-final] [Fix RC16] Actualizar testing final del Primer Parcial
   PR: [#81](https://github.com/dantebiondi666-prog/tienda-online/pull/81) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc35-direct-commit-trazabilidad] [Fix RC35] Completar trazabilidad de commits directos de CNAME
+  PR: [#82](https://github.com/dantebiondi666-prog/tienda-online/pull/82) - @dantebiondi666-prog (Coordinador/Devops)
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
