@@ -166,6 +166,115 @@ Esta entrega integra las Actividades Obligatorias N.º 1 y N.º 2 y suma la migr
 
 Carrito, filtros dinámicos y selección interactiva de talles siguen siendo evolución futura según la Sección 9. El JavaScript de esta entrega se limita al que aporta Bootstrap para sus componentes.
 
+### 10.3 Alcance específico de la Actividad Obligatoria N.º 3
+
+Esta entrega incorpora lógica de negocio mediante JavaScript sobre la base consolidada del Primer Parcial.
+
+La funcionalidad se implementará como una simulación mediante `prompt()`, `alert()` y `console.log()`, sin manipulación del DOM ni utilización de eventos. El objetivo es desarrollar y validar la lógica de los principales procesos de la tienda antes de integrarlos con la interfaz en entregas posteriores.
+
+#### Flujos principales
+
+Se implementarán cuatro flujos principales relacionados con las funcionalidades previstas para Remer Us.
+
+##### Flujo 1 — Consultar y filtrar el catálogo
+
+El usuario podrá indicar un criterio de búsqueda relacionado con categoría, tipo de prenda, talle o estilo.
+
+El sistema procesará el catálogo almacenado mediante arrays y objetos, aplicará el criterio correspondiente y mostrará los productos que cumplan con la búsqueda.
+
+Este flujo se relaciona principalmente con RF-01, RF-03 y RF-13 a RF-16.
+
+**Entrada:** criterio de filtrado ingresado por el usuario.  
+**Proceso:** recorrido y filtrado de la colección de productos.  
+**Salida:** productos que coinciden con el criterio seleccionado.
+
+##### Flujo 2 — Consultar producto y disponibilidad de talle
+
+El usuario podrá seleccionar un producto e indicar un talle.
+
+El sistema buscará el producto dentro del catálogo y verificará si el talle ingresado se encuentra entre los disponibles.
+
+Este flujo se relaciona principalmente con RF-02, RF-05, RF-06 y RF-07.
+
+**Entrada:** producto y talle seleccionados.  
+**Proceso:** búsqueda del producto y validación de disponibilidad.  
+**Salida:** información del producto y resultado de disponibilidad del talle.
+
+##### Flujo 3 — Gestionar carrito simulado
+
+El usuario podrá agregar productos al carrito indicando producto, talle y cantidad. También se contemplarán operaciones básicas para modificar o eliminar elementos del carrito.
+
+El carrito será representado mediante un array de objetos y se validarán los datos ingresados antes de modificar su contenido.
+
+Este flujo se relaciona principalmente con RF-08, RF-09, RF-10 y RF-11.
+
+**Entrada:** acción seleccionada y datos del producto.  
+**Proceso:** validación y actualización del array que representa el carrito.  
+**Salida:** estado actualizado del carrito.
+
+##### Flujo 4 — Generar resumen de compra
+
+El sistema recorrerá los productos incorporados al carrito y calculará el total correspondiente según precios y cantidades.
+
+Se mostrará un resumen de los productos seleccionados, sus cantidades y el total calculado.
+
+Este flujo se relaciona principalmente con RF-12.
+
+**Entrada:** contenido actual del carrito.  
+**Proceso:** recorrido de los productos y cálculo de subtotales y total.  
+**Salida:** resumen de compra y total calculado.
+
+#### Menú principal
+
+`js/script.js` incluirá un menú mediante `prompt()` que permitirá seleccionar uno de los cuatro flujos.
+
+La selección podrá resolverse mediante estructuras condicionales como `if`, `else if` o `switch`.
+
+Cada flujo deberá utilizar funciones específicas, con parámetros y valores de retorno cuando corresponda, manteniendo separada la lógica de negocio de la interacción mediante `prompt()` y `alert()`.
+
+#### Estructuras y algoritmos
+
+La implementación deberá incluir:
+
+- estructuras condicionales;
+- ciclos `for` y/o `while`;
+- operadores lógicos y de comparación;
+- funciones con responsabilidad específica;
+- arrays para almacenar colecciones;
+- objetos para representar productos y elementos del carrito;
+- validación de las entradas recibidas;
+- nombres de variables y funciones en camelCase.
+
+#### Diagramas de actividades
+
+Cada uno de los cuatro flujos deberá contar con un diagrama de actividades creado mediante PlantUML.
+
+Los diagramas serán utilizados como contrato previo para la implementación JavaScript y deberán conservar coherencia con el comportamiento implementado posteriormente en `js/script.js`.
+
+Cada diagrama se conservará en formato `.puml` y `.png`.
+
+#### Testing
+
+Los cuatro flujos serán validados mediante Jasmine.
+
+Se implementará una suite de tests por flujo, incluyendo como mínimo casos normales, casos borde y validaciones de entradas incorrectas.
+
+Las funciones de lógica de negocio deberán diseñarse de forma testeable, evitando que `prompt()` y `alert()` formen parte directa de las funciones que realizan cálculos, búsquedas o modificaciones de datos.
+
+#### No incluido en esta entrega
+
+- manipulación del DOM;
+- manejo de eventos;
+- actualización visual dinámica del catálogo;
+- carrito integrado a la interfaz HTML;
+- persistencia de información;
+- almacenamiento en base de datos;
+- conexión con APIs externas;
+- autenticación;
+- pagos o checkout real.
+
+La interacción real con los elementos visuales de la página se incorporará en entregas posteriores.
+
 ## 11. Elementos HTML5 requeridos en la primera entrega
 
 `index.html` deberá contener, de manera pertinente al tema de la tienda:
@@ -247,6 +356,12 @@ El proyecto podrá considerarse alineado con este plan cuando se verifique que:
 - **CA-15:** Bootstrap está instalado sin romper los estilos de la Actividad N.º 2 y el sistema de columnas se aplica en las secciones relevantes del sitio.
 - **CA-16:** El sitio incluye al menos dos componentes avanzados de Bootstrap y al menos dos componentes HTML avanzados, integrados de forma coherente con el sistema de diseño.
 - **CA-17:** La migración a Bootstrap y los componentes avanzados están documentados con test cases (6 a 10) en `docs/04-testing/`.
+- **CA-18:** La Actividad Obligatoria N.º 3 implementa cuatro flujos principales de la tienda, cada uno estructurado según el patrón entrada, proceso y salida.
+- **CA-19:** `js/script.js` utiliza estructuras condicionales, ciclos, funciones, arrays y objetos de forma coherente con la lógica del proyecto.
+- **CA-20:** La lógica de negocio se mantiene separada de la interacción mediante `prompt()` y `alert()`, permitiendo que las funciones principales puedan ser testeadas de forma independiente.
+- **CA-21:** Los cuatro flujos cuentan con diagramas de actividades en formato `.puml` y `.png`, y existe coherencia entre los diagramas y su implementación JavaScript.
+- **CA-22:** Los cuatro flujos cuentan con suites de testing automatizado mediante Jasmine, incluyendo casos normales, casos borde y validaciones de entradas inválidas.
+- **CA-23:** La Actividad Obligatoria N.º 3 no utiliza manipulación del DOM ni eventos y mantiene estas funcionalidades reservadas para entregas posteriores.
 
 ## 14. Fuera de alcance de la primera entrega
 

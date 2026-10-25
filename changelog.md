@@ -8,6 +8,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
+- [feature/coord-devops-tercera-entrega] [AO3] Coordinador / DevOps: definir base y coordinación de tercera entrega.
+  PR: [#85](https://github.com/dantebiondi666-prog/tienda-online/pull/85) - @dantebiondi666-prog (Coordinador / DevOps)
+
+  Issue:
+  [#84](https://github.com/dantebiondi666-prog/tienda-online/issues/84)
+
 ## [Release Primer Parcial] - 2026-10-07
 
 ### Added
