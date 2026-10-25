@@ -11,11 +11,13 @@ Ofrecer una experiencia simple para consultar prendas, comparar sus característ
 - HTML5
 - CSS (sistema de diseño y estilos propios desde la Actividad Obligatoria N°2)
 - Bootstrap 5 (grilla de 12 columnas y componentes, vía CDN jsDelivr)
-- JavaScript (a incorporar en próximas entregas; el bundle de Bootstrap aporta el comportamiento del carrusel y el modal)
+- JavaScript (lógica de negocio y simulación mediante prompt/alert desde la Actividad Obligatoria N.º 3)
 - Git y GitHub (control de versiones y flujo colaborativo)
 - GitHub Projects (tablero Kanban del equipo)
 - Figma / FigJam (diseño de mockups)
 - GitHub Copilot (asistencia de IA en modo Agente)
+- Jasmine (testing automatizado de la lógica JavaScript)
+- PlantUML (diagramas de actividades de los flujos principales)
 
 ## Funcionalidades previstas
 
@@ -35,7 +37,7 @@ El mockup de la página principal fue diseñado en Figma, siguiendo lineamientos
 - Descripción del proyecto: e-commerce de ropa que evoluciona por entregas: estructura semántica en HTML5 (Actividad Obligatoria N°1), estilos CSS, diseño responsive y QA automatizado (Actividad Obligatoria N°2) y migración a Bootstrap con componentes avanzados (Primer Parcial).
 - Objetivo de la Actividad Obligatoria N°1: construir la estructura base del sitio (index.html) y su documentación asociada (README, mockup, specs).
 - Objetivo de la Actividad Obligatoria N°2: incorporar estilos visuales mediante CSS, diseño responsive y un proceso de QA asistido por herramientas de automatización.
-- Objetivo del entregable actual (Primer Parcial): migrar el sitio a Bootstrap (grilla de 12 columnas y componentes avanzados) e incorporar componentes HTML avanzados.
+- Objetivo del entregable actual (Actividad Obligatoria N.º 3): incorporar la lógica de negocio fundamental mediante JavaScript, modelando cuatro flujos principales con diagramas de actividades y validándolos mediante testing automatizado con Jasmine.
 - Mockup Actividad N°1: [docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png](docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
 - Mockup Actividad N°2 (con sistema de diseño aplicado): [docs/01-mockup/actividad-obligatoria-2/diseño-con-estilos.png](docs/01-mockup/actividad-obligatoria-2/diseño-con-estilos.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
 - Mockup Primer Parcial (Bootstrap): [docs/01-mockup/primer-parcial/disenio-bootstrap.png](docs/01-mockup/primer-parcial/disenio-bootstrap.png) — [versión online en FigJam](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=0-1)
