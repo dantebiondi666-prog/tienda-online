@@ -8,43 +8,93 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
-- [feature/coord-devops-update-figma-and-readme] [Primer Parcial] Coordinador/DevOps: mockup Bootstrap, README y plan.md - Spec del Primer Parcial, mockup con la migración a Bootstrap, actualización de README.md y plan.md (nombre Remer Us, sección 10.2 y criterios CA-15 a CA-17).
-PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikoloogo (Coordinador / DevOps)
+## [Release Primer Parcial] - 2026-10-07
 
+### Added
+
+- [feature/coord-devops-update-figma-and-readme] [Primer Parcial] Coordinador/DevOps: mockup Bootstrap, README y plan.md.
+  PR: [#56](https://github.com/dantebiondi666-prog/tienda-online/pull/56) - @Zikoloogo (Coordinador / DevOps)
   Issues:
   [#54](https://github.com/dantebiondi666-prog/tienda-online/issues/54)
 
-- [feature/dev-frontend-bootstrap-migration] [Primer Parcial] Desarrollador Frontend / Bootstrap: integración de Bootstrap 5 mediante CDN, migración de la interfaz al sistema de grillas responsive y creación de `css/bootstrap-overrides.css`. Se verificó el comportamiento responsive mediante Playwright MCP con el Test Case 6. Durante las pruebas se detectó una regresión visual, registrada en el Issue #59, corregida y verificada mediante retest con resultado PASS.
-  PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - integrar Bootstrap y grilla responsive - @juanmartinbritos7-cmd
-
+- [feature/dev-frontend-bootstrap-migration] feat(frontend): integrar Bootstrap y grilla responsive.
+  PR: [#60](https://github.com/dantebiondi666-prog/tienda-online/pull/60) - @juanmartinbritos7-cmd (Desarrollador Frontend / Bootstrap)
   Issues:
   [#58](https://github.com/dantebiondi666-prog/tienda-online/issues/58)
   [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
 
-- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel de destacados (3 productos) y Modal de detalle de producto con Bootstrap 5.3.8, personalizados en `css/bootstrap-overrides.css`. Se probaron en iPhone 14 Pro, Galaxy S23 e iPad Air (viewports emulados en Chromium) con un script de Playwright, porque las tools del Playwright MCP no llegaron al Agent de Copilot: 51 pruebas (Test Cases 7 y 8), todas OK, incluso después de integrar develop. Sin bugs de funcionamiento. Se registró el hallazgo de contenido #64 (la guía de talles del modal es igual para los tres productos), sin corregir en este PR. El swipe y Safari real no se verificaron.
+- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Especialista en Componentes Bootstrap: Carousel y Modal.
   PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
-
   Issues:
   [#61](https://github.com/dantebiondi666-prog/tienda-online/issues/61)
   [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
 
-- [feature/dev-comp-html-avanzados-add-components] [Primer Parcial] Desarrollador de Componentes HTML Avanzados: implementación de `<details>` y `<summary>` para la sección de preguntas frecuentes y `<datalist>` asociado al buscador principal. Se agregaron estilos en `css/components.css` para mantener la coherencia visual y se validaron ambos componentes mediante Playwright MCP con los Test Cases 9 y 10, obteniendo resultado final PASS en desktop, tablet y mobile.
-
+- [feature/dev-comp-html-avanzados-add-components] [Primer Parcial] Desarrollador HTML Avanzado: details, summary y datalist.
   PR: [#63](https://github.com/dantebiondi666-prog/tienda-online/pull/63) - @dantebiondi666-prog (Desarrollador de Componentes HTML Avanzados)
-
   Issues:
   [#57](https://github.com/dantebiondi666-prog/tienda-online/issues/57)
 
+### Changed
 
 ### Fixed
 
-- [feature/esp-componentes-bootstrap-add-components] [Primer Parcial] Corrección del Modal de detalle de producto: se eliminó la guía de talles estática que mostraba información incorrecta para algunos productos y se mantuvieron únicamente los talles correspondientes al producto seleccionado. También se mejoró la accesibilidad por teclado del Modal, manteniendo el foco dentro del componente durante la navegación con Tab y Shift + Tab, permitiendo el cierre con Escape y devolviendo el foco al botón "Ver detalle" al cerrar.
-
-  PR: [#62](https://github.com/dantebiondi666-prog/tienda-online/pull/62) - @LucasFUces (Especialista en Componentes Bootstrap)
-
+- [backport/release-actividad-obligatoria-2] [Backport] Backport de release/actividad-obligatoria-2 hacia develop.
+  PR: [#53](https://github.com/dantebiondi666-prog/tienda-online/pull/53) - @Zikoloogo (Coordinador / DevOps)
   Issues:
+  [#52](https://github.com/dantebiondi666-prog/tienda-online/issues/52)
+
+- [fix/spec-devops-primer-parcial] [Primer Parcial] DevOps: completar trazabilidad y documentación de entrega.
+  PR: [#66](https://github.com/dantebiondi666-prog/tienda-online/pull/66) - @Zikoloogo (Coordinador / DevOps)
+
+- [fix/issue-59-bootstrap-grid] [Fix RC5] Trazabilidad del Issue #59.
+  PR: [#70](https://github.com/dantebiondi666-prog/tienda-online/pull/70) - @dantebiondi666-prog (Coordinador/Devops)
+
+  Issue:
+  [#59](https://github.com/dantebiondi666-prog/tienda-online/issues/59)
+
+- [fix/issue-64-modal-talles] [Fix RC5] Trazabilidad del Issue #64.
+PR: [#71](https://github.com/dantebiondi666-prog/tienda-online/pull/71) - @dantebiondi666-prog (Coordinador/Devops)
+
+  Issue:
   [#64](https://github.com/dantebiondi666-prog/tienda-online/issues/64)
 
+- [fix/rc9-cname-trazabilidad] [Fix RC9] Documentar ingresos directos de CNAME.
+  PR: [#72](https://github.com/dantebiondi666-prog/tienda-online/pull/72) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [direct-release-commit] `Create CNAME` ingresó directamente a `release/primer-parcial` sin una PR `fix/*`.
+  Commit: [c2d9afaa25f29c91f23908aa8e4c09d7a92890c0](https://github.com/dantebiondi666-prog/tienda-online/commit/c2d9afaa25f29c91f23908aa8e4c09d7a92890c0)
+  Desvío histórico de GitFlow.
+
+- [direct-release-commit] `Delete CNAME` ingresó directamente a `release/primer-parcial` sin una PR `fix/*`.
+  Commit: [95d9f4ee5c141960b7dda6c7636c288dbb6c9c3a](https://github.com/dantebiondi666-prog/tienda-online/commit/95d9f4ee5c141960b7dda6c7636c288dbb6c9c3a)
+  Desvío histórico de GitFlow.
+
+- [fix/rc10-textarea-resize] [Fix RC10] Limitar redimensionamiento del textarea.
+  PR: [#73](https://github.com/dantebiondi666-prog/tienda-online/pull/73) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc11-mockup-modal] [Fix RC11] Representar visualmente el Modal Bootstrap en el mockup.
+  PR: [#74](https://github.com/dantebiondi666-prog/tienda-online/pull/74) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc12-layout-widths] [Fix RC12] Unificar anchos del layout responsive.
+  PR: [#75](https://github.com/dantebiondi666-prog/tienda-online/pull/75) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc13-carousel-images] [Fix RC13] Evitar recorte de imágenes del Carousel.
+  PR: [#77](https://github.com/dantebiondi666-prog/tienda-online/pull/77) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc14-carousel-controls] [Fix RC14] Evitar superposiciones en el Carousel.
+  PR: [#78](https://github.com/dantebiondi666-prog/tienda-online/pull/78) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc15-form-required] [Fix RC15] Agregar validación nativa al formulario de contacto.
+  PR: [#79](https://github.com/dantebiondi666-prog/tienda-online/pull/79) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc20-34-changelog-titles] [Fix RC20-RC34] Corregir títulos de trazabilidad en changelog
+  PR: [#80](https://github.com/dantebiondi666-prog/tienda-online/pull/80) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc16-testing-final] [Fix RC16] Actualizar testing final del Primer Parcial
+  PR: [#81](https://github.com/dantebiondi666-prog/tienda-online/pull/81) - @dantebiondi666-prog (Coordinador/Devops)
+
+- [fix/rc35-direct-commit-trazabilidad] [Fix RC35] Completar trazabilidad de commits directos de CNAME
+  PR: [#82](https://github.com/dantebiondi666-prog/tienda-online/pull/82) - @dantebiondi666-prog (Coordinador/Devops)
 ---
 
 ## [Release Actividad Obligatoria N°2] - 2026-09-27
@@ -118,7 +168,7 @@ PR: [#50](https://github.com/dantebiondi666-prog/tienda-online/pull/50) - @Zikol
 PR: [#51](https://github.com/dantebiondi666-prog/tienda-online/pull/51) - @Zikoloogo (Coordinador / DevOps)
 
 - [backport/release-actividad-obligatoria-2] [Backport] Backport de release/actividad-obligatoria-2 hacia develop - Sincronización de develop con las correcciones de la Actividad N°2 aprobadas y mergeadas a master, como base del Primer Parcial.
-PR: [#NN](https://github.com/dantebiondi666-prog/tienda-online/pull/NN) - @zikoloogo (Coordinador / DevOps)
+PR: [#53](https://github.com/dantebiondi666-prog/tienda-online/pull/53) - @zikoloogo (Coordinador / DevOps)
 
   Issues:
   [#51](https://github.com/dantebiondi666-prog/tienda-online/issues/51)
