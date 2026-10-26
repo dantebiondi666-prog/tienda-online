@@ -3,7 +3,7 @@
 - **Rol:** Arquitecto de Diagramas de Actividades
 - **Integrante:** Lucas Ivan Fischer (LucasFUces)
 - **Rama:** `feature/arq-diagramas-actividades`
-- **Issue:** #N
+- **Issue:** #86
 
 ---
 
