@@ -1,0 +1,33 @@
+@startuml
+|Usuario|
+start
+:Ingresar campo (categoría, tipo, talle o estilo) y valor mediante prompt();
+|Sistema|
+:Normalizar el campo y el valor ingresados;
+while (¿El campo o el valor son inválidos?) is (sí)
+  :Informar que el criterio no es válido con alert();
+  |Usuario|
+  :Ingresar nuevamente campo (categoría, tipo, talle o estilo) y valor mediante prompt();
+  |Sistema|
+  :Normalizar el campo y el valor ingresados;
+endwhile (no)
+
+:Inicializar la colección de resultados;
+:Preparar el recorrido del catálogo de productos;
+while (¿Quedan productos por revisar?) is (sí)
+  :Obtener el producto actual;
+  if (¿Coincide el valor con el campo seleccionado?) then (sí)
+    :Agregar el producto a los resultados;
+  else (no)
+    :Continuar sin agregar el producto;
+  endif
+  :Avanzar al siguiente producto;
+endwhile (no)
+
+if (¿La colección de resultados contiene productos?) then (sí)
+  :Mostrar los productos encontrados con alert() o console.log();
+else (no)
+  :Informar que no hay productos coincidentes con alert() o console.log();
+endif
+stop
+@enduml
