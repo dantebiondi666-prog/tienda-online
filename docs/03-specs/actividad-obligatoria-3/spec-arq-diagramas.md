@@ -36,7 +36,7 @@ Se usarán swimlanes `|Usuario|` y `|Sistema|` en los 4 diagramas, porque todos 
 ### 1. Herramienta y contexto
 
 - **Herramienta:** GitHub Copilot en modo Agente (Visual Studio Code)
-- **Modelo utilizado:** [COMPLETAR: auto]
+- **Modelo utilizado:** Auto (selección automática de modelo de GitHub Copilot)
 - **Archivos adjuntos como contexto:** `plan.md`, `index.html` y `docs/01-mockup/primer-parcial/disenio-bootstrap.png`
 
 ### 2. Prompt exacto utilizado
