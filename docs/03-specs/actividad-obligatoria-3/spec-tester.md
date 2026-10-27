@@ -8,7 +8,7 @@
 **Proyecto:** Remer Us — Tienda Online  
 **Rol:** Tester JavaScript / QA Engineer  
 **Rama:** `feature/tester-javascript-jasmine`
-
+**Issue asociada:** [#88](https://github.com/dantebiondi666-prog/tienda-online/issues/88)
 ---
 
 ## 1. Objetivo
