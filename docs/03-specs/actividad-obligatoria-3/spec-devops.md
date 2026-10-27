@@ -322,21 +322,150 @@ La decisión final será tomada por el Coordinador / DevOps luego de revisar el 
 
 ### Code Review 1
 
-**PR:** Pendiente.  
-**Rol:** Pendiente.  
-**Archivos utilizados como contexto:** Pendiente.
+### Code Review 1
+
+**PR:** #87 — Arquitecto de Diagramas de Actividades  
+**Rol:** Arquitecto de Diagramas de Actividades  
+**Archivos y contexto utilizados:**
+
+- diff de `feature/arq-diagramas-actividades` contra `origin/develop`;
+- consigna de la Actividad Obligatoria N.º 3;
+- `plan.md` actualizado;
+- `index.html`;
+- `.github/PULL_REQUEST_TEMPLATE/feature-template.md`;
+- `docs/03-specs/actividad-obligatoria-3/spec-arq-diagramas.md`;
+- cuatro diagramas `.puml`;
+- `docs/05-diagramas/01-diagrama-de-actividades/diagramas-doc.md`;
+- `changelog.md`.
 
 **Prompt utilizado:**
 
 ```text
-Pendiente de completar al ejecutar el code review.
+Actuá como revisor técnico de la PR #87:
+
+- Rama: `feature/arq-diagramas-actividades`
+- Destino: `develop`
+- Rol: Arquitecto de Diagramas de Actividades
+- Issue: #86
+
+Realizá un Code Review completo de la PR, pero **no modifiques archivos, no hagas commits, no corrijas código y no publiques ninguna review en GitHub**. Solo devolveme el informe.
+
+Primero reconstruí el cambio real usando el diff contra `origin/develop` y el historial de commits.
+
+Revisá especialmente:
+
+1. **Git / trazabilidad**
+   - La feature debe partir del `develop` actualizado.
+   - `spec-arq-diagramas.md` debe haberse commiteado antes que cualquier `.puml`.
+   - No debe haber cambios ajenos al rol.
+   - `changelog.md` debe registrar correctamente PR #87 e Issue #86.
+
+2. **PR**
+   - Contrastá la descripción de la PR con `.github/PULL_REQUEST_TEMPLATE/feature-template.md`.
+   - Verificá que estén completos los datos, rama, Issue, spec, requisitos de `plan.md`, descripción, archivos y checklist.
+   - Si la PR no respeta la template, consideralo un hallazgo de trazabilidad/documentación.
+
+3. **Spec**
+   Revisá:
+   `docs/03-specs/actividad-obligatoria-3/spec-arq-diagramas.md`
+
+   Debe contener:
+   - BEFORE con los 4 flujos, actores, decisiones, ciclos, decisión sobre swimlanes y checklist.
+   - AT CLOSE con prompt exacto de Copilot, contexto usado (`plan.md`, `index.html`, mockup), fragmentos generados, ajustes manuales y decisiones finales.
+
+4. **Diagramas**
+   Contrastá los cuatro `.puml` contra:
+   - `plan.md`, especialmente sección 10.3 y CA-18 a CA-23;
+   - `index.html`;
+   - la spec del Arquitecto;
+   - el dominio real de Remer Us.
+
+   Para cada flujo verificá:
+   - `start` y `stop`;
+   - actividades;
+   - decisiones `if/else`;
+   - ciclos `while` o `repeat`;
+   - swimlanes Usuario/Sistema cuando corresponda;
+   - patrón entrada → proceso → salida;
+   - validaciones coherentes;
+   - lógica suficientemente precisa para que luego sea contrato de implementación de `js/script.js`;
+   - ausencia de DOM/eventos;
+   - coherencia entre los cuatro flujos, especialmente carrito y resumen de compra.
+
+5. **Archivos y estructura**
+   Deben existir en:
+   `docs/05-diagramas/01-diagrama-de-actividades/`
+
+   Verificá:
+   - 4 `.puml`;
+   - sus 4 `.png`;
+   - `diagramas-doc.md`;
+   - nombres y rutas correctos;
+   - índice, descripción, enlaces, imágenes embebidas e instrucciones de edición;
+   - coherencia entre `.puml`, `.png` y documentación.
+
+6. **Consigna/rúbrica**
+   Evaluá si la PR cumple completamente los requisitos del rol Arquitecto de Diagramas de la AO3 y si deja una base clara para el Desarrollador JavaScript.
+
+### Formato de respuesta
+
+Sé concreto. No hagas un resumen enorme.
+
+Entregá:
+
+**1. Veredicto general:** CUMPLE / CUMPLE PARCIALMENTE / NO CUMPLE.
+
+**2. Checklist breve por área:**
+- Git e historial
+- Template de PR
+- Spec
+- Flujo 1
+- Flujo 2
+- Flujo 3
+- Flujo 4
+- Estructura/documentación
+- Changelog
+
+Marcá cada uno como ✅ / ⚠️ / ❌.
+
+**3. Hallazgos que requieren cambios**
+Solo problemas reales. Para cada uno indicá:
+- severidad: BLOQUEANTE o RECOMENDACIÓN;
+- archivo;
+- línea o fragmento;
+- qué requisito incumple;
+- qué debería corregirse.
+
+**4. Decisión sugerida**
+Elegí únicamente:
+- `APPROVE`
+o
+- `REQUEST_CHANGES`
+
+No inventes requisitos que no estén en la consigna, `plan.md`, la spec o la template.
+
+*adjunto actividad obligatoria 3 para usar tambien como contexto.
 ```
 
-**Output relevante generado por IA:** Pendiente.
+**Output relevante generado por IA:**
 
-**Ajustes o decisiones manuales:** Pendiente.
+Copilot determinó que la PR cumple correctamente en Git e historial, spec, los cuatro diagramas, estructura de archivos, documentación y changelog.
 
-**CHANGES_REQUESTED:** Pendiente.
+Detectó como único incumplimiento bloqueante que la descripción de la PR contenía únicamente `Closes #86` y no respetaba la estructura definida en `.github/PULL_REQUEST_TEMPLATE/feature-template.md`.
+
+El veredicto generado fue `CUMPLE PARCIALMENTE` y la decisión sugerida fue `REQUEST_CHANGES`.
+
+**Ajustes o decisiones manuales:**
+
+El hallazgo fue revisado manualmente por el Coordinador / DevOps y se confirmó que era válido. Los archivos correspondientes al rol de Arquitecto no requerían modificaciones.
+
+Se decidió solicitar únicamente la corrección de la descripción de la Pull Request para completar los datos, rama, Issue, spec, requerimientos de `plan.md`, descripción, archivos modificados y checklist correspondientes.
+
+**CHANGES_REQUESTED:**
+
+Sí.
+
+Se solicitó completar la descripción de la PR #87 utilizando `feature-template.md`, manteniendo `Closes #86` para conservar la trazabilidad con la Issue.
 
 ---
 
@@ -404,7 +533,7 @@ Pendiente de completar al ejecutar el code review.
 
 | Review | PR | Rol | Resultado inicial | CHANGES_REQUESTED | Resultado final |
 |---|---|---|---|---|---|
-| 1 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+| 1 | #87 | Arquitecto de Diagramas | CUMPLE PARCIALMENTE | Template de PR incompleta | Pendiente de re-review |
 | 2 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
 | 3 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
 | 4 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
