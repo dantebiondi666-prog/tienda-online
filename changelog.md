@@ -14,6 +14,11 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue:
   [#84](https://github.com/dantebiondi666-prog/tienda-online/issues/84)
 
+- [feature/arq-diagramas-actividades] [AO3] Arquitecto de Diagramas de Actividades: 4 diagramas de actividades PlantUML (.puml y .png), documentación de diagramas y spec del rol.
+  PR: [#87](https://github.com/dantebiondi666-prog/tienda-online/pull/87) - @LucasFUces (Arquitecto de Diagramas de Actividades)
+  Issues:
+  [#86](https://github.com/dantebiondi666-prog/tienda-online/issues/86)
+
 ## [Release Primer Parcial] - 2026-10-07
 
 ### Added
@@ -244,5 +249,5 @@ PR: [#23](https://github.com/dantebiondi666-prog/tienda-online/pull/23) - @zikol
 
 - Para cada PR, simplemente agregar una línea breve en la sección correspondiente a su cambio (Added, Changed, Fixed).  
 - No es necesario escribir párrafos, sólo una frase corta + link a PR y responsable con rol.  
-- Al hacer la entrega final, copiar todo lo que está en **[Unreleased]** a una nueva sección con la fecha y nombre de la entrega (release).  
+- Al hacer la entrega final, copiar todo lo que está en **[Unreleased]** a una nueva sección con la fecha y nombre de la entrega (release). 
 - Mantener el orden y formato para facilitar el seguimiento.
