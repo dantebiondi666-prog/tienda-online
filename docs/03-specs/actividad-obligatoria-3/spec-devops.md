@@ -449,7 +449,7 @@ No inventes requisitos que no estén en la consigna, `plan.md`, la spec o la tem
 
 **Output relevante generado por IA:**
 
-Copilot determinó que la PR cumple correctamente en Git e historial, spec, los cuatro diagramas, estructura de archivos, documentación y changelog.
+Copilot determinó que la PR cumplía correctamente con Git e historial, la spec del rol, los cuatro diagramas de actividades, la estructura de archivos, la documentación y el changelog.
 
 Detectó como único incumplimiento bloqueante que la descripción de la PR contenía únicamente `Closes #86` y no respetaba la estructura definida en `.github/PULL_REQUEST_TEMPLATE/feature-template.md`.
 
@@ -457,15 +457,34 @@ El veredicto generado fue `CUMPLE PARCIALMENTE` y la decisión sugerida fue `REQ
 
 **Ajustes o decisiones manuales:**
 
-El hallazgo fue revisado manualmente por el Coordinador / DevOps y se confirmó que era válido. Los archivos correspondientes al rol de Arquitecto no requerían modificaciones.
+El hallazgo fue revisado manualmente por el Coordinador / DevOps y se confirmó que era válido.
 
-Se decidió solicitar únicamente la corrección de la descripción de la Pull Request para completar los datos, rama, Issue, spec, requerimientos de `plan.md`, descripción, archivos modificados y checklist correspondientes.
+Se verificó que los archivos correspondientes al rol de Arquitecto de Diagramas no requerían modificaciones y se solicitó únicamente completar la descripción de la Pull Request utilizando la template de feature.
+
+Luego de la corrección realizada por el responsable, se efectuó una verificación manual de la PR #87. Se confirmó que la descripción incorporó correctamente:
+
+- datos del estudiante y rol;
+- rama de trabajo;
+- Issue #86;
+- spec correspondiente;
+- requerimientos de `plan.md`;
+- descripción del trabajo realizado;
+- archivos modificados y agregados;
+- checklist de la feature.
+
+No se detectaron nuevos incumplimientos.
 
 **CHANGES_REQUESTED:**
 
 Sí.
 
-Se solicitó completar la descripción de la PR #87 utilizando `feature-template.md`, manteniendo `Closes #86` para conservar la trazabilidad con la Issue.
+Se solicitó completar la descripción de la PR #87 utilizando `.github/PULL_REQUEST_TEMPLATE/feature-template.md`, manteniendo `Closes #86` para conservar la trazabilidad con la Issue.
+
+**Resultado final:**
+
+`APPROVED`.
+
+La corrección solicitada fue verificada manualmente por el Coordinador / DevOps. La PR #87 fue aprobada posteriormente y mergeada a `develop`.
 
 ---
 
@@ -533,7 +552,7 @@ Pendiente de completar al ejecutar el code review.
 
 | Review | PR | Rol | Resultado inicial | CHANGES_REQUESTED | Resultado final |
 |---|---|---|---|---|---|
-| 1 | #87 | Arquitecto de Diagramas | CUMPLE PARCIALMENTE | Template de PR incompleta | Pendiente de re-review |
+| 1 | #87 | Arquitecto de Diagramas | CUMPLE PARCIALMENTE | Template de PR incompleta | APPROVED luego de corregir la descripción |
 | 2 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
 | 3 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
 | 4 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
