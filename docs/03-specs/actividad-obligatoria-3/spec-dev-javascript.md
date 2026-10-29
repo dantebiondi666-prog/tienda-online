@@ -35,14 +35,20 @@ Cada opción llama a la función de interfaz de su flujo. Una opción inválida 
  
 **Datos del proyecto:**
  
-- `catalogo`: array de objetos con las propiedades `nombre`, `categoria`, `tipo`, `estilo`, `talles` (array) y `precio`. Los productos se toman de `index.html`.
+- `catalogo`: array de 3 objetos tomados de `index.html`, con las propiedades `nombre`, `categoria`, `tipo`, `estilo`, `talles` (array de strings) y `precio` (número).
+  - Remera: categoría "Indumentaria superior", tipo `remera`, estilo `casual`, talles `["S","M","L"]`, precio 15000.
+  - Pantalón: categoría "Indumentaria inferior", tipo `pantalon`, estilo `casual`, talles `["38","40","42"]`, precio 22000.
+  - Campera: categoría "Abrigo", tipo `campera`, estilo `urban`, talles `["M","L","XL"]`, precio 48000.
+  - El estilo no figura en el HTML (solo existe como filtro), por lo que se asigna en el catálogo del JS.
 - `carrito`: array de objetos `{ producto, talle, cantidad, precio }`. Se identifica cada elemento por producto y talle, para evitar duplicados y que modificar y eliminar sean inequívocos.
+
 ### 2. Decisiones de arquitectura
  
 **Separación entre lógica de negocio e interacción:**
  
 - **Lógica de negocio (funciones puras):** reciben parámetros, devuelven valores y no llaman a `prompt()` ni `alert()`. No modifican sus argumentos: las operaciones del carrito devuelven un carrito nuevo.
 - **Capa de interacción (funciones de interfaz):** piden datos con `prompt()`, reintentan ante entradas inválidas, llaman a las funciones puras y muestran el resultado con `alert()` o `console.log()`. Aquí vive el estado del carrito de la sesión.
+
 **Funciones planificadas:**
  
 | Flujo | Funciones puras (testeables) | Funciones de interfaz |
@@ -54,7 +60,10 @@ Cada opción llama a la función de interfaz de su flujo. Una opción inválida 
 | 4 | `calcularSubtotal(precio, cantidad)`, `calcularTotal(carrito)`, `generarResumenCompra(carrito)` | `ejecutarFlujoResumenCompra()` |
  
 **Funciones expuestas globalmente:** todo el código va en `js/script.js`, sin IIFE ni módulos, para que el runner de Jasmine pueda invocar las funciones puras directamente. No se manipula el DOM ni se usan eventos (restricción de la consigna).
- 
+ **Normalización de texto:** `normalizarTexto` aplica `trim`, pasa a minúsculas y elimina tildes, para que "Pantalón" y "pantalon" coincidan. Los talles se comparan en mayúsculas, y los talles numéricos del pantalón ("38") se manejan como strings.
+
+**Arranque del simulador:** como no se permiten eventos, `iniciarSimulador()` se invoca al final de `js/script.js`, protegido con `if (typeof jasmine === "undefined")`. Así el test runner de Jasmine carga el archivo sin disparar los `prompt()`.
+
 **Convenciones:** camelCase para variables y funciones, PascalCase solo si se define un constructor o clase, comentarios JSDoc en las funciones complejas.
  
 ### 3. Criterios de aceptación
