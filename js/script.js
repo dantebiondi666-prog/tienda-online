@@ -443,15 +443,16 @@ function ejecutarFlujoConsultarProducto() {
       return;
     }
 
-  if (!esTextoNoVacio(nombre)) {
-    alert("Debe ingresar el nombre de un producto.");
+    if (!esTextoNoVacio(nombre)) {
+      alert("Debe ingresar el nombre de un producto.");
       continue;
     }
 
     producto = buscarProducto(catalogo, nombre);
     if (!producto) {
       alert("El producto no fue encontrado. Intente nuevamente.");
-    }}
+    }
+  }
 
   let talle;
   while (true) {
@@ -525,8 +526,8 @@ function ejecutarFlujoGestionarCarrito() {
         }
 
         productoCatalogo = esTextoNoVacio(producto)
-        ? buscarProducto(catalogo, producto)
-        : null;
+          ? buscarProducto(catalogo, producto)
+          : null;
         cantidad = Number(cantidadIngresada);
         if (
           productoCatalogo &&
