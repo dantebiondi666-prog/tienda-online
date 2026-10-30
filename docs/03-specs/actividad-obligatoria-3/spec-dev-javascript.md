@@ -176,6 +176,8 @@ Corregido:
 
 **Ajuste 4 — Documentación JSDoc y comentarios.** Copilot solo había documentado una función con JSDoc. Se agregó JSDoc a las funciones puras principales (`normalizarTexto`, `filtrarProductos`, `buscarProducto`, `verificarTalleDisponible`, `agregarAlCarrito`, `calcularSubtotal`) y un comentario explicativo a cada función de interfaz (`ejecutarFlujo*` e `iniciarSimulador`), para cumplir con la consigna de legibilidad y buenas prácticas.
 
+**Ajuste 5 — Validación de entradas vacías en la capa de interacción (code review, RC1).** Si el usuario ingresaba texto vacío o solo espacios, `buscarProducto` y `buscarEnCarrito` lanzaban un `Error` y cortaban el simulador, en lugar de informar el problema y volver a pedir el dato como indican el diagrama del Flujo 2 y `plan.md`. Se agregó la función pura `esTextoNoVacio` y se validó la entrada en las funciones de interfaz antes de llamar a las funciones de negocio (flujos 2 y 3). Los `throw` de las funciones puras se mantienen, porque permiten testear los datos inválidos con `toThrow()`.
+
 ### 5. Decisiones finales sobre la estructura del código y cómo facilita el trabajo del Tester
 
 - **Separación lógica/interfaz:** las funciones de negocio no llaman a `prompt()` ni `alert()`; reciben parámetros y devuelven valores. Solo las funciones `ejecutarFlujo*`, `mostrarMenuPrincipal` e `iniciarSimulador` interactúan con el usuario.
