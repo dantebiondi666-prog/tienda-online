@@ -454,7 +454,7 @@ function ejecutarFlujoConsultarProducto() {
     }}
 
   let talle;
-  while (true) {S
+  while (true) {
     talle = prompt(`Ingrese el talle para ${producto.nombre}:`);
     if (talle === null) {
       return;
