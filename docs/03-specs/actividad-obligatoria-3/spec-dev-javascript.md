@@ -174,6 +174,8 @@ Corregido:
 
 **Ajuste 3 — Función pura `formatearCarrito`.** Para mostrar el carrito con `alert()` se agregó la función pura `formatearCarrito(elementosCarrito)`, que arma el texto y avisa cuando el carrito está vacío. Mantiene el formato fuera de la capa de interfaz y puede testearse de forma independiente.
 
+**Ajuste 4 — Documentación JSDoc y comentarios.** Copilot solo había documentado una función con JSDoc. Se agregó JSDoc a las funciones puras principales (`normalizarTexto`, `filtrarProductos`, `buscarProducto`, `verificarTalleDisponible`, `agregarAlCarrito`, `calcularSubtotal`) y un comentario explicativo a cada función de interfaz (`ejecutarFlujo*` e `iniciarSimulador`), para cumplir con la consigna de legibilidad y buenas prácticas.
+
 ### 5. Decisiones finales sobre la estructura del código y cómo facilita el trabajo del Tester
 
 - **Separación lógica/interfaz:** las funciones de negocio no llaman a `prompt()` ni `alert()`; reciben parámetros y devuelven valores. Solo las funciones `ejecutarFlujo*`, `mostrarMenuPrincipal` e `iniciarSimulador` interactúan con el usuario.

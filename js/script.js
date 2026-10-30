@@ -29,6 +29,12 @@ let carrito = [];
 
 const camposFiltroValidos = ["categoria", "tipo", "talle", "estilo"];
 
+/**
+ * Normaliza un texto: quita espacios, pasa a minúsculas y elimina tildes.
+ * @param {string} texto - Texto a normalizar.
+ * @returns {string} Texto normalizado.
+ * @throws {Error} Si el valor recibido no es una cadena.
+ */
 function normalizarTexto(texto) {
   if (typeof texto !== "string") {
     throw new Error("El texto debe ser una cadena.");
@@ -49,6 +55,14 @@ function esCampoFiltroValido(campo) {
   return camposFiltroValidos.includes(normalizarTexto(campo));
 }
 
+/**
+ * Filtra productos del catálogo por un campo y un valor.
+ * @param {Array} productos - Catálogo de productos.
+ * @param {string} campo - "categoria", "tipo", "talle" o "estilo".
+ * @param {string} valor - Valor buscado (sin distinguir mayúsculas ni tildes).
+ * @returns {Array} Productos que coinciden con el criterio.
+ * @throws {Error} Si el catálogo, el campo o el valor no son válidos.
+ */
 function filtrarProductos(productos, campo, valor) {
   if (!Array.isArray(productos)) {
     throw new Error("El catálogo debe ser un array.");
@@ -92,7 +106,6 @@ function filtrarProductos(productos, campo, valor) {
  * @param {string} campo - "categoria", "tipo", "talle" o "estilo".
  * @returns {Array} Opciones disponibles sin repetir.
  */
-
 function obtenerOpcionesFiltro(catalogo, campo) {
   const opciones = [];
 
@@ -109,6 +122,12 @@ function obtenerOpcionesFiltro(catalogo, campo) {
   return opciones;
 }
 
+/**
+ * Busca un producto del catálogo por nombre.
+ * @param {Array} productos - Catálogo de productos.
+ * @param {string} nombre - Nombre del producto.
+ * @returns {Object|null} El producto encontrado, o null si no existe.
+ */
 function buscarProducto(productos, nombre) {
   if (!Array.isArray(productos)) {
     throw new Error("El catálogo debe ser un array.");
@@ -132,6 +151,12 @@ function esTalleValido(talle) {
   return typeof talle === "string" && talle.trim() !== "";
 }
 
+/**
+ * Indica si un talle está entre los disponibles de un producto.
+ * @param {Object} producto - Producto con su array de talles.
+ * @param {string} talle - Talle a verificar.
+ * @returns {boolean} true si el talle está disponible.
+ */
 function verificarTalleDisponible(producto, talle) {
   if (!producto || typeof producto !== "object" || !Array.isArray(producto.talles)) {
     throw new Error("El producto debe tener un array de talles disponibles.");
@@ -177,6 +202,17 @@ function buscarEnCarrito(elementosCarrito, producto, talle) {
   );
 }
 
+/**
+ * Agrega un producto al carrito, o suma la cantidad si ya existe ese producto y talle.
+ * No modifica el carrito recibido: devuelve uno nuevo.
+ * @param {Array} elementosCarrito - Carrito actual.
+ * @param {string} producto - Nombre del producto.
+ * @param {string} talle - Talle elegido.
+ * @param {number} cantidad - Entero positivo.
+ * @param {number} precio - Precio unitario.
+ * @returns {Array} Carrito actualizado.
+ * @throws {Error} Si algún dato no es válido.
+ */
 function agregarAlCarrito(elementosCarrito, producto, talle, cantidad, precio) {
   if (!Array.isArray(elementosCarrito)) {
     throw new Error("El carrito debe ser un array.");
@@ -244,6 +280,13 @@ function eliminarDelCarrito(elementosCarrito, producto, talle) {
     .map((elemento) => ({ ...elemento }));
 }
 
+/**
+ * Calcula el subtotal de un producto.
+ * @param {number} precio - Precio unitario.
+ * @param {number} cantidad - Entero positivo.
+ * @returns {number} Precio por cantidad.
+ * @throws {Error} Si el precio o la cantidad no son válidos.
+ */
 function calcularSubtotal(precio, cantidad) {
   if (typeof precio !== "number" || !Number.isFinite(precio) || precio < 0) {
     throw new Error("El precio debe ser un número válido mayor o igual a cero.");
@@ -308,7 +351,6 @@ function generarResumenCompra(elementosCarrito) {
  * @param {Array} elementosCarrito - Elementos { producto, talle, cantidad, precio }.
  * @returns {string} Una línea por elemento, o un aviso si el carrito está vacío.
  */
-
 function formatearCarrito(elementosCarrito) {
   if (!Array.isArray(elementosCarrito)) {
     throw new Error("El carrito debe ser un array.");
@@ -337,6 +379,7 @@ function mostrarMenuPrincipal() {
   );
 }
 
+// Flujo 1: pide campo y valor (con reintento), filtra el catálogo y muestra el resultado.
 function ejecutarFlujoFiltrarCatalogo() {
   let campo;
   let valor;
@@ -380,6 +423,7 @@ function ejecutarFlujoFiltrarCatalogo() {
   }
 }
 
+// Flujo 2: pide producto y talle (con reintento) y muestra si el talle está disponible.
 function ejecutarFlujoConsultarProducto() {
   let producto;
   let nombre;
@@ -424,6 +468,7 @@ function ejecutarFlujoConsultarProducto() {
   console.log(mensaje);
 }
 
+// Flujo 3: menú del carrito (agregar, modificar, eliminar, salir) que se repite hasta salir.
 function ejecutarFlujoGestionarCarrito() {
   let accion;
 
@@ -550,6 +595,7 @@ function ejecutarFlujoGestionarCarrito() {
   }
 }
 
+// Flujo 4: muestra el resumen de compra con subtotales y total, o avisa si el carrito está vacío.
 function ejecutarFlujoResumenCompra() {
   if (carrito.length === 0) {
     alert("No hay productos para resumir.");
@@ -570,6 +616,7 @@ function ejecutarFlujoResumenCompra() {
   console.log("Total de compra: $" + resumen.total);
 }
 
+// Menú principal: repite las opciones hasta que el usuario elige salir o cancela.
 function iniciarSimulador() {
   let opcion;
 
