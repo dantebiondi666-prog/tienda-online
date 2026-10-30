@@ -152,6 +152,15 @@ function esTalleValido(talle) {
 }
 
 /**
+ * Indica si un valor es una cadena con contenido (no vacía ni solo espacios).
+ * @param {*} texto - Valor a validar.
+ * @returns {boolean} true si es un string con al menos un carácter visible.
+ */
+function esTextoNoVacio(texto) {
+  return typeof texto === "string" && texto.trim() !== "";
+}
+
+/**
  * Indica si un talle está entre los disponibles de un producto.
  * @param {Object} producto - Producto con su array de talles.
  * @param {string} talle - Talle a verificar.
@@ -434,14 +443,18 @@ function ejecutarFlujoConsultarProducto() {
       return;
     }
 
+  if (!esTextoNoVacio(nombre)) {
+    alert("Debe ingresar el nombre de un producto.");
+      continue;
+    }
+
     producto = buscarProducto(catalogo, nombre);
     if (!producto) {
       alert("El producto no fue encontrado. Intente nuevamente.");
-    }
-  }
+    }}
 
   let talle;
-  while (true) {
+  while (true) {S
     talle = prompt(`Ingrese el talle para ${producto.nombre}:`);
     if (talle === null) {
       return;
@@ -511,7 +524,9 @@ function ejecutarFlujoGestionarCarrito() {
           return;
         }
 
-        productoCatalogo = buscarProducto(catalogo, producto);
+        productoCatalogo = esTextoNoVacio(producto)
+        ? buscarProducto(catalogo, producto)
+        : null;
         cantidad = Number(cantidadIngresada);
         if (
           productoCatalogo &&
@@ -545,7 +560,10 @@ function ejecutarFlujoGestionarCarrito() {
       if (talle === null) {
         return;
       }
-
+      if (!esTextoNoVacio(producto) || !esTextoNoVacio(talle)) {
+        alert("Debe ingresar un producto y un talle.");
+        continue;
+      }
       if (!buscarEnCarrito(carrito, producto, talle)) {
         alert("El producto y talle no están en el carrito.");
         continue;
@@ -579,7 +597,10 @@ function ejecutarFlujoGestionarCarrito() {
       if (talle === null) {
         return;
       }
-
+      if (!esTextoNoVacio(producto) || !esTextoNoVacio(talle)) {
+        alert("Debe ingresar un producto y un talle.");
+        continue;
+      }
       if (!buscarEnCarrito(carrito, producto, talle)) {
         alert("El producto y talle no están en el carrito.");
         continue;
