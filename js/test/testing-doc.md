@@ -155,9 +155,27 @@ Los nuevos casos verifican cantidades inválidas (cero, negativas, decimales y n
 - Tests aprobados: 22.
 - Tests fallidos: 0.
 - Resultado: PASS.
-- Ejecución: navegador Chrome mediante servidor local.
-- Evidencia: `js/test/capturas/jasmine-22-tests-pass.png`.
+- Ejecución: navegador Chrome mediante servidor local y Playwright MCP.
+- Evidencia manual: `js/test/capturas/jasmine-22-tests-pass.png`.
+- Evidencia automatizada: `js/test/capturas/jasmine-playwright-22-tests-pass.png`.
 
-La ejecución mediante Playwright MCP queda pendiente de repetición para actualizar la evidencia automatizada.
+
 
 El error HTTP 404 correspondiente a `favicon.ico` no afectó los resultados de Jasmine.
+
+### Validación automatizada mediante Playwright MCP
+
+Se ejecutó nuevamente Jasmine mediante GitHub Copilot Agent y Playwright MCP.
+
+- Suites ejecutadas: 4.
+- Tests ejecutados: 22.
+- Tests aprobados: 22.
+- Tests fallidos: 0.
+- Errores de ejecución Jasmine: ninguno.
+- Resultado: PASS.
+
+La captura de la ejecución se guardó en
+`js/test/capturas/jasmine-playwright-22-tests-pass.png`.
+
+Durante la ejecución se registró una respuesta HTTP 404 para
+`/favicon.ico`, sin impacto en los resultados de Jasmine.

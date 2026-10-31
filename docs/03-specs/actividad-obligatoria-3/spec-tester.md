@@ -141,7 +141,11 @@ Se utilizó GitHub Copilot en modo Agent desde Visual Studio Code, tomando `js/s
 
 **Ajustes manuales posteriores:** No se realizaron modificaciones manuales adicionales a los tests después de la intervención de Copilot Agent.
 
-**Validación:** `node --check` y `git diff --check` finalizaron correctamente. La ejecución posterior de Jasmine en Chrome obtuvo 22 tests aprobados y 0 fallidos. La nueva verificación mediante Playwright MCP continúa pendiente.
+**Validación:** `node --check` y `git diff --check` finalizaron correctamente. La ejecución posterior de Jasmine en Chrome obtuvo 22 tests aprobados y 0 fallidos. **Validación automatizada posterior:** Se ejecutaron nuevamente las cuatro suites mediante GitHub Copilot Agent y Playwright MCP, obteniendo 22 tests aprobados y 0 fallidos.
+
+**Evidencia:** `js/test/capturas/jasmine-playwright-22-tests-pass.png`.
+
+Durante la ejecución se registró un error HTTP 404 para `favicon.ico`, sin impacto en las pruebas Jasmine.
 
 ### 6.2 Resultados de las pruebas
 
