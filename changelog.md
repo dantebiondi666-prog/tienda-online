@@ -10,7 +10,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 - [feature/tester-javascript-jasmine] [AO3] Tester JavaScript / QA Engineer: implementación de 4 suites de pruebas unitarias con Jasmine 5.1.1 para los flujos de catálogo, consulta de productos y talles, gestión del carrito y resumen de compra. Se ejecutaron 16 tests con resultado PASS (0 fallidos), verificados manualmente y mediante Playwright MCP. Se incorporaron el test runner, las evidencias visuales y la documentación de testing en `js/test/testing-doc.md`.
 
-  PR: pendiente de creación - @juanmartinbritos7-cmd (Tester JavaScript / QA Engineer)
+  PR: [#91](https://github.com/dantebiondi666-prog/tienda-online/pull/91) - @juanmartinbritos7-cmd (Tester JavaScript / QA Engineer)
 
   Issues:
   [#88](https://github.com/dantebiondi666-prog/tienda-online/issues/88)
