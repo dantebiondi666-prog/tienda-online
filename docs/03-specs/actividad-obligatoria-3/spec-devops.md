@@ -5,7 +5,7 @@
 **Entrega:** Actividad Obligatoria N.º 3  
 **Rol:** Coordinador / DevOps  
 **Responsable:** Dante Biondi  
-**Rama:** `feature/coord-devops-tercera-entrega`  
+**Ramas de trabajo:** `feature/coord-devops-tercera-entrega` / `feature/coord-devops-tercera-entrega-2`
 **Rama base:** `develop`
 
 ---
@@ -322,8 +322,6 @@ La decisión final será tomada por el Coordinador / DevOps luego de revisar el 
 
 ### Code Review 1
 
-### Code Review 1
-
 **PR:** #87 — Arquitecto de Diagramas de Actividades  
 **Rol:** Arquitecto de Diagramas de Actividades  
 **Archivos y contexto utilizados:**
@@ -490,21 +488,207 @@ La corrección solicitada fue verificada manualmente por el Coordinador / DevOps
 
 ### Code Review 2
 
-**PR:** Pendiente.  
-**Rol:** Pendiente.  
-**Archivos utilizados como contexto:** Pendiente.
+**PR:** #90 — `[AO3][Desarrollador JavaScript] Lógica de negocio en js/script.js`  
+**Rol:** Desarrollador JavaScript  
+**Issue:** #89  
+**Rama:** `feature/dev-javascript-logica-negocio` → `develop`  
+
+**Archivos y contexto utilizados:**
+
+- diff de `feature/dev-javascript-logica-negocio` contra `origin/develop`;
+- consigna de la Actividad Obligatoria N.º 3;
+- `plan.md`, especialmente sección 10.3 y CA-18 a CA-23;
+- `.github/PULL_REQUEST_TEMPLATE/feature-template.md`;
+- `docs/03-specs/actividad-obligatoria-3/spec-dev-javascript.md`;
+- `js/script.js`;
+- `index.html`;
+- los cuatro diagramas `.puml` del Arquitecto de Diagramas;
+- `changelog.md`.
 
 **Prompt utilizado:**
 
 ```text
-Pendiente de completar al ejecutar el code review.
+Actuá como revisor técnico de la PR #90:
+
+- Rama: `feature/dev-javascript-logica-negocio`
+- Destino: `develop`
+- Rol: Desarrollador JavaScript
+- Issue: #89
+
+No modifiques archivos, no hagas commits ni publiques reviews. Solo devolveme el informe. Podés ejecutar comandos de lectura o verificación si son necesarios.
+
+Reconstruí el cambio real usando el diff contra `origin/develop` y el historial de commits.
+
+Revisá:
+
+1. **Git y trazabilidad**
+   - La feature debe partir del `develop` actualizado.
+   - `spec-dev-javascript.md` debe estar commiteado antes de `js/script.js`.
+   - Solo debe haber cambios correspondientes al rol.
+   - `changelog.md` debe registrar correctamente PR #90 e Issue #89.
+
+2. **PR**
+   - Compará la descripción con `.github/PULL_REQUEST_TEMPLATE/feature-template.md`.
+   - Verificá datos del estudiante, rol, rama, Issue, spec, requisitos de `plan.md`, descripción, archivos modificados y checklist.
+   - Una template incompleta debe considerarse hallazgo.
+
+3. **Spec**
+   Revisá `docs/03-specs/actividad-obligatoria-3/spec-dev-javascript.md`.
+
+   Debe incluir:
+   - BEFORE con los 4 flujos, menú principal, decisiones de arquitectura para testabilidad y checklist;
+   - separación lógica de negocio / interacción;
+   - funciones puras y expuestas para testing;
+   - AT CLOSE con prompt exacto de Copilot, `.puml` usados como contexto, fragmento generado, ajustes manuales y decisiones finales.
+
+4. **Implementación JavaScript**
+   Contrastá `js/script.js` principalmente contra:
+   - `plan.md`, sección 10.3 y CA-18 a CA-23;
+   - los 4 `.puml` del Arquitecto;
+   - `spec-dev-javascript.md`;
+   - requisitos de AO3.
+
+   Verificá que:
+   - existan los 4 flujos: filtrar catálogo, consultar producto/talle, gestionar carrito y resumen;
+   - exista menú principal funcional mediante `prompt()`;
+   - se respeten decisiones, ciclos y reintentos de los diagramas;
+   - las entradas estén validadas;
+   - las operaciones y cálculos sean correctos;
+   - se usen condicionales, ciclos, arrays y objetos;
+   - las salidas sean coherentes mediante `alert()` y/o `console.log()`;
+   - las funciones tengan nombres claros, parámetros y retornos apropiados;
+   - la lógica de negocio esté separada de `prompt()` / `alert()`;
+   - las funciones puras no modifiquen innecesariamente sus argumentos y sean testeables;
+   - las funciones necesarias estén accesibles para Jasmine;
+   - no haya manipulación del DOM ni eventos dentro de `js/script.js`;
+   - se use camelCase, indentación correcta y JSDoc donde corresponda.
+
+   No marques como incumplimiento el JavaScript del modal Bootstrap que ya existía previamente en `index.html`; revisá únicamente si esta PR introdujo DOM o eventos nuevos fuera del alcance permitido.
+
+5. **Integración HTML**
+   - `js/script.js` debe estar correctamente referenciado desde `index.html`.
+   - La PR no debe alterar innecesariamente el HTML existente.
+   - Confirmá que la carga del script y el guard para Jasmine no impidan el testing posterior.
+
+6. **Preparación para Tester**
+   Evaluá si el código queda realmente preparado para que el siguiente rol pueda crear suites Jasmine de:
+   - happy path;
+   - casos borde;
+   - entradas inválidas;
+   - arrays y objetos.
+
+### Formato de respuesta
+
+**1. Veredicto:** CUMPLE / CUMPLE PARCIALMENTE / NO CUMPLE.
+
+**2. Checklist:**
+- Git/historial
+- Template PR
+- Spec
+- Menú principal
+- Flujo 1
+- Flujo 2
+- Flujo 3
+- Flujo 4
+- Testabilidad
+- Integración HTML
+- Changelog
+
+Usá ✅ / ⚠️ / ❌.
+
+**3. Hallazgos que requieren cambios**
+Solo problemas reales. Para cada uno indicá:
+- severidad: BLOQUEANTE o RECOMENDACIÓN;
+- archivo y línea o fragmento;
+- requisito incumplido;
+- corrección necesaria.
+
+**4. Decisión sugerida**
+Solo:
+- `APPROVE`
+o
+- `REQUEST_CHANGES`
+
+No inventes requisitos ajenos a la consigna, `plan.md`, los `.puml`, la spec o la template.
 ```
 
-**Output relevante generado por IA:** Pendiente.
+**Output relevante generado por IA:**
 
-**Ajustes o decisiones manuales:** Pendiente.
+Copilot determinó que la implementación cubría correctamente los cuatro flujos principales, que la rama partía de `develop` actualizado, que `spec-dev-javascript.md` había sido commiteada antes de `js/script.js` y que la lógica de negocio se encontraba separada de la interacción mediante `prompt()` y `alert()`.
 
-**CHANGES_REQUESTED:** Pendiente.
+También verificó positivamente:
+
+- menú principal funcional;
+- Flujo 1 de filtrado;
+- Flujo 4 de resumen de compra;
+- uso de arrays y objetos;
+- funciones globales y testeables;
+- ausencia de DOM y eventos nuevos en `js/script.js`;
+- referencia correcta de `js/script.js` desde `index.html`;
+- guard de Jasmine;
+- registro de PR #90 e Issue #89 en `changelog.md`.
+
+El veredicto generado fue `CUMPLE PARCIALMENTE`.
+
+Copilot detectó dos incumplimientos bloqueantes:
+
+1. Algunas entradas vacías en los flujos 2 y 3 llegaban directamente a funciones puras como `buscarProducto()` y `buscarEnCarrito()`. Estas funciones lanzaban correctamente un `Error`, pero la capa de interacción no manejaba previamente esos casos, por lo que el simulador podía interrumpirse en lugar de informar el problema y continuar según los diagramas.
+
+   Los puntos identificados originalmente fueron las llamadas ubicadas aproximadamente en las líneas 437, 514, 549 y 583 de `js/script.js`.
+
+2. La descripción de la PR #90 no respetaba completamente `.github/PULL_REQUEST_TEMPLATE/feature-template.md` y la sección de archivos solamente mencionaba `spec-dev-javascript.md`, aunque el diff incluía también `js/script.js`, `index.html` y `changelog.md`.
+
+La decisión sugerida por Copilot fue `REQUEST_CHANGES`.
+
+**Ajustes o decisiones manuales:**
+
+Los hallazgos fueron revisados manualmente por el Coordinador / DevOps y se confirmó que ambos eran válidos.
+
+Para el primer hallazgo se verificó directamente que las funciones puras debían conservar sus validaciones y sus `throw`, ya que son útiles para los futuros tests de Jasmine. Por este motivo se solicitó que la corrección se realizara en la capa de interacción, validando las entradas antes de llamar a las funciones puras.
+
+Para el segundo hallazgo se solicitó completar la descripción utilizando la template de feature y mantener `Closes #89` para conservar la trazabilidad con la Issue.
+
+Luego de la primera respuesta del desarrollador se realizó una verificación manual y se detectó que el thread del RC1 había sido marcado como resuelto, pero todavía no existía un commit con la corrección funcional en la rama. Se solicitó entonces subir efectivamente el cambio antes de aprobar la PR.
+
+Posteriormente se incorporó la validación mediante `esTextoNoVacio()` y controles previos en los flujos 2 y 3. Se verificó que:
+
+- una entrada vacía en el Flujo 2 ya no llega directamente a `buscarProducto()`;
+- al agregar al carrito no se llama a `buscarProducto()` con un producto vacío;
+- modificar y eliminar validan producto y talle antes de llamar a `buscarEnCarrito()`;
+- los `throw` de las funciones puras se mantuvieron para facilitar el testing con Jasmine.
+
+Durante la verificación final también se detectaron dos detalles menores:
+
+- problemas de indentación y cierre de llaves en el bloque corregido del Flujo 2;
+- la descripción de la PR indicaba cinco ajustes manuales documentados, mientras que `spec-dev-javascript.md` todavía enumeraba solamente cuatro.
+
+Se solicitó ordenar el bloque y documentar un **Ajuste 5 — Validación de entradas vacías en la capa de interacción**.
+
+La versión final fue revisada manualmente y se confirmó que:
+
+- la indentación y las llaves quedaron corregidas;
+- `spec-dev-javascript.md` documenta los cinco ajustes;
+- la descripción de la PR utiliza la feature template completa;
+- los cuatro archivos del diff están correctamente enumerados;
+- los dos Request Changes originales quedaron resueltos;
+- no se detectaron nuevos incumplimientos bloqueantes.
+
+**CHANGES_REQUESTED:**
+
+Sí.
+
+Se solicitaron dos cambios bloqueantes:
+
+1. corregir el manejo de entradas vacías en los flujos 2 y 3 sin eliminar las validaciones de las funciones puras;
+2. completar la descripción de la PR utilizando `.github/PULL_REQUEST_TEMPLATE/feature-template.md`.
+
+**Resultado final:**
+
+`APPROVED`.
+
+Luego de verificar manualmente todas las correcciones, la PR #90 fue aprobada por el Coordinador / DevOps y mergeada a `develop`.
+
+**Merge commit:** `f1bd335d114ed8b05387df95260c815c8319caac`.
 
 ---
 
@@ -553,7 +737,7 @@ Pendiente de completar al ejecutar el code review.
 | Review | PR | Rol | Resultado inicial | CHANGES_REQUESTED | Resultado final |
 |---|---|---|---|---|---|
 | 1 | #87 | Arquitecto de Diagramas | CUMPLE PARCIALMENTE | Template de PR incompleta | APPROVED luego de corregir la descripción |
-| 2 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+| 2 | #90 | Desarrollador JavaScript | CUMPLE PARCIALMENTE | Entradas vacías sin manejo en UI + template de PR incompleta | APPROVED luego de corregir código, documentación y descripción |
 | 3 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
 | 4 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
 
