@@ -138,6 +138,59 @@ describe("Flujo 3 - Gestionar carrito", function () {
     expect(resultado).toEqual([]);
     expect(carritoInicial.length).toBe(1);
   });
+
+  it("agrega un producto aunque no pertenezca al catálogo", function () {
+    const resultado = agregarAlCarrito([], "Producto inexistente", "M", 1, 1000);
+
+    expect(resultado).toEqual([
+      { producto: "Producto inexistente", talle: "M", cantidad: 1, precio: 1000 }
+    ]);
+  });
+
+  it("rechaza cantidades cero, negativas, decimales y no numéricas", function () {
+    [0, -1, 1.5, "2", NaN].forEach(function (cantidad) {
+      expect(function () {
+        agregarAlCarrito([], "Remera", "M", cantidad, 15000);
+      }).toThrowError("La cantidad debe ser un entero positivo.");
+    });
+  });
+
+  it("rechaza un producto o talle vacío al agregar", function () {
+    expect(function () {
+      agregarAlCarrito([], "   ", "M", 1, 15000);
+    }).toThrowError("El nombre del producto no puede estar vacío.");
+
+    expect(function () {
+      agregarAlCarrito([], "Remera", "  ", 1, 15000);
+    }).toThrowError("El talle debe ser una cadena no vacía.");
+  });
+
+  it("rechaza un carrito que no sea un array", function () {
+    expect(function () {
+      agregarAlCarrito(null, "Remera", "M", 1, 15000);
+    }).toThrowError("El carrito debe ser un array.");
+  });
+
+  it("rechaza modificar un producto y talle inexistentes", function () {
+    expect(function () {
+      modificarCantidad(
+        [{ producto: "Remera", talle: "M", cantidad: 1, precio: 15000 }],
+        "Campera",
+        "L",
+        2
+      );
+    }).toThrowError("El producto y talle no se encuentran en el carrito.");
+  });
+
+  it("rechaza eliminar un producto y talle inexistentes", function () {
+    expect(function () {
+      eliminarDelCarrito(
+        [{ producto: "Remera", talle: "M", cantidad: 1, precio: 15000 }],
+        "Pantalón",
+        "42"
+      );
+    }).toThrowError("El producto y talle no se encuentran en el carrito.");
+  });
 });
 
 // SUITE 4 — Resumen de compra

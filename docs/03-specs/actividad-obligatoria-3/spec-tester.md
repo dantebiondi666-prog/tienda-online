@@ -116,6 +116,33 @@ Posteriormente, se utilizó GitHub Copilot Agent Mode con Playwright MCP para ej
 >
 > No modifiques js/script.js, script.spec.js ni otros archivos del proyecto. No hagas commits ni pushes. Solamente ejecutá las pruebas, guardá la captura y devolvé un resumen de los resultados.
 
+#### 6.1.1 Ampliación de tests mediante Copilot Agent
+
+Se utilizó GitHub Copilot en modo Agent desde Visual Studio Code, tomando `js/script.js` como contexto principal y revisando `js/test/script.spec.js`.
+
+**Prompt utilizado:**
+
+> Analizá js/script.js como contexto principal y revisá js/test/script.spec.js. Necesito generar y mejorar las cuatro suites Jasmine correspondientes a los flujos de la Actividad Obligatoria N.º 3.
+>
+> En particular, corregí la Suite 3 (Gestionar carrito) incorporando pruebas de casos borde y entradas inválidas, incluyendo cantidades inválidas y operaciones sobre productos inexistentes, según el comportamiento real de las funciones.
+>
+> Requisitos:
+> 1. Conservá los tests existentes que sean correctos.
+> 2. Agregá tests que verifiquen resultados reales, sin inventar comportamientos.
+> 3. Utilizá describe(), it() y expect() de Jasmine.
+> 4. No modifiques js/script.js.
+> 5. Modificá únicamente js/test/script.spec.js.
+> 6. Informá qué tests agregaste o modificaste y por qué.
+> 7. Indicá cualquier limitación de testabilidad detectada.
+>
+> Antes de modificar el archivo, analizá las funciones y explicá brevemente los casos que vas a incorporar.
+
+**Resultado generado:** Copilot Agent agregó 53 líneas a `js/test/script.spec.js`, incorporando seis tests adicionales a la Suite 3. Se conservaron las pruebas existentes y no se modificó `js/script.js`.
+
+**Ajustes manuales posteriores:** No se realizaron modificaciones manuales adicionales a los tests después de la intervención de Copilot Agent.
+
+**Validación:** `node --check` y `git diff --check` finalizaron correctamente. La ejecución posterior de Jasmine en Chrome obtuvo 22 tests aprobados y 0 fallidos. La nueva verificación mediante Playwright MCP continúa pendiente.
+
 ### 6.2 Resultados de las pruebas
 
 | Métrica | Resultado |
@@ -137,6 +164,32 @@ No se detectaron fallos en los 16 casos de prueba ejecutados.
 
 No se registraron Issues de bugs funcionales derivados de estos tests.
 
+#### Retest posterior a las correcciones RC1 y RC2 — PR #91
+
+Luego de utilizar GitHub Copilot Agent para ampliar la Suite 3
+(Gestionar carrito), se ejecutaron nuevamente las pruebas
+automatizadas con Jasmine 5.1.1.
+
+**Resultados obtenidos:**
+
+- Suites ejecutadas: 4.
+- Tests ejecutados: 22.
+- Tests aprobados: 22.
+- Tests fallidos: 0.
+- Resultado final: PASS.
+- Entorno: Google Chrome con servidor local en localhost:3000.
+
+Se incorporaron seis pruebas adicionales para verificar casos borde,
+entradas inválidas y operaciones sobre elementos inexistentes.
+
+La ejecución manual en Chrome confirmó que las cuatro suites
+funcionan correctamente.
+
+**Evidencia:** `js/test/capturas/jasmine-22-tests-pass.png`
+
+**Pendiente:** repetir la ejecución mediante Playwright MCP para
+actualizar la evidencia automatizada.
+
 ### 6.3 Evidencias de Playwright MCP
 
 Las pruebas se ejecutaron en el navegador mediante Jasmine 5.1.1 y Playwright MCP.
@@ -155,19 +208,35 @@ La documentación detallada se encuentra en:
 
 ### 6.4 Ajustes manuales y coordinación
 
-Se crearon los archivos:
+Se crearon los siguientes archivos:
 
 - `js/test/test-runner.html`
 - `js/test/script.spec.js`
 - `js/test/testing-doc.md`
 
-Se implementaron cuatro suites con cuatro tests cada una.
+Inicialmente se implementaron cuatro suites con cuatro tests cada una, obteniendo 16 pruebas aprobadas.
 
-Las pruebas verifican operaciones de filtrado, búsqueda, validación de talles, manipulación de arrays y objetos, gestión del carrito y cálculos.
+Posteriormente, durante las correcciones de la Pull Request #91, se utilizó GitHub Copilot Agent con `js/script.js` como contexto para ampliar la Suite 3 (Gestionar carrito), incorporando seis pruebas adicionales.
+
+**Resultado actualizado:** 4 suites, 22 tests aprobados y 0 fallidos.
+
+Las pruebas verifican operaciones de filtrado, búsqueda, validación de talles, manipulación de arrays y objetos, gestión del carrito, entradas inválidas y cálculos.
 
 No fue necesario modificar `js/script.js` para obtener los resultados PASS.
 
-La coordinación con el Desarrollador JavaScript queda sujeta a la revisión de la Pull Request.
+#### Coordinación con el Desarrollador JavaScript — RC3
+
+Se realizó una consulta a Seba, integrante del equipo de desarrollo JavaScript, para aclarar el comportamiento de la aplicación ante productos inexistentes y entradas incorrectas.
+
+Seba explicó que el tratamiento de estas situaciones fue previsto intencionalmente para evitar que los errores de ingreso interrumpan la ejecución del programa y permitir que el usuario continúe utilizando el menú.
+
+También aclaró que la implementación del código se realizó con asistencia de GitHub Copilot.
+
+Esta coordinación permitió conocer la intención del diseño. Sin embargo, se mantiene la distinción entre el comportamiento esperado y el comportamiento observado en las funciones, que debe verificarse mediante las pruebas automatizadas.
+
+Las pruebas Jasmine se ejecutaron correctamente sin modificar el código de negocio.
+
+**Resultado de la coordinación:** se documentó la aclaración del desarrollador sobre el manejo de entradas incorrectas y se incorporó su consideración al análisis de testing. Queda pendiente confirmar expresamente con el desarrollador la separación entre la lógica de negocio y las funciones de interacción `prompt()` y `alert()`.
 
 ### 6.5 Obstáculos y resoluciones
 

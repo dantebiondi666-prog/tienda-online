@@ -138,3 +138,26 @@ Los 16 casos de prueba correspondientes a los cuatro flujos funcionales obtuvier
 Se dispone de evidencia visual de la ejecución manual y de la verificación automatizada, quedando documentados los resultados y las limitaciones de las pruebas.
 
 **Resultado final: PASS — 16/16 tests aprobados.**
+
+## Retest — Corrección RC2 de PR #91
+
+Durante la revisión de la Pull Request #91, se solicitó ampliar la Suite 3 (Gestionar carrito) para incluir casos borde y entradas inválidas.
+
+Se utilizó GitHub Copilot Agent con `js/script.js` como contexto para revisar y ampliar `js/test/script.spec.js`, incorporando seis pruebas adicionales sin modificar el código de negocio.
+
+Los nuevos casos verifican cantidades inválidas (cero, negativas, decimales y no numéricas), productos o talles vacíos, carritos inválidos y operaciones sobre elementos inexistentes. También se documentó el comportamiento de `agregarAlCarrito()` respecto de productos que no pertenecen al catálogo.
+
+### Resultados del retest
+
+- Framework: Jasmine 5.1.1.
+- Suites ejecutadas: 4.
+- Tests ejecutados: 22.
+- Tests aprobados: 22.
+- Tests fallidos: 0.
+- Resultado: PASS.
+- Ejecución: navegador Chrome mediante servidor local.
+- Evidencia: `js/test/capturas/jasmine-22-tests-pass.png`.
+
+La ejecución mediante Playwright MCP queda pendiente de repetición para actualizar la evidencia automatizada.
+
+El error HTTP 404 correspondiente a `favicon.ico` no afectó los resultados de Jasmine.
