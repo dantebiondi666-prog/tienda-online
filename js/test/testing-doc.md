@@ -34,9 +34,15 @@ Se evaluaron cuatro flujos funcionales: consulta y filtrado del catálogo, consu
 |---|---|---:|---|
 | 1 | Consultar y filtrar catálogo | 4 | PASS |
 | 2 | Consultar producto y talle | 4 | PASS |
-| 3 | Gestionar carrito | 4 | PASS |
+| 3 | Gestionar carrito | 10 | PASS |
 | 4 | Resumen de compra | 4 | PASS |
-| **Total** | **4 flujos funcionales** | **16** | **PASS** |
+| **Total** | **4 flujos funcionales** | **22** | **PASS** |
+
+**Resultado final vigente:** 4 suites ejecutadas, 22 tests aprobados
+y 0 fallidos, verificados mediante Jasmine 5.1.1 y Playwright MCP.
+
+La ejecución inicial contemplaba 16 tests. Durante las correcciones
+de la PR #91 se incorporaron seis pruebas adicionales a la Suite 3.
 
 ## 5. Casos de prueba
 
@@ -60,12 +66,30 @@ Se evaluaron cuatro flujos funcionales: consulta y filtrado del catálogo, consu
 
 ### Suite 3 — Gestionar carrito
 
-1. Agregar un producto a un carrito vacío.
-2. Acumular cantidades de un producto y talle existentes.
-3. Modificar cantidades sin alterar el carrito original.
-4. Eliminar un producto del carrito.
+Se ejecutaron diez pruebas automatizadas para verificar
+las operaciones del carrito, incluyendo casos normales,
+casos borde y entradas inválidas.
 
-**Resultado:** 4/4 PASS.
+1. Agregar un producto a un carrito vacío.
+2. Sumar cantidades cuando el producto y talle ya existen.
+3. Modificar la cantidad sin alterar el carrito original.
+4. Eliminar un producto del carrito.
+5. Verificar que se puede agregar un producto aunque no pertenezca al catálogo.
+6. Rechazar cantidades cero, negativas, decimales y no numéricas.
+7. Rechazar un producto o talle vacío al agregar.
+8. Rechazar un carrito que no sea un array.
+9. Rechazar la modificación de un producto y talle inexistentes.
+10. Rechazar la eliminación de un producto y talle inexistentes.
+
+**Resultado:** 10/10 PASS.
+
+Los seis casos adicionales fueron incorporados mediante
+GitHub Copilot Agent, utilizando `js/script.js` como contexto.
+
+Se documentó que `agregarAlCarrito()` permite agregar productos
+que no pertenecen al catálogo. Esta prueba registra el
+comportamiento actual de la función, sin modificar
+el código de negocio.
 
 ### Suite 4 — Resumen de compra
 
@@ -82,44 +106,80 @@ Se inició el servidor local y se accedió al ejecutor de Jasmine mediante:
 
 `http://localhost:3000/js/test/test-runner.html`
 
-El framework ejecutó las cuatro suites correctamente.
+Se ejecutaron las cuatro suites funcionales utilizando Jasmine 5.1.1.
 
-**Resultados obtenidos:**
+**Resultados finales obtenidos:**
 
-- Tests ejecutados: 16.
-- Tests aprobados: 16.
+- Suites ejecutadas: 4.
+- Tests ejecutados: 22.
+- Tests aprobados: 22.
 - Tests fallidos: 0.
 - Resultado general: PASS.
 
-**Evidencia:**
+**Evidencia final:**
 
-![Ejecución manual de Jasmine](capturas/jasmine-16-tests-pass.png)
+![Ejecución manual de Jasmine — 22 tests PASS](capturas/jasmine-22-tests-pass.png)
+
+**Antecedente histórico:**
+
+La primera ejecución comprendía 16 tests, todos aprobados.
+Posteriormente se incorporaron seis pruebas adicionales a la
+Suite 3 como parte de las correcciones de la PR #91.
+
+![Ejecución inicial de Jasmine — 16 tests PASS](capturas/jasmine-16-tests-pass.png)
 
 ## 7. Ejecución automatizada con Playwright MCP
 
-Se utilizó GitHub Copilot Agent Mode junto con Playwright MCP para abrir el ejecutor de Jasmine y verificar los resultados de las pruebas.
+Se utilizó GitHub Copilot Agent junto con Playwright MCP
+para abrir el ejecutor de Jasmine y verificar los resultados
+de las pruebas automatizadas.
 
-Playwright confirmó:
+Luego de incorporar seis pruebas adicionales a la Suite 3,
+se realizó una nueva ejecución para validar los resultados finales.
+
+**Resultados confirmados mediante Playwright MCP:**
 
 - Suites ejecutadas: 4.
-- Tests ejecutados: 16.
-- Tests aprobados: 16.
+- Tests ejecutados: 22.
+- Tests aprobados: 22.
 - Tests fallidos: 0.
 - Resultado general: PASS.
 
-**Evidencia:**
+**Evidencia final:**
 
-![Ejecución con Playwright MCP](capturas/jasmine-playwright-pass.png)
+![Ejecución con Playwright MCP — 22 tests PASS](capturas/jasmine-playwright-22-tests-pass.png)
+
+**Antecedente histórico:**
+
+La ejecución inicial mediante Playwright MCP verificó
+16 tests aprobados. Posteriormente se amplió la cobertura
+hasta alcanzar los 22 tests definitivos.
+
+![Ejecución inicial con Playwright MCP — 16 tests PASS](capturas/jasmine-playwright-pass.png)
 
 ## 8. Incidencias y observaciones
 
-Durante la ejecución con Playwright MCP se informó un error de carga de recurso en la consola del navegador.
+Durante la ejecución automatizada mediante Playwright MCP
+se registró una respuesta HTTP 404 correspondiente al
+recurso `/favicon.ico`.
 
-No se identificó el recurso exacto en el reporte recibido, por lo que no se atribuye este mensaje al código JavaScript bajo prueba.
+Se identificó que este mensaje estaba relacionado con la
+ausencia del ícono del sitio y no con las funciones JavaScript
+evaluadas mediante Jasmine.
 
-La incidencia queda pendiente de identificación si vuelve a reproducirse.
+La incidencia no afectó la ejecución de las pruebas ni
+los resultados obtenidos.
 
-No se registraron fallos en los 16 casos de prueba ejecutados.
+**Resultados finales:**
+
+- Suites ejecutadas: 4.
+- Tests ejecutados: 22.
+- Tests aprobados: 22.
+- Tests fallidos: 0.
+- Errores funcionales detectados: ninguno en los casos evaluados.
+
+No quedaron incidencias pendientes relacionadas con
+la ejecución de Jasmine.
 
 ## 9. Alcance y limitaciones
 
@@ -131,13 +191,28 @@ No se modificó `js/script.js` durante esta actividad de testing.
 
 ## 10. Conclusión
 
-La ejecución manual con Jasmine y la ejecución automatizada mediante Playwright MCP finalizaron satisfactoriamente.
+La ejecución manual con Jasmine 5.1.1 y la ejecución
+automatizada mediante Playwright MCP finalizaron
+satisfactoriamente.
 
-Los 16 casos de prueba correspondientes a los cuatro flujos funcionales obtuvieron resultado PASS.
+Se verificaron cuatro flujos funcionales mediante
+22 casos de prueba, todos con resultado PASS.
 
-Se dispone de evidencia visual de la ejecución manual y de la verificación automatizada, quedando documentados los resultados y las limitaciones de las pruebas.
+Durante la revisión de la Pull Request #91 se amplió
+la Suite 3 (Gestionar carrito) con seis pruebas
+adicionales, utilizando GitHub Copilot Agent y
+`js/script.js` como contexto.
 
-**Resultado final: PASS — 16/16 tests aprobados.**
+La ejecución inicial de 16 tests se conserva como
+antecedente histórico. El resultado definitivo
+corresponde a la ejecución ampliada de 22 tests.
+
+Se dispone de evidencias visuales de las ejecuciones
+manual y automatizada, sin necesidad de modificar
+el código de negocio.
+
+**Resultado final: PASS — 22/22 tests aprobados,
+0 fallidos, distribuidos en 4 suites Jasmine.**
 
 ## Retest — Corrección RC2 de PR #91
 

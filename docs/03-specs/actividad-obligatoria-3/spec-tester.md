@@ -87,13 +87,13 @@ Estas herramientas permiten automatizar las verificaciones y documentar los resu
 - [x] Se cubren casos normales, casos borde y validaciones de errores.
 - [x] Se verifican operaciones con arrays y objetos.
 - [x] `test-runner.html` carga correctamente Jasmine y los archivos necesarios.
-- [x] Se ejecutaron las suites en navegador mediante Playwright MCP.
+- [x] Se ejecutaron las cuatro suites mediante Playwright MCP.
 - [x] Se capturaron screenshots de los resultados PASS.
 - [x] Se documentaron las pruebas y sus resultados en `js/test/testing-doc.md`.
-- [x] No se detectaron fallos funcionales en los 16 tests ejecutados.
+- [x] Se ejecutaron 22 tests Jasmine, con 22 PASS y 0 FAIL.
 - [x] No fue necesario modificar `js/script.js`.
-- [ ] Se actualizó `changelog.md` con la contribución y el enlace al PR.
-- [ ] Se abrió una Pull Request hacia `develop` para revisión.
+- [x] Se actualizó `changelog.md` con la contribución y el enlace a la PR #91.
+- [x] Se abrió la Pull Request #91 hacia `develop` para revisión.
 
 
 ## 6. Evidencia de cierre (AT CLOSE)
@@ -149,13 +149,15 @@ Durante la ejecución se registró un error HTTP 404 para `favicon.ico`, sin imp
 
 ### 6.2 Resultados de las pruebas
 
-| Métrica | Resultado |
+| Métrica | Resultado final |
 |---|---|
 | Suites ejecutadas | 4 |
-| Tests ejecutados | 16 |
-| Tests PASS | 16 |
+| Tests ejecutados | 22 |
+| Tests PASS | 22 |
 | Tests FAIL | 0 |
 | Resultado general | PASS |
+| Framework | Jasmine 5.1.1 |
+| Validación automatizada | Playwright MCP |
 
 **Flujos evaluados:**
 
@@ -164,51 +166,55 @@ Durante la ejecución se registró un error HTTP 404 para `favicon.ico`, sin imp
 3. Gestionar carrito.
 4. Resumen de compra.
 
-No se detectaron fallos en los 16 casos de prueba ejecutados.
+Se ejecutaron correctamente los 22 casos de prueba, sin fallos funcionales detectados en las verificaciones realizadas.
 
 No se registraron Issues de bugs funcionales derivados de estos tests.
 
 #### Retest posterior a las correcciones RC1 y RC2 — PR #91
 
-Luego de utilizar GitHub Copilot Agent para ampliar la Suite 3
-(Gestionar carrito), se ejecutaron nuevamente las pruebas
-automatizadas con Jasmine 5.1.1.
+La ejecución inicial contemplaba 16 tests Jasmine, todos aprobados.
 
-**Resultados obtenidos:**
+Durante la revisión de la PR #91, se utilizó GitHub Copilot Agent con `js/script.js` como contexto para ampliar la Suite 3 (Gestionar carrito), incorporando seis pruebas adicionales para cubrir casos borde, entradas inválidas y operaciones sobre elementos inexistentes.
+
+Posteriormente, se repitió la ejecución en Google Chrome y mediante Playwright MCP.
+
+**Resultado final del retest:**
 
 - Suites ejecutadas: 4.
 - Tests ejecutados: 22.
 - Tests aprobados: 22.
 - Tests fallidos: 0.
-- Resultado final: PASS.
-- Entorno: Google Chrome con servidor local en localhost:3000.
+- Resultado: PASS.
+- Errores de ejecución Jasmine: ninguno.
 
-Se incorporaron seis pruebas adicionales para verificar casos borde,
-entradas inválidas y operaciones sobre elementos inexistentes.
+**Evidencias:**
 
-La ejecución manual en Chrome confirmó que las cuatro suites
-funcionan correctamente.
+- Ejecución manual: `js/test/capturas/jasmine-22-tests-pass.png`.
+- Ejecución mediante Playwright MCP: `js/test/capturas/jasmine-playwright-22-tests-pass.png`.
 
-**Evidencia:** `js/test/capturas/jasmine-22-tests-pass.png`
-
-**Pendiente:** repetir la ejecución mediante Playwright MCP para
-actualizar la evidencia automatizada.
+La ejecución inicial de 16 tests se conserva únicamente como antecedente histórico. El resultado final vigente es **22 tests PASS y 0 FAIL**, verificados mediante Playwright MCP.
 
 ### 6.3 Evidencias de Playwright MCP
 
-Las pruebas se ejecutaron en el navegador mediante Jasmine 5.1.1 y Playwright MCP.
+Las cuatro suites se ejecutaron correctamente mediante Jasmine 5.1.1
+en Google Chrome y mediante Playwright MCP.
 
-**Ejecución manual:**
+**Resultado final: 22 tests PASS, 0 FAIL.**
 
-![Jasmine - 16 tests PASS](../../../js/test/capturas/jasmine-16-tests-pass.png)
+**Ejecución manual — 22 tests PASS:**
 
-**Ejecución mediante Playwright MCP:**
+![Jasmine - 22 tests PASS](../../../js/test/capturas/jasmine-22-tests-pass.png)
 
-![Playwright MCP - 16 tests PASS](../../../js/test/capturas/jasmine-playwright-pass.png)
+**Ejecución automatizada mediante Playwright MCP — 22 tests PASS:**
 
-La documentación detallada se encuentra en:
+![Playwright MCP - 22 tests PASS](../../../js/test/capturas/jasmine-playwright-22-tests-pass.png)
 
-`js/test/testing-doc.md`
+Las capturas correspondientes a la ejecución inicial de 16 tests
+se conservan como evidencia histórica, pero no representan
+el resultado final vigente.
+
+La documentación detallada de las pruebas se encuentra en
+`js/test/testing-doc.md`.
 
 ### 6.4 Ajustes manuales y coordinación
 
@@ -240,7 +246,17 @@ Esta coordinación permitió conocer la intención del diseño. Sin embargo, se 
 
 Las pruebas Jasmine se ejecutaron correctamente sin modificar el código de negocio.
 
-**Resultado de la coordinación:** se documentó la aclaración del desarrollador sobre el manejo de entradas incorrectas y se incorporó su consideración al análisis de testing. Queda pendiente confirmar expresamente con el desarrollador la separación entre la lógica de negocio y las funciones de interacción `prompt()` y `alert()`.
+**Resultado de la coordinación:** se completó la consulta con el
+Desarrollador JavaScript, quien aclaró que el tratamiento de entradas
+incorrectas y productos inexistentes fue una decisión intencional para
+evitar interrupciones en la ejecución del programa.
+
+Desde el rol de Tester se verificó que las funciones de negocio
+pudieran ejecutarse mediante Jasmine sin modificar `js/script.js`,
+obteniendo 22 tests PASS y 0 FAIL.
+
+La coordinación quedó documentada y no se requirieron cambios
+adicionales en el código de negocio.
 
 ### 6.5 Obstáculos y resoluciones
 
@@ -266,14 +282,29 @@ El mensaje no impidió la ejecución de Jasmine. Se deja documentado como observ
 
 ### 6.6 Conclusión
 
-La implementación y ejecución de las pruebas automatizadas de JavaScript finalizó satisfactoriamente.
+La implementación y ejecución de las pruebas automatizadas
+de JavaScript finalizó satisfactoriamente.
 
-Se verificaron cuatro flujos funcionales mediante 16 tests Jasmine, todos con resultado PASS.
+Se verificaron los cuatro flujos funcionales mediante cuatro
+suites Jasmine 5.1.1, con un total de 22 tests ejecutados,
+22 PASS y 0 FAIL.
 
-Se conservaron evidencias de la ejecución manual y automatizada mediante Playwright MCP.
+Durante las correcciones de la Pull Request #91 se incorporaron
+seis pruebas adicionales a la Suite 3 (Gestionar carrito),
+ampliando la cobertura de casos borde y entradas inválidas.
 
-El trabajo queda pendiente de su integración mediante Pull Request hacia `develop`.
+Los resultados fueron verificados mediante Google Chrome y
+Playwright MCP, conservando las capturas correspondientes
+como evidencia de la ejecución final.
+
+Se documentó la coordinación con el Desarrollador JavaScript
+y no fue necesario modificar `js/script.js`.
+
+La documentación y las evidencias se encuentran incorporadas
+a la Pull Request #91, abierta hacia `develop` para revisión.
 
 ---
 
-**Estado:** Implementación y testing completados. Pendiente de revisión e integración mediante Pull Request.
+**Estado:** Implementación, testing y documentación completados.
+Resultado final: 4 suites, 22 tests PASS, 0 FAIL.
+Pull Request #91 pendiente de aprobación e integración a `develop`.
