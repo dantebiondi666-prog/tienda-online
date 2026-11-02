@@ -694,21 +694,284 @@ Luego de verificar manualmente todas las correcciones, la PR #90 fue aprobada po
 
 ### Code Review 3
 
-**PR:** Pendiente.  
-**Rol:** Pendiente.  
-**Archivos utilizados como contexto:** Pendiente.
+**PR:** #91 — `test(qa): implementar suites Jasmine y evidencias Playwright AO3`  
+**Rol:** Tester JavaScript / QA Engineer  
+**Rama:** `feature/tester-javascript-jasmine` → `develop`  
+**Issue asociada:** #88  
+
+**Archivos y elementos utilizados como contexto:**
+
+- `ACTIVIDAD_OBLIGATORIA_N_3.pdf`
+- `plan.md`
+- `.github/PULL_REQUEST_TEMPLATE/feature-template.md`
+- `docs/03-specs/actividad-obligatoria-3/spec-tester.md`
+- `js/script.js`
+- `js/test/script.spec.js`
+- `js/test/test-runner.html`
+- `js/test/testing-doc.md`
+- evidencias de `js/test/capturas/`
+- `changelog.md`
+- Issue #88
+- descripción, historial de commits y diff completo de la PR #91
 
 **Prompt utilizado:**
 
 ```text
-Pendiente de completar al ejecutar el code review.
+Actuá como revisor técnico de la PR #91:
+
+- Rama: feature/tester-javascript-jasmine
+- Destino: develop
+- Rol: Tester JavaScript / QA Engineer
+- Issue: #88
+
+No modifiques archivos, no hagas commits, no corrijas tests y no publiques reviews en GitHub. Solo devolveme el informe. Podés ejecutar comandos de lectura o verificación si son necesarios.
+
+Reconstruí el cambio real usando el diff contra origin/develop y el historial de commits.
+
+Revisá:
+
+1. Git y trazabilidad
+   - La feature debe partir de develop actualizado, incluyendo la implementación JavaScript ya integrada.
+   - docs/03-specs/actividad-obligatoria-3/spec-tester.md debe estar commiteado antes de js/test/script.spec.js.
+   - Los cambios deben corresponder al rol Tester.
+   - changelog.md debe registrar PR #91 e Issue #88.
+
+2. Descripción de la PR
+   - Comparala con .github/PULL_REQUEST_TEMPLATE/feature-template.md.
+   - Verificá datos del estudiante, rol, rama, Issue, spec, requisitos de plan.md, descripción, archivos modificados, checklist y enlace a la consigna.
+   - Marcá como hallazgo cualquier sección obligatoria faltante o checklist incorrectamente presentado.
+
+3. Spec del Tester
+   Revisá:
+   docs/03-specs/actividad-obligatoria-3/spec-tester.md
+
+   BEFORE debe incluir:
+   - plan de testing por flujo;
+   - happy path, edge cases y errores;
+   - Copilot Agent para generación de tests;
+   - Playwright MCP para ejecución en browser;
+   - checklist de aceptación.
+
+   AT CLOSE debe incluir:
+   - prompt exacto usado en Copilot Agent para generar js/test/script.spec.js;
+   - js/script.js utilizado como contexto;
+   - screenshots del runner ejecutado con Playwright MCP;
+   - cantidad de tests PASS/FAIL y bugs reportados;
+   - ajustes manuales realizados;
+   - coordinación con el Desarrollador JavaScript para mejorar testabilidad.
+
+4. Uso obligatorio de Copilot Agent
+   La consigna exige específicamente utilizar GitHub Copilot Agent Mode con js/script.js como contexto para generar js/test/script.spec.js.
+
+   Verificá si existe evidencia real de este proceso en la spec.
+
+   Prestá especial atención a que actualmente la spec menciona que ChatGPT fue utilizado para elaborar las suites y que el prompt documentado de Copilot parece estar orientado únicamente a ejecutar Jasmine mediante Playwright MCP.
+
+   Si no existe un prompt de generación de script.spec.js con js/script.js como contexto, consideralo incumplimiento de la consigna y de la rúbrica.
+
+5. script.spec.js
+   Contrastá los tests contra el js/script.js actual.
+
+   Verificá:
+   - exactamente 4 suites principales, una por flujo;
+   - mínimo 3 tests por suite;
+   - happy path;
+   - casos borde y valores límite;
+   - validación de errores y datos inválidos;
+   - operaciones con arrays y objetos;
+   - cálculos cuando corresponda;
+   - assertions Jasmine apropiadas;
+   - que los tests realmente prueben el comportamiento del código y no solo valores triviales.
+
+   Revisá especialmente la Suite 3 de carrito para determinar si posee cobertura suficiente de casos inválidos/errores y casos borde, además de agregar/modificar/eliminar.
+
+6. test-runner.html
+   Verificá:
+   - Jasmine correctamente cargado mediante CDN;
+   - orden correcto de carga;
+   - ../script.js cargado antes que script.spec.js;
+   - que el guard de Jasmine de script.js evite disparar prompt();
+   - que el runner pueda ejecutar las suites correctamente.
+
+7. testing-doc.md
+   Debe incluir:
+   - instrucciones de ejecución;
+   - descripción de las cuatro suites y cobertura;
+   - cantidad de tests y métricas;
+   - cobertura aproximada, si la consigna la exige;
+   - screenshots;
+   - issues conocidos o limitaciones;
+   - resultados de Playwright MCP.
+
+8. Evidencias
+   Verificá la existencia y coherencia de:
+   - js/test/capturas/jasmine-16-tests-pass.png
+   - js/test/capturas/jasmine-playwright-pass.png
+
+   Los resultados declarados son 4 suites, 16 tests, 16 PASS y 0 FAIL. Confirmá que documentación, screenshots y tests sean coherentes entre sí.
+
+9. Bugs y coordinación
+   - Si no se detectaron bugs, no exijas crear una Issue de bug artificialmente; verificá que el resumen indique 0 bugs.
+   - Evaluá si existe evidencia suficiente de coordinación con el Desarrollador JavaScript para mejorar o confirmar la testabilidad.
+   - Revisá también si la Issue #88 y los checklists de la spec quedaron actualizados según el estado real de la tarea.
+
+Formato de respuesta:
+
+1. Veredicto general: CUMPLE / CUMPLE PARCIALMENTE / NO CUMPLE.
+
+2. Checklist:
+- Git/historial
+- Template PR
+- Spec BEFORE
+- Spec AT CLOSE
+- Uso Copilot Agent
+- Playwright MCP
+- Suite 1
+- Suite 2
+- Suite 3
+- Suite 4
+- Test runner
+- Testing-doc
+- Evidencias/screenshots
+- Changelog
+- Coordinación con JS
+
+Usá ✅ / ⚠️ / ❌.
+
+3. Hallazgos que requieren cambios
+
+Solo problemas reales. Para cada uno indicá:
+- severidad: BLOQUEANTE o RECOMENDACIÓN;
+- archivo y línea o fragmento;
+- requisito incumplido;
+- corrección necesaria.
+
+4. Decisión sugerida
+
+Elegí únicamente:
+- APPROVE
+o
+- REQUEST_CHANGES
+
+No inventes requisitos que no estén en la consigna, plan.md, la spec, la rúbrica o la template.
 ```
 
-**Output relevante generado por IA:** Pendiente.
+**Output relevante generado por IA:**
 
-**Ajustes o decisiones manuales:** Pendiente.
+El análisis devolvió el veredicto inicial **CUMPLE PARCIALMENTE** y sugirió `REQUEST_CHANGES`.
 
-**CHANGES_REQUESTED:** Pendiente.
+Se verificó correctamente:
+
+- existencia de cuatro suites Jasmine;
+- mínimo de tres tests por suite;
+- configuración correcta del runner;
+- ejecución mediante Playwright MCP;
+- 16 tests iniciales con resultado PASS;
+- evidencias visuales;
+- changelog e Issue vinculada;
+- spec commiteada antes que los tests.
+
+Se identificaron cuatro hallazgos bloqueantes:
+
+1. **Uso obligatorio de Copilot Agent no acreditado.**  
+   `spec-tester.md` indicaba que ChatGPT había asistido en la elaboración de las suites y el único prompt documentado de Copilot correspondía a la ejecución con Playwright MCP. La consigna exigía utilizar Copilot Agent con `js/script.js` como contexto para generar o ampliar `script.spec.js`.
+
+2. **Cobertura insuficiente de la Suite 3.**  
+   Los cuatro tests originales del flujo Gestionar carrito cubrían solamente operaciones válidas. `plan.md`, mediante CA-22, exige que cada flujo cuente con casos normales, casos borde y validaciones de entradas inválidas.
+
+3. **Descripción de la PR incompleta respecto de `feature-template.md`.**  
+   Faltaban la spec relacionada, requisitos RF/RNF/CA afectados, enlace a la consigna y checklist correctamente actualizado.
+
+4. **Coordinación con el Desarrollador JavaScript no acreditada.**  
+   La spec indicaba que la coordinación quedaba pendiente de la revisión, por lo que todavía no se demostraba el requisito específico del rol.
+
+También se señalaron como recomendaciones no bloqueantes:
+
+- agregar el caso de talle válido pero no disponible en la Suite 2;
+- verificar directamente `generarResumenCompra()` en la Suite 4;
+- actualizar checklists y documentación;
+- mejorar las instrucciones de ejecución del runner;
+- aclarar el recurso HTTP 404 observado durante Playwright.
+
+**Ajustes o decisiones manuales:**
+
+Se revisaron manualmente los hallazgos generados por IA contra la consigna, `plan.md`, el código y el historial real de la PR.
+
+Se confirmó que los cuatro hallazgos principales eran válidos.
+
+Se descartó como bloqueante la observación sobre la procedencia inicial de la rama. La spec había sido creada antes de integrar el `develop` actualizado, pero los tests fueron implementados después de incorporar la versión de `develop` que contenía el código JavaScript definitivo. Por lo tanto, no se consideró necesario reescribir el historial Git.
+
+Se publicaron tres comentarios inline:
+
+- **RC1:** en `spec-tester.md`, solicitando evidencia real del uso de Copilot Agent con `js/script.js` como contexto.
+- **RC2:** en `script.spec.js`, solicitando casos borde y validaciones inválidas para la Suite 3.
+- **RC3:** en `spec-tester.md`, solicitando documentar la coordinación real con el Desarrollador JavaScript.
+
+Además, se publicó un comentario general:
+
+- **RC4:** completar la descripción de la PR según `feature-template.md`.
+
+El Tester realizó posteriormente las correcciones:
+
+- utilizó GitHub Copilot Agent con `js/script.js` como contexto;
+- documentó el prompt utilizado en `spec-tester.md`;
+- incorporó seis tests adicionales a la Suite 3;
+- la Suite 3 pasó de 4 a 10 tests;
+- el total pasó de 16 a 22 tests;
+- ejecutó nuevamente Jasmine;
+- ejecutó nuevamente las pruebas mediante Playwright MCP;
+- obtuvo **22 tests PASS y 0 FAIL**;
+- incorporó nuevas capturas de evidencia;
+- documentó la coordinación con el Desarrollador JavaScript;
+- completó la descripción de la PR según la template.
+
+Luego de estas correcciones se realizó una segunda verificación manual.
+
+Se comprobó que los RC funcionales habían sido resueltos, aunque permanecían inconsistencias menores entre la ejecución inicial de 16 tests y el resultado final de 22 tests en distintos sectores de la documentación.
+
+Por este motivo se publicó un comentario general adicional solicitando únicamente sincronizar:
+
+- `spec-tester.md`;
+- `testing-doc.md`;
+- descripción de la PR;
+
+con el resultado final de **4 suites, 22 tests, 22 PASS y 0 FAIL verificados mediante Playwright MCP**.
+
+El Tester realizó una última actualización documental en el commit `17a81db`, dejando la documentación principal coherente con el resultado final.
+
+Se verificó finalmente:
+
+- cuatro suites Jasmine;
+- 22 tests ejecutados;
+- 22 PASS;
+- 0 FAIL;
+- Playwright MCP ejecutado;
+- Copilot Agent documentado;
+- Suite 3 ampliada con casos borde e inválidos;
+- coordinación con JavaScript documentada;
+- descripción de la PR adaptada a la template;
+- todos los threads originales resueltos.
+
+Quedaron únicamente detalles documentales menores sin impacto funcional, como referencias históricas a los 16 tests iniciales o textos residuales no considerados bloqueantes.
+
+**CHANGES_REQUESTED:**
+
+Sí.
+
+Se solicitaron cuatro cambios bloqueantes:
+
+1. acreditar el uso de Copilot Agent con `js/script.js` como contexto;
+2. ampliar la Suite 3 con casos borde y entradas inválidas;
+3. documentar la coordinación real con el Desarrollador JavaScript;
+4. completar la descripción de la PR según `feature-template.md`.
+
+**Resultado final:**
+
+`APPROVED`.
+
+La PR #91 fue aprobada por el Coordinador / DevOps una vez verificadas las correcciones funcionales y documentales principales, y posteriormente fue mergeada a `develop`.
+
+**Merge commit:** `09dfa47225220cef36392064e2123901edd549e9`.
 
 ---
 
@@ -738,7 +1001,7 @@ Pendiente de completar al ejecutar el code review.
 |---|---|---|---|---|---|
 | 1 | #87 | Arquitecto de Diagramas | CUMPLE PARCIALMENTE | Template de PR incompleta | APPROVED luego de corregir la descripción |
 | 2 | #90 | Desarrollador JavaScript | CUMPLE PARCIALMENTE | Entradas vacías sin manejo en UI + template de PR incompleta | APPROVED luego de corregir código, documentación y descripción |
-| 3 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
+| 3 | #91 | Tester JavaScript / QA Engineer | CUMPLE PARCIALMENTE | Copilot Agent no acreditado + cobertura insuficiente Suite 3 + coordinación pendiente + template de PR incompleta | APPROVED luego de corregir testing, evidencias y documentación |
 | 4 | Pendiente | Pendiente | Pendiente | Pendiente | Pendiente |
 
 ---
