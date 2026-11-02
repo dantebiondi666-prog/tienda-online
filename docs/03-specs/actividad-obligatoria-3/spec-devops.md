@@ -59,9 +59,9 @@ El rol de Coordinador / DevOps permite:
 
 ### Relación con `plan.md`
 
-El `plan.md` actual todavía documenta el alcance hasta el Primer Parcial. Como parte de esta actividad deberá ampliarse posteriormente para incorporar el alcance específico de la Actividad Obligatoria N.º 3.
+Al inicio de la Actividad Obligatoria N.º 3, `plan.md` documentaba el alcance hasta el Primer Parcial. Como parte de las primeras tareas de coordinación, se amplió posteriormente para incorporar el alcance específico de la Actividad Obligatoria N.º 3.
 
-Hasta que esa actualización se realice, esta tarea se relaciona principalmente con los siguientes requerimientos existentes:
+Esta tarea se relaciona principalmente con los siguientes requerimientos:
 
 - **RNF-04 — Mantenibilidad:** mantener el código y la documentación organizados y consistentes.
 - **RNF-05 — Trazabilidad:** cada tarea debe estar asociada a su especificación, Pull Request y registro en `changelog.md`.
@@ -73,7 +73,7 @@ También se relaciona con:
 - **CA-09:** registro de las contribuciones en `changelog.md`.
 - **CA-10:** posibilidad de publicar la versión entregable mediante GitHub Pages.
 
-Los requerimientos específicos de JavaScript, diagramas y testing de esta entrega se incorporarán posteriormente a `plan.md`.
+Los requerimientos específicos de JavaScript, diagramas y testing de esta entrega fueron incorporados posteriormente a `plan.md`, principalmente en la sección 10.3 y en los criterios de aceptación CA-18 a CA-23.
 
 ---
 
@@ -246,25 +246,25 @@ Se utilizará para publicar la versión correspondiente a `release/tercera-entre
 - [x] `release/primer-parcial` mergeada a `master`.
 - [x] Tag y GitHub Release `v1.1-primer-parcial` creados.
 - [x] Backport hacia `develop` realizado mediante PR #83.
-- [ ] `spec-devops.md` commiteado antes de comenzar cualquier otra tarea de coordinación de AO3.
+- [x] `spec-devops.md` commiteado antes de comenzar cualquier otra tarea de coordinación de AO3.
 
 ### Coordinación
 
-- [ ] Issues de la Actividad Obligatoria N.º 3 administradas mediante GitHub Projects.
-- [ ] Todas las ramas feature parten de `develop` actualizado.
-- [ ] Las Pull Requests de los demás integrantes son revisadas antes del merge.
-- [ ] Se realizan al menos cuatro instancias de code review asistidas con Copilot Agent Mode.
-- [ ] Los `CHANGES_REQUESTED` quedan documentados.
-- [ ] Las correcciones solicitadas son verificadas antes de aprobar las PRs.
-- [ ] Todas las features aprobadas se integran en `develop`.
+- [x] Issues de la Actividad Obligatoria N.º 3 administradas mediante GitHub Projects.
+- [x] Las ramas de trabajo fueron sincronizadas con `develop` antes de realizar las implementaciones correspondientes.
+- [x] Las Pull Requests de los demás integrantes fueron revisadas antes del merge.
+- [x] Se realizaron code reviews asistidos con Copilot Agent Mode sobre las 3 de 3 PRs disponibles de otros integrantes (100 % de cobertura). La inconsistencia del requisito de cuatro reviews se encuentra documentada en Code Review 4.
+- [x] Los `CHANGES_REQUESTED` quedaron documentados.
+- [x] Las correcciones solicitadas fueron verificadas antes de aprobar las PRs.
+- [x] Todas las features aprobadas de los demás integrantes fueron integradas en `develop`.
 
 ### Documentación
 
-- [ ] `plan.md` actualizado con el alcance de la Actividad Obligatoria N.º 3.
-- [ ] `README.md` actualizado con información y enlaces de la tercera entrega.
-- [ ] `changelog.md` actualizado con Issues, PRs y contribuciones.
-- [ ] Índice de diagramas correctamente enlazado.
-- [ ] Documentación de testing correctamente enlazada.
+- [x] `plan.md` actualizado con el alcance de la Actividad Obligatoria N.º 3.
+- [x] `README.md` actualizado con información y enlaces de la tercera entrega.
+- [x] `changelog.md` actualizado con las Issues, PRs y contribuciones existentes de AO3. La PR de cierre de esta rama se incorporará cuando se encuentre creada y tenga un número asignado.
+- [x] Índice de diagramas correctamente enlazado.
+- [x] Documentación de testing correctamente enlazada.
 
 ### Release
 
