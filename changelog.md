@@ -6,6 +6,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## [Release Actividad Obligatoria N.º 3] - 2026-11-02
+
 ### Added
 
 - [feature/coord-devops-tercera-entrega-2] [AO3] Coordinador / DevOps: completar coordinación y documentación de tercera entrega.
