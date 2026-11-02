@@ -188,7 +188,6 @@ los resultados obtenidos.
 No quedaron incidencias pendientes relacionadas con
 la ejecución de Jasmine.
 
-## 9. Alcance y limitaciones
 
 ## 9. Alcance, cobertura aproximada y limitaciones
 

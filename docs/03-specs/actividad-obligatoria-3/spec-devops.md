@@ -262,7 +262,7 @@ Se utilizará para publicar la versión correspondiente a `release/tercera-entre
 
 - [x] `plan.md` actualizado con el alcance de la Actividad Obligatoria N.º 3.
 - [x] `README.md` actualizado con información y enlaces de la tercera entrega.
-- [x] `changelog.md` actualizado con las Issues, PRs y contribuciones existentes de AO3. La PR de cierre de esta rama se incorporará cuando se encuentre creada y tenga un número asignado.
+- [x] `changelog.md` actualizado con las Issues, PRs y contribuciones de AO3, incluyendo la PR #92 correspondiente al cierre de esta rama.
 - [x] Índice de diagramas correctamente enlazado.
 - [x] Documentación de testing correctamente enlazada.
 
