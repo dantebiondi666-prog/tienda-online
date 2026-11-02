@@ -301,10 +301,12 @@ Se documentó la coordinación con el Desarrollador JavaScript
 y no fue necesario modificar `js/script.js`.
 
 La documentación y las evidencias se encuentran incorporadas
-a la Pull Request #91, abierta hacia `develop` para revisión.
+a la Pull Request #91, aprobada e integrada a `develop`.
 
 ---
 
 **Estado:** Implementación, testing y documentación completados.
 Resultado final: 4 suites, 22 tests PASS, 0 FAIL.
-Pull Request #91 pendiente de aprobación e integración a `develop`.
+Pull Request #91 aprobada y mergeada a `develop`.
+
+**Merge commit:** `09dfa47225220cef36392064e2123901edd549e9`.
