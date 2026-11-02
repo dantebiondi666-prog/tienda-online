@@ -102,10 +102,17 @@ el código de negocio.
 
 ## 6. Ejecución manual con Jasmine
 
-Se inició el servidor local y se accedió al ejecutor de Jasmine mediante:
+Se inició un servidor local desde la raíz del proyecto mediante:
+
+```bash
+npx serve . -l 3000
+```
+
+Luego se accedió al ejecutor de Jasmine mediante:
 
 `http://localhost:3000/js/test/test-runner.html`
 
+De esta manera, `test-runner.html` carga `js/script.js` y `js/test/script.spec.js` en el navegador para ejecutar las suites automatizadas con Jasmine.
 Se ejecutaron las cuatro suites funcionales utilizando Jasmine 5.1.1.
 
 **Resultados finales obtenidos:**
@@ -181,11 +188,23 @@ los resultados obtenidos.
 No quedaron incidencias pendientes relacionadas con
 la ejecución de Jasmine.
 
-## 9. Alcance y limitaciones
 
-Las pruebas verifican las funciones JavaScript seleccionadas mediante datos de prueba controlados.
+## 9. Alcance, cobertura aproximada y limitaciones
 
-El resultado PASS no implica que todas las posibles entradas, interacciones de interfaz o condiciones de ejecución estén cubiertas.
+Las pruebas automatizadas cubren los cuatro flujos principales definidos para la Actividad Obligatoria N.º 3:
+
+- consulta y filtrado del catálogo;
+- consulta de productos y disponibilidad de talles;
+- gestión del carrito simulado;
+- generación del resumen de compra.
+
+La cobertura funcional incluye happy paths, casos borde, validaciones de entradas inválidas, operaciones sobre arrays y objetos, búsquedas, modificaciones del carrito y cálculos de subtotales y totales.
+
+La cobertura se considera representativa de la lógica de negocio principal implementada en `js/script.js`, pero no se calculó un porcentaje formal de cobertura de líneas o ramas mediante una herramienta específica de code coverage.
+
+El resultado PASS no implica que todas las combinaciones posibles de entradas o condiciones de ejecución estén cubiertas.
+
+La Actividad Obligatoria N.º 3 no utiliza manipulación del DOM ni eventos, por lo que esos comportamientos no forman parte del alcance de estas pruebas.
 
 No se modificó `js/script.js` durante esta actividad de testing.
 
@@ -254,3 +273,11 @@ La captura de la ejecución se guardó en
 
 Durante la ejecución se registró una respuesta HTTP 404 para
 `/favicon.ico`, sin impacto en los resultados de Jasmine.
+
+---
+
+## Navegación relacionada
+
+- [Diagramas de actividades de los cuatro flujos](../../docs/05-diagramas/01-diagrama-de-actividades/diagramas-doc.md)
+- [Plan maestro del proyecto](../../plan.md)
+- [Código JavaScript bajo prueba](../script.js)

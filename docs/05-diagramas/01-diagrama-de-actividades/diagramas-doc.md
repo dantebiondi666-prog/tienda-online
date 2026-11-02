@@ -85,3 +85,10 @@ Todos los diagramas usan swimlanes `|Usuario|` y `|Sistema|`, porque cada flujo 
 4. Exportar con `Ctrl + Shift + P` → `PlantUML: Export Current Diagram` → formato `png`.
 
 Al editar un diagrama, se debe actualizar también el `.png` para que ambos archivos queden sincronizados, y verificar que el flujo siga siendo coherente con `js/script.js`.
+
+---
+
+## Navegación relacionada
+
+- [Testing JavaScript con Jasmine](../../../js/test/testing-doc.md)
+- [Plan maestro del proyecto](../../../plan.md)
