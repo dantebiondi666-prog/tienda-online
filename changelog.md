@@ -8,6 +8,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
+- [feature/coord-devops-tercera-entrega-2] [AO3] Coordinador / DevOps: completar coordinación y documentación de tercera entrega.
+
+  PR: [#92](https://github.com/dantebiondi666-prog/tienda-online/pull/92) - @dantebiondi666-prog (Coordinador / DevOps)
+
+  Issue:
+  [#84](https://github.com/dantebiondi666-prog/tienda-online/issues/84)
+
 - [feature/tester-javascript-jasmine] [AO3] Tester JavaScript / QA Engineer: implementación de 4 suites de pruebas automatizadas con Jasmine 5.1.1 para los flujos de catálogo, consulta de productos y talles, gestión del carrito y resumen de compra. La cobertura fue ampliada durante la revisión de la PR #91 hasta alcanzar 22 tests, con resultado final de 22 PASS y 0 FAIL, verificados manualmente y mediante Playwright MCP. Se incorporaron el test runner, las evidencias visuales y la documentación de testing en `js/test/testing-doc.md`.
 
   PR: [#91](https://github.com/dantebiondi666-prog/tienda-online/pull/91) - @juanmartinbritos7-cmd (Tester JavaScript / QA Engineer)
