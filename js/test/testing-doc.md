@@ -254,3 +254,11 @@ La captura de la ejecución se guardó en
 
 Durante la ejecución se registró una respuesta HTTP 404 para
 `/favicon.ico`, sin impacto en los resultados de Jasmine.
+
+---
+
+## Navegación relacionada
+
+- [Diagramas de actividades de los cuatro flujos](../../docs/05-diagramas/01-diagrama-de-actividades/diagramas-doc.md)
+- [Plan maestro del proyecto](../../plan.md)
+- [Código JavaScript bajo prueba](../script.js)
