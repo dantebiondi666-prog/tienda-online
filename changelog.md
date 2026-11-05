@@ -17,14 +17,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue:
   [#84](https://github.com/dantebiondi666-prog/tienda-online/issues/84)
 
-- [feature/tester-javascript-jasmine] [AO3] Tester JavaScript / QA Engineer: implementación de 4 suites de pruebas automatizadas con Jasmine 5.1.1 para los flujos de catálogo, consulta de productos y talles, gestión del carrito y resumen de compra. La cobertura fue ampliada durante la revisión de la PR #91 hasta alcanzar 22 tests, con resultado final de 22 PASS y 0 FAIL, verificados manualmente y mediante Playwright MCP. Se incorporaron el test runner, las evidencias visuales y la documentación de testing en `js/test/testing-doc.md`.
-
+- [feature/tester-javascript-jasmine] test(qa): implementar suites Jasmine y evidencias Playwright AO3
   PR: [#91](https://github.com/dantebiondi666-prog/tienda-online/pull/91) - @juanmartinbritos7-cmd (Tester JavaScript / QA Engineer)
-
   Issues:
   [#88](https://github.com/dantebiondi666-prog/tienda-online/issues/88)
 
-- [feature/dev-javascript-logica-negocio] [AO3] Desarrollador JavaScript: lógica de negocio en js/script.js - Implementa en JavaScript puro los 4 flujos de la tienda (filtrar catálogo, consultar producto y talle, gestionar carrito y resumen de compra) con un menú principal mediante `prompt()`, funciones puras separadas de la interfaz y testeables con Jasmine, y la referencia a `js/script.js` en `index.html`.
+- [feature/dev-javascript-logica-negocio] [AO3][Desarrollador JavaScript] Lógica de negocio en js/script.js
   PR: [#90](https://github.com/dantebiondi666-prog/tienda-online/pull/90) - @Zikoloogo (Desarrollador JavaScript)
   Issues:
   [#89](https://github.com/dantebiondi666-prog/tienda-online/issues/89)
@@ -35,10 +33,15 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue:
   [#84](https://github.com/dantebiondi666-prog/tienda-online/issues/84)
 
-- [feature/arq-diagramas-actividades] [AO3] Arquitecto de Diagramas de Actividades: 4 diagramas de actividades PlantUML (.puml y .png), documentación de diagramas y spec del rol.
+- [feature/arq-diagramas-actividades] Feature/arq diagramas actividades
   PR: [#87](https://github.com/dantebiondi666-prog/tienda-online/pull/87) - @LucasFUces (Arquitecto de Diagramas de Actividades)
   Issues:
   [#86](https://github.com/dantebiondi666-prog/tienda-online/issues/86)
+
+### Fixed
+
+- [fix/rc-changelog-ao3] [Fix RC1-RC3] Corregir títulos de trazabilidad en changelog
+  PR: [#96](https://github.com/dantebiondi666-prog/tienda-online/pull/96) - @LucasFUces (Coordinador / DevOps)
 
 ## [Release Primer Parcial] - 2026-10-07
 
