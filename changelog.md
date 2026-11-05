@@ -38,6 +38,11 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issues:
   [#86](https://github.com/dantebiondi666-prog/tienda-online/issues/86)
 
+### Fixed
+
+- [fix/rc-changelog-ao3] [Fix RC1-RC3] Corregir títulos de trazabilidad en changelog
+  PR: [#96](https://github.com/dantebiondi666-prog/tienda-online/pull/96) - @LucasFUces (Coordinador / DevOps)
+
 ## [Release Primer Parcial] - 2026-10-07
 
 ### Added
