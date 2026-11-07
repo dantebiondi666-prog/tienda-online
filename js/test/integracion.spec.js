@@ -1,6 +1,6 @@
 
 /**
- * Actividad Obligatoria N.º 4
+ * Actividad Obligatoria N.º 3 - Correcciones de la auditoría (PR #93)
  * RC4 - Pruebas de integración del filtrado del catálogo.
  * Framework: Jasmine
  */
