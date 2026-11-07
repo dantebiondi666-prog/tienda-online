@@ -102,17 +102,10 @@ el código de negocio.
 
 ## 6. Ejecución manual con Jasmine
 
-Se inició un servidor local desde la raíz del proyecto mediante:
-
-```bash
-npx serve . -l 3000
-```
-
-Luego se accedió al ejecutor de Jasmine mediante:
+Se inició el servidor local y se accedió al ejecutor de Jasmine mediante:
 
 `http://localhost:3000/js/test/test-runner.html`
 
-De esta manera, `test-runner.html` carga `js/script.js` y `js/test/script.spec.js` en el navegador para ejecutar las suites automatizadas con Jasmine.
 Se ejecutaron las cuatro suites funcionales utilizando Jasmine 5.1.1.
 
 **Resultados finales obtenidos:**
@@ -189,49 +182,197 @@ No quedaron incidencias pendientes relacionadas con
 la ejecución de Jasmine.
 
 
-## 9. Alcance, cobertura aproximada y limitaciones
+## 9. Alcance, cobertura formal y limitaciones
 
-Las pruebas automatizadas cubren los cuatro flujos principales definidos para la Actividad Obligatoria N.º 3:
 
-- consulta y filtrado del catálogo;
-- consulta de productos y disponibilidad de talles;
-- gestión del carrito simulado;
-- generación del resumen de compra.
+### 9.1 Alcance de las pruebas
 
-La cobertura funcional incluye happy paths, casos borde, validaciones de entradas inválidas, operaciones sobre arrays y objetos, búsquedas, modificaciones del carrito y cálculos de subtotales y totales.
+En la Actividad Obligatoria N.º 3 se implementaron
+inicialmente 22 pruebas unitarias para verificar la
+lógica de negocio de los cuatro flujos funcionales.
 
-La cobertura se considera representativa de la lógica de negocio principal implementada en `js/script.js`, pero no se calculó un porcentaje formal de cobertura de líneas o ramas mediante una herramienta específica de code coverage.
+Durante la auditoría de la AO3, realizada en la
+Pull Request #93, se incorporaron 43 pruebas de
+integración de los orquestadores mediante mocks
+de `prompt()` y `alert()` utilizando Jasmine.
 
-El resultado PASS no implica que todas las combinaciones posibles de entradas o condiciones de ejecución estén cubiertas.
+Las pruebas de integración incluyen:
 
-La Actividad Obligatoria N.º 3 no utiliza manipulación del DOM ni eventos, por lo que esos comportamientos no forman parte del alcance de estas pruebas.
+- RC4: 6 pruebas del filtrado del catálogo.
+- RC5: 7 pruebas de consulta de productos y talles.
+- RC6: 22 pruebas de gestión del carrito.
+- RC7: 8 pruebas del resumen de compra y menú principal.
 
-No se modificó `js/script.js` durante esta actividad de testing.
+**Resultado conjunto:** 65 tests ejecutados,
+65 PASS y 0 FAIL.
+
+
+
+### 9.2 Medición formal de cobertura — RC8
+
+Se utilizó la herramienta `c8` para medir la cobertura
+formal del archivo `js/script.js`, ejecutando las
+pruebas unitarias y de integración mediante Jasmine.
+
+Las dependencias y el comando de cobertura están
+configurados en `package.json`.
+
+Para instalar las dependencias:
+
+```bash
+npm install
+```
+
+Para ejecutar las pruebas y generar el reporte:
+
+```bash
+npm run cobertura
+```
+
+En Windows PowerShell, si la política de ejecución
+bloquea `npm.ps1`, pueden utilizarse los comandos
+`npm.cmd install` y `npm.cmd run cobertura`.
+
+El script `cobertura` de `package.json` ejecuta
+`c8` junto con Jasmine, utilizando:
+
+- `js/test/node-setup.js`: configuración del entorno de pruebas.
+- `js/test/script.spec.js`: 22 pruebas unitarias.
+- `js/test/integracion.spec.js`: 43 pruebas de integración.
+
+Se genera un reporte de cobertura en la terminal
+y un reporte HTML.
+
+**Resultados finales de cobertura de `js/script.js`:**
+
+| Métrica | Cobertura |
+|---|---:|
+| Sentencias | 92,83% |
+| Ramas | 85,02% |
+| Funciones | 100,00% |
+| Líneas | 92,83% |
+
+Se ejecutaron **65 tests, con 65 PASS y 0 FAIL**.
+
+### Código que permanece sin cubrir
+
+Con los 65 tests quedan sin cubrir 48 de las 670 líneas
+de `js/script.js` (92,83% de cobertura de líneas),
+agrupadas en 24 bloques de dos líneas.
+
+**Validaciones defensivas de funciones puras (23 bloques).**
+Lanzan `throw new Error` (22 casos) o devuelven `false`
+(1 caso) ante argumentos mal formados, por ejemplo un
+catálogo o un carrito que no es un array, un precio
+inválido o un elemento sin producto y talle. Se
+encuentran en las líneas 40-41, 52-53, 68-69, 74-75,
+82-83, 87-88, 96-97, 133-134, 136-137, 171-172,
+191-192, 194-195, 197-198, 239-240, 259-260, 262-263,
+279-280, 301-302, 312-313, 317-318, 330-331, 341-342
+y 365-366. No se alcanzan desde los orquestadores
+interactivos porque los flujos validan previamente los
+datos ingresados mediante `prompt()`.
+
+**Arranque automático del simulador (líneas 669-670).**
+Está condicionado por `if (typeof jasmine === "undefined")`.
+Durante las pruebas Jasmine está disponible, por lo que
+ese arranque no se ejecuta.
+
+Las cancelaciones al ingresar el producto (líneas 558-559)
+y el talle (líneas 562-563) durante la modificación del
+carrito quedaron cubiertas mediante los tests de
+integración de RC6.
+
+Los porcentajes corresponden a la cobertura formal de
+`js/script.js` obtenida con `c8`. No representan una
+medición porcentual independiente de interacciones reales
+en el navegador.
+
+
+### 9.3 Cobertura interactiva real
+
+La cobertura interactiva se evaluó mediante pruebas
+de integración que simulan las respuestas del usuario
+utilizando `spyOn(window, "prompt")` y
+`spyOn(window, "alert")`.
+
+Se verificaron los cuatro orquestadores:
+
+- `ejecutarFlujoFiltrarCatalogo()`.
+- `ejecutarFlujoConsultarProducto()`.
+- `ejecutarFlujoGestionarCarrito()`.
+- `ejecutarFlujoResumenCompra()`.
+
+También se verificó la navegación mediante
+`iniciarSimulador()`.
+
+Las pruebas cubren rutas de ejecución con entradas
+válidas, inválidas, cancelaciones, reintentos y
+mensajes mostrados al usuario.
+
+La cobertura interactiva real comprende los
+comportamientos simulados mediante Jasmine y sus mocks.
+No se realizó una medición porcentual independiente
+de cobertura interactiva en un navegador real.
+
+Por lo tanto, el 92,83% de cobertura de líneas y
+el 85,02% de cobertura de ramas representan la
+cobertura formal del código JavaScript instrumentado,
+no un porcentaje específico de interacciones reales
+del usuario.
+
+### 9.4 Limitaciones
+
+El resultado PASS no implica que estén cubiertas todas
+las combinaciones posibles de entradas o condiciones
+de ejecución.
+
+Las pruebas de integración utilizan mocks de
+`prompt()` y `alert()`, por lo que no sustituyen
+una prueba manual completa de la experiencia del usuario.
+
+No fue necesario modificar `js/script.js` para
+ejecutar las pruebas automatizadas.
+
 
 ## 10. Conclusión
 
-La ejecución manual con Jasmine 5.1.1 y la ejecución
-automatizada mediante Playwright MCP finalizaron
-satisfactoriamente.
+Las pruebas automatizadas de JavaScript finalizaron
+satisfactoriamente, incluyendo las pruebas unitarias
+originales de la Actividad Obligatoria N.º 3 y las
+pruebas de integración incorporadas durante su
+auditoría en la Pull Request #93 (RC4 a RC8).
 
-Se verificaron cuatro flujos funcionales mediante
-22 casos de prueba, todos con resultado PASS.
+Se ejecutaron un total de 65 tests mediante Jasmine:
 
-Durante la revisión de la Pull Request #91 se amplió
-la Suite 3 (Gestionar carrito) con seis pruebas
-adicionales, utilizando GitHub Copilot Agent y
-`js/script.js` como contexto.
+- 22 pruebas unitarias de lógica de negocio.
+- 43 pruebas de integración de los orquestadores.
+- 65 tests aprobados.
+- 0 tests fallidos.
 
-La ejecución inicial de 16 tests se conserva como
-antecedente histórico. El resultado definitivo
-corresponde a la ejecución ampliada de 22 tests.
+Las pruebas de integración verificaron cancelaciones,
+reintentos, entradas inválidas, operaciones sobre el
+carrito y mensajes mostrados mediante `alert()`.
 
-Se dispone de evidencias visuales de las ejecuciones
-manual y automatizada, sin necesidad de modificar
-el código de negocio.
+La cobertura formal de `js/script.js`, medida mediante
+c8, alcanzó los siguientes resultados:
 
-**Resultado final: PASS — 22/22 tests aprobados,
-0 fallidos, distribuidos en 4 suites Jasmine.**
+- Cobertura de líneas: 92,83%.
+- Cobertura de ramas: 85,02%.
+- Cobertura de funciones: 100,00%.
+- Cobertura de sentencias: 92,83%.
+
+La interacción fue evaluada mediante mocks de
+`prompt()` y `alert()`. Estos resultados no representan
+una medición independiente de interacciones reales
+en el navegador.
+
+No fue necesario modificar el código de negocio
+de `js/script.js`.
+
+**Resultado final de la auditoría de AO3:
+PASS — 65/65 tests aprobados, 0 fallidos.**
+
 
 ## Retest — Corrección RC2 de PR #91
 
@@ -273,11 +414,3 @@ La captura de la ejecución se guardó en
 
 Durante la ejecución se registró una respuesta HTTP 404 para
 `/favicon.ico`, sin impacto en los resultados de Jasmine.
-
----
-
-## Navegación relacionada
-
-- [Diagramas de actividades de los cuatro flujos](../../docs/05-diagramas/01-diagrama-de-actividades/diagramas-doc.md)
-- [Plan maestro del proyecto](../../plan.md)
-- [Código JavaScript bajo prueba](../script.js)

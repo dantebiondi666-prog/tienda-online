@@ -42,6 +42,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 - [fix/rc-changelog-ao3] [Fix RC1-RC3] Corregir títulos de trazabilidad en changelog
   PR: [#96](https://github.com/dantebiondi666-prog/tienda-online/pull/96) - @LucasFUces (Coordinador / DevOps)
+- [fix/rc-testing-integracion-cobertura] [Fix RC4-RC8] Pruebas de integración y cobertura formal en AO3
+  PR: [#97](https://github.com/dantebiondi666-prog/tienda-online/pull/97) - @LucasFUces (Coordinador / DevOps)
 
 ## [Release Primer Parcial] - 2026-10-07
 
