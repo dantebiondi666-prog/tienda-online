@@ -184,48 +184,109 @@ la ejecución de Jasmine.
 
 ## 9. Alcance, cobertura formal y limitaciones
 
+
 ### 9.1 Alcance de las pruebas
 
-En la Actividad Obligatoria N.º 3 se implementaron 22 pruebas
-unitarias para verificar la lógica de negocio de los cuatro
-flujos funcionales.
+En la Actividad Obligatoria N.º 3 se implementaron
+inicialmente 22 pruebas unitarias para verificar la
+lógica de negocio de los cuatro flujos funcionales.
 
-En la Actividad Obligatoria N.º 4 se incorporaron 41 pruebas
-de integración de los orquestadores mediante mocks de
-`prompt()` y `alert()` utilizando Jasmine.
+Durante la auditoría de la AO3, realizada en la
+Pull Request #93, se incorporaron 42 pruebas de
+integración de los orquestadores mediante mocks
+de `prompt()` y `alert()` utilizando Jasmine.
 
 Las pruebas de integración incluyen:
 
 - RC4: 6 pruebas del filtrado del catálogo.
 - RC5: 7 pruebas de consulta de productos y talles.
-- RC6: 20 pruebas de gestión del carrito.
+- RC6: 21 pruebas de gestión del carrito.
 - RC7: 8 pruebas del resumen de compra y menú principal.
 
-**Resultado conjunto:** 63 tests ejecutados, 63 PASS y 0 FAIL.
+**Resultado conjunto:** 64 tests ejecutados,
+64 PASS y 0 FAIL.
+
+
 
 ### 9.2 Medición formal de cobertura — RC8
 
 Se utilizó la herramienta `c8` para medir la cobertura
-del archivo `js/script.js`, ejecutando las pruebas
-unitarias y de integración mediante Jasmine.
+formal del archivo `js/script.js`, ejecutando las
+pruebas unitarias y de integración mediante Jasmine.
 
-Comando utilizado:
+Las dependencias y el comando de cobertura están
+configurados en `package.json`.
 
-```powershell
-npx.cmd c8 --all --include=js/script.js --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js
+Para instalar las dependencias:
+
+```bash
+npm install
 ```
 
-Resultados obtenidos:
+Para ejecutar las pruebas y generar el reporte:
+
+```bash
+npm run cobertura
+```
+
+En Windows PowerShell, si la política de ejecución
+bloquea `npm.ps1`, pueden utilizarse los comandos
+`npm.cmd install` y `npm.cmd run cobertura`.
+
+El script `cobertura` de `package.json` ejecuta
+`c8` junto con Jasmine, utilizando:
+
+- `js/test/node-setup.js`: configuración del entorno de pruebas.
+- `js/test/script.spec.js`: 22 pruebas unitarias.
+- `js/test/integracion.spec.js`: 42 pruebas de integración.
+
+Se genera un reporte de cobertura en la terminal
+y un reporte HTML.
+
+**Resultados finales de cobertura de `js/script.js`:**
 
 | Métrica | Cobertura |
 |---|---:|
-| Sentencias | 92,23% |
-| Ramas | 83,78% |
+| Sentencias | 92,53% |
+| Ramas | 84,32% |
 | Funciones | 100,00% |
-| Líneas | 92,23% |
+| Líneas | 92,53% |
 
-La medición corresponde al archivo `js/script.js`,
-considerando la ejecución conjunta de los 63 tests.
+Se ejecutaron **64 tests, con 64 PASS y 0 FAIL**.
+
+### Código que permanece sin cubrir
+
+Las líneas restantes sin cobertura corresponden
+principalmente a validaciones defensivas de las
+funciones puras, que lanzan excepciones mediante
+`throw new Error` ante determinados argumentos
+incorrectos.
+
+Estas validaciones no siempre se alcanzan desde
+los orquestadores interactivos porque los flujos
+validan previamente los datos ingresados mediante
+`prompt()`.
+
+También permanecen sin cubrir las líneas 669-670,
+correspondientes al arranque automático del
+simulador, condicionado por:
+
+`if (typeof jasmine === "undefined")`
+
+Durante las pruebas, Jasmine está disponible,
+por lo que ese arranque automático no se ejecuta.
+
+Las líneas 562-563, correspondientes a la
+cancelación al ingresar el talle durante la
+modificación del carrito, quedaron cubiertas
+mediante el nuevo test de integración de RC6.
+
+Los porcentajes corresponden a la cobertura
+formal de `js/script.js` obtenida con `c8`.
+No representan una medición porcentual
+independiente de interacciones reales
+en el navegador.
+
 
 ### 9.3 Cobertura interactiva real
 
@@ -272,40 +333,45 @@ una prueba manual completa de la experiencia del usuario.
 No fue necesario modificar `js/script.js` para
 ejecutar las pruebas automatizadas.
 
+
 ## 10. Conclusión
 
-Las pruebas automatizadas de JavaScript finalizaron satisfactoriamente,
-incluyendo las pruebas unitarias de la Actividad Obligatoria N.º 3
-y las pruebas de integración incorporadas en la Actividad Obligatoria N.º 4.
+Las pruebas automatizadas de JavaScript finalizaron
+satisfactoriamente, incluyendo las pruebas unitarias
+originales de la Actividad Obligatoria N.º 3 y las
+pruebas de integración incorporadas durante su
+auditoría en la Pull Request #93 (RC4 a RC8).
 
-Se ejecutaron un total de 63 tests mediante Jasmine:
+Se ejecutaron un total de 64 tests mediante Jasmine:
 
 - 22 pruebas unitarias de lógica de negocio.
-- 41 pruebas de integración de los flujos interactivos.
-- 63 tests aprobados.
+- 42 pruebas de integración de los orquestadores.
+- 64 tests aprobados.
 - 0 tests fallidos.
 
-Las pruebas de integración verificaron cancelaciones, reintentos,
-entradas inválidas, operaciones sobre el carrito y mensajes
-mostrados mediante `alert()`.
+Las pruebas de integración verificaron cancelaciones,
+reintentos, entradas inválidas, operaciones sobre el
+carrito y mensajes mostrados mediante `alert()`.
 
-La cobertura formal de `js/script.js`, medida mediante c8,
-alcanzó los siguientes resultados:
+La cobertura formal de `js/script.js`, medida mediante
+c8, alcanzó los siguientes resultados:
 
-- Cobertura de líneas: 92,23%.
-- Cobertura de ramas: 83,78%.
-- Cobertura de funciones: 100%.
-- Cobertura de sentencias: 92,23%.
+- Cobertura de líneas: 92,53%.
+- Cobertura de ramas: 84,32%.
+- Cobertura de funciones: 100,00%.
+- Cobertura de sentencias: 92,53%.
 
-La interacción fue evaluada mediante mocks de `prompt()` y
-`alert()`. Estos resultados no representan una medición
-independiente de interacciones reales en el navegador.
+La interacción fue evaluada mediante mocks de
+`prompt()` y `alert()`. Estos resultados no representan
+una medición independiente de interacciones reales
+en el navegador.
 
 No fue necesario modificar el código de negocio
 de `js/script.js`.
 
-**Resultado final de la Actividad 4: PASS — 63/63 tests
-aprobados, 0 fallidos.**
+**Resultado final de la auditoría de AO3:
+PASS — 64/64 tests aprobados, 0 fallidos.**
+
 
 ## Retest — Corrección RC2 de PR #91
 

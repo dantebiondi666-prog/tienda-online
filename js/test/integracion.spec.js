@@ -333,6 +333,15 @@ describe("Integración - Flujo 3 (modificar y eliminar)", function () {
 
     expect(carrito[0].cantidad).toBe(2);
   });
+it("cancela al ingresar el talle del elemento a modificar", function () {
+  window.prompt.and.returnValues("2", "Remera", null);
+
+  ejecutarFlujoGestionarCarrito();
+
+  expect(window.alert).not.toHaveBeenCalled();
+  expect(carrito[0].cantidad).toBe(2);
+});
+
 
   it("modifica correctamente la cantidad de un producto", function () {
     window.prompt.and.returnValues("2", "Remera", "M", "5", "4");

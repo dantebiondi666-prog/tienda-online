@@ -7,9 +7,10 @@
     "doc": "docs"
   },
   "scripts": {
-           "test": "jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js",
-    "cobertura": "c8 --all --include=js/script.js --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js"
-  },
+  "test": "jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js",
+  "cobertura": "c8 --all --include=js/script.js --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js"
+},
+
   "keywords": [],
   "author": "",
   "license": "ISC",
