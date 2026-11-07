@@ -192,7 +192,7 @@ inicialmente 22 pruebas unitarias para verificar la
 lógica de negocio de los cuatro flujos funcionales.
 
 Durante la auditoría de la AO3, realizada en la
-Pull Request #93, se incorporaron 42 pruebas de
+Pull Request #93, se incorporaron 43 pruebas de
 integración de los orquestadores mediante mocks
 de `prompt()` y `alert()` utilizando Jasmine.
 
@@ -200,11 +200,11 @@ Las pruebas de integración incluyen:
 
 - RC4: 6 pruebas del filtrado del catálogo.
 - RC5: 7 pruebas de consulta de productos y talles.
-- RC6: 21 pruebas de gestión del carrito.
+- RC6: 22 pruebas de gestión del carrito.
 - RC7: 8 pruebas del resumen de compra y menú principal.
 
-**Resultado conjunto:** 64 tests ejecutados,
-64 PASS y 0 FAIL.
+**Resultado conjunto:** 65 tests ejecutados,
+65 PASS y 0 FAIL.
 
 
 
@@ -238,7 +238,7 @@ El script `cobertura` de `package.json` ejecuta
 
 - `js/test/node-setup.js`: configuración del entorno de pruebas.
 - `js/test/script.spec.js`: 22 pruebas unitarias.
-- `js/test/integracion.spec.js`: 42 pruebas de integración.
+- `js/test/integracion.spec.js`: 43 pruebas de integración.
 
 Se genera un reporte de cobertura en la terminal
 y un reporte HTML.
@@ -247,44 +247,45 @@ y un reporte HTML.
 
 | Métrica | Cobertura |
 |---|---:|
-| Sentencias | 92,53% |
-| Ramas | 84,32% |
+| Sentencias | 92,83% |
+| Ramas | 85,02% |
 | Funciones | 100,00% |
-| Líneas | 92,53% |
+| Líneas | 92,83% |
 
-Se ejecutaron **64 tests, con 64 PASS y 0 FAIL**.
+Se ejecutaron **65 tests, con 65 PASS y 0 FAIL**.
 
 ### Código que permanece sin cubrir
 
-Las líneas restantes sin cobertura corresponden
-principalmente a validaciones defensivas de las
-funciones puras, que lanzan excepciones mediante
-`throw new Error` ante determinados argumentos
-incorrectos.
+Con los 65 tests quedan sin cubrir 48 de las 670 líneas
+de `js/script.js` (92,83% de cobertura de líneas),
+agrupadas en 24 bloques de dos líneas.
 
-Estas validaciones no siempre se alcanzan desde
-los orquestadores interactivos porque los flujos
-validan previamente los datos ingresados mediante
-`prompt()`.
+**Validaciones defensivas de funciones puras (23 bloques).**
+Lanzan `throw new Error` (22 casos) o devuelven `false`
+(1 caso) ante argumentos mal formados, por ejemplo un
+catálogo o un carrito que no es un array, un precio
+inválido o un elemento sin producto y talle. Se
+encuentran en las líneas 40-41, 52-53, 68-69, 74-75,
+82-83, 87-88, 96-97, 133-134, 136-137, 171-172,
+191-192, 194-195, 197-198, 239-240, 259-260, 262-263,
+279-280, 301-302, 312-313, 317-318, 330-331, 341-342
+y 365-366. No se alcanzan desde los orquestadores
+interactivos porque los flujos validan previamente los
+datos ingresados mediante `prompt()`.
 
-También permanecen sin cubrir las líneas 669-670,
-correspondientes al arranque automático del
-simulador, condicionado por:
+**Arranque automático del simulador (líneas 669-670).**
+Está condicionado por `if (typeof jasmine === "undefined")`.
+Durante las pruebas Jasmine está disponible, por lo que
+ese arranque no se ejecuta.
 
-`if (typeof jasmine === "undefined")`
+Las cancelaciones al ingresar el producto (líneas 558-559)
+y el talle (líneas 562-563) durante la modificación del
+carrito quedaron cubiertas mediante los tests de
+integración de RC6.
 
-Durante las pruebas, Jasmine está disponible,
-por lo que ese arranque automático no se ejecuta.
-
-Las líneas 562-563, correspondientes a la
-cancelación al ingresar el talle durante la
-modificación del carrito, quedaron cubiertas
-mediante el nuevo test de integración de RC6.
-
-Los porcentajes corresponden a la cobertura
-formal de `js/script.js` obtenida con `c8`.
-No representan una medición porcentual
-independiente de interacciones reales
+Los porcentajes corresponden a la cobertura formal de
+`js/script.js` obtenida con `c8`. No representan una
+medición porcentual independiente de interacciones reales
 en el navegador.
 
 
@@ -314,8 +315,8 @@ comportamientos simulados mediante Jasmine y sus mocks.
 No se realizó una medición porcentual independiente
 de cobertura interactiva en un navegador real.
 
-Por lo tanto, el 92,23% de cobertura de líneas y
-el 83,78% de cobertura de ramas representan la
+Por lo tanto, el 92,83% de cobertura de líneas y
+el 85,02% de cobertura de ramas representan la
 cobertura formal del código JavaScript instrumentado,
 no un porcentaje específico de interacciones reales
 del usuario.
@@ -342,11 +343,11 @@ originales de la Actividad Obligatoria N.º 3 y las
 pruebas de integración incorporadas durante su
 auditoría en la Pull Request #93 (RC4 a RC8).
 
-Se ejecutaron un total de 64 tests mediante Jasmine:
+Se ejecutaron un total de 65 tests mediante Jasmine:
 
 - 22 pruebas unitarias de lógica de negocio.
-- 42 pruebas de integración de los orquestadores.
-- 64 tests aprobados.
+- 43 pruebas de integración de los orquestadores.
+- 65 tests aprobados.
 - 0 tests fallidos.
 
 Las pruebas de integración verificaron cancelaciones,
@@ -356,10 +357,10 @@ carrito y mensajes mostrados mediante `alert()`.
 La cobertura formal de `js/script.js`, medida mediante
 c8, alcanzó los siguientes resultados:
 
-- Cobertura de líneas: 92,53%.
-- Cobertura de ramas: 84,32%.
+- Cobertura de líneas: 92,83%.
+- Cobertura de ramas: 85,02%.
 - Cobertura de funciones: 100,00%.
-- Cobertura de sentencias: 92,53%.
+- Cobertura de sentencias: 92,83%.
 
 La interacción fue evaluada mediante mocks de
 `prompt()` y `alert()`. Estos resultados no representan
@@ -370,7 +371,7 @@ No fue necesario modificar el código de negocio
 de `js/script.js`.
 
 **Resultado final de la auditoría de AO3:
-PASS — 64/64 tests aprobados, 0 fallidos.**
+PASS — 65/65 tests aprobados, 0 fallidos.**
 
 
 ## Retest — Corrección RC2 de PR #91
