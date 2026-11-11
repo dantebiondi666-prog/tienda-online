@@ -1,0 +1,33 @@
+@startuml
+|Usuario|
+start
+:Ingresar el nombre del producto mediante prompt();
+|Sistema|
+:Buscar el producto en el catálogo;
+while (¿El producto no existe?) is (sí)
+  :Informar que el producto no fue encontrado con alert();
+  |Usuario|
+  :Ingresar nuevamente el nombre del producto mediante prompt();
+  |Sistema|
+  :Buscar el producto en el catálogo;
+endwhile (no)
+
+|Usuario|
+:Ingresar el talle mediante prompt();
+|Sistema|
+:Normalizar y validar que el talle no esté vacío;
+while (¿El talle ingresado está vacío o es inválido?) is (sí)
+  :Informar que debe ingresar un talle válido con alert();
+  |Usuario|
+  :Ingresar nuevamente el talle mediante prompt();
+  |Sistema|
+  :Normalizar y validar el talle;
+endwhile (no)
+
+if (¿El talle está entre los disponibles del producto?) then (sí)
+  :Mostrar información del producto y confirmar disponibilidad con alert() o console.log();
+else (no)
+  :Mostrar información del producto e indicar que el talle no está disponible con alert() o console.log();
+endif
+stop
+@enduml

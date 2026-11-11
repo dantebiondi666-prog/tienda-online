@@ -1,0 +1,21 @@
+@startuml
+|Usuario|
+start
+:Elegir la opción de resumen de compra en el menú principal mediante prompt();
+|Sistema|
+if (¿El carrito está vacío?) then (sí)
+  :Informar que no hay productos para resumir con alert() o console.log();
+else (no)
+  :Inicializar el total de compra en cero;
+  :Preparar el recorrido de los elementos del carrito;
+  while (¿Quedan elementos por procesar?) is (sí)
+    :Obtener el elemento actual del carrito;
+    :Calcular el subtotal multiplicando precio por cantidad;
+    :Acumular el subtotal en el total de compra;
+    :Agregar producto, talle, cantidad y subtotal al resumen;
+    :Avanzar al siguiente elemento;
+  endwhile (no)
+  :Mostrar el resumen de productos y el total con alert() o console.log();
+endif
+stop
+@enduml

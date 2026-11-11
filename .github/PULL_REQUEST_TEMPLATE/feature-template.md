@@ -1,4 +1,4 @@
-# 🟣 PULL REQUEST – Actividad Obligatoria N.º 1 – Programación Web I
+# 🟣 PULL REQUEST – Programación Web I
 
 ---
 
@@ -9,27 +9,31 @@
 - **Carrera:** Tecnicatura Universitaria en Programación de Sistemas  
 - **Materia:** Programación Web I  
 - **Profesor:** Lic. Matías Velasquez  
-- **Cuatrimestre/Año:** 2º Cuatrimestre / 2025  
-- **Rol asignado para esta entrega:** _(Ej.: Coordinador/DevOps, Desarrollador Frontend, Documentador/UX, Especialista en IA)_
+- **Cuatrimestre/Año:** 2.º Cuatrimestre / 2026  
+- **Entrega:**  
+- **Rol asignado:**  
 
 ---
 
 ## 📂 Rama de trabajo
 
-- **Nombre de la rama:** `feature/<rol>-<descripcion>`  
-  _Ejemplo: `feature/frontend-add-html-structure`_
+- **Nombre de la rama:** `feature/<rol>-<descripcion>`
+- **Rama base:** `develop`
 
 ---
 
 ## 🔗 Issue relacionada
 
-Closes #NÚMERO_DE_ISSUE
+Indicar según corresponda:
+
+- `Closes #NÚMERO_DE_ISSUE` si la tarea queda completamente finalizada con esta PR.
+- `Refs #NÚMERO_DE_ISSUE` si la Issue continúa abierta porque incluye tareas posteriores.
 
 ---
 
 ## 📋 Especificación técnica
 
-- **Spec relacionada:** `docs/03-specs/actividad-obligatoria-1/spec-[rol].md`
+- **Spec relacionada:** `docs/03-specs/[entrega]/spec-[rol].md`
 
 - **Requerimientos de `plan.md` afectados:**
   - RF-XX
@@ -40,44 +44,48 @@ Closes #NÚMERO_DE_ISSUE
 
 ## 📝 Descripción del trabajo realizado
 
-_Describir brevemente qué tareas se llevaron a cabo en esta rama, qué archivos se modificaron o agregaron, y qué objetivo se cumplió según el rol asignado._
+Describir brevemente las tareas realizadas en esta rama, el objetivo cumplido y su relación con el rol asignado.
 
 ---
 
 ## 📄 Archivos modificados / agregados
 
-- `README.md`  
-- `index.html`  
-- `docs/01-mockup/mockup.png`  
-- `docs/02-prompts/prompt-01.md`  
-_(Agregar o eliminar según corresponda)_
+- `archivo-1`
+- `archivo-2`
+- `archivo-3`
+
+Agregar o eliminar según corresponda.
 
 ---
 
 ## ✅ Checklist
 
-- [ ] Trabajé sobre una rama `feature/` creada a partir de `develop`
-- [ ] Realicé commits claros y explicativos
-- [ ] Completé mi sección asignada según el rol
-- [ ] Actualicé el archivo `changelog.md` con el resumen de esta PR
-- [ ] Solicité revisión al Coordinador/DevOps
-- [ ] La PR incluye solo cambios relacionados con mi tarea asignada
+- [ ] Trabajé sobre una rama `feature/` creada o sincronizada a partir de `develop`.
+- [ ] La especificación técnica correspondiente fue redactada y commiteada antes de la implementación, cuando la consigna así lo requiere.
+- [ ] Realicé commits claros y explicativos.
+- [ ] Los cambios corresponden únicamente al alcance de mi rol y de esta tarea.
+- [ ] Verifiqué la coherencia con `plan.md`.
+- [ ] Actualicé `changelog.md` con el resumen y la trazabilidad correspondiente.
+- [ ] La PR está vinculada con su Issue.
+- [ ] Documenté el uso de IA y/o herramientas requeridas por la consigna cuando corresponde.
+- [ ] La PR se encuentra lista para revisión antes del merge a `develop`.
 
 ---
 
 ## 🧠 Comentarios adicionales
 
-_(Opcional – Aclaraciones, dificultades encontradas, sugerencias, etc.)_
+Aclaraciones, dificultades, decisiones técnicas, limitaciones o información relevante para la revisión.
 
 ---
 
-## 🧾 Enlace a la consigna
+## 🧾 Consigna
 
-[📄 Consigna Actividad Obligatoria N.º 1 - GitHub](https://github.com/TuUsuario/TuRepositorio/blob/main/README.md)
+Indicar la actividad o instancia evaluativa correspondiente y, si aplica, adjuntar/enlazar la referencia utilizada.
 
 ---
 
-## ⚠ IMPORTANTE
+## ⚠️ Importante
 
-🚫 Sin esta Pull Request **no se justifica participación individual**.  
-✅ Recordá que el `changelog.md` debe reflejar los cambios aprobados.
+- La PR debe integrarse a `develop` únicamente después de su revisión y aprobación.
+- `changelog.md` debe conservar la trazabilidad de la contribución.
+- No incluir cambios ajenos al objetivo de la rama.

@@ -1,0 +1,73 @@
+@startuml
+|Usuario|
+start
+repeat
+  |Usuario|
+  :Elegir agregar, modificar, eliminar o salir mediante prompt();
+  |Sistema|
+  if (¿La acción es agregar?) then (sí)
+    |Usuario|
+    :Ingresar producto, talle y cantidad mediante prompt();
+    |Sistema|
+    :Buscar el producto y validar talle disponible y cantidad entera positiva;
+    while (¿Los datos para agregar son inválidos?) is (sí)
+      :Informar el error con alert();
+      |Usuario|
+      :Ingresar nuevamente producto, talle y cantidad mediante prompt();
+      |Sistema|
+      :Buscar el producto y validar talle disponible y cantidad entera positiva;
+    endwhile (no)
+    if (¿Ya existe ese producto y talle en el carrito?) then (sí)
+      :Sumar la cantidad al elemento existente;
+    else (no)
+      :Agregar un objeto producto-talle-cantidad-precio al array del carrito;
+    endif
+    :Informar el estado actualizado del carrito con alert() o console.log();
+  else (no)
+    if (¿La acción es modificar?) then (sí)
+      |Usuario|
+      :Ingresar producto y talle del elemento mediante prompt();
+      |Sistema|
+      :Buscar el elemento en el carrito;
+      if (¿El elemento existe?) then (sí)
+        |Usuario|
+        :Ingresar la nueva cantidad mediante prompt();
+        |Sistema|
+        :Validar que la cantidad sea un entero positivo;
+        while (¿La cantidad es inválida?) is (sí)
+          :Informar el error con alert();
+          |Usuario|
+          :Ingresar nuevamente la cantidad mediante prompt();
+          |Sistema|
+          :Validar la cantidad;
+        endwhile (no)
+        :Actualizar la cantidad del elemento;
+        :Informar el estado actualizado del carrito con alert() o console.log();
+      else (no)
+        :Informar que el elemento no está en el carrito con alert();
+      endif
+    else (no)
+      if (¿La acción es eliminar?) then (sí)
+        |Usuario|
+        :Ingresar producto y talle del elemento mediante prompt();
+        |Sistema|
+        :Buscar y eliminar el elemento del carrito;
+        if (¿Se encontró y eliminó el elemento?) then (sí)
+          :Informar el estado actualizado del carrito con alert() o console.log();
+        else (no)
+          :Informar que el elemento no está en el carrito con alert();
+        endif
+      else (no)
+        if (¿La acción es salir?) then (sí)
+          :Preparar la finalización de la gestión del carrito;
+        else (no)
+          :Informar que la opción no es válida con alert();
+        endif
+      endif
+    endif
+  endif
+repeat while (¿La acción es distinta de salir?) is (sí)
+|Sistema|
+:Mostrar el estado final del carrito con alert() o console.log();
+stop
+@enduml
