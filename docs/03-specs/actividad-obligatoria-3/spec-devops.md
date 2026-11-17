@@ -268,12 +268,12 @@ Se utilizará para publicar la versión correspondiente a `release/tercera-entre
 
 ### Release
 
-- [ ] Se crea `release/tercera-entrega` desde `develop`.
-- [ ] GitHub Pages se publica desde `release/tercera-entrega`.
-- [ ] Antes de la entrega solo permanecen `master`, `develop` y `release/tercera-entrega`.
-- [ ] Se crea la PR final desde `release/tercera-entrega` hacia `master`.
-- [ ] La PR se publica en Slack con el formato solicitado.
-- [ ] Los enlaces correspondientes se entregan en el campus.
+- [x] Se crea `release/tercera-entrega` desde `develop`.
+- [x] GitHub Pages se publica desde `release/tercera-entrega`.
+- [x] Antes de la entrega solo permanecen `master`, `develop` y `release/tercera-entrega`.
+- [x] Se crea la PR final desde `release/tercera-entrega` hacia `master`.
+- [x] La PR se publica en Slack con el formato solicitado.
+- [x] Los enlaces correspondientes se entregan en el campus.
 - [ ] Luego del LGTM y merge a `master`, se crea `v1.1-tercera-entrega`.
 - [ ] Se publica la GitHub Release correspondiente.
 
