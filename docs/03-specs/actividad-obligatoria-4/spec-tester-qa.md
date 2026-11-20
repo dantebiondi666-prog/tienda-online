@@ -141,21 +141,88 @@ Los tests generados se revisan manualmente: se verifica que prueben comportamien
 
 # AT CLOSE — Evidencia de cierre
 
-> Esta sección se completa al finalizar las tareas de testing. No representa resultados ejecutados todavía.
+> Estado: **parcial**. Este cierre documenta el testing de las clases del dominio (`js/models/`). Las partes que dependen del módulo de storage y del controlador de eventos y DOM se completan cuando esas ramas se integren en `develop`.
 
-## 7. Prompt exacto utilizado en Copilot Agent
+## 7. Prompts exactos utilizados en Copilot Agent
 
-**Archivos adjuntos como contexto:** *(completar)*
+### 7.1 Generación de `js/test/models.spec.js`
 
-**Prompt para generar `models.spec.js` y `storage.spec.js`:** *(completar, en bloque de código)*
+**Archivos adjuntos como contexto:** `js/models/Producto.js`, `js/models/Catalogo.js`, `js/models/ItemCarrito.js`, `js/models/Carrito.js`, `js/script.js` y `docs/03-specs/actividad-obligatoria-4/spec-tester-qa.md`.
 
-**Prompt para refactorizar `script.spec.js`:** *(completar, en bloque de código)*
+**Prompt utilizado:**
+
+```text
+Actuá como Tester QA de la Actividad Obligatoria N.º 4. Tu tarea es crear el archivo `js/test/models.spec.js` con una suite completa de Jasmine 5 para las cuatro clases de `js/models/`: `Producto`, `Catalogo`, `ItemCarrito` y `Carrito`.
+
+Condiciones:
+
+- El archivo es un módulo ES6. Importá cada clase con `import Producto from "../models/Producto.js";` (y de la misma forma las demás).
+- Usá únicamente los nombres de métodos, parámetros y mensajes de error que existen en los archivos adjuntos. No inventes métodos ni comportamientos.
+- Seguí el plan de la sección 3.1 de `spec-tester-qa.md`.
+- No uses `prompt()`, `alert()`, DOM ni `window`. Los tests deben poder correr en Node y en el navegador.
+- Un `describe` por clase, con `describe` anidados por categoría. Los nombres de los tests, en español y descriptivos.
+
+Para cada clase cubrí:
+
+1. **Constructores:** creación con parámetros válidos, valores por defecto y rechazo de parámetros inválidos.
+2. **Métodos de negocio (happy path):** todos los métodos públicos, incluyendo el filtrado del catálogo por categoría, tipo, talle y estilo, la búsqueda, agregar, modificar y eliminar del carrito, el cálculo de subtotales y total y la generación del resumen de compra.
+3. **Casos borde:** catálogo y carrito vacíos, mayúsculas y tildes, mismo producto con distinto talle, cantidades límite.
+4. **Validaciones y errores:** cantidades cero, negativas, decimales y no numéricas, textos vacíos, talles inexistentes, precios inválidos y elementos que no existen. Verificá el tipo de error con `toThrowError`.
+5. **Serialización:** `toJSON()` devuelve un objeto plano, `fromJSON()` reconstruye una instancia equivalente (ida y vuelta con `JSON.stringify` y `JSON.parse`), incluyendo `ItemCarrito` dentro de `Carrito`, y el manejo de datos incompletos.
+6. **Encapsulamiento:** las propiedades privadas no se pueden modificar desde afuera y los métodos no alteran los argumentos que reciben.
+
+Los tests tienen que probar comportamiento real del código, no valores triviales. Cada `it` debe tener al menos una aserción significativa.
+
+Modificá únicamente `js/test/models.spec.js`. No toques ningún otro archivo, no hagas commits ni push. Podés ejecutar comandos de verificación, por ejemplo `node --input-type=module -e ...`, para comprobar que los tests que escribas son correctos.
+```
+
+**Resultado informado por Copilot:** creó `models.spec.js` con 49 tests Jasmine para las cuatro clases, cubriendo métodos de negocio, validaciones, casos borde, serialización anidada y encapsulamiento; ejecutó `npx jasmine js/test/models.spec.js` con 49 specs y 0 failures, y el único cambio fue el archivo solicitado.
+
+### 7.2 Ampliación de tests de `Carrito` a partir del reporte de cobertura
+
+**Archivos adjuntos como contexto:** `js/models/Carrito.js`, `js/models/Producto.js`, `js/models/ItemCarrito.js` y `js/test/models.spec.js`.
+
+**Prompt utilizado:**
+
+```text
+Agregá tests al archivo existente `js/test/models.spec.js` para cubrir tres ramas que el reporte de cobertura (c8) marca como no ejecutadas en `js/models/Carrito.js`:
+
+1. Línea 74, en `agregarProducto`: la rama en la que `producto` NO es una instancia de `Producto` y se convierte con `Producto.fromJSON`. Escribí un test que llame a `agregarProducto` pasando un objeto plano (el resultado de `toJSON()` de un `Producto`) y verifique que el carrito lo acepta y que el ítem resultante usa ese producto.
+2. Líneas 86 y 119 (una en `agregarProducto` y la otra en `modificarCantidad`; verificá en el código qué método contiene cada línea): la rama en la que, al reemplazar un ítem existente, hay otros ítems en el carrito que se mantienen sin cambios. Escribí un test por método que parta de un carrito con dos líneas distintas, actualice solo una y verifique que la otra no cambia (mismo producto, talle y cantidad).
+
+Usá únicamente los métodos y parámetros que existen en `Carrito.js`, `Producto.js` e `ItemCarrito.js`. Ubicá cada test dentro del `describe("Carrito")`, en la categoría que corresponda, con nombres en español y aserciones significativas. No modifiques los tests existentes ni ningún otro archivo, no hagas commits. Verificá con `npx jasmine js/test/models.spec.js`.
+```
+
+**Resultado informado por Copilot:** agregó los tres tests en la categoría de métodos de negocio de `Carrito` (conversión de un producto plano y conservación de las otras líneas al agregar o modificar); `npx jasmine js/test/models.spec.js` dio 52 specs y 0 failures, y solo se modificó ese archivo.
+
+### 7.3 Ejecución del runner con Playwright MCP
+
+**Prompt utilizado:**
+
+```text
+Usá Playwright MCP para abrir en un navegador real `http://localhost:8080/js/test/test-runner.html`, que ejecuta las suites de Jasmine del proyecto.
+
+1. Esperá a que Jasmine termine de ejecutar.
+2. Informame la cantidad exacta de specs ejecutados, cuántos pasaron y cuántos fallaron, tal como los muestra el encabezado de Jasmine.
+3. Listame los nombres de los grupos (`describe`) de nivel superior que aparecen en el resultado, incluyendo Producto, Catalogo, ItemCarrito y Carrito.
+4. Si hay errores en la consola del navegador (distintos de un 404 de favicon.ico), informalos.
+5. Tomá una captura de pantalla de la página completa y guardala con el nombre `jasmine-playwright-117-tests-pass.png`.
+
+No modifiques ningún archivo del repositorio ni hagas commits.
+```
+
+**Resultado informado por Copilot:** Jasmine 5.1.1 ejecutó 117 specs, 117 pasaron y 0 fallaron. Grupos de nivel superior: Flujo 1, Flujo 2, Flujo 3 y Flujo 4 (unitarios de AO3), Integración - Flujo 1, 2, 3 (orquestador), Flujo 3 (modificar y eliminar) y Flujo 4 (resumen y simulador), `Producto`, `Catalogo`, `ItemCarrito` y `Carrito`. La consola no mostró errores distintos del 404 de `favicon.ico`.
 
 ---
 
-## 8. Screenshots del test runner con Playwright MCP
+## 8. Screenshots del test runner
 
-*(completar con las capturas de cada suite y su ruta en `js/test/capturas/`)*
+| Captura | Ejecución |
+|---|---|
+| `js/test/capturas/jasmine-117-tests-pass.png` | Manual en el navegador (servidor local), 117 tests PASS |
+| `js/test/capturas/jasmine-playwright-117-tests-pass.png` | Playwright MCP, 117 tests PASS |
+
+*(Las capturas finales con todas las suites de AO4, incluyendo `storage.spec.js`, se agregan al integrar los demás módulos.)*
 
 ---
 
@@ -163,18 +230,29 @@ Los tests generados se revisan manualmente: se verifica que prueben comportamien
 
 | Suite | Tests | PASS | FAIL |
 |---|---|---|---|
-| `script.spec.js` | *(completar)* | *(completar)* | *(completar)* |
-| `models.spec.js` | *(completar)* | *(completar)* | *(completar)* |
-| `storage.spec.js` | *(completar)* | *(completar)* | *(completar)* |
-| **Total** | *(completar)* | *(completar)* | *(completar)* |
+| `script.spec.js` (AO3) | 22 | 22 | 0 |
+| `integracion.spec.js` (AO3) | 43 | 43 | 0 |
+| `models.spec.js` | 52 | 52 | 0 |
+| `storage.spec.js` | *(pendiente de la integración del módulo de storage)* | — | — |
+| **Total actual** | **117** | **117** | **0** |
 
-**Cobertura:** *(completar: líneas, ramas, funciones y sentencias)*  
-**Bugs reportados como Issues:** *(completar)*
+**Cobertura de `js/models/` (`c8`):** 98,84 % de líneas, 100 % de ramas y 97,72 % de funciones.  
+**Bugs reportados como Issues:** 1 (#103).
 
 ---
 
 ## 10. Ajustes manuales y coordinación
 
-**Ajustes manuales realizados en los tests:** *(completar)*
+### Ajustes manuales realizados
 
-**Coordinación con los desarrolladores para mejorar la testabilidad del código:** *(completar)*
+1. **Verificación independiente del resultado de Copilot.** Los 49 tests iniciales se ejecutaron manualmente y se midió la cobertura con `c8`: las clases cubrían 98,84 % de las líneas y 98,07 % de las ramas. El reporte (`coverage/lcov.info`) mostró tres ramas sin cubrir en `Carrito.js` (líneas 74, 86 y 119) y las líneas 6 a 12 de `Producto.js` sin ejecutar.
+2. **Ampliación dirigida.** Con el reporte se redactó un segundo prompt para cubrir las tres ramas de `Carrito.js` (7.2). Luego de agregar los tres tests, `Carrito.js` pasó a 100 % de cobertura de ramas.
+3. **Código sin uso detectado.** Las líneas 6 a 12 de `Producto.js` son la función `normalizarTexto`, que está definida pero no se usa ni se exporta. No se corrige con tests y se reportó como Issue #103.
+4. **Verificación de restricciones.** Se comprobó con una búsqueda en el archivo que `models.spec.js` no utiliza `window`, `prompt()`, `alert()` ni `document`.
+5. **Configuración para módulos ES6.** Para importar las clases se declaró `"type": "module"` en `package.json`, se convirtió `js/test/node-setup.js` a módulo ES6 y se actualizaron los scripts `npm test` y `npm run cobertura` para incluir `models.spec.js` y medir `js/models/`. Se verificó que los 65 tests de AO3 siguieran pasando.
+6. **Runner del navegador.** `js/test/test-runner.html` carga `models.spec.js` con `<script type="module">`. Como los módulos ES6 no se pueden cargar con `file://`, el runner se ejecuta desde un servidor local (`http-server`).
+
+### Coordinación con los desarrolladores
+
+- **Desarrollador JS POO:** se revisó la PR #102 y se verificó que las clases quedaran preparadas para el testing (métodos deterministas, validaciones y serialización). Se reportó la Issue #103. La estrategia de módulos ES6 se acordó con el equipo para que el runner y la cobertura pudieran adaptarse.
+- **Desarrollador JS Storage y Desarrollador JS Eventos + DOM:** *(pendiente, se completa al integrar sus módulos)*.
