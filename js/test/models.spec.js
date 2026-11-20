@@ -550,6 +550,31 @@ describe("Carrito", function () {
       expect(carrito.calcularTotal()).toBe(125000);
     });
 
+    it("agrega un producto recibido como objeto plano y reconstruye su instancia", function () {
+      const datosProducto = producto.toJSON();
+      const item = carrito.agregarProducto(datosProducto, "38", 2);
+
+      expect(item.producto instanceof Producto).toBeTrue();
+      expect(item.producto).not.toBe(datosProducto);
+      expect(item.producto.toJSON()).toEqual(datosProducto);
+      expect(carrito.buscarEnCarrito(producto, "38")).toBe(item);
+    });
+
+    it("al sumar cantidad conserva sin cambios las demás líneas del carrito", function () {
+      const primeraLinea = carrito.agregarProducto(producto, "38", 2);
+      const segundaLinea = carrito.agregarProducto(producto, "40", 1);
+
+      const actualizada = carrito.agregarProducto(producto, "38", 3);
+      const lineaConservada = carrito.buscarEnCarrito(producto, "40");
+
+      expect(actualizada.cantidad).toBe(5);
+      expect(lineaConservada).toBe(segundaLinea);
+      expect(lineaConservada.producto).toBe(producto);
+      expect(lineaConservada.talle).toBe("40");
+      expect(lineaConservada.cantidad).toBe(1);
+      expect(carrito.buscarEnCarrito(producto, "38")).not.toBe(primeraLinea);
+    });
+
     it("mantiene líneas separadas para el mismo producto con talles distintos", function () {
       carrito.agregarProducto(producto, "38", 2);
       carrito.agregarProducto(producto, "40", 1);
@@ -567,6 +592,20 @@ describe("Carrito", function () {
       expect(modificado.cantidad).toBe(4);
       expect(modificado.calcularSubtotal()).toBe(100000);
       expect(carrito.calcularTotal()).toBe(100000);
+    });
+
+    it("al modificar una cantidad conserva sin cambios las demás líneas del carrito", function () {
+      carrito.agregarProducto(producto, "38", 2);
+      const segundaLinea = carrito.agregarProducto(producto, "40", 1);
+
+      const actualizada = carrito.modificarCantidad(producto, "38", 4);
+      const lineaConservada = carrito.buscarEnCarrito(producto, "40");
+
+      expect(actualizada.cantidad).toBe(4);
+      expect(lineaConservada).toBe(segundaLinea);
+      expect(lineaConservada.producto).toBe(producto);
+      expect(lineaConservada.talle).toBe("40");
+      expect(lineaConservada.cantidad).toBe(1);
     });
 
     it("elimina una línea existente sin eliminar otra de distinto talle", function () {
