@@ -251,19 +251,121 @@ Los resultados generados por IA se revisan manualmente. Copilot puede sugerir cu
 
 ### Code Review 1
 
-**PR:** *(completar)*  
-**Rol:** Desarrollador JS POO  
-**Archivos y contexto utilizados:** *(completar)*
+**PR:** #102 — `[AO4] Desarrollador JavaScript POO: implementar lógica de negocio orientada a objetos`  
+**Rol:** Desarrollador JS POO (Lógica de Negocio)  
+**Issue:** #101  
+**Rama:** `feature/dev-poo-logica-negocio` → `develop`
 
-**Prompt utilizado:** *(completar, en bloque de código)*
+**Archivos y contexto utilizados:**
 
-**Output relevante generado por IA:** *(completar)*
+- `ACTIVIDAD_OBLIGATORIA_N_4.pdf` (consigna);
+- `docs/03-specs/actividad-obligatoria-4/spec-dev-poo.md`;
+- `.github/PULL_REQUEST_TEMPLATE/feature-template.md`;
+- `index.html`;
+- `js/script.js` (lógica de negocio de AO3);
+- los cuatro diagramas `.puml` de `docs/05-diagramas/01-diagrama-de-actividades/`;
+- diff completo de la PR contra `origin/develop`, historial de commits y archivos de `js/models/`, `docs/05-diagramas/02-diagrama-de-clases/` y `changelog.md`.
 
-**Ajustes o decisiones manuales:** *(completar)*
+**Verificaciones propias previas a la revisión con IA:**
 
-**CHANGES_REQUESTED:** *(completar)*
+- `git log --oneline origin/develop..HEAD`: el primer commit de la rama (`5c22053`) es `spec-dev-poo.md` y el código llega después (`83cd2de`).
+- `git diff --stat origin/develop...HEAD`: 9 archivos, todos dentro del alcance del rol (spec, 4 clases, 3 archivos del diagrama y `changelog.md`).
+- La rama parte de `2f199b0`, el `develop` actualizado con el backport.
+- Una búsqueda de `prompt(`, `alert(`, `document.`, `window.`, `console.log` y `addEventListener` en `js/models/` no devolvió resultados.
+- Las cuatro clases implementan `toJSON()` y `fromJSON()`.
 
-**Resultado final:** *(completar)*
+**Prompt utilizado:**
+
+```text
+Actuá como revisor técnico de la PR #102:
+
+- Rama: `feature/dev-poo-logica-negocio`
+- Destino: `develop`
+- Rol: Desarrollador JS POO (Lógica de Negocio)
+- Issue: #101
+
+No modifiques archivos, no hagas commits y no publiques ninguna review en GitHub. Solo devolveme el informe. Podés ejecutar comandos de lectura o verificación (por ejemplo, importar las clases con `node --input-type=module`) sin modificar nada.
+
+Reconstruí el cambio real con el diff contra `origin/develop` y el historial de commits.
+
+Revisá:
+
+1. **Git y trazabilidad**
+   - La rama debe partir del `develop` actualizado.
+   - `spec-dev-poo.md` debe estar commiteado antes que cualquier archivo de `js/models/`.
+   - No debe haber cambios ajenos al rol (por ejemplo `js/script.js`, `index.html` o tests).
+   - `changelog.md` debe registrar la PR #102 y la Issue #101 usando el título exacto de la PR.
+
+2. **Descripción de la PR**
+   Compará con `.github/PULL_REQUEST_TEMPLATE/feature-template.md`. Verificá datos, rama, Issue, spec, requisitos de `plan.md`, archivos modificados y checklist (que lo marcado corresponda a lo realmente hecho).
+
+3. **Spec**
+   - BEFORE: identificación de entidades, propiedades y métodos, relaciones entre clases, decisiones de arquitectura y checklist de aceptación.
+   - AT CLOSE: prompt exacto de Copilot en bloque de código, contexto usado (diagramas `.puml`, `index.html`, spec), fragmento generado, ajustes manuales y decisiones finales sobre cómo facilita el trabajo del Tester QA y del Desarrollador JS Storage.
+
+4. **Clases de `js/models/`** (`Producto`, `Catalogo`, `ItemCarrito`, `Carrito`)
+   Verificá en cada una: constructor con parámetros, encapsulamiento de propiedades, métodos de negocio, validaciones internas, JSDoc, nomenclatura (PascalCase para clases, camelCase para métodos), `toJSON()` y `fromJSON()`.
+   - No debe haber manipulación del DOM, eventos, `prompt()`, `alert()` ni `console.log` innecesarios.
+   - Contrastá la lógica con la que existía en `js/script.js` de la entrega anterior: filtrado por categoría, tipo, talle y estilo sin distinguir mayúsculas, validación de talle, cantidad como entero positivo, suma de cantidades para el mismo producto y talle, modificar y eliminar, subtotal, total y resumen. Indicá si se perdió alguna regla de negocio.
+   - Comprobá que las clases reflejen los cuatro flujos de los diagramas de actividades y del `index.html`.
+
+5. **Serialización**
+   Probá la ida y vuelta `toJSON()` → `JSON.stringify` → `fromJSON()` en cada clase, incluyendo `ItemCarrito` dentro de `Carrito` y los atributos privados. Verificá que el resultado sea un objeto plano reutilizable por la capa de Storage.
+
+6. **Módulos y estructura**
+   Revisá la sintaxis y los nombres de `export` e `import` entre clases, las rutas y la coherencia de los archivos. Indicá si la elección de módulos ES6 puede afectar la integración con `index.html`, con `js/test/test-runner.html` y con la ejecución de Jasmine en Node.
+
+7. **Diagrama de clases**
+   Verificá en `docs/05-diagramas/02-diagrama-de-clases/`: `.puml`, `.png` y `diagrama-clases-doc.md`. El diagrama debe tener todas las clases con propiedades y métodos, relaciones (composición, agregación o asociación), multiplicidades y tipos, y ser coherente con el código. La documentación debe describir cada clase y su responsabilidad, las relaciones y las decisiones de diseño.
+
+8. **Testabilidad**
+   Evaluá si el código queda listo para que el Tester QA escriba tests de constructores, métodos de negocio, validaciones y serialización.
+
+### Formato de respuesta
+
+1. **Veredicto:** CUMPLE / CUMPLE PARCIALMENTE / NO CUMPLE.
+2. **Checklist** con ✅ / ⚠️ / ❌: Git e historial, Template PR, Spec BEFORE, Spec AT CLOSE, Producto, Catalogo, ItemCarrito, Carrito, Serialización, Módulos, Diagrama UML, Documentación, Changelog, Testabilidad.
+3. **Hallazgos que requieren cambios:** solo problemas reales. Para cada uno: severidad (BLOQUEANTE o RECOMENDACIÓN), archivo y línea o fragmento, requisito incumplido y corrección necesaria.
+4. **Decisión sugerida:** solo `APPROVE` o `REQUEST_CHANGES`.
+
+No inventes requisitos que no estén en la consigna, `plan.md`, la spec o la template.
+```
+
+**Output relevante generado por IA:**
+
+Copilot Agent reconstruyó la PR mediante el servidor MCP de GitHub y comandos de lectura, leyó las cuatro clases, el spec, el diagrama y la documentación, y ejecutó pruebas de importación y serialización con Node configurado como ESM. Confirmó que las cuatro idas y vueltas JSON funcionan (incluidos los objetos anidados de `Carrito`), que las operaciones de negocio se comportan correctamente, que el diagrama coincide con el código y que el historial es correcto. Verificó al final que el árbol de trabajo no se modificó.
+
+El veredicto fue `CUMPLE PARCIALMENTE` y la decisión sugerida fue `APPROVE`. Los hallazgos fueron:
+
+1. **RECOMENDACIÓN — sección «Consigna» ausente en la descripción de la PR**, junto con ítems de checklist que la plantilla incluiría y la PR no conservaba.
+2. **RECOMENDACIÓN — integración futura de módulos ES6:** `index.html` y `test-runner.html` cargan scripts clásicos y `package.json` no declara `"type": "module"`, por lo que la importación estándar desde Node falla sin habilitar ESM. Copilot lo consideró parte del alcance pendiente declarado por el desarrollador.
+
+Además marcó como `ChangeLog ✅` que el título de la entrada coincidía con el de la PR.
+
+**Ajustes o decisiones manuales:**
+
+El informe se validó manualmente contra los archivos reales. Se detectaron dos errores del agente:
+
+1. **No detectó el desvío del changelog.** El informe indicó que el título de la entrada de `changelog.md` coincidía con el de la PR #102. Al revisar el diff (`git diff origin/develop...HEAD -- changelog.md`) se verificó que la entrada terminaba con un punto final que el título de la PR no tiene y que la línea `PR:` estaba sin la indentación de dos espacios que usan las demás entradas. Por ese motivo la decisión sugerida (`APPROVE`) no se aceptó.
+2. **Propuso un requisito inexistente.** El hallazgo 1 pedía una sección «Consigna» y ítems de checklist. Al leer `.github/PULL_REQUEST_TEMPLATE/feature-template.md` se comprobó que la plantilla solo incluye datos del estudiante, rama de trabajo, Issue relacionada, especificación técnica y requerimientos de `plan.md`, y que la descripción de la PR cumplía todos esos campos. El hallazgo se descartó.
+
+El hallazgo 2 (módulos ES6) se aceptó como nota no bloqueante: es una decisión de infraestructura de testing y no un incumplimiento del Desarrollador POO. Quedó a cargo del Tester QA, que declaró `"type": "module"` en `package.json`, convirtió `js/test/node-setup.js` y cargó los specs como módulos en `test-runner.html`.
+
+**CHANGES_REQUESTED:**
+
+**[ELEGIR UNA VARIANTE Y BORRAR LA OTRA]**
+
+*Variante A (la review se publicó en GitHub):* Sí. Se publicó una review con estado `Changes requested` y un comentario inline en `changelog.md` (RC1): el título de la entrada debía reproducir el título exacto de la PR, sin el punto final, y la línea `PR:` debía ir indentada con dos espacios, manteniendo los enlaces a la PR #102 y a la Issue #101. Se agregó una nota no bloqueante sobre la estrategia de módulos ES6.
+
+*Variante B (no se publicó la review previa):* Sí. El hallazgo del changelog (título con punto final y línea `PR:` sin indentar) se comunicó al desarrollador por el canal del equipo y se corrigió antes de aprobar. La aprobación en GitHub dejó registrado el hallazgo y su verificación.
+
+**Resultado final:**
+
+`APPROVED`.
+
+El Desarrollador POO corrigió el changelog en el commit `8aaf7eb`. Se verificó en el diff que el título coincide exactamente con el de la PR (sin punto final) y que la línea `PR:` quedó indentada; las líneas en blanco adicionales se consideraron un detalle estético no bloqueante. La PR #102 fue aprobada y mergeada a `develop`.
+
+**Merge commit:** `df2ff50`.
 
 ### Code Review 2
 
