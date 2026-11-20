@@ -1,6 +1,7 @@
 {
   "name": "tienda-online",
   "version": "1.0.0",
+    "type": "module",
   "description": "Proyecto de e-commerce de ropa (repositorio `tienda-online`), desarrollado como parte de las actividades de Programación Web I.",
   "main": "index.js",
   "directories": {
