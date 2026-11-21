@@ -8,8 +8,8 @@
     "doc": "docs"
   },
   "scripts": {
-      "test": "jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js js/test/models.spec.js",
-    "cobertura": "c8 --all --include=js/script.js --include=\"js/models/*.js\" --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js js/test/models.spec.js"
+      "test": "jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js js/test/models.spec.js js/test/storage.spec.js",
+    "cobertura": "c8 --all --include=js/script.js --include=\"js/models/*.js\" --include=\"js/utils/*.js\" --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js js/test/models.spec.js js/test/storage.spec.js"
 },
 
   "keywords": [],
