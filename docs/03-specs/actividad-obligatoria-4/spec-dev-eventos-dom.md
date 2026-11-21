@@ -330,26 +330,293 @@ La interfaz deberá poder actualizar el estado persistido cuando corresponda sin
 
 # AT CLOSE
 
-> Esta sección se completará únicamente después de finalizar la implementación.
-
 ## Prompt utilizado con GitHub Copilot Agent
 
+Para realizar la implementación inicial se utilizó GitHub Copilot en modo Agent con el siguiente prompt:
+
 ```text
-Pendiente.
+Estoy trabajando en la Actividad Obligatoria N.º 4 de Programación Web I.
+
+Mi rol es Desarrollador JS Eventos + DOM.
+
+Usá como contrato principal:
+- docs/03-specs/actividad-obligatoria-4/spec-dev-eventos-dom.md
+- las clases existentes de js/models/
+- el index.html actual
+- el js/script.js heredado de la Actividad Obligatoria N.º 3
+
+Necesito transformar la aplicación actual basada en prompt() y alert() en una interfaz web interactiva completa.
+
+Objetivos:
+
+1. Refactorizar js/script.js para que funcione únicamente como controlador:
+   - manejo de eventos;
+   - manipulación del DOM;
+   - validaciones de interfaz;
+   - orquestación de llamadas a las clases del dominio.
+
+2. No duplicar lógica de negocio que ya existe en:
+   - Producto
+   - Catalogo
+   - ItemCarrito
+   - Carrito
+
+3. Eliminar completamente todos los prompt() y alert().
+
+4. Implementar los cuatro flujos desde la interfaz HTML:
+
+   Flujo 1: consultar y filtrar catálogo.
+   - Usar el buscador y los filtros existentes.
+   - Utilizar Catalogo.buscarProducto(), filtrarProductos() y obtenerOpcionesFiltro() cuando corresponda.
+   - Actualizar el catálogo mediante DOM.
+   - Mostrar feedback si no existen coincidencias.
+
+   Flujo 2: consultar producto y disponibilidad de talle.
+   - Reutilizar el modal Bootstrap existente.
+   - Incorporar selección de talle.
+   - Consultar disponibilidad mediante Producto.verificarTalleDisponible().
+   - Mostrar el resultado visualmente dentro del modal.
+
+   Flujo 3: gestionar carrito.
+   - Crear en index.html una base visual funcional para el carrito, ya que actualmente no existe.
+   - Permitir seleccionar talle y cantidad.
+   - Agregar productos.
+   - Modificar cantidades.
+   - Eliminar productos.
+   - Utilizar exclusivamente los métodos públicos de Carrito.
+   - Renderizar el carrito dinámicamente.
+   - Utilizar delegación de eventos cuando sea apropiado.
+   - Esto debe resolver la continuidad documentada en la Issue #94.
+
+   Flujo 4: generar resumen de compra.
+   - Mostrar productos, cantidades, subtotales y total en la interfaz.
+   - Utilizar Carrito.generarResumenCompra() y/o calcularTotal().
+   - Mostrar correctamente el estado de carrito vacío.
+
+5. Resolver la Issue #95:
+   - El bloque <script> inline que actualmente maneja el modal en index.html no debe permanecer inline.
+   - Integrar ese comportamiento dentro de js/script.js, manteniendo cuando corresponda el manejo de foco y accesibilidad existente.
+
+6. Usar addEventListener() como patrón homogéneo.
+   Considerar eventos click, input, change, submit, reset y eventos Bootstrap cuando correspondan.
+
+7. Implementar validación en tiempo real con feedback visual:
+   - mensajes de error;
+   - mensajes de éxito;
+   - clases de Bootstrap o CSS existentes;
+   - habilitar/deshabilitar controles cuando corresponda.
+
+8. No usar manejadores inline como onclick, onchange, etc.
+
+9. Mantener js/script.js sin lógica de negocio.
+   Si una operación corresponde al dominio, llamar al método de la clase correspondiente.
+
+10. Mantener el diseño actual de Remer Us y utilizar Bootstrap para los nuevos controles, evitando cambios visuales innecesarios.
+
+11. No implementar todavía acceso directo a localStorage o sessionStorage.
+    La integración con js/utils/storage.js se realizará cuando la rama del Desarrollador Storage esté disponible. Dejar la estructura preparada para integrarla posteriormente sin duplicar la capa de storage.
+
+12. Mantener código claro, nombres descriptivos y comentarios solo cuando aporten información útil.
+
+Antes de aplicar los cambios:
+- analizá index.html, js/script.js y las clases del dominio;
+- indicame brevemente qué archivos vas a modificar y por qué;
+- verificá que los métodos que vas a utilizar realmente existan en las clases.
+
+Después realizá los cambios necesarios en index.html y js/script.js.
+
+No modifiques los archivos de js/models/.
+No modifiques archivos del Tester QA.
+No implementes lógica correspondiente al rol Storage.
 ```
+
+Luego de revisar manualmente la primera implementación se utilizó un segundo prompt de ajuste:
+
+```text
+Revisé la implementación y necesito realizar tres ajustes antes de cerrar los cambios.
+
+No modifiques js/models/, archivos de testing ni Storage.
+
+1. Completar el Flujo 1:
+Actualmente los filtros dinámicos solo contemplan tipo, talle y estilo.
+El flujo definido en plan.md contempla categoría, tipo, talle y estilo.
+
+Agregar también el filtro por categoría:
+- incorporar el fieldset correspondiente en index.html;
+- incluir "categoria" en camposDeFiltro;
+- generar sus opciones mediante Catalogo.obtenerOpcionesFiltro("categoria");
+- mantener el mismo patrón de eventos y filtrado que los demás campos.
+
+2. Corregir el Flujo 2 de disponibilidad de talle:
+Actualmente el select del modal se llena únicamente con producto.talles, por lo que el usuario solo puede seleccionar talles disponibles y nunca puede ejecutarse realmente el caso "talle no disponible".
+
+Cambiarlo para que el selector muestre todos los talles existentes en el catálogo utilizando Catalogo.obtenerOpcionesFiltro("talle").
+
+Luego:
+- utilizar Producto.verificarTalleDisponible(talle) para determinar si el talle seleccionado está disponible para ese producto;
+- mostrar feedback visual de disponible/no disponible;
+- mantener deshabilitado "Agregar al carrito" cuando el talle no esté disponible;
+- habilitarlo únicamente cuando talle y cantidad sean válidos.
+
+No dupliques la lógica de disponibilidad dentro de script.js.
+
+3. Al restablecer el formulario de filtros, no borrar también el campo de búsqueda. El reset debe afectar solamente a los filtros.
+
+Conservá el resto de la implementación actual sin cambios innecesarios.
+
+Antes de terminar verificá nuevamente:
+- que js/script.js no contenga prompt() ni alert();
+- que no hayas incorporado lógica de negocio que ya pertenezca a las clases;
+- que los cuatro flujos sigan funcionando desde la interfaz.
+```
+
+---
 
 ## Archivos utilizados como contexto
 
-Pendiente.
+Los archivos utilizados como contexto para GitHub Copilot Agent fueron:
+
+- `docs/03-specs/actividad-obligatoria-4/spec-dev-eventos-dom.md`
+- `js/models/Producto.js`
+- `js/models/Catalogo.js`
+- `js/models/ItemCarrito.js`
+- `js/models/Carrito.js`
+- `index.html`
+- `js/script.js`
+
+También se tuvo en cuenta `plan.md` durante la revisión posterior para verificar que el Flujo 1 mantuviera los criterios de búsqueda y filtrado definidos previamente.
+
+---
 
 ## Fragmento generado por Copilot
 
-Pendiente.
+Uno de los fragmentos generados corresponde a la configuración de listeners del buscador, filtros y modal:
+
+```js
+searchForm.addEventListener("submit", (evento) => {
+  evento.preventDefault();
+  actualizarCatalogo();
+});
+
+searchInput.addEventListener("input", actualizarCatalogo);
+
+filtersForm.addEventListener("change", actualizarCatalogo);
+
+filtersForm.addEventListener("reset", () => {
+  window.setTimeout(actualizarCatalogo, 0);
+});
+
+modal.addEventListener("show.bs.modal", prepararModal);
+
+modal.addEventListener("shown.bs.modal", () => {
+  modal.querySelector(".btn-close").focus();
+});
+
+modal.addEventListener("hidden.bs.modal", () => {
+  if (state.botonOrigenModal?.isConnected) {
+    state.botonOrigenModal.focus();
+  }
+
+  state.productoModal = null;
+  modalForm.reset();
+});
+```
+
+Este patrón se mantuvo para el resto de la aplicación, utilizando `addEventListener()` y funciones manejadoras para separar la configuración de eventos de las acciones realizadas sobre el DOM.
+
+---
 
 ## Ajustes manuales realizados
 
-Pendiente.
+Después de la primera respuesta de Copilot se revisó manualmente la implementación y se identificaron algunos ajustes necesarios.
+
+### Filtro por categoría
+
+La primera versión generada contemplaba filtros por tipo, talle y estilo, pero no incluía categoría.
+
+Se solicitó incorporar `categoria` al conjunto de filtros y generar sus opciones utilizando:
+
+```js
+catalogo.obtenerOpcionesFiltro("categoria")
+```
+
+De esta forma se mantuvo el Flujo 1 definido previamente con los criterios categoría, tipo, talle y estilo.
+
+### Verificación de talles no disponibles
+
+Inicialmente el selector del modal mostraba únicamente los talles disponibles del producto seleccionado.
+
+Esto impedía comprobar desde la interfaz el caso de un talle no disponible.
+
+Se modificó el comportamiento para cargar en el selector todos los talles existentes en el catálogo mediante:
+
+```js
+catalogo.obtenerOpcionesFiltro("talle")
+```
+
+Luego se utiliza:
+
+```js
+producto.verificarTalleDisponible(talle)
+```
+
+para informar mediante feedback visual si el talle elegido se encuentra disponible para el producto.
+
+Cuando el talle no está disponible, el botón para agregar al carrito permanece deshabilitado.
+
+### Restablecimiento de filtros
+
+En la primera implementación, el evento `reset` del formulario de filtros también eliminaba el contenido del buscador.
+
+Se ajustó para que el botón `Restablecer filtros` afecte solamente los filtros y mantenga independiente el campo de búsqueda.
+
+### Verificación funcional
+
+La implementación final fue probada manualmente desde la interfaz utilizando un servidor local.
+
+Se verificaron los siguientes comportamientos:
+
+- búsqueda de productos;
+- filtrado por categoría, tipo, talle y estilo;
+- combinación de filtros;
+- restablecimiento de filtros;
+- visualización del detalle de producto;
+- indicación de talle disponible y no disponible;
+- habilitación y deshabilitación del botón de agregar al carrito;
+- incorporación de productos al carrito;
+- modificación de cantidades;
+- eliminación de productos;
+- actualización del total;
+- actualización automática del resumen de compra;
+- validación visual de cantidades inválidas;
+- estado de carrito vacío.
+
+También se verificó que la consola del navegador no presentara errores durante las pruebas realizadas.
+
+---
 
 ## Decisiones finales de arquitectura
 
-Pendiente.
+`js/script.js` quedó definido como controlador principal de la aplicación.
+
+Sus responsabilidades son:
+
+- inicializar la interfaz;
+- registrar los event listeners;
+- capturar las entradas del usuario;
+- realizar validaciones relacionadas con la interfaz;
+- invocar los métodos públicos de las clases del dominio;
+- actualizar dinámicamente el DOM;
+- controlar estados visuales y mensajes de feedback.
+
+La lógica de negocio se mantiene dentro de las clases correspondientes de `js/models/`.
+
+Las operaciones del catálogo utilizan `Catalogo`, mientras que la disponibilidad de talles utiliza `Producto` y las operaciones de agregar, modificar, eliminar y generar el resumen utilizan `Carrito`.
+
+La lista del carrito utiliza delegación de eventos para gestionar los controles creados dinámicamente.
+
+El bloque JavaScript que anteriormente se encontraba escrito directamente dentro de `index.html` fue trasladado a `js/script.js`, manteniendo el manejo del modal y la recuperación del foco.
+
+`index.html` quedó responsable de la estructura de la interfaz y de proporcionar los controles necesarios para los cuatro flujos.
+
+La integración con Storage no se implementó directamente en este rol. El controlador quedó preparado para integrarse posteriormente con la capa `js/utils/storage.js` desarrollada por el integrante responsable de persistencia, evitando duplicar responsabilidades entre roles.
