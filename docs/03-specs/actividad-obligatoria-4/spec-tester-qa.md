@@ -213,6 +213,55 @@ No modifiques ningún archivo del repositorio ni hagas commits.
 
 **Resultado informado por Copilot:** Jasmine 5.1.1 ejecutó 117 specs, 117 pasaron y 0 fallaron. Grupos de nivel superior: Flujo 1, Flujo 2, Flujo 3 y Flujo 4 (unitarios de AO3), Integración - Flujo 1, 2, 3 (orquestador), Flujo 3 (modificar y eliminar) y Flujo 4 (resumen y simulador), `Producto`, `Catalogo`, `ItemCarrito` y `Carrito`. La consola no mostró errores distintos del 404 de `favicon.ico`.
 
+### 7.4 Prompt para storage.spec.js (Storage)
+
+**Contexto:** se adjuntaron a Copilot Agent `js/utils/storage.js`, `docs/06-storage/storage-doc.md`, `js/test/models.spec.js`, `js/test/node-setup.js`, `js/models/Carrito.js` y esta spec de Tester QA.
+
+**Prompt utilizado:**
+
+```text
+Actuá como Tester QA. Necesito la suite Jasmine de la capa de Storage: js/test/storage.spec.js.
+
+Contexto:
+- Proyecto con ES modules ("type":"module"). El módulo a testear es js/utils/storage.js (export default StorageUtil). Leelo completo ANTES de escribir tests: los tests tienen que afirmar el comportamiento REAL del código, no uno inventado.
+- Jasmine 5. Se corre en Node 20 (npm test, sin localStorage nativo) y en el navegador (js/test/test-runner.html). js/test/node-setup.js ya define un Storage en memoria para Node (globalThis.Storage, localStorage, sessionStorage) solo si no existen, así que el spec NO debe crear mocks propios de localStorage: debe funcionar igual con el real y con el simulado.
+- Seguí el estilo de js/test/models.spec.js: import ES, un describe por área, nombres de it en español, sin prompt(), alert(), window ni document.
+
+Qué cubrir (un describe por grupo):
+1. CLAVES: existen las 6 claves, están congeladas (Object.isFrozen), todas empiezan con "app:".
+2. guardar / obtener: ida y vuelta de objeto, array, string, número y booleano; obtener de clave inexistente devuelve null; tipo "local" y "session" no se mezclan; clave inválida (vacía, no string) devuelve el valor de error documentado; tipo inválido.
+3. actualizar: el comportamiento que documente el código (fusión de objetos o reemplazo); actualizar una clave inexistente.
+4. eliminar y listar: eliminar clave existente e inexistente; listar con y sin prefijo; listar no mezcla local con session.
+5. limpiar: limpiar("session"); limpiar("local") borra todo; limpiar("local", true) borra solo claves con prefijo "app:" y conserva las ajenas.
+6. guardarInstancia / cargarInstancia: ida y vuelta real con un Carrito (usá la clase de js/models/Carrito.js con sus items); cargarInstancia sin datos devuelve null; instancia sin toJSON y clase sin fromJSON devuelven false / null.
+7. Errores y robustez: simulá almacenamiento lleno con spyOn(Storage.prototype, "setItem").and.throwError(new DOMException("lleno", "QuotaExceededError")) y verificá que guardar NO lanza y devuelve el valor de error documentado; JSON corrupto escrito a mano con localStorage.setItem y leído con obtener no lanza; storage no disponible (si el código lo contempla). Espiá console.error con spyOn(console, "error") para que el reporte no se llene de ruido y verificá que se llamó.
+
+Reglas:
+- beforeEach: localStorage.clear() y sessionStorage.clear(). Los spies de Jasmine se restauran solos.
+- Un it = una afirmación principal. Tests independientes entre sí.
+- NO modifiques js/utils/storage.js ni ningún archivo fuera de los que te pido. Si un test falla porque el código se comporta distinto a su documentación, NO ajustes el código: dejá el test marcado con xit y un comentario "BUG:" explicando qué pasa, y listalo al final de tu respuesta.
+
+Archivos que podés crear o modificar (solo estos):
+- js/test/storage.spec.js (nuevo)
+- package.json: agregar js/test/storage.spec.js a los scripts "test" y "cobertura", y --include="js/utils/*.js" a "cobertura" (mantener el escapado de comillas que ya tiene).
+- js/test/test-runner.html: agregar <script type="module" src="storage.spec.js"></script> junto a models.spec.js.
+
+Al terminar: corré npm test y npm run cobertura, y mostrame cantidad de specs, fallos y el % de cobertura de js/utils/storage.js.
+```
+
+**Decisión sobre el entorno Node:** Copilot consultó cómo resolver la ausencia de `Storage` en Node. Se autorizó modificar `node-setup.js` para añadir Storage en memoria, con límites: solo se crea si `globalThis.localStorage` no existe, se exponen instancias separadas para `localStorage` y `sessionStorage`, y no se modifica ninguna otra parte del archivo.
+
+**Respuesta final de Copilot:** “Implementé la suite de Storage y la integré en `npm test`, `npm run cobertura` y el runner del navegador. Con tu autorización, ajusté `node-setup.js` para proveer Storage en memoria solo cuando no existe `localStorage`, con instancias separadas para local y session.
+
+Verificación final:
+- `npm test`: 149 specs, 0 fallos.
+- `npm run cobertura`: 149 specs, 0 fallos.
+- `storage.js`: 92,98 % de líneas y sentencias, 84,21 % de ramas y 100 % de funciones.
+- Runner del navegador: 149 specs, 0 fallos. Único error de consola: 404 de `favicon.ico`.
+- `git diff --check`: sin errores.
+
+Archivos modificados: `storage.spec.js`, `node-setup.js`, `test-runner.html` y `package.json`. No modifiqué `storage.js` ni hice commits.”
+
 ---
 
 ## 8. Screenshots del test runner
@@ -221,6 +270,7 @@ No modifiques ningún archivo del repositorio ni hagas commits.
 |---|---|
 | `js/test/capturas/jasmine-117-tests-pass.png` | Manual en el navegador (servidor local), 117 tests PASS |
 | `js/test/capturas/jasmine-playwright-117-tests-pass.png` | Playwright MCP, 117 tests PASS |
+| `js/test/capturas/jasmine-149-tests-pass.png` | Runner del navegador, 149 specs, 0 failures |
 
 *(Las capturas finales con todas las suites de AO4, incluyendo `storage.spec.js`, se agregan al integrar los demás módulos.)*
 
@@ -233,10 +283,18 @@ No modifiques ningún archivo del repositorio ni hagas commits.
 | `script.spec.js` (AO3) | 22 | 22 | 0 |
 | `integracion.spec.js` (AO3) | 43 | 43 | 0 |
 | `models.spec.js` | 52 | 52 | 0 |
-| `storage.spec.js` | *(pendiente de la integración del módulo de storage)* | — | — |
-| **Total actual** | **117** | **117** | **0** |
+| `storage.spec.js` | 32 | 32 | 0 |
+| **Total** | **149** | **149** | **0** |
 
-**Cobertura de `js/models/` (`c8`):** 98,84 % de líneas, 100 % de ramas y 97,72 % de funciones.  
+`npm test`: 149 specs, 0 failures. `npm run cobertura`: 149 specs, 0 failures.
+
+**Cobertura total:** 95,2 % de líneas y 90,84 % de ramas.
+
+**Cobertura de `js/utils/storage.js`:** 92,98 % de líneas, 84,21 % de ramas y 100 % de funciones. Quedaron sin cubrir las líneas 200-202 y 234-236, correspondientes a ramas de error difíciles de simular.
+
+**Cobertura de `js/models/`:** 98,84 % de líneas y 100 % de ramas.
+
+**Cobertura de `js/script.js`:** 92,83 % de líneas y 85,02 % de ramas.
 **Bugs reportados como Issues:** 1 (#103).
 
 ---
@@ -251,6 +309,8 @@ No modifiques ningún archivo del repositorio ni hagas commits.
 4. **Verificación de restricciones.** Se comprobó con una búsqueda en el archivo que `models.spec.js` no utiliza `window`, `prompt()`, `alert()` ni `document`.
 5. **Configuración para módulos ES6.** Para importar las clases se declaró `"type": "module"` en `package.json`, se convirtió `js/test/node-setup.js` a módulo ES6 y se actualizaron los scripts `npm test` y `npm run cobertura` para incluir `models.spec.js` y medir `js/models/`. Se verificó que los 65 tests de AO3 siguieran pasando.
 6. **Runner del navegador.** `js/test/test-runner.html` carga `models.spec.js` con `<script type="module">`. Como los módulos ES6 no se pueden cargar con `file://`, el runner se ejecuta desde un servidor local (`http-server`).
+7. **Suite de Storage.** Se revisó el diff de `node-setup.js` y se confirmó que solo agrega el bloque del Storage en memoria, sin borrar la carga de `script.js`. Se verificó que `storage.spec.js` no contiene `xit`, `BUG`, `prompt()`, `alert()`, `window` ni `document`.
+8. **Verificación de resultados.** Se ejecutaron `npm test` y `npm run cobertura` de forma independiente: ambos finalizaron con 149 specs y 0 fallos. No se detectaron bugs nuevos en `storage.js`.
 
 ### Coordinación con los desarrolladores
 
