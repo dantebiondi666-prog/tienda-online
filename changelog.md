@@ -15,6 +15,16 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   [#101](https://github.com/dantebiondi666-prog/tienda-online/issues/101)
 
 
+- [feature/coord-devops-cuarta-entrega] [AO4] Coordinador / DevOps: coordinación y documentación de la cuarta entrega
+  PR: [#104](https://github.com/dantebiondi666-prog/tienda-online/pull/104) - @LucasFUces (Coordinador / DevOps)
+  Issue:
+  [#99](https://github.com/dantebiondi666-prog/tienda-online/issues/99)
+
+### Fixed
+
+- [backport/release-tercera-entrega] [Backport] Backport de release/tercera-entrega hacia develop
+  PR: [#98](https://github.com/dantebiondi666-prog/tienda-online/pull/98) - @LucasFUces (Coordinador / DevOps)
+
 
 ## [Release Actividad Obligatoria N.º 3] - 2026-11-02
 
