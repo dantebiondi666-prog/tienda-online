@@ -15,7 +15,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   [#101](https://github.com/dantebiondi666-prog/tienda-online/issues/101)
 
 
-  - [feature/tester-qa-specs] [AO4] Tester QA: testing de las clases del dominio y documentación de testing
+- [feature/tester-qa-specs] [AO4] Tester QA: testing de las clases del dominio y documentación de testing
   PR: [#105](https://github.com/dantebiondi666-prog/tienda-online/pull/105) - @LucasFUces (Tester QA)
   Issue:
   [#100](https://github.com/dantebiondi666-prog/tienda-online/issues/100)
