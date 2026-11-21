@@ -1,4 +1,7 @@
-const catalogo = [
+import Catalogo from "./models/Catalogo.js";
+import Carrito from "./models/Carrito.js";
+
+const datosProductos = [
   {
     nombre: "Remera",
     categoria: "Indumentaria superior",
@@ -25,646 +28,551 @@ const catalogo = [
   },
 ];
 
-let carrito = [];
+const camposDeFiltro = ["categoria", "tipo", "talle", "estilo"];
+const formatoMoneda = new Intl.NumberFormat("es-AR", {
+  style: "currency",
+  currency: "ARS",
+  maximumFractionDigits: 0,
+});
 
-const camposFiltroValidos = ["categoria", "tipo", "talle", "estilo"];
+document.addEventListener("DOMContentLoaded", iniciarAplicacion);
 
-/**
- * Normaliza un texto: quita espacios, pasa a minúsculas y elimina tildes.
- * @param {string} texto - Texto a normalizar.
- * @returns {string} Texto normalizado.
- * @throws {Error} Si el valor recibido no es una cadena.
- */
-function normalizarTexto(texto) {
-  if (typeof texto !== "string") {
-    throw new Error("El texto debe ser una cadena.");
-  }
-
-  return texto
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
-
-function esCampoFiltroValido(campo) {
-  if (typeof campo !== "string") {
-    return false;
-  }
-
-  return camposFiltroValidos.includes(normalizarTexto(campo));
-}
-
-/**
- * Filtra productos del catálogo por un campo y un valor.
- * @param {Array} productos - Catálogo de productos.
- * @param {string} campo - "categoria", "tipo", "talle" o "estilo".
- * @param {string} valor - Valor buscado (sin distinguir mayúsculas ni tildes).
- * @returns {Array} Productos que coinciden con el criterio.
- * @throws {Error} Si el catálogo, el campo o el valor no son válidos.
- */
-function filtrarProductos(productos, campo, valor) {
-  if (!Array.isArray(productos)) {
-    throw new Error("El catálogo debe ser un array.");
-  }
-  if (!esCampoFiltroValido(campo)) {
-    throw new Error("El campo de filtro no es válido.");
-  }
-  if (typeof valor !== "string" || normalizarTexto(valor) === "") {
-    throw new Error("El valor de filtro no puede estar vacío.");
-  }
-
-  const campoNormalizado = normalizarTexto(campo);
-  const valorNormalizado = normalizarTexto(valor);
-
-  return productos.filter((producto) => {
-    if (!producto || typeof producto !== "object") {
-      throw new Error("Cada producto del catálogo debe ser un objeto válido.");
-    }
-
-    if (campoNormalizado === "talle") {
-      if (!Array.isArray(producto.talles)) {
-        throw new Error("Los talles del producto deben estar definidos en un array.");
-      }
-
-      return producto.talles.some(
-        (talle) => normalizarTexto(talle) === valorNormalizado
-      );
-    }
-
-    if (typeof producto[campoNormalizado] !== "string") {
-      throw new Error(`El producto no tiene un valor válido para ${campoNormalizado}.`);
-    }
-
-    return normalizarTexto(producto[campoNormalizado]) === valorNormalizado;
-  });
-}
-
-/**
- * Devuelve los valores distintos que tiene el catálogo para un campo de filtro.
- * @param {Array} catalogo - Productos del catálogo.
- * @param {string} campo - "categoria", "tipo", "talle" o "estilo".
- * @returns {Array} Opciones disponibles sin repetir.
- */
-function obtenerOpcionesFiltro(catalogo, campo) {
-  const opciones = [];
-
-  for (const producto of catalogo) {
-    const valores = campo === "talle" ? producto.talles : [producto[campo]];
-
-    for (const valor of valores) {
-      if (!opciones.includes(valor)) {
-        opciones.push(valor);
-      }
-    }
-  }
-
-  return opciones;
-}
-
-/**
- * Busca un producto del catálogo por nombre.
- * @param {Array} productos - Catálogo de productos.
- * @param {string} nombre - Nombre del producto.
- * @returns {Object|null} El producto encontrado, o null si no existe.
- */
-function buscarProducto(productos, nombre) {
-  if (!Array.isArray(productos)) {
-    throw new Error("El catálogo debe ser un array.");
-  }
-  if (typeof nombre !== "string" || normalizarTexto(nombre) === "") {
-    throw new Error("El nombre del producto no puede estar vacío.");
-  }
-
-  const nombreNormalizado = normalizarTexto(nombre);
-  return (
-    productos.find(
-      (producto) =>
-        producto &&
-        typeof producto.nombre === "string" &&
-        normalizarTexto(producto.nombre) === nombreNormalizado
-    ) || null
+function iniciarAplicacion() {
+  const catalogo = new Catalogo(datosProductos);
+  const carrito = new Carrito();
+  const productGrid = document.getElementById("product-grid");
+  const searchForm = document.getElementById("busqueda-form");
+  const searchInput = document.getElementById("busqueda");
+  const filtersForm = document.getElementById("filtros-form");
+  const catalogFeedback = document.getElementById("catalogo-feedback");
+  const modal = document.getElementById("modalProducto");
+  const modalForm = document.getElementById("modal-producto-form");
+  const modalSize = document.getElementById("modalProductoTalle");
+  const modalQuantity = document.getElementById("modalProductoCantidad");
+  const modalSubmit = modal.querySelector('[type="submit"]');
+  const cartItems = document.getElementById("carrito-items");
+  const cartFeedback = document.getElementById("carrito-feedback");
+  const cartEmpty = document.getElementById("carrito-vacio");
+  const cartTotal = document.getElementById("carrito-total");
+  const summaryItems = document.getElementById("resumen-items");
+  const summaryEmpty = document.getElementById("resumen-vacio");
+  const summaryTotal = document.getElementById("resumen-total");
+  const imagesByProduct = new Map(
+    [...productGrid.querySelectorAll("article")].map((article) => [
+      article.querySelector("h3").textContent,
+      {
+        id: article.id,
+        src: article.dataset.productImage,
+        alt: article.querySelector("img").alt,
+      },
+    ])
   );
-}
-
-function esTalleValido(talle) {
-  return typeof talle === "string" && talle.trim() !== "";
-}
-
-/**
- * Indica si un valor es una cadena con contenido (no vacía ni solo espacios).
- * @param {*} texto - Valor a validar.
- * @returns {boolean} true si es un string con al menos un carácter visible.
- */
-function esTextoNoVacio(texto) {
-  return typeof texto === "string" && texto.trim() !== "";
-}
-
-/**
- * Indica si un talle está entre los disponibles de un producto.
- * @param {Object} producto - Producto con su array de talles.
- * @param {string} talle - Talle a verificar.
- * @returns {boolean} true si el talle está disponible.
- */
-function verificarTalleDisponible(producto, talle) {
-  if (!producto || typeof producto !== "object" || !Array.isArray(producto.talles)) {
-    throw new Error("El producto debe tener un array de talles disponibles.");
-  }
-  if (!esTalleValido(talle)) {
-    throw new Error("El talle debe ser una cadena no vacía.");
-  }
-
-  const talleNormalizado = talle.trim().toUpperCase();
-  return producto.talles.some(
-    (talleDisponible) =>
-      typeof talleDisponible === "string" &&
-      talleDisponible.trim().toUpperCase() === talleNormalizado
-  );
-}
-
-function esCantidadValida(cantidad) {
-  return Number.isInteger(cantidad) && cantidad > 0;
-}
-
-function buscarEnCarrito(elementosCarrito, producto, talle) {
-  if (!Array.isArray(elementosCarrito)) {
-    throw new Error("El carrito debe ser un array.");
-  }
-  if (typeof producto !== "string" || normalizarTexto(producto) === "") {
-    throw new Error("El nombre del producto no puede estar vacío.");
-  }
-  if (!esTalleValido(talle)) {
-    throw new Error("El talle debe ser una cadena no vacía.");
-  }
-
-  const productoNormalizado = normalizarTexto(producto);
-  const talleNormalizado = talle.trim().toUpperCase();
-  return (
-    elementosCarrito.find(
-      (elemento) =>
-        elemento &&
-        typeof elemento.producto === "string" &&
-        typeof elemento.talle === "string" &&
-        normalizarTexto(elemento.producto) === productoNormalizado &&
-        elemento.talle.trim().toUpperCase() === talleNormalizado
-    ) || null
-  );
-}
-
-/**
- * Agrega un producto al carrito, o suma la cantidad si ya existe ese producto y talle.
- * No modifica el carrito recibido: devuelve uno nuevo.
- * @param {Array} elementosCarrito - Carrito actual.
- * @param {string} producto - Nombre del producto.
- * @param {string} talle - Talle elegido.
- * @param {number} cantidad - Entero positivo.
- * @param {number} precio - Precio unitario.
- * @returns {Array} Carrito actualizado.
- * @throws {Error} Si algún dato no es válido.
- */
-function agregarAlCarrito(elementosCarrito, producto, talle, cantidad, precio) {
-  if (!Array.isArray(elementosCarrito)) {
-    throw new Error("El carrito debe ser un array.");
-  }
-  if (typeof producto !== "string" || normalizarTexto(producto) === "") {
-    throw new Error("El nombre del producto no puede estar vacío.");
-  }
-  if (!esTalleValido(talle)) {
-    throw new Error("El talle debe ser una cadena no vacía.");
-  }
-  if (!esCantidadValida(cantidad)) {
-    throw new Error("La cantidad debe ser un entero positivo.");
-  }
-  if (typeof precio !== "number" || !Number.isFinite(precio) || precio < 0) {
-    throw new Error("El precio debe ser un número válido mayor o igual a cero.");
-  }
-
-  const elementoExistente = buscarEnCarrito(elementosCarrito, producto, talle);
-  if (elementoExistente) {
-    return elementosCarrito.map((elemento) =>
-      elemento === elementoExistente
-        ? { ...elemento, cantidad: elemento.cantidad + cantidad }
-        : { ...elemento }
-    );
-  }
-
-  return [
-    ...elementosCarrito.map((elemento) => ({ ...elemento })),
-    { producto, talle: talle.trim().toUpperCase(), cantidad, precio },
-  ];
-}
-
-function modificarCantidad(elementosCarrito, producto, talle, cantidad) {
-  if (!Array.isArray(elementosCarrito)) {
-    throw new Error("El carrito debe ser un array.");
-  }
-  if (!esCantidadValida(cantidad)) {
-    throw new Error("La cantidad debe ser un entero positivo.");
-  }
-
-  const elementoExistente = buscarEnCarrito(elementosCarrito, producto, talle);
-  if (!elementoExistente) {
-    throw new Error("El producto y talle no se encuentran en el carrito.");
-  }
-
-  return elementosCarrito.map((elemento) =>
-    elemento === elementoExistente
-      ? { ...elemento, cantidad }
-      : { ...elemento }
-  );
-}
-
-function eliminarDelCarrito(elementosCarrito, producto, talle) {
-  if (!Array.isArray(elementosCarrito)) {
-    throw new Error("El carrito debe ser un array.");
-  }
-
-  const elementoExistente = buscarEnCarrito(elementosCarrito, producto, talle);
-  if (!elementoExistente) {
-    throw new Error("El producto y talle no se encuentran en el carrito.");
-  }
-
-  return elementosCarrito
-    .filter((elemento) => elemento !== elementoExistente)
-    .map((elemento) => ({ ...elemento }));
-}
-
-/**
- * Calcula el subtotal de un producto.
- * @param {number} precio - Precio unitario.
- * @param {number} cantidad - Entero positivo.
- * @returns {number} Precio por cantidad.
- * @throws {Error} Si el precio o la cantidad no son válidos.
- */
-function calcularSubtotal(precio, cantidad) {
-  if (typeof precio !== "number" || !Number.isFinite(precio) || precio < 0) {
-    throw new Error("El precio debe ser un número válido mayor o igual a cero.");
-  }
-  if (!esCantidadValida(cantidad)) {
-    throw new Error("La cantidad debe ser un entero positivo.");
-  }
-
-  return precio * cantidad;
-}
-
-function calcularTotal(elementosCarrito) {
-  if (!Array.isArray(elementosCarrito)) {
-    throw new Error("El carrito debe ser un array.");
-  }
-
-  return elementosCarrito.reduce((total, elemento) => {
-    if (!elemento || typeof elemento !== "object") {
-      throw new Error("Cada elemento del carrito debe ser un objeto válido.");
-    }
-
-    return total + calcularSubtotal(elemento.precio, elemento.cantidad);
-  }, 0);
-}
-
-/**
- * Construye un resumen independiente del carrito con el subtotal de cada
- * producto-talle y el total de la compra.
- */
-function generarResumenCompra(elementosCarrito) {
-  if (!Array.isArray(elementosCarrito)) {
-    throw new Error("El carrito debe ser un array.");
-  }
-
-  const productos = elementosCarrito.map((elemento) => {
-    if (
-      !elemento ||
-      typeof elemento !== "object" ||
-      typeof elemento.producto !== "string" ||
-      elemento.producto.trim() === "" ||
-      !esTalleValido(elemento.talle)
-    ) {
-      throw new Error("Cada elemento del carrito debe incluir producto y talle válidos.");
-    }
-
-    return {
-      producto: elemento.producto,
-      talle: elemento.talle,
-      cantidad: elemento.cantidad,
-      subtotal: calcularSubtotal(elemento.precio, elemento.cantidad),
-    };
-  });
-
-  return {
-    productos,
-    total: productos.reduce((total, elemento) => total + elemento.subtotal, 0),
+  const state = {
+    productoModal: null,
+    botonOrigenModal: null,
   };
-}
 
-/**
- * Arma el texto del carrito para mostrarlo al usuario.
- * @param {Array} elementosCarrito - Elementos { producto, talle, cantidad, precio }.
- * @returns {string} Una línea por elemento, o un aviso si el carrito está vacío.
- */
-function formatearCarrito(elementosCarrito) {
-  if (!Array.isArray(elementosCarrito)) {
-    throw new Error("El carrito debe ser un array.");
-  }
+  inicializarOpcionesDeFiltros();
+  actualizarCatalogo();
+  renderizarCarrito();
 
-  if (elementosCarrito.length === 0) {
-    return "El carrito está vacío.";
-  }
+  searchForm.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+    actualizarCatalogo();
+  });
+  searchInput.addEventListener("input", actualizarCatalogo);
 
-  return elementosCarrito
-    .map(
-      (elemento) =>
-        `- ${elemento.producto} (talle ${elemento.talle}) x${elemento.cantidad}: $${elemento.precio} c/u`
-    )
-    .join("\n");
-}
+  filtersForm.addEventListener("change", actualizarCatalogo);
+  filtersForm.addEventListener("reset", () => {
+    window.setTimeout(actualizarCatalogo, 0);
+  });
 
-function mostrarMenuPrincipal() {
-  return prompt(
-    "=== Remer Us - Simulador ===\n" +
-      "1. Consultar y filtrar el catálogo\n" +
-      "2. Consultar producto y disponibilidad de talle\n" +
-      "3. Gestionar carrito\n" +
-      "4. Resumen de compra\n" +
-      "0. Salir"
-  );
-}
-
-// Flujo 1: pide campo y valor (con reintento), filtra el catálogo y muestra el resultado.
-function ejecutarFlujoFiltrarCatalogo() {
-  let campo;
-  let valor;
-
-  while (true) {
-    campo = prompt("Ingrese el campo (categoria, tipo, talle o estilo):");
-    if (campo === null) {
-      return;
+  modal.addEventListener("show.bs.modal", prepararModal);
+  modal.addEventListener("shown.bs.modal", () => {
+    modal.querySelector(".btn-close").focus();
+  });
+  modal.addEventListener("hidden.bs.modal", () => {
+    if (state.botonOrigenModal?.isConnected) {
+      state.botonOrigenModal.focus();
     }
+    state.productoModal = null;
+    modalForm.reset();
+  });
+  modal.addEventListener("keydown", mantenerFocoEnModal);
 
-    const campoNormalizado = normalizarTexto(campo);
-    const opciones = esCampoFiltroValido(campoNormalizado)
-      ? obtenerOpcionesFiltro(catalogo, campoNormalizado)
-      : [];
-    const detalle = opciones.length > 0 ? ` (${opciones.join(", ")})` : "";
+  modalSize.addEventListener("change", () => validarFormularioModal(true));
+  modalQuantity.addEventListener("input", () => validarFormularioModal(true));
+  modalForm.addEventListener("submit", agregarProductoAlCarrito);
+  modalForm.addEventListener("reset", () => {
+    window.setTimeout(() => {
+      validarFormularioModal(false);
+    }, 0);
+  });
 
-    valor = prompt(`Ingrese el valor para filtrar${detalle}:`);
-    if (valor === null) {
-      return;
-    }
+  cartItems.addEventListener("input", validarCantidadEnCarrito);
+  cartItems.addEventListener("submit", modificarCantidadEnCarrito);
+  cartItems.addEventListener("click", eliminarProductoDelCarrito);
 
-    campo = campoNormalizado;
-    valor = normalizarTexto(valor);
-    if (esCampoFiltroValido(campo) && valor !== "") {
-      break;
-    }
-
-    alert("El criterio no es válido. Ingrese un campo y un valor válidos.");
-  }
-
-  const resultados = filtrarProductos(catalogo, campo, valor);
-  if (resultados.length > 0) {
-    const lista = resultados
-      .map((producto) => `- ${producto.nombre} ($${producto.precio})`)
-      .join("\n");
-    alert(`Productos encontrados:\n${lista}`);
-    console.log("Productos encontrados:", resultados);
-  } else {
-    alert("No hay productos coincidentes.");
-    console.log("No hay productos coincidentes.");
-  }
-}
-
-// Flujo 2: pide producto y talle (con reintento) y muestra si el talle está disponible.
-function ejecutarFlujoConsultarProducto() {
-  let producto;
-  let nombre;
-
-  while (!producto) {
-    nombre = prompt("Ingrese el nombre del producto:");
-    if (nombre === null) {
-      return;
-    }
-
-    if (!esTextoNoVacio(nombre)) {
-      alert("Debe ingresar el nombre de un producto.");
-      continue;
-    }
-
-    producto = buscarProducto(catalogo, nombre);
-    if (!producto) {
-      alert("El producto no fue encontrado. Intente nuevamente.");
-    }
-  }
-
-  let talle;
-  while (true) {
-    talle = prompt(`Ingrese el talle para ${producto.nombre}:`);
-    if (talle === null) {
-      return;
-    }
-
-    if (esTalleValido(talle)) {
-      talle = talle.trim().toUpperCase();
-      break;
-    }
-    alert("Debe ingresar un talle válido.");
-  }
-
-  const disponible = verificarTalleDisponible(producto, talle);
-  const mensaje =
-    `Producto: ${producto.nombre}\n` +
-    `Categoría: ${producto.categoria}\n` +
-    `Tipo: ${producto.tipo}\n` +
-    `Estilo: ${producto.estilo}\n` +
-    `Precio: $${producto.precio}\n` +
-    `Talle ${talle}: ${
-      disponible ? "disponible" : "no disponible"
-    }`;
-  alert(mensaje);
-  console.log(mensaje);
-}
-
-// Flujo 3: menú del carrito (agregar, modificar, eliminar, salir) que se repite hasta salir.
-function ejecutarFlujoGestionarCarrito() {
-  let accion;
-
-  while (true) {
-    accion = prompt(
-      "Gestión del carrito\n" +
-        "1. Agregar\n" +
-        "2. Modificar\n" +
-        "3. Eliminar\n" +
-        "4. Salir"
-    );
-    if (accion === null) {
-      return;
-    }
-
-    accion = normalizarTexto(accion);
-    if (accion === "salir" || accion === "4" || accion === "0") {
-      alert(`Estado final del carrito:\n${formatearCarrito(carrito)}`);
-      console.log("Estado final del carrito:", carrito);
-      return;
-    }
-
-    if (accion === "agregar" || accion === "1") {
-      let producto;
-      let talle;
-      let cantidad;
-      let productoCatalogo;
-
-      while (true) {
-        producto = prompt("Ingrese el producto a agregar:");
-        if (producto === null) {
-          return;
-        }
-        talle = prompt("Ingrese el talle:");
-        if (talle === null) {
-          return;
-        }
-        const cantidadIngresada = prompt("Ingrese la cantidad:");
-        if (cantidadIngresada === null) {
-          return;
-        }
-
-        productoCatalogo = esTextoNoVacio(producto)
-          ? buscarProducto(catalogo, producto)
-          : null;
-        cantidad = Number(cantidadIngresada);
-        if (
-          productoCatalogo &&
-          esTalleValido(talle) &&
-          verificarTalleDisponible(productoCatalogo, talle) &&
-          esCantidadValida(cantidad)
-        ) {
-          break;
-        }
-        alert("Producto, talle o cantidad inválidos. Intente nuevamente.");
-      }
-
-      carrito = agregarAlCarrito(
-        carrito,
-        productoCatalogo.nombre,
-        talle,
-        cantidad,
-        productoCatalogo.precio
+  function inicializarOpcionesDeFiltros() {
+    for (const campo of camposDeFiltro) {
+      const fieldset = filtersForm.querySelector(
+        `fieldset[data-filter-field="${campo}"]`
       );
-      alert(`Carrito actualizado:\n${formatearCarrito(carrito)}`);
-      console.log("Estado actualizado del carrito:", carrito);
-      continue;
+      const legend = fieldset.querySelector("legend");
+
+      for (const opcion of catalogo.obtenerOpcionesFiltro(campo)) {
+        const wrapper = document.createElement("div");
+        const label = document.createElement("label");
+        const input = document.createElement("input");
+
+        wrapper.className = "form-check";
+        label.className = "form-check-label";
+        input.className = "form-check-input";
+        input.type = "checkbox";
+        input.name = campo;
+        input.value = opcion;
+
+        label.append(input, document.createTextNode(` ${opcion}`));
+        wrapper.append(label);
+        fieldset.insertBefore(wrapper, legend.nextSibling);
+      }
     }
-
-    if (accion === "modificar" || accion === "2") {
-      const producto = prompt("Ingrese el producto del elemento a modificar:");
-      if (producto === null) {
-        return;
-      }
-      const talle = prompt("Ingrese el talle del elemento a modificar:");
-      if (talle === null) {
-        return;
-      }
-      if (!esTextoNoVacio(producto) || !esTextoNoVacio(talle)) {
-        alert("Debe ingresar un producto y un talle.");
-        continue;
-      }
-      if (!buscarEnCarrito(carrito, producto, talle)) {
-        alert("El producto y talle no están en el carrito.");
-        continue;
-      }
-
-      let cantidad;
-      while (true) {
-        const cantidadIngresada = prompt("Ingrese la nueva cantidad:");
-        if (cantidadIngresada === null) {
-          return;
-        }
-        cantidad = Number(cantidadIngresada);
-        if (esCantidadValida(cantidad)) {
-          break;
-        }
-        alert("La cantidad debe ser un entero positivo.");
-      }
-
-      carrito = modificarCantidad(carrito, producto, talle, cantidad);
-      alert(`Carrito actualizado:\n${formatearCarrito(carrito)}`);
-      console.log("Estado actualizado del carrito:", carrito);
-      continue;
-    }
-
-    if (accion === "eliminar" || accion === "3") {
-      const producto = prompt("Ingrese el producto del elemento a eliminar:");
-      if (producto === null) {
-        return;
-      }
-      const talle = prompt("Ingrese el talle del elemento a eliminar:");
-      if (talle === null) {
-        return;
-      }
-      if (!esTextoNoVacio(producto) || !esTextoNoVacio(talle)) {
-        alert("Debe ingresar un producto y un talle.");
-        continue;
-      }
-      if (!buscarEnCarrito(carrito, producto, talle)) {
-        alert("El producto y talle no están en el carrito.");
-        continue;
-      }
-
-      carrito = eliminarDelCarrito(carrito, producto, talle);
-      alert(`Carrito actualizado:\n${formatearCarrito(carrito)}`);
-      console.log("Estado actualizado del carrito:", carrito);
-      continue;
-    }
-
-    alert("La opción no es válida.");
-  }
-}
-
-// Flujo 4: muestra el resumen de compra con subtotales y total, o avisa si el carrito está vacío.
-function ejecutarFlujoResumenCompra() {
-  if (carrito.length === 0) {
-    alert("No hay productos para resumir.");
-    console.log("No hay productos para resumir.");
-    return;
   }
 
-  const resumen = generarResumenCompra(carrito);
-  const lista = resumen.productos
-    .map(
-      (item) =>
-        `- ${item.producto} (talle ${item.talle}) x${item.cantidad}: $${item.subtotal}`
-    )
-    .join("\n");
+  function actualizarCatalogo() {
+    let productos = catalogo.productos;
+    const termino = searchInput.value.trim();
 
-  alert(`Resumen de compra:\n${lista}\nTotal: $${resumen.total}`);
-  console.log("Resumen de compra:", resumen.productos);
-  console.log("Total de compra: $" + resumen.total);
-}
+    if (termino) {
+      const productoEncontrado = catalogo.buscarProducto(termino);
+      productos = productoEncontrado ? [productoEncontrado] : [];
+    }
 
-// Menú principal: repite las opciones hasta que el usuario elige salir o cancela.
-function iniciarSimulador() {
-  let opcion;
+    for (const campo of camposDeFiltro) {
+      const valoresSeleccionados = [
+        ...filtersForm.querySelectorAll(
+          `input[name="${campo}"]:checked`
+        ),
+      ].map((input) => input.value);
 
-  while (true) {
-    opcion = mostrarMenuPrincipal();
-    if (opcion === null) {
+      if (valoresSeleccionados.length === 0) {
+        continue;
+      }
+
+      const coincidenciasDelCampo = new Set();
+      for (const valor of valoresSeleccionados) {
+        for (const producto of catalogo.filtrarProductos(campo, valor)) {
+          coincidenciasDelCampo.add(producto);
+        }
+      }
+      productos = productos.filter((producto) =>
+        coincidenciasDelCampo.has(producto)
+      );
+    }
+
+    renderizarCatalogo(productos);
+    if (productos.length === 0) {
+      mostrarMensaje(
+        catalogFeedback,
+        termino
+          ? `No se encontró un producto llamado "${termino}".`
+          : "No hay productos que coincidan con los filtros.",
+        "error"
+      );
       return;
     }
 
-    opcion = opcion.trim();
-    if (opcion === "0") {
+    mostrarMensaje(
+      catalogFeedback,
+      `${productos.length} producto${productos.length === 1 ? "" : "s"} disponible${productos.length === 1 ? "" : "s"}.`,
+      "success"
+    );
+  }
+
+  function renderizarCatalogo(productos) {
+    productGrid.replaceChildren();
+
+    for (const producto of productos) {
+      const imagen = imagesByProduct.get(producto.nombre);
+      if (!imagen) {
+        throw new Error(`No hay una imagen configurada para ${producto.nombre}.`);
+      }
+
+      const article = document.createElement("article");
+      const figure = document.createElement("figure");
+      const image = document.createElement("img");
+      const title = document.createElement("h3");
+      const category = document.createElement("p");
+      const price = document.createElement("p");
+      const sizes = document.createElement("p");
+      const detailsButton = document.createElement("button");
+
+      article.className = "col-12 col-md-6 col-xl-4";
+      article.id = imagen.id;
+      title.id = `${article.id}-titulo`;
+      article.setAttribute("aria-labelledby", title.id);
+      image.src = imagen.src;
+      image.alt = imagen.alt;
+      image.width = 300;
+      image.height = 300;
+      title.textContent = producto.nombre;
+      category.append(
+        document.createTextNode("Categoría: "),
+        crearElementoConTexto("span", producto.categoria)
+      );
+      price.append(
+        document.createTextNode("Precio: "),
+        crearElementoConTexto("strong", formatoMoneda.format(producto.precio))
+      );
+      sizes.textContent = `Talles disponibles: ${producto.talles.join(" / ")}`;
+      detailsButton.type = "button";
+      detailsButton.className = "btn btn-outline-dark btn-sm";
+      detailsButton.dataset.producto = producto.nombre;
+      detailsButton.dataset.bsToggle = "modal";
+      detailsButton.dataset.bsTarget = "#modalProducto";
+      detailsButton.textContent = "Ver detalle";
+
+      figure.append(image);
+      article.append(figure, title, category, price, sizes, detailsButton);
+      productGrid.append(article);
+    }
+  }
+
+  function prepararModal(evento) {
+    const boton = evento.relatedTarget;
+    const nombre = boton?.dataset.producto;
+    const producto = nombre ? catalogo.buscarProducto(nombre) : null;
+
+    if (!producto) {
+      evento.preventDefault();
+      mostrarMensaje(
+        catalogFeedback,
+        "No se pudo encontrar el producto seleccionado.",
+        "error"
+      );
       return;
-    } else if (opcion === "1") {
-      ejecutarFlujoFiltrarCatalogo();
-    } else if (opcion === "2") {
-      ejecutarFlujoConsultarProducto();
-    } else if (opcion === "3") {
-      ejecutarFlujoGestionarCarrito();
-    } else if (opcion === "4") {
-      ejecutarFlujoResumenCompra();
+    }
+
+    state.productoModal = producto;
+    state.botonOrigenModal = boton;
+    const imagen = imagesByProduct.get(producto.nombre);
+
+    modal.querySelector("#modalProductoTitulo").textContent = producto.nombre;
+    modal.querySelector("#modalProductoImg").src = imagen.src;
+    modal.querySelector("#modalProductoImg").alt = imagen.alt;
+    modal.querySelector("#modalProductoCategoria").textContent =
+      producto.categoria;
+    modal.querySelector("#modalProductoTipo").textContent = producto.tipo;
+    modal.querySelector("#modalProductoEstilo").textContent = producto.estilo;
+    modal.querySelector("#modalProductoPrecio").textContent =
+      formatoMoneda.format(producto.precio);
+    modal.querySelector("#modalProductoTalles").textContent =
+      `Talles disponibles: ${producto.talles.join(" / ")}`;
+
+    modalSize.replaceChildren(
+      crearElementoConTexto("option", "Seleccioná un talle")
+    );
+    modalSize.options[0].value = "";
+    for (const talle of catalogo.obtenerOpcionesFiltro("talle")) {
+      const option = crearElementoConTexto("option", talle);
+      option.value = talle;
+      modalSize.append(option);
+    }
+
+    modalForm.reset();
+    limpiarValidacion(modalSize);
+    limpiarValidacion(modalQuantity);
+    mostrarMensaje(
+      document.getElementById("modal-talle-feedback"),
+      "",
+      "neutral"
+    );
+    mostrarMensaje(
+      document.getElementById("modal-producto-feedback"),
+      "",
+      "neutral"
+    );
+    modalSubmit.disabled = true;
+  }
+
+  function validarFormularioModal(mostrarErrores) {
+    const producto = state.productoModal;
+    const talle = modalSize.value;
+    const talleDisponible =
+      Boolean(producto && talle) &&
+      producto.verificarTalleDisponible(talle);
+    const cantidad = Number(modalQuantity.value);
+    const cantidadValida =
+      modalQuantity.value.trim() !== "" &&
+      Number.isInteger(cantidad) &&
+      cantidad > 0;
+    const talleFeedback = document.getElementById("modal-talle-feedback");
+    const cantidadFeedback = document.getElementById(
+      "modal-cantidad-feedback"
+    );
+
+    if (talleDisponible) {
+      marcarValido(modalSize);
+      mostrarMensaje(talleFeedback, `Talle ${talle} disponible.`, "success");
+    } else if (mostrarErrores && talle) {
+      marcarInvalido(modalSize);
+      mostrarMensaje(talleFeedback, `Talle ${talle} no disponible.`, "error");
+    } else if (mostrarErrores && !talle) {
+      marcarInvalido(modalSize);
+      mostrarMensaje(talleFeedback, "Seleccioná un talle.", "error");
     } else {
-      alert("La opción no es válida.");
+      limpiarValidacion(modalSize);
+      mostrarMensaje(talleFeedback, "", "neutral");
+    }
+
+    if (cantidadValida) {
+      marcarValido(modalQuantity);
+      mostrarMensaje(cantidadFeedback, "", "neutral");
+    } else if (mostrarErrores) {
+      marcarInvalido(modalQuantity);
+      mostrarMensaje(
+        cantidadFeedback,
+        "Ingresá una cantidad entera mayor que cero.",
+        "error"
+      );
+    } else {
+      limpiarValidacion(modalQuantity);
+      mostrarMensaje(cantidadFeedback, "", "neutral");
+    }
+
+    modalSubmit.disabled = !(talleDisponible && cantidadValida);
+    return talleDisponible && cantidadValida;
+  }
+
+  function agregarProductoAlCarrito(evento) {
+    evento.preventDefault();
+    if (!validarFormularioModal(true)) {
+      return;
+    }
+
+    try {
+      carrito.agregarProducto(
+        state.productoModal,
+        modalSize.value,
+        Number(modalQuantity.value)
+      );
+      renderizarCarrito();
+      mostrarMensaje(
+        document.getElementById("modal-producto-feedback"),
+        `${state.productoModal.nombre} se agregó al carrito.`,
+        "success"
+      );
+      mostrarMensaje(
+        cartFeedback,
+        "El carrito se actualizó correctamente.",
+        "success"
+      );
+    } catch (error) {
+      mostrarMensaje(
+        document.getElementById("modal-producto-feedback"),
+        obtenerMensajeError(error),
+        "error"
+      );
+    }
+  }
+
+  function renderizarCarrito() {
+    const items = carrito.items;
+    const resumen = carrito.generarResumenCompra();
+
+    cartItems.replaceChildren();
+    summaryItems.replaceChildren();
+    cartEmpty.hidden = items.length > 0;
+    summaryEmpty.hidden = resumen.productos.length > 0;
+    cartTotal.textContent = formatoMoneda.format(carrito.calcularTotal());
+    summaryTotal.textContent = formatoMoneda.format(resumen.total);
+
+    items.forEach((item, index) => {
+      const producto = item.producto.nombre;
+      const subtotal = resumen.productos[index].subtotal;
+      const listItem = document.createElement("li");
+      const header = document.createElement("div");
+      const details = document.createElement("div");
+      const itemName = crearElementoConTexto("strong", producto);
+      const size = crearElementoConTexto("span", `Talle ${item.talle}`);
+      const price = crearElementoConTexto(
+        "span",
+        formatoMoneda.format(subtotal)
+      );
+      const form = document.createElement("form");
+      const quantityLabel = document.createElement("label");
+      const quantity = document.createElement("input");
+      const feedback = document.createElement("div");
+      const updateButton = document.createElement("button");
+      const removeButton = document.createElement("button");
+
+      listItem.className = "list-group-item";
+      listItem.dataset.producto = producto;
+      listItem.dataset.talle = item.talle;
+      header.className = "d-flex flex-wrap justify-content-between gap-2";
+      details.className = "d-flex flex-wrap gap-3";
+      form.className = "d-flex flex-wrap align-items-end gap-2 mt-2";
+      form.dataset.cartForm = "";
+      quantityLabel.className = "visually-hidden";
+      quantityLabel.textContent = `Cantidad de ${producto}, talle ${item.talle}`;
+      quantity.className = "form-control form-control-sm";
+      quantity.type = "number";
+      quantity.name = "cantidad";
+      quantity.min = "1";
+      quantity.step = "1";
+      quantity.required = true;
+      quantity.value = String(item.cantidad);
+      quantity.dataset.cartQuantity = "";
+      quantity.style.maxWidth = "6rem";
+      feedback.className = "invalid-feedback";
+      feedback.textContent = "Ingresá una cantidad entera mayor que cero.";
+      updateButton.className = "btn btn-outline-dark btn-sm";
+      updateButton.type = "submit";
+      updateButton.textContent = "Actualizar cantidad";
+      removeButton.className = "btn btn-outline-danger btn-sm";
+      removeButton.type = "button";
+      removeButton.dataset.cartAction = "remove";
+      removeButton.textContent = "Eliminar";
+
+      header.append(itemName, price);
+      details.append(size, crearElementoConTexto("span", `Cantidad: ${item.cantidad}`));
+      form.append(quantityLabel, quantity, feedback, updateButton, removeButton);
+      listItem.append(header, details, form);
+      cartItems.append(listItem);
+
+      const summaryItem = document.createElement("li");
+      summaryItem.className = "list-group-item";
+      summaryItem.textContent =
+        `${producto} (talle ${item.talle}) × ${item.cantidad}: ${formatoMoneda.format(subtotal)}`;
+      summaryItems.append(summaryItem);
+    });
+  }
+
+  function validarCantidadEnCarrito(evento) {
+    const quantity = evento.target.closest("[data-cart-quantity]");
+    if (!quantity) {
+      return;
+    }
+
+    const form = quantity.closest("[data-cart-form]");
+    const cantidadValida =
+      quantity.value.trim() !== "" &&
+      Number.isInteger(Number(quantity.value)) &&
+      Number(quantity.value) > 0;
+    const updateButton = form.querySelector('[type="submit"]');
+
+    if (cantidadValida) {
+      marcarValido(quantity);
+    } else {
+      marcarInvalido(quantity);
+    }
+    updateButton.disabled = !cantidadValida;
+  }
+
+  function modificarCantidadEnCarrito(evento) {
+    const form = evento.target.closest("[data-cart-form]");
+    if (!form) {
+      return;
+    }
+
+    evento.preventDefault();
+    const quantity = form.querySelector("[data-cart-quantity]");
+    const cantidad = Number(quantity.value);
+    if (
+      quantity.value.trim() === "" ||
+      !Number.isInteger(cantidad) ||
+      cantidad <= 0
+    ) {
+      marcarInvalido(quantity);
+      return;
+    }
+
+    const item = form.closest("li");
+    try {
+      carrito.modificarCantidad(item.dataset.producto, item.dataset.talle, cantidad);
+      renderizarCarrito();
+      mostrarMensaje(cartFeedback, "La cantidad se actualizó correctamente.", "success");
+    } catch (error) {
+      mostrarMensaje(cartFeedback, obtenerMensajeError(error), "error");
+    }
+  }
+
+  function eliminarProductoDelCarrito(evento) {
+    const button = evento.target.closest('[data-cart-action="remove"]');
+    if (!button) {
+      return;
+    }
+
+    const item = button.closest("li");
+    try {
+      carrito.eliminarProducto(item.dataset.producto, item.dataset.talle);
+      renderizarCarrito();
+      mostrarMensaje(cartFeedback, "El producto se eliminó del carrito.", "success");
+    } catch (error) {
+      mostrarMensaje(cartFeedback, obtenerMensajeError(error), "error");
+    }
+  }
+
+  function mantenerFocoEnModal(evento) {
+    if (evento.key !== "Tab") {
+      return;
+    }
+
+    const elementosEnfocables = [
+      ...modal.querySelectorAll(
+        'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      ),
+    ];
+    const primero = elementosEnfocables[0];
+    const ultimo = elementosEnfocables[elementosEnfocables.length - 1];
+
+    if (evento.shiftKey && document.activeElement === primero) {
+      evento.preventDefault();
+      ultimo.focus();
+    } else if (!evento.shiftKey && document.activeElement === ultimo) {
+      evento.preventDefault();
+      primero.focus();
     }
   }
 }
 
-if (typeof jasmine === "undefined") {
-  iniciarSimulador();
+function crearElementoConTexto(etiqueta, texto) {
+  const elemento = document.createElement(etiqueta);
+  elemento.textContent = texto;
+  return elemento;
+}
+
+function mostrarMensaje(elemento, mensaje, tipo) {
+  elemento.textContent = mensaje;
+  elemento.classList.remove("text-success", "text-danger");
+
+  if (tipo === "success") {
+    elemento.classList.add("text-success");
+  } else if (tipo === "error") {
+    elemento.classList.add("text-danger");
+  }
+}
+
+function marcarValido(control) {
+  control.classList.remove("is-invalid");
+  control.classList.add("is-valid");
+  control.setAttribute("aria-invalid", "false");
+}
+
+function marcarInvalido(control) {
+  control.classList.remove("is-valid");
+  control.classList.add("is-invalid");
+  control.setAttribute("aria-invalid", "true");
+}
+
+function limpiarValidacion(control) {
+  control.classList.remove("is-valid", "is-invalid");
+  control.removeAttribute("aria-invalid");
+}
+
+function obtenerMensajeError(error) {
+  if (!(error instanceof Error)) {
+    throw error;
+  }
+  return error.message;
 }
