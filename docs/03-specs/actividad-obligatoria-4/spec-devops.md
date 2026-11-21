@@ -396,4 +396,45 @@ El Desarrollador POO corrigió el changelog en el commit `8aaf7eb`. Se verificó
 
 ## 12. Obstáculos encontrados y resolución
 
-*(completar al cierre de la entrega)*
+1. **Cantidad de PRs revisables.** La consigna pide un mínimo de cuatro code reviews, pero en un grupo de cuatro el Coordinador cuenta con tres PRs de otros roles. Se planificó la cuarta instancia como la revisión de las correcciones posteriores a un `CHANGES_REQUESTED`, que es la que registró la auditoría de AO3 como faltante.
+2. **Errores del agente de IA en el Code Review 1.** Copilot sugirió `APPROVE` sin detectar un desvío del changelog y propuso un hallazgo inexistente en la plantilla de PR. Ambos puntos se resolvieron con la verificación manual del diff y de la plantilla.
+3. **Módulos ES6 y entorno de testing.** Las clases de `js/models/` usan módulos ES6, lo que obligó a declarar `"type": "module"` en `package.json`, convertir `js/test/node-setup.js` y cargar los specs con `<script type="module">`. Como los módulos no se pueden abrir con `file://`, el runner se ejecuta desde un servidor local.
+4. **Permisos del repositorio.** El repositorio y el tablero pertenecen a otro integrante, por lo que el cambio de estado de las tarjetas, la configuración de GitHub Pages y el acceso al canal de Slack se coordinaron con él.
+5. **Dependencias entre roles y plazos.** Las ramas de Storage y de Eventos + DOM no estaban disponibles a un día de la entrega. Se definió un calendario con horarios límite y un orden de prioridades (sin `prompt()` ni `alert()` y con los cuatro flujos funcionando), y se coordinó la ayuda entre roles.
+
+## 13. Correcciones de la Actividad Obligatoria N.º 3 y backport
+
+### 13.1 Correcciones de la auditoría (PR #93)
+
+| Observación | Resolución | PR o Issue |
+|---|---|---|
+| RC1 a RC3: títulos exactos de PR en el `changelog.md` | Rama `fix/rc-changelog-ao3` hacia `release/tercera-entrega`; registrada en `### Fixed` | PR #96 (merge `5c695e5`) |
+| RC4 a RC8: pruebas de integración de los orquestadores con mocks de `prompt()` y `alert()` y cobertura formal con `c8` | Rama `fix/rc-testing-integracion-cobertura` hacia `release/tercera-entrega`; registrada en `### Fixed` | PR #97 (merge `2f72fa9`) |
+| RC9: base visual del carrito para la integración con JavaScript | Plan de continuidad para la cuarta entrega | Issue #94 |
+| RC10: bloque DOM y eventos inline heredado en `index.html` | Documentado para resolverlo antes de la integración | Issue #95 |
+| RC11: rotación histórica de roles | Coordinación de AO4 a cargo de Lucas Fischer | — |
+
+Flujo aplicado a cada corrección, según la consigna: rama `fix/` creada desde `release/tercera-entrega` (`git checkout release/tercera-entrega`, `git pull`, `git checkout -b fix/...`), corrección aplicada, PR hacia `release/tercera-entrega` y merge directo (rama sin protección), registro en `### Fixed` del `changelog.md` y respuesta en cada hilo del docente de la PR #93.
+
+La release de AO3 se mergeó a `master` mediante la PR #93 (merge `15abc69`).
+
+### 13.2 Backport hacia `develop`
+
+Una vez mergeada la release a `master` se realizó el backport:
+
+```bash
+git checkout master
+git pull
+git checkout -b backport/release-tercera-entrega
+git push origin backport/release-tercera-entrega
+```
+
+Antes de crear la rama se comprobó con `git log --oneline origin/master..origin/develop` que `develop` no tenía commits propios ausentes en `master`, por lo que el backport no iba a presentar conflictos. Se creó la PR #98 (`backport/release-tercera-entrega` → `develop`), que requirió la aprobación de otro integrante (la rama `develop` está protegida), y se mergeó con un merge commit (`2f199b0`). La rama del backport se eliminó una vez integrada.
+
+### 13.3 Versionado
+
+Se creó el tag y la GitHub Release `v1.1-tercera-entrega` sobre `master`, con el extracto del `changelog.md` correspondiente a la Actividad Obligatoria N.º 3.
+
+### 13.4 Pendiente
+
+- Aviso con `:pr-merged:` en el hilo de Slack de la PR #93 (pendiente de acceso al canal).
