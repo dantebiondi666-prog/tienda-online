@@ -353,11 +353,7 @@ El hallazgo 2 (módulos ES6) se aceptó como nota no bloqueante: es una decisió
 
 **CHANGES_REQUESTED:**
 
-**[ELEGIR UNA VARIANTE Y BORRAR LA OTRA]**
-
-*Variante A (la review se publicó en GitHub):* Sí. Se publicó una review con estado `Changes requested` y un comentario inline en `changelog.md` (RC1): el título de la entrada debía reproducir el título exacto de la PR, sin el punto final, y la línea `PR:` debía ir indentada con dos espacios, manteniendo los enlaces a la PR #102 y a la Issue #101. Se agregó una nota no bloqueante sobre la estrategia de módulos ES6.
-
-*Variante B (no se publicó la review previa):* Sí. El hallazgo del changelog (título con punto final y línea `PR:` sin indentar) se comunicó al desarrollador por el canal del equipo y se corrigió antes de aprobar. La aprobación en GitHub dejó registrado el hallazgo y su verificación.
+Sí. Se publicó una review con estado `Changes requested` y un comentario inline en `changelog.md` (RC1): el título de la entrada debía reproducir el título exacto de la PR, sin el punto final, y la línea `PR:` debía ir indentada con dos espacios, manteniendo los enlaces a la PR #102 y a la Issue #101. La review incluyó una nota no bloqueante sobre la estrategia de módulos ES6.
 
 **Resultado final:**
 
