@@ -50,7 +50,7 @@ Formato: `app:<entidad>:<detalle>`, en minúsculas y separado por dos puntos.
 - `<entidad>` indica el concepto (`carrito`, `compras`, `catalogo`, `filtro`, `producto`, `cache`).
 - `<detalle>` precisa qué se guarda dentro de esa entidad.
 
-El prefijo permite listar y limpiar solo los datos del proyecto con `listar("app:")` y `limpiar()`.
+El prefijo permite listar y limpiar solo los datos del proyecto con `listar("app:")` y `limpiar(tipo, true)`.
 
 ---
 
@@ -143,7 +143,7 @@ Criterio: lo que representa datos o intención del usuario y debe sobrevivir al 
 
 ## 6. API de `StorageUtil`
 
-Todas las funciones aceptan `tipo` como último parámetro (`"local"` por defecto o `"session"`).
+Todas las funciones aceptan `tipo` (`"local"` por defecto o `"session"`). `limpiar` recibe además un segundo parámetro opcional, `soloProyecto`.
 
 | Función | Retorno | Descripción |
 |---|---|---|
@@ -152,7 +152,7 @@ Todas las funciones aceptan `tipo` como último parámetro (`"local"` por defect
 | `actualizar(clave, valor, tipo)` | `boolean` | Reemplaza una clave existente. Devuelve `false` si la clave no existe. |
 | `eliminar(clave, tipo)` | `boolean` | Elimina la clave. |
 | `listar(prefijo, tipo)` | `string[]` | Lista las claves que comienzan con el prefijo. |
-| `limpiar(tipo)` | `boolean` | Elimina solo las claves con prefijo `app:`. No borra datos ajenos al proyecto. |
+| `limpiar(tipo, soloProyecto)` | `boolean` | Limpia el storage indicado. Por defecto elimina todos los datos; con `soloProyecto = true` elimina solo las claves con prefijo `app:` y conserva las ajenas al proyecto. |
 | `guardarInstancia(clave, instancia, tipo)` | `boolean` | Guarda una instancia usando su `toJSON()`. |
 | `cargarInstancia(clave, Clase, tipo)` | `any \| null` | Recupera los datos y reconstruye la instancia con `Clase.fromJSON()`. |
 
@@ -213,7 +213,8 @@ StorageUtil.eliminar(K.FILTRO_ACTIVO, "session");
 
 ```javascript
 StorageUtil.listar("app:carrito");   // ["app:carrito:items"]
-StorageUtil.limpiar("session");      // borra solo las claves "app:" de sessionStorage
+StorageUtil.limpiar("session");        // limpia todo sessionStorage
+StorageUtil.limpiar("local", true);    // borra solo las claves "app:" de localStorage
 ```
 
 **Comprobar el resultado de una operación**

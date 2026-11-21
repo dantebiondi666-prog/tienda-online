@@ -43,8 +43,8 @@ Issue asociada: [#108](https://github.com/dantebiondi666-prog/tienda-online/issu
 - [x] Sin dependencias del DOM ni de `prompt()`/`alert()`.
 - [ ] Interfaz coordinada con POO, Eventos + DOM y Tester QA.
 - [x] Rama `feature/dev-storage` propia, con al menos un commit relevante.
-- [ ] PR asociado creado hacia `develop`, usando el template de PR correspondiente.
-- [ ] Entrada agregada en `changelog.md` con link a la PR.
+- [x] PR asociado creado hacia `develop`, usando el template de PR correspondiente.
+- [x] Entrada agregada en `changelog.md` con link a la PR.
 - [ ] Issue vinculada a la tarea, cerrada tras el merge.
 
 ## 4. Uso de IA en esta tarea
@@ -53,7 +53,7 @@ Issue asociada: [#108](https://github.com/dantebiondi666-prog/tienda-online/issu
 - **Modelo utilizado:** GPT-6 Luna (seleccionado en el chat de Copilot Agent).
 - **Contexto adjuntado:** `js/models/Producto.js`, `Catalogo.js`, `ItemCarrito.js`, `Carrito.js` y `spec-dev-storage.md`.
 - **Qué se le pidió (resumen):** generar `js/utils/storage.js` con las funciones CRUD, manejo de errores y funciones auxiliares para instancias.
-- **Qué se aceptó del resultado y qué se corrigió manualmente:** se aceptó la estructura completa de `storage.js` (API, validaciones, serialización, funciones de instancias). Se corrigió manualmente el registro del error de almacenamiento lleno, el prefijo del proyecto como constante y la documentación del módulo (ver 6.3).
+- **Qué se aceptó del resultado y qué se corrigió manualmente:** se aceptó la estructura completa de `storage.js` (API, validaciones, serialización, funciones de instancias). Se corrigió manualmente el registro del error de almacenamiento lleno, el prefijo del proyecto como constante, el comportamiento de `limpiar()` y la documentación del módulo (ver 6.3).
 - **Prompt documentado en:** la sección 6 de este spec (el prompt exacto, en bloque de código).
 
 ## 5. Diseño previo (BEFORE)
@@ -289,7 +289,8 @@ La función valida la clave y el tipo de storage antes de operar, serializa el v
 
 1. **Mensaje específico para almacenamiento lleno.** El código generado registraba cualquier error con el mismo formato, por lo que un `QuotaExceededError` se confundía con un error genérico. Se agregó la función `esErrorDeCuota(error)` y se modificó `registrarError()` para que, cuando el almacenamiento está lleno, registre el mensaje "Almacenamiento lleno: no hay espacio disponible." (también contempla el nombre `NS_ERROR_DOM_QUOTA_REACHED` de Firefox).
 2. **Prefijo del proyecto como constante.** `limpiar()` comparaba contra el texto `"app:"` escrito a mano. Se definió `PREFIJO_PROYECTO` para evitar errores de tipeo y centralizar el valor.
-3. **Documentación del módulo.** Se agregó un comentario de cabecera con un ejemplo de uso y se completaron los `@example` de las funciones que no lo tenían, como exige la consigna.
+3. **`limpiar()` alineado con la consigna.** En el diseño previo (5.4 y 5.6) y en el prompt, `limpiar()` borraba solo las claves `app:`. La consigna indica que `limpiar(tipo)` limpia todo el storage, por lo que se modificó: por defecto ejecuta `storage.clear()` y se agregó el parámetro opcional `soloProyecto` (`limpiar(tipo, soloProyecto = false)`), que con `true` conserva el comportamiento selectivo y protege las claves de otros proyectos del mismo origen.
+4. **Documentación del módulo.** Se agregó un comentario de cabecera con un ejemplo de uso y se completaron los `@example` de las funciones que no lo tenían, como exige la consigna.
 
 Verificaciones realizadas:
 
@@ -301,7 +302,7 @@ Verificaciones realizadas:
 - **Estrategia:** `localStorage` para los datos que deben sobrevivir al cierre del navegador (carrito, último resumen de compra, caché del catálogo) y `sessionStorage` para el estado de navegación temporal (filtro activo, último producto consultado, resultados de búsqueda). Se mantuvo lo definido en la sección 5.1.
 - **Serialización con POO:** `storage.js` no importa las clases del dominio. Usa los métodos `toJSON()` y `fromJSON()` que implementó el Desarrollador JS POO en `Producto`, `Catalogo`, `ItemCarrito` y `Carrito`. `guardarInstancia()` llama a `toJSON()` de la instancia y `cargarInstancia()` recibe la clase como parámetro y llama a `Clase.fromJSON()`. Los schemas guardados coinciden con lo que devuelven esos métodos.
 - **Errores:** la capa no lanza excepciones; devuelve `false`, `null` o `[]` y registra con `console.error`, para que el controlador decida cómo informar al usuario.
-- **`limpiar()`:** solo elimina claves con prefijo `app:`, para no borrar datos ajenos al proyecto en el mismo origen (por ejemplo, otros proyectos en GitHub Pages).
+- **`limpiar()`:** por defecto limpia todo el storage indicado, como pide la consigna. El parámetro opcional `soloProyecto = true` elimina únicamente las claves con prefijo `app:`, para no borrar datos ajenos al proyecto en el mismo origen (por ejemplo, otros proyectos en GitHub Pages). Esto ajusta lo previsto en 5.4 y 5.6.
 - **Coordinación con Eventos + DOM:** los modelos usan `export default` y campos privados, por lo que `index.html` debe cargar `js/script.js` con `type="module"` para importar `StorageUtil` y las clases. Los nombres de claves quedan disponibles en `StorageUtil.CLAVES`.
 - **Coordinación con Tester QA:** las funciones devuelven valores de fallo en lugar de lanzar, por lo que `storage.spec.js` puede verificarlas por su retorno.
 

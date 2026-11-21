@@ -203,15 +203,23 @@ const StorageUtil = {
   },
 
   /**
-   * Elimina únicamente las claves del proyecto que comienzan con `app:`.
-   * No borra otras claves que existan en el mismo origen.
+   * Limpia el storage indicado. Por defecto elimina todos sus datos; con
+   * `soloProyecto = true` elimina únicamente las claves que comienzan con `app:`
+   * y conserva las que pertenezcan a otros proyectos del mismo origen.
    * @param {"local"|"session"} [tipo="local"] Storage que se limpiará.
-   * @returns {boolean} `true` si se eliminaron las claves; `false` si falló.
+   * @param {boolean} [soloProyecto=false] Si es `true`, solo borra las claves del proyecto.
+   * @returns {boolean} `true` si se limpió; `false` si falló.
    * @example StorageUtil.limpiar("session");
+   * @example StorageUtil.limpiar("local", true);
    */
-  limpiar(tipo = "local") {
+  limpiar(tipo = "local", soloProyecto = false) {
     try {
       const storage = obtenerStorage(tipo);
+      if (!soloProyecto) {
+        storage.clear();
+        return true;
+      }
+
       const clavesDelProyecto = [];
       for (let indice = 0; indice < storage.length; indice += 1) {
         const clave = storage.key(indice);

@@ -8,7 +8,6 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
-
 - [feature/dev-poo-logica-negocio] [AO4] Desarrollador JavaScript POO: implementar lógica de negocio orientada a objetos
   PR: [#102](https://github.com/dantebiondi666-prog/tienda-online/pull/102) - @juanmartinbritos7-cmd (Desarrollador JavaScript POO)
   Issue:
