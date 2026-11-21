@@ -14,7 +14,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue:
   [#101](https://github.com/dantebiondi666-prog/tienda-online/issues/101)
 
-
+- [feature/dev-storage] [AO4] Desarrollador JavaScript Local y Session Storage: implementar capa de abstracción de storage en js/utils/storage.js
+  PR: [#109](https://github.com/dantebiondi666-prog/tienda-online/pull/109) - @Zikoloogo (Desarrollador JavaScript Local y Session Storage)
+  Issue:
+  [#108](https://github.com/dantebiondi666-prog/tienda-online/issues/108)
 
 ## [Release Actividad Obligatoria N.º 3] - 2026-11-02
 
