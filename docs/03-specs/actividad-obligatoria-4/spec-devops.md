@@ -363,11 +363,97 @@ El Desarrollador POO corrigió el changelog en el commit `8aaf7eb`. Se verificó
 
 **Merge commit:** `df2ff50`.
 
-### Code Review 2
+### Code Review 2 — PR #109 (Desarrollador JS Storage)
 
-**PR:** *(completar)*  
-**Rol:** Desarrollador JS Storage  
-*(completar con la misma estructura)*
+**PR revisada:** #109 `[AO4] Desarrollador JS Storage: capa de abstracción en js/utils/storage.js`, rama `feature/dev-storage` hacia `develop`. Autor: @Zikoloogo. Issue #108.
+**Revisor:** Lucas Ivan Fischer (@LucasFUces), Coordinador / DevOps.
+
+**Nota sobre la evidencia:** la respuesta de Copilot de la primera ejecución no se conservó. Para documentar el review se reprodujo el mismo prompt sobre el estado de la rama previo a la corrección (`git diff 90a2116^1...6ea79a4`), ignorando el commit de corrección `17781be`. La respuesta que figura abajo es la de esa reproducción.
+
+**Prompt utilizado:**
+
+
+Actuá como revisor técnico de la PR #109:
+
+- Rama: `feature/dev-storage`
+- Destino: `develop`
+- Rol: Desarrollador JS Local y Session Storage
+- PR: #109, título exacto: "[AO4] Desarrollador JS Storage: capa de abstracción en js/utils/storage.js"
+- Issue: #108
+
+No modifiques archivos, no hagas commits y no publiques ninguna review en GitHub. Solo devolveme el informe. Podés ejecutar comandos de lectura o verificación sin modificar nada (por ejemplo, probar el módulo con Node simulando `localStorage` y `sessionStorage` en memoria).
+
+Reconstruí el cambio real con el diff contra `origin/develop` y el historial de commits , La PR ya fue mergeada. Para reconstruir el cambio real, usá el estado previo a la corrección posterior a la review: git diff 90a2116^1...6ea79a4 y git log --oneline 90a2116^1..6ea79a4. Ignorá el commit 17781be.
+
+Revisá:
+
+1. **Git y trazabilidad**
+   - `spec-dev-storage.md` debe estar commiteado antes que `js/utils/storage.js`.
+   - No debe haber cambios ajenos al rol (por ejemplo `js/script.js`, `js/models/` o `js/test/`).
+   - `changelog.md` debe registrar la PR #109 y la Issue #108. El título de la entrada tiene que ser IDÉNTICO, carácter por carácter, al título exacto de la PR indicado arriba. Compará los dos textos y marcá cualquier diferencia. Revisá también que el diff no borre ni modifique entradas de otros integrantes.
+
+2. **Descripción de la PR**
+   Compará solo con las secciones que la plantilla `feature-template.md` realmente contiene (datos del estudiante, rama de trabajo, Issue relacionada, especificación técnica y requerimientos de `plan.md`). No exijas secciones que la plantilla no tenga.
+
+3. **Spec**
+   - BEFORE: estrategia de almacenamiento (qué va a `localStorage` y qué a `sessionStorage`, con justificación), convención de claves, esquemas JSON y checklist de aceptación.
+   - AT CLOSE: prompt exacto de Copilot en bloque de código con las clases de `js/models/` y la spec como contexto, fragmento de al menos una función CRUD con los ajustes manuales para el manejo de errores, y decisiones finales sobre la coordinación con el Desarrollador JS POO para la serialización de instancias.
+
+4. **`js/utils/storage.js`**
+   - Funciones `guardar(clave, valor, tipo)`, `obtener(clave, tipo)`, `actualizar(clave, valor, tipo)`, `eliminar(clave, tipo)`, `listar(prefijo, tipo)` y `limpiar(tipo)`, con `tipo = 'local'` por defecto y los valores `'local'` y `'session'`.
+   - `try-catch` en todas las operaciones, manejo de almacenamiento lleno (cuota excedida) y de datos corruptos o mal formateados, con logs de errores informativos.
+   - Serialización y deserialización automática de JSON.
+   - Exportación válida como módulo ES6 y JSDoc en las funciones.
+   - Sin referencias a `document`, `prompt` ni `alert`.
+   - Comportamiento ante entradas inválidas (clave vacía, tipo inválido, valor no serializable) y ante la ausencia de `localStorage` o `sessionStorage`.
+   - Verificá que las funciones públicas respeten el contrato del ejemplo de la consigna (`guardar` devuelve `true` o `false`, `obtener` devuelve el valor deserializado o `null`) y que `limpiar` haga lo que dice la consigna (limpiar todo el storage del tipo indicado). Indicá si la opción `soloProyecto` cambia ese comportamiento por defecto.
+
+5. **Integración con POO**
+   Probá guardar y recuperar instancias de `Producto`, `Catalogo`, `ItemCarrito` y `Carrito` mediante `toJSON()` y `fromJSON()`, incluyendo las funciones auxiliares de instancias si existen. Verificá que el resultado recuperado sea equivalente al original.
+
+6. **Documentación**
+   `docs/06-storage/storage-doc.md` debe describir qué datos se almacenan, la estructura de claves, los esquemas JSON, la diferencia entre `localStorage` y `sessionStorage` en el proyecto y ejemplos de uso, y debe coincidir con el código.
+
+7. **Testabilidad para el Tester QA**
+   Indicá si el módulo puede probarse en Node con un `localStorage` simulado y en el navegador, y qué hay que tener en cuenta para simular el error de cuota excedida.
+
+### Formato de respuesta
+
+1. **Veredicto:** CUMPLE / CUMPLE PARCIALMENTE / NO CUMPLE.
+2. **Checklist** con ✅ / ⚠️ / ❌: Git e historial, Template PR, Spec BEFORE, Spec AT CLOSE, Funciones CRUD, Funciones auxiliares, Manejo de errores, Serialización JSON, Integración con POO, Documentación, Changelog, Testabilidad.
+3. **Hallazgos que requieren cambios:** solo problemas reales. Para cada uno: severidad (BLOQUEANTE o RECOMENDACIÓN), archivo y línea o fragmento, requisito incumplido y corrección necesaria.
+4. **Decisión sugerida:** solo `APPROVE` o `REQUEST_CHANGES`.
+
+No inventes requisitos que no estén en la consigna, la spec, `plan.md` o la plantilla.
+```
+
+**Respuesta de Copilot:**
+
+- Veredicto: CUMPLE PARCIALMENTE.
+- Checklist: Git e historial ✅, Template PR ✅, Spec BEFORE ✅, Spec AT CLOSE ✅, Funciones CRUD ✅, Funciones auxiliares ✅, Manejo de errores ✅, Serialización JSON ✅, Integración con POO ✅, Documentación ✅, Changelog ⚠️, Testabilidad ✅.
+- Hallazgo BLOQUEANTE (`changelog.md`, entrada de la PR #109): el título de la entrada era `[AO4] Desarrollador JavaScript Local y Session Storage: implementar capa de abstracción de storage en js/utils/storage.js`, y el título exacto de la PR es `[AO4] Desarrollador JS Storage: capa de abstracción en js/utils/storage.js`. Corrección: reemplazar el título por el exacto, carácter por carácter, sin modificar entradas de otros integrantes.
+- Comportamiento verificado por Copilot: `limpiar("local")` y `limpiar("session")` limpian todas las claves del tipo indicado; `limpiar(tipo, true)` conserva las claves ajenas al proyecto y elimina solo las que empiezan con `app:`; los valores circulares y `undefined` devuelven `false`; la ida y vuelta JSON es correcta para `Producto`, `Catalogo`, `ItemCarrito` y `Carrito`; el error de cuota se simula lanzando `DOMException(..., "QuotaExceededError")` desde `setItem()`.
+- Decisión sugerida: `REQUEST_CHANGES`.
+
+**Validación manual:** el hallazgo se verificó en el diff de la rama contra `develop` (`git diff 90a2116^1...6ea79a4 -- changelog.md`): la entrada de Seba tenía el título largo y distinto al de la PR. La decisión sugerida por Copilot coincidió con la revisión manual y se aceptó.
+
+**Review publicado en GitHub (Changes requested):**
+
+> El módulo js/utils/storage.js, su documentación y el spec cumplen lo pedido: las seis funciones, manejo de errores, serialización JSON y la integración con las clases de js/models/. Queda un cambio bloqueante: RC1 (changelog).
+
+**Comentario inline RC1 (`changelog.md`):**
+
+> RC1 — Título del changelog incorrecto
+>
+> La entrada debe reproducir el título exacto de la PR #109: "[AO4] Desarrollador JS Storage: capa de abstracción en js/utils/storage.js". Hoy dice "Desarrollador JavaScript Local y Session Storage: implementar capa de abstracción de storage en js/utils/storage.js". Ajustar la entrada (o el título de la PR) para que ambos queden idénticos, carácter por carácter. Mantener la rama, la línea "PR:" indentada con dos espacios, el autor con su rol y la Issue #108.
+
+**Corrección y verificación:** Seba corrigió el título de la entrada en el commit `17781be`. Se respondió en el hilo: "Corregido en 17781be: el título de la entrada coincide con el de la PR. Verificado en el diff". La verificación se hizo con `git diff origin/develop...origin/feature/dev-storage -- changelog.md`: la entrada pasó a ser idéntica al título de la PR (`[AO4] Desarrollador JS Storage: capa de abstracción en js/utils/storage.js`), con la línea `PR:` indentada y la Issue #108.
+
+**Review de aprobación publicado en GitHub (Approved):**
+
+> Verifiqué la corrección del RC1 (changelog) en 17781be: el título de la entrada es idéntico al de la PR #109. El módulo js/utils/storage.js, su documentación y el spec cumplen lo pedido
+
+**Resultado:** PR mergeada en `develop` con merge commit `90a2116`.
 
 ### Code Review 3
 
@@ -387,8 +473,8 @@ El Desarrollador POO corrigió el changelog en el commit `8aaf7eb`. Se verificó
 
 | Review | PR | Rol | Resultado inicial | CHANGES_REQUESTED | Resultado final |
 |---|---|---|---|---|---|
-| 1 | *(completar)* | POO | *(completar)* | *(completar)* | *(completar)* |
-| 2 | *(completar)* | Storage | *(completar)* | *(completar)* | *(completar)* |
+| 1 | #102 | POO | Copilot sugirió APPROVE; la verificación manual solicitó cambios | RC1: título del changelog con punto final y línea `PR:` sin indentar (corregido en `8aaf7eb`) | Aprobada y mergeada en `develop` |
+| 2 | #109 | Storage | Copilot sugirió REQUEST_CHANGES, coincidente con la verificación manual | RC1: título del changelog distinto al de la PR (corregido en `17781be`) | Aprobada y mergeada en `develop` (merge commit `90a2116`) |
 | 3 | *(completar)* | Eventos + DOM | *(completar)* | *(completar)* | *(completar)* |
 | 4 | *(completar)* | *(completar)* | *(completar)* | *(completar)* | *(completar)* |
 
