@@ -1,0 +1,74 @@
+@startuml
+skinparam classAttributeIconSize 0
+left to right direction
+
+class Producto {
+  - #nombre: string
+  - #categoria: string
+  - #tipo: string
+  - #estilo: string
+  - #talles: string[]
+  - #precio: number
+  --
+  + constructor(nombre: string, categoria: string, tipo: string, estilo: string, talles: string[], precio: number)
+  + get nombre(): string
+  + get categoria(): string
+  + get tipo(): string
+  + get estilo(): string
+  + get talles(): string[]
+  + get precio(): number
+  + verificarTalleDisponible(talle: string): boolean
+  + toJSON(): Object
+  + {static} fromJSON(datos: Object): Producto
+  - {static} #validarTexto(valor: string, etiqueta: string): string
+}
+
+class Catalogo {
+  - #productos: Producto[]
+  --
+  + constructor(productos: (Producto | Object)[] = [])
+  + get productos(): Producto[]
+  + buscarProducto(nombre: string): Producto | null
+  + filtrarProductos(campo: string, valor: string): Producto[]
+  + obtenerOpcionesFiltro(campo: string): string[]
+  + toJSON(): Object
+  + {static} fromJSON(datos: Object | Array): Catalogo
+}
+
+class ItemCarrito {
+  - #producto: Producto
+  - #talle: string
+  - #cantidad: number
+  - #precio: number
+  --
+  + constructor(producto: Producto | Object, talle: string, cantidad: number, precio: number = producto.precio)
+  + get producto(): Producto
+  + get talle(): string
+  + get cantidad(): number
+  + get precio(): number
+  + calcularSubtotal(): number
+  + toJSON(): Object
+  + {static} fromJSON(datos: Object): ItemCarrito
+}
+
+class Carrito {
+  - #items: ItemCarrito[]
+  --
+  + constructor(items: (ItemCarrito | Object)[] = [])
+  + get items(): ItemCarrito[]
+  + buscarEnCarrito(producto: Producto | string, talle: string): ItemCarrito | null
+  + agregarProducto(producto: Producto | Object, talle: string, cantidad: number): ItemCarrito
+  + modificarCantidad(producto: Producto | string, talle: string, cantidad: number): ItemCarrito
+  + eliminarProducto(producto: Producto | string, talle: string): ItemCarrito
+  + calcularTotal(): number
+  + generarResumenCompra(): Object
+  + toJSON(): Object
+  + {static} fromJSON(datos: Object | Array): Carrito
+  - #obtenerNombreProducto(producto: Producto | string): string
+}
+
+Catalogo "1" o-- "0..*" Producto : productos
+Carrito "1" o-- "0..*" ItemCarrito : items
+ItemCarrito "0..*" --> "1" Producto : producto
+
+@enduml
