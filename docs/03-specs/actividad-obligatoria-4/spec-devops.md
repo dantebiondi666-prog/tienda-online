@@ -546,11 +546,88 @@ No inventes requisitos que no estén en la consigna, la spec, plan.md o la plant
 
 **Corrección y verificación:** pendiente de la corrección de Dante (ver Code Review 4).
 
-### Code Review 4
+### Code Review 4 — PR #111 (corrección del Issue #103, Desarrollador JS POO)
 
-**PR:** *(completar)*  
-**Tipo:** Revisión de correcciones posteriores a un `CHANGES_REQUESTED`  
-*(completar con la misma estructura)*
+**PR revisada:** #111 `[Fix AO4] Eliminar función normalizarTexto sin uso en Producto.js`, rama `fix/producto-eliminar-normalizar-texto` hacia `develop`. Autor: @juanmartinbritos7-cmd. Issue #103.
+**Revisor:** Lucas Ivan Fischer (@LucasFUces), Coordinador / DevOps.
+
+**Contexto:** el Issue #103 fue reportado por el Tester QA al medir la cobertura de `js/models/`: la función `normalizarTexto` de `Producto.js` estaba definida pero no se usaba ni se exportaba (líneas 6 a 12 sin cubrir). Este review cubre la revisión inicial de la corrección y la re-revisión posterior al `CHANGES_REQUESTED`, que es la cuarta instancia planificada en la sección 12.
+
+**Prompt utilizado:**
+
+```text
+Actuá como revisor técnico de la PR #111:
+
+- Rama: `fix/producto-eliminar-normalizar-texto`
+- Destino: `develop`
+- Rol: Desarrollador JavaScript POO
+- PR: #111, título exacto: "[Fix AO4] Eliminar función normalizarTexto sin uso en Producto.js"
+- Issue: la que figure en la descripción de la PR (el cambio responde al Issue #103)
+
+No modifiques archivos, no hagas commits y no publiques ninguna review en GitHub. Solo devolveme el informe. Podés ejecutar comandos de lectura o verificación sin modificar nada.
+
+Reconstruí el cambio real con `git diff origin/develop...origin/fix/producto-eliminar-normalizar-texto` y `git log --oneline origin/develop..origin/fix/producto-eliminar-normalizar-texto`. Estás parado en otra rama: leé los archivos de la PR con `git show origin/fix/producto-eliminar-normalizar-texto:<ruta>`.
+
+Contexto: el Issue #103 reportó que `js/models/Producto.js` definía una función `normalizarTexto` que no se usaba ni se exportaba. La PR la elimina.
+
+Revisá:
+
+1. **Git y trazabilidad**
+   - La rama parte del `develop` actualizado.
+   - No debe haber cambios ajenos al objetivo.
+   - `changelog.md` debe registrar la PR y la Issue usando el título exacto de la PR (formato de las entradas existentes). Indicá si la PR modifica `changelog.md`.
+   - Indicá si el commit referencia la Issue.
+
+2. **Descripción de la PR**
+   Compará solo con las secciones que `.github/PULL_REQUEST_TEMPLATE/feature-template.md` realmente contiene. Leé esa plantilla antes de marcar algo como faltante.
+
+3. **El cambio**
+   - Verificá que la función eliminada no se use en ninguna otra parte de `js/models/Producto.js`, ni se importe desde otro archivo (`git grep`).
+   - Verificá que no se perdió ninguna regla de negocio y que `Producto.js` sigue exportando lo mismo.
+   - Verificá que `Catalogo.js` sigue funcionando (tiene su propia función `normalizarTexto`).
+
+4. **Pruebas**
+   Indicá si el cambio afecta a las suites existentes en `js/test/` y si existen pruebas que cubran `Producto`.
+
+### Formato de respuesta
+
+1. **Veredicto:** CUMPLE / CUMPLE PARCIALMENTE / NO CUMPLE.
+2. **Checklist** con ✅ / ⚠️ / ❌: Git e historial, Template PR, Alcance del cambio, Referencias rotas, Changelog, Pruebas.
+3. **Hallazgos que requieren cambios:** solo problemas reales. Para cada uno: severidad (BLOQUEANTE o RECOMENDACIÓN), archivo y línea o fragmento, requisito incumplido y corrección necesaria.
+4. **Decisión sugerida:** solo `APPROVE` o `REQUEST_CHANGES`.
+
+No inventes requisitos que no estén en la consigna, `plan.md` o la plantilla.
+```
+
+**Respuesta de Copilot:**
+
+- Veredicto: NO CUMPLE.
+- Checklist: Git e historial ✅, Template PR ✅, Alcance del cambio ✅, Referencias rotas ✅, **Changelog ❌**, Pruebas ⚠️.
+- Hallazgo BLOQUEANTE (`changelog.md`): el diff no modifica `changelog.md`; faltan el registro de la PR #111 y de la Issue #103. Corrección: agregar una entrada con el título exacto de la PR.
+- Observaciones de Copilot: el commit `11e397a` no menciona #103 en su mensaje (la descripción sí vincula la Issue con `Closes #103`); `Producto.js` conserva constructor, getters, `verificarTalleDisponible()`, `toJSON()`, `fromJSON()` y ambas exportaciones; `Catalogo.js` mantiene su propia `normalizarTexto()`.
+- Decisión sugerida: `REQUEST_CHANGES`.
+
+**Validación manual:**
+
+- Diff: la rama modifica un solo archivo, `js/models/Producto.js`, con 13 líneas eliminadas (la función y su JSDoc). Confirmado con `git diff` y `git diff --stat`.
+- Referencias: `git grep -n "normalizarTexto"` sobre la rama muestra referencias solo en `Catalogo.js` y `js/script.js`, que definen su propia función. No hay referencias rotas.
+- Prueba de integración: se hizo un merge de prueba de la rama sobre `feature/tester-qa-specs` (con `--no-commit`, luego `--abort`). Resultado: 149 specs, 0 fallos. La cobertura de `js/models/` pasó a 100 % de líneas, ramas y funciones (`Producto.js` subió de 95,33 % a 100 %).
+- Changelog: el hallazgo de Copilot coincidió con la verificación manual.
+- Descripción de la PR: se agregaron dos recomendaciones no marcadas por Copilot, porque la descripción no usa los ítems del checklist de la plantilla y los requerimientos de `plan.md` no incluyen códigos RF/RNF/CA.
+
+**Review publicado en GitHub (Changes requested):**
+
+> RC1 — Falta la entrada en changelog.md (BLOQUEANTE). El diff solo modifica js/models/Producto.js. Hay que registrar la PR en changelog.md, en [Unreleased], bajo "### Fixed", con el título exacto de la PR, la línea PR: indentada con dos espacios (enlace a la PR #111, autor y rol) y la Issue #103, igual que las demás entradas.
+>
+> Recomendaciones (no bloqueantes): completar "Requerimientos afectados" con los códigos RF/RNF/CA de plan.md y usar los ítems del checklist de feature-template.md.
+
+**Corrección y verificación:** [PENDIENTE: commit de la corrección de Juan y resultado de la verificación del diff].
+
+**Review de aprobación publicado en GitHub (Approved):**
+
+> [PENDIENTE: texto de la aprobación]
+
+**Resultado:** [PENDIENTE: merge de la PR #111 en `develop`].
 
 ---
 
