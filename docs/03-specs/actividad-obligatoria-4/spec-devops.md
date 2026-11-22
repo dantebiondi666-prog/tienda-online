@@ -344,11 +344,10 @@ Además marcó como `ChangeLog ✅` que el título de la entrada coincidía con 
 
 **Ajustes o decisiones manuales:**
 
-El informe se validó manualmente contra los archivos reales. Se detectaron dos errores del agente:
+El informe se validó manualmente contra los archivos reales. Se detectaron un error del agente (punto 1) y un error de la verificación manual (punto 2):
 
 1. **No detectó el desvío del changelog.** El informe indicó que el título de la entrada de `changelog.md` coincidía con el de la PR #102. Al revisar el diff (`git diff origin/develop...HEAD -- changelog.md`) se verificó que la entrada terminaba con un punto final que el título de la PR no tiene y que la línea `PR:` estaba sin la indentación de dos espacios que usan las demás entradas. Por ese motivo la decisión sugerida (`APPROVE`) no se aceptó.
-2. **Propuso un requisito inexistente.** El hallazgo 1 pedía una sección «Consigna» y ítems de checklist. Al leer `.github/PULL_REQUEST_TEMPLATE/feature-template.md` se comprobó que la plantilla solo incluye datos del estudiante, rama de trabajo, Issue relacionada, especificación técnica y requerimientos de `plan.md`, y que la descripción de la PR cumplía todos esos campos. El hallazgo se descartó.
-
+2. **Hallazgo sobre la plantilla descartado por una verificación manual incorrecta.** El hallazgo 1 del informe de Copilot señalaba que faltaba la sección «Consigna» en la descripción de la PR. En su momento se descartó por considerar que la plantilla `.github/PULL_REQUEST_TEMPLATE/feature-template.md` no la incluía. Una verificación posterior (historial de la plantilla y lectura en `develop`) demostró que la plantilla incluye las secciones «Consigna» y «Checklist» desde el commit `3741268` del 02/11, anterior a esta review. El hallazgo era procedente como recomendación no bloqueante: el error fue de la verificación manual, no del agente.
 El hallazgo 2 (módulos ES6) se aceptó como nota no bloqueante: es una decisión de infraestructura de testing y no un incumplimiento del Desarrollador POO. Quedó a cargo del Tester QA, que declaró `"type": "module"` en `package.json`, convirtió `js/test/node-setup.js` y cargó los specs como módulos en `test-runner.html`.
 
 **CHANGES_REQUESTED:**
@@ -569,7 +568,7 @@ No inventes requisitos que no estén en la consigna, la spec, plan.md o la plant
 ## 12. Obstáculos encontrados y resolución
 
 1. **Cantidad de PRs revisables.** La consigna pide un mínimo de cuatro code reviews, pero en un grupo de cuatro el Coordinador cuenta con tres PRs de otros roles. Se planificó la cuarta instancia como la revisión de las correcciones posteriores a un `CHANGES_REQUESTED`, que es la que registró la auditoría de AO3 como faltante.
-2. **Errores del agente de IA en el Code Review 1.** Copilot sugirió `APPROVE` sin detectar un desvío del changelog y propuso un hallazgo inexistente en la plantilla de PR. Ambos puntos se resolvieron con la verificación manual del diff y de la plantilla.
+2. **Errores en los Code Reviews.** En el Code Review 1, Copilot sugirió `APPROVE` sin detectar un desvío del changelog (error del agente, corregido con la verificación manual del diff). Además, la verificación manual descartó por error el hallazgo sobre la sección «Consigna» de la plantilla, que sí existía; se detectó y se documentó la corrección durante el Code Review 3. En el Code Review 3, Copilot afirmó que el AT CLOSE de la PR #107 declaraba solo `Producto.js` como contexto, lo cual resultó incorrecto al verificar el archivo; esa recomendación se publicó antes de verificarla y se retiró con un comentario en la PR.
 3. **Módulos ES6 y entorno de testing.** Las clases de `js/models/` usan módulos ES6, lo que obligó a declarar `"type": "module"` en `package.json`, convertir `js/test/node-setup.js` y cargar los specs con `<script type="module">`. Como los módulos no se pueden abrir con `file://`, el runner se ejecuta desde un servidor local.
 4. **Permisos del repositorio.** El repositorio y el tablero pertenecen a otro integrante, por lo que el cambio de estado de las tarjetas, la configuración de GitHub Pages y el acceso al canal de Slack se coordinaron con él.
 5. **Dependencias entre roles y plazos.** Las ramas de Storage y de Eventos + DOM no estaban disponibles a un día de la entrega. Se definió un calendario con horarios límite y un orden de prioridades (sin `prompt()` ni `alert()` y con los cuatro flujos funcionando), y se coordinó la ayuda entre roles.
