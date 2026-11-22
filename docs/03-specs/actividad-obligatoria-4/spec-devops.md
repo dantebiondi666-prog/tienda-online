@@ -621,13 +621,13 @@ No inventes requisitos que no estén en la consigna, `plan.md` o la plantilla.
 >
 > Recomendaciones (no bloqueantes): completar "Requerimientos afectados" con los códigos RF/RNF/CA de plan.md y usar los ítems del checklist de feature-template.md.
 
-**Corrección y verificación:** [PENDIENTE: commit de la corrección de Juan y resultado de la verificación del diff].
+**Corrección y verificación:** Juan Britos subió el commit `eaaeb72` (22/11, 18:51) que agrega la entrada en `changelog.md`. Verifiqué con `git diff origin/develop...origin/fix/producto-eliminar-normalizar-texto` que el changelog solo suma 8 líneas nuevas: entrada bajo `### Fixed`, título exacto de la PR, `PR:` con enlace a #111 e `Issue:` con enlace a #103 indentados con 2 espacios, sin borrar ninguna entrada existente. El diff de código sigue limitado a eliminar `normalizarTexto` de `Producto.js` (2 archivos, +8 −13). El título también se verificó con `Select-String`; el resultado inicial negativo se debió a los acentos de la terminal y se confirmó con coincidencias parciales.
 
 **Review de aprobación publicado en GitHub (Approved):**
 
-> [PENDIENTE: texto de la aprobación]
+> Verifiqué la corrección del changelog: la entrada está bajo ### Fixed, con el título de la PR, PR: #111 e Issue: #103, con la indentación de 2 espacios, y no se borró ninguna entrada existente. El diff de código solo elimina la función normalizarTexto sin uso en Producto.js. Probé el merge localmente con develop: 149 specs, 0 fallos. Aprobado.
 
-**Resultado:** [PENDIENTE: merge de la PR #111 en `develop`].
+**Resultado:** PR #111 aprobada y mergeada en `develop` con merge commit `9ba30b5` (22/11, 19:17).
 
 ---
 
@@ -637,8 +637,8 @@ No inventes requisitos que no estén en la consigna, `plan.md` o la plantilla.
 |---|---|---|---|---|---|
 | 1 | #102 | POO | Copilot sugirió APPROVE; la verificación manual solicitó cambios | RC1: título del changelog con punto final y línea `PR:` sin indentar (corregido en `8aaf7eb`) | Aprobada y mergeada en `develop` |
 | 2 | #109 | Storage | Copilot sugirió REQUEST_CHANGES, coincidente con la verificación manual | RC1: título del changelog distinto al de la PR (corregido en `17781be`) | Aprobada y mergeada en `develop` (merge commit `90a2116`) |
-| 3 | *(completar)* | Eventos + DOM | *(completar)* | *(completar)* | *(completar)* |
-| 4 | *(completar)* | *(completar)* | *(completar)* | *(completar)* | *(completar)* |
+| 3 | #107 | Eventos + DOM | Copilot sugirió REQUEST_CHANGES, coincidente con la verificación manual | RC1: falta integrar `StorageUtil`; RC2: la rama no incluye `develop` | Pendiente de la corrección de Dante |
+| 4 | #111 | POO (corrección de la Issue #103) | Cambios solicitados: falta la entrada en `changelog.md` | RC1: entrada de changelog faltante (corregido en `eaaeb72`) | Aprobada y mergeada en `develop` (merge commit `9ba30b5`) |
 
 ---
 
