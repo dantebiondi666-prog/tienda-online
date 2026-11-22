@@ -455,11 +455,97 @@ No inventes requisitos que no estén en la consigna, la spec, `plan.md` o la pla
 
 **Resultado:** PR mergeada en `develop` con merge commit `90a2116`.
 
-### Code Review 3
+### Code Review 3 — PR #107 (Desarrollador JS Eventos + DOM)
 
-**PR:** *(completar)*  
-**Rol:** Desarrollador JS Eventos + DOM  
-*(completar con la misma estructura)*
+**PR revisada:** #107 `[AO4] Desarrollador JS Eventos + DOM: implementar interfaz interactiva`, rama `feature/dev-eventos-dom` hacia `develop`. Autor: @dantebiondi666-prog. Issue #106.
+**Revisor:** Lucas Ivan Fischer (@LucasFUces), Coordinador / DevOps.
+
+**Estado revisado:** último commit de la rama al momento de la review: `d4abfa6` (21/11 02:13). La rama todavía no integraba `develop`. Copilot leyó los archivos de la PR con `git show origin/feature/dev-eventos-dom:<ruta>`, porque la revisión se hizo desde otra rama.
+
+**Prompt utilizado:**
+
+```text
+Actuá como revisor técnico de la PR #107:
+
+Rama: feature/dev-eventos-dom
+Destino: develop
+Rol: Desarrollador JS Eventos + DOM
+PR: #107, título exacto: "[AO4] Desarrollador JS Eventos + DOM: implementar interfaz interactiva"
+Issue: la que figure en la descripción de la PR
+No modifiques archivos, no hagas commits y no publiques ninguna review en GitHub. Solo devolveme el informe. Podés ejecutar comandos de lectura o verificación sin modificar nada.
+
+Reconstruí el cambio real con git diff origin/develop...origin/feature/dev-eventos-dom y git log --oneline origin/develop..origin/feature/dev-eventos-dom. Si la rama todavía no integró develop, indicalo.
+
+Estás parado en otra rama. NO leas js/script.js, index.html ni la spec del rol desde el disco: son de otra rama. Leé los archivos de la PR con git show origin/feature/dev-eventos-dom:<ruta> (por ejemplo git show origin/feature/dev-eventos-dom:js/script.js) y usá git diff origin/develop...origin/feature/dev-eventos-dom para el cambio real. Los archivos js/utils/storage.js y js/models/ sí podés leerlos del disco.
+
+Revisá:
+
+Git y trazabilidad
+
+La spec del rol debe estar commiteada antes que los cambios en js/script.js e index.html.
+No debe haber cambios ajenos al rol (por ejemplo js/models/, js/utils/storage.js o js/test/).
+changelog.md debe registrar la PR #107 y su Issue. El título de la entrada tiene que ser IDÉNTICO, carácter por carácter, al título exacto de la PR indicado arriba. Compará los dos textos y marcá cualquier diferencia. Revisá también que el diff no borre ni modifique entradas de otros integrantes.
+Descripción de la PR
+Compará solo con las secciones que la plantilla feature-template.md realmente contiene (datos del estudiante, rama de trabajo, Issue relacionada, especificación técnica y requerimientos de plan.md). No exijas secciones que la plantilla no tenga.
+
+Spec
+Compará con lo que pide la consigna de AO4 para este rol: sección BEFORE y sección AT CLOSE con el prompt exacto de Copilot en bloque de código, contexto usado, ajustes manuales y decisiones finales.
+
+js/script.js e index.html
+
+No debe quedar ningún prompt() ni alert() en el código de la aplicación.
+Los eventos deben registrarse con addEventListener y la manipulación del DOM debe usar createElement, textContent o equivalentes, sin innerHTML con datos del usuario.
+La interfaz debe usar las clases de js/models/ (Catalogo, Carrito, etc.) y cubrir los cuatro flujos: consultar y filtrar catálogo, consultar producto y talle, gestionar carrito (agregar, modificar, eliminar) y resumen de compra.
+Revisá que index.html cargue js/script.js como módulo (type="module") y que no haya referencias rotas.
+Accesibilidad básica: cada campo de formulario con su label asociado (for/id).
+Integración con Storage
+
+Debe importar StorageUtil de js/utils/storage.js y usar StorageUtil.CLAVES.
+El carrito debe guardarse con guardarInstancia después de cada alta, modificación y baja, y recuperarse al iniciar con cargarInstancia, con carrito vacío si devuelve null.
+El filtro activo debe guardarse en sessionStorage con CLAVES.FILTRO_ACTIVO.
+Verificá que al recargar la página el estado se restaure.
+Testabilidad
+Indicá qué hay que adaptar en js/test/node-setup.js, script.spec.js e integracion.spec.js para probar el controlador, ahora que js/script.js es un módulo con DOM.
+
+Formato de respuesta
+Veredicto: CUMPLE / CUMPLE PARCIALMENTE / NO CUMPLE.
+Checklist con ✅ / ⚠️ / ❌: Git e historial, Template PR, Spec BEFORE, Spec AT CLOSE, Eventos, DOM, Integración con POO, Integración con Storage, Sin prompt/alert, Accesibilidad, Changelog, Testabilidad.
+Hallazgos que requieren cambios: solo problemas reales. Para cada uno: severidad (BLOQUEANTE o RECOMENDACIÓN), archivo y línea o fragmento, requisito incumplido y corrección necesaria.
+Decisión sugerida: solo APPROVE o REQUEST_CHANGES.
+No inventes requisitos que no estén en la consigna, la spec, plan.md o la plantilla.
+
+**Respuesta de Copilot:**
+
+- Veredicto: CUMPLE PARCIALMENTE.
+- Checklist: Git e historial ⚠️ (la rama no integra `develop`), Template PR ⚠️ (faltan los requerimientos de `plan.md`), Spec BEFORE ✅, Spec AT CLOSE ⚠️, Eventos ✅, DOM ✅, Integración con POO ✅, Integración con Storage ❌, Sin prompt/alert ✅, Accesibilidad ⚠️, Changelog ✅, Testabilidad ⚠️.
+- Hallazgo BLOQUEANTE (`js/script.js`): no importa `StorageUtil`, no usa `CLAVES`, no persiste el carrito ni el filtro activo y no restaura el estado al iniciar. Corrección: importar `StorageUtil`, restaurar con `cargarInstancia(CLAVES.CARRITO_ITEMS, Carrito)` (carrito vacío si devuelve `null`), llamar a `guardarInstancia` después de agregar, modificar y eliminar, y guardar el filtro activo en `sessionStorage` con `CLAVES.FILTRO_ACTIVO`.
+- Recomendaciones: asociar el campo de cantidad del carrito con su `label` mediante `for`/`id`; completar en la descripción de la PR los requerimientos de `plan.md`; adaptar `node-setup.js`, `script.spec.js` e `integracion.spec.js` al controlador con DOM. Copilot también recomendó documentar en el AT CLOSE todas las clases adjuntadas al prompt (afirmó que solo se declaraba `Producto.js`); esa afirmación resultó incorrecta (ver validación manual).
+- Decisión sugerida: `REQUEST_CHANGES`.
+
+**Validación manual:**
+
+- Storage: confirmado con `Select-String` sobre el `js/script.js` de la rama: no contiene `StorageUtil`, `prompt()` ni `alert()`.
+- Título del changelog: confirmado idéntico al de la PR con `Select-String -SimpleMatch` sobre el `changelog.md` de la rama. El hallazgo de Copilot de que el changelog cumple fue correcto.
+- Descripción de la PR: confirmado que no contiene la sección `Consigna` ni los requerimientos de `plan.md`, ambos incluidos en `feature-template.md`.
+- Integración con `develop`: GitHub informó conflicto en `changelog.md` por las entradas de Storage (PR #109).
+- Accesibilidad: el defecto del campo de cantidad ya estaba reportado como Issue #110.
+- AT CLOSE: Copilot afirmó que solo declaraba `Producto.js` como contexto. Se verificó con `git show` y `Select-String` sobre `spec-dev-eventos-dom.md` que el spec lista los cuatro archivos de `js/models/` como contexto. El hallazgo era incorrecto (error del agente). La recomendación se había incluido en el review publicado sin verificarla, y se retiró con un comentario en la PR.
+
+**Review publicado en GitHub (Changes requested):**
+
+> RC1 — Falta la integración con Storage (BLOQUEANTE). js/script.js no importa StorageUtil ni persiste el carrito ni el filtro activo. Hay que: importar StorageUtil desde js/utils/storage.js; recuperar el carrito al iniciar con StorageUtil.cargarInstancia(StorageUtil.CLAVES.CARRITO_ITEMS, Carrito), usando un carrito vacío si devuelve null; llamar a StorageUtil.guardarInstancia después de cada alta, modificación y baja del carrito; guardar el filtro activo en sessionStorage con CLAVES.FILTRO_ACTIVO; verificar con F5 que el carrito se conserva.
+>
+> RC2 — La rama no integró develop (BLOQUEANTE). Hay que hacer git merge develop y resolver el conflicto de changelog.md conservando todas las entradas (Juan, Seba y la propia), sin dejar marcas de conflicto.
+>
+> Recomendaciones (no bloqueantes): asociar el campo de cantidad del carrito con su label mediante for/id (Issue #110); documentar en el AT CLOSE el contexto completo adjuntado al prompt de Copilot (Catalogo, ItemCarrito y Carrito, además de Producto).
+
+**Comentarios adicionales publicados en la PR:**
+
+> Recomendaciones no bloqueantes sobre la descripción de la PR, según feature-template.md: agregar los requerimientos de plan.md afectados (RF, RNF y CA) en la sección de especificación técnica; completar la sección "Consigna" (Actividad Obligatoria N.º 4).
+>
+> Aclaración: retiro la recomendación sobre el contexto del AT CLOSE. Verifiqué en spec-dev-eventos-dom.md que sí lista Producto, Catalogo, ItemCarrito y Carrito como archivos de contexto. No hay nada que cambiar en ese punto. Los demás hallazgos de la review siguen vigentes.
+
+**Corrección y verificación:** pendiente de la corrección de Dante (ver Code Review 4).
 
 ### Code Review 4
 
