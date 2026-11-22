@@ -1,17 +1,4 @@
 /**
- * Normaliza texto para comparaciones sin distinguir mayúsculas ni tildes.
- * @param {string} texto
- * @returns {string}
- */
-function normalizarTexto(texto) {
-  return texto
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-}
-
-/**
  * Representa un producto disponible en el catálogo.
  */
 export default class Producto {
