@@ -544,7 +544,13 @@ No inventes requisitos que no estén en la consigna, la spec, plan.md o la plant
 >
 > Aclaración: retiro la recomendación sobre el contexto del AT CLOSE. Verifiqué en spec-dev-eventos-dom.md que sí lista Producto, Catalogo, ItemCarrito y Carrito como archivos de contexto. No hay nada que cambiar en ese punto. Los demás hallazgos de la review siguen vigentes.
 
-**Corrección y verificación:** pendiente de la corrección de Dante (ver Code Review 4).
+**Corrección y verificación:** Dante Biondi subió dos commits a la rama: `301b0a5` (22/11, 21:02, merge de `develop`) y `ccb1286` (22/11, 21:20, integración de Storage). Verifiqué con `git grep` sobre `origin/feature/dev-eventos-dom` que `js/script.js` importa `StorageUtil`, restaura el carrito con `cargarInstancia` al iniciar, llama a `guardarInstancia` en tres puntos (agregar, modificar y eliminar), usa `CLAVES.FILTRO_ACTIVO` para el filtro activo y no contiene `prompt(` ni `alert(`. No quedan marcadores de conflicto y el diff contra `develop` solo toca cuatro archivos (`changelog.md`, la spec, `index.html` y `js/script.js`). Prueba local: mergeé la rama en una rama de pruebas y corrí la suite del controlador (107 specs, 0 fallos). Prueba manual en el navegador: agregar, modificar y eliminar productos y aplicar un filtro, con recarga (F5) después de cada paso; todo se mantuvo.
+
+**Review de aprobación publicado en GitHub (Approved):**
+
+> Verifiqué las correcciones de RC1 y RC2. RC1: js/script.js importa StorageUtil, restaura el carrito con cargarInstancia al iniciar, lo guarda con guardarInstancia al agregar, modificar y eliminar, y persiste el filtro activo con CLAVES.FILTRO_ACTIVO; no quedan prompt() ni alert(). RC2: la rama incluye develop (commit 301b0a5) y no quedan marcadores de conflicto en changelog.md. Pruebas: mergeé la rama en una copia local y corrí la suite (107 specs, 0 fallos); además probé manualmente en el navegador agregar, modificar y eliminar productos y aplicar un filtro, y todo se mantiene tras recargar con F5. Aprobado.
+
+**Resultado:** PR #107 aprobada y mergeada en `develop` con merge commit `f7dfbaf` (22/11, 21:29).
 
 ### Code Review 4 — PR #111 (corrección del Issue #103, Desarrollador JS POO)
 
@@ -637,7 +643,7 @@ No inventes requisitos que no estén en la consigna, `plan.md` o la plantilla.
 |---|---|---|---|---|---|
 | 1 | #102 | POO | Copilot sugirió APPROVE; la verificación manual solicitó cambios | RC1: título del changelog con punto final y línea `PR:` sin indentar (corregido en `8aaf7eb`) | Aprobada y mergeada en `develop` |
 | 2 | #109 | Storage | Copilot sugirió REQUEST_CHANGES, coincidente con la verificación manual | RC1: título del changelog distinto al de la PR (corregido en `17781be`) | Aprobada y mergeada en `develop` (merge commit `90a2116`) |
-| 3 | #107 | Eventos + DOM | Copilot sugirió REQUEST_CHANGES, coincidente con la verificación manual | RC1: falta integrar `StorageUtil`; RC2: la rama no incluye `develop` | Pendiente de la corrección de Dante |
+| 3 | #107 | Eventos + DOM | Copilot sugirió REQUEST_CHANGES, coincidente con la verificación manual | RC1: falta integrar `StorageUtil`; RC2: la rama no incluye `develop` | Aprobada y mergeada en `develop` (merge commit `f7dfbaf`) |
 | 4 | #111 | POO (corrección de la Issue #103) | Cambios solicitados: falta la entrada en `changelog.md` | RC1: entrada de changelog faltante (corregido en `eaaeb72`) | Aprobada y mergeada en `develop` (merge commit `9ba30b5`) |
 
 ---
