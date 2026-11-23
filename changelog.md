@@ -13,6 +13,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue:
   [#101](https://github.com/dantebiondi666-prog/tienda-online/issues/101)
 
+
+- [feature/tester-qa-specs] [AO4] Tester QA: testing de las clases del dominio y documentación de testing
+  PR: [#105](https://github.com/dantebiondi666-prog/tienda-online/pull/105) - @LucasFUces (Tester QA)
+  Issue:
+  [#100](https://github.com/dantebiondi666-prog/tienda-online/issues/100)
+
+
 - [feature/dev-eventos-dom] [AO4] Desarrollador JS Eventos + DOM: implementar interfaz interactiva
   PR: [#107](https://github.com/dantebiondi666-prog/tienda-online/pull/107) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
   Issues:
