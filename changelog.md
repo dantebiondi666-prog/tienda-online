@@ -20,10 +20,24 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   [#100](https://github.com/dantebiondi666-prog/tienda-online/issues/100)
 
 
+- [feature/dev-eventos-dom] [AO4] Desarrollador JS Eventos + DOM: implementar interfaz interactiva
+  PR: [#107](https://github.com/dantebiondi666-prog/tienda-online/pull/107) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
+  Issues:
+  [#106](https://github.com/dantebiondi666-prog/tienda-online/issues/106)
+  [#94](https://github.com/dantebiondi666-prog/tienda-online/issues/94)
+  [#95](https://github.com/dantebiondi666-prog/tienda-online/issues/95)
 - [feature/dev-storage] [AO4] Desarrollador JS Storage: capa de abstracción en js/utils/storage.js
   PR: [#109](https://github.com/dantebiondi666-prog/tienda-online/pull/109) - @Zikoloogo (Desarrollador JavaScript Local y Session Storage)
   Issue:
   [#108](https://github.com/dantebiondi666-prog/tienda-online/issues/108)
+
+### Fixed
+
+- [fix/producto-eliminar-normalizar-texto] [Fix AO4] Eliminar función normalizarTexto sin uso en Producto.js
+  PR: [#111](https://github.com/dantebiondi666-prog/tienda-online/pull/111) - [**@juanmartinbritos7-cmd**](https://github.com/juanmartinbritos7-cmd) (Desarrollador JavaScript POO)
+  Issue:
+  [#103](https://github.com/dantebiondi666-prog/tienda-online/issues/103)
+
 
 ## [Release Actividad Obligatoria N.º 3] - 2026-11-02
 
