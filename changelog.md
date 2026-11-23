@@ -13,6 +13,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   Issue:
   [#101](https://github.com/dantebiondi666-prog/tienda-online/issues/101)
 
+- [feature/dev-eventos-dom] [AO4] Desarrollador JS Eventos + DOM: implementar interfaz interactiva
+  PR: [#107](https://github.com/dantebiondi666-prog/tienda-online/pull/107) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
+  Issues:
+  [#106](https://github.com/dantebiondi666-prog/tienda-online/issues/106)
+  [#94](https://github.com/dantebiondi666-prog/tienda-online/issues/94)
+  [#95](https://github.com/dantebiondi666-prog/tienda-online/issues/95)
 - [feature/dev-storage] [AO4] Desarrollador JS Storage: capa de abstracción en js/utils/storage.js
   PR: [#109](https://github.com/dantebiondi666-prog/tienda-online/pull/109) - @Zikoloogo (Desarrollador JavaScript Local y Session Storage)
   Issue:
