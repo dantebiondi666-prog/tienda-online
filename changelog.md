@@ -8,13 +8,28 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Added
 
-
 - [feature/dev-poo-logica-negocio] [AO4] Desarrollador JavaScript POO: implementar lógica de negocio orientada a objetos
   PR: [#102](https://github.com/dantebiondi666-prog/tienda-online/pull/102) - @juanmartinbritos7-cmd (Desarrollador JavaScript POO)
   Issue:
   [#101](https://github.com/dantebiondi666-prog/tienda-online/issues/101)
 
 
+- [feature/tester-qa-specs] [AO4] Tester QA: testing de las clases del dominio y documentación de testing
+  PR: [#105](https://github.com/dantebiondi666-prog/tienda-online/pull/105) - @LucasFUces (Tester QA)
+  Issue:
+  [#100](https://github.com/dantebiondi666-prog/tienda-online/issues/100)
+
+
+- [feature/dev-eventos-dom] [AO4] Desarrollador JS Eventos + DOM: implementar interfaz interactiva
+  PR: [#107](https://github.com/dantebiondi666-prog/tienda-online/pull/107) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
+  Issues:
+  [#106](https://github.com/dantebiondi666-prog/tienda-online/issues/106)
+  [#94](https://github.com/dantebiondi666-prog/tienda-online/issues/94)
+  [#95](https://github.com/dantebiondi666-prog/tienda-online/issues/95)
+- [feature/dev-storage] [AO4] Desarrollador JS Storage: capa de abstracción en js/utils/storage.js
+  PR: [#109](https://github.com/dantebiondi666-prog/tienda-online/pull/109) - @Zikoloogo (Desarrollador JavaScript Local y Session Storage)
+  Issue:
+  [#108](https://github.com/dantebiondi666-prog/tienda-online/issues/108)
 - [feature/coord-devops-cuarta-entrega] [AO4] Coordinador / DevOps: coordinación y documentación de la cuarta entrega
   PR: [#104](https://github.com/dantebiondi666-prog/tienda-online/pull/104) - @LucasFUces (Coordinador / DevOps)
   Issue:
@@ -22,6 +37,10 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
+- [fix/producto-eliminar-normalizar-texto] [Fix AO4] Eliminar función normalizarTexto sin uso en Producto.js
+  PR: [#111](https://github.com/dantebiondi666-prog/tienda-online/pull/111) - [**@juanmartinbritos7-cmd**](https://github.com/juanmartinbritos7-cmd) (Desarrollador JavaScript POO)
+  Issue:
+  [#103](https://github.com/dantebiondi666-prog/tienda-online/issues/103)
 - [backport/release-tercera-entrega] [Backport] Backport de release/tercera-entrega hacia develop
   PR: [#98](https://github.com/dantebiondi666-prog/tienda-online/pull/98) - @LucasFUces (Coordinador / DevOps)
 
