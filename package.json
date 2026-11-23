@@ -1,22 +1,22 @@
 {
   "name": "tienda-online",
   "version": "1.0.0",
-    "type": "module",
+  "type": "module",
   "description": "Proyecto de e-commerce de ropa (repositorio `tienda-online`), desarrollado como parte de las actividades de Programación Web I.",
   "main": "index.js",
   "directories": {
     "doc": "docs"
   },
   "scripts": {
-      "test": "jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js js/test/models.spec.js js/test/storage.spec.js",
-    "cobertura": "c8 --all --include=js/script.js --include=\"js/models/*.js\" --include=\"js/utils/*.js\" --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/integracion.spec.js js/test/models.spec.js js/test/storage.spec.js"
-},
-
+    "test": "jasmine --helper=js/test/node-setup.js js/test/controlador.spec.js js/test/models.spec.js js/test/storage.spec.js",
+    "cobertura": "c8 --all --include=js/script.js --include=\"js/models/*.js\" --include=\"js/utils/*.js\" --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/controlador.spec.js js/test/models.spec.js js/test/storage.spec.js"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "c8": "^10.1.3",
-    "jasmine": "^7.0.0"
+    "jasmine": "^7.0.0",
+    "jsdom": "^26.1.0"
   }
 }
