@@ -1,3 +1,4 @@
+import StorageUtil from "./utils/storage.js";
 import Catalogo from "./models/Catalogo.js";
 import Carrito from "./models/Carrito.js";
 
@@ -39,7 +40,11 @@ document.addEventListener("DOMContentLoaded", iniciarAplicacion);
 
 function iniciarAplicacion() {
   const catalogo = new Catalogo(datosProductos);
-  const carrito = new Carrito();
+  const carrito =
+  StorageUtil.cargarInstancia(
+    StorageUtil.CLAVES.CARRITO_ITEMS,
+    Carrito
+  ) ?? new Carrito();
   const productGrid = document.getElementById("product-grid");
   const searchForm = document.getElementById("busqueda-form");
   const searchInput = document.getElementById("busqueda");
@@ -73,6 +78,7 @@ function iniciarAplicacion() {
   };
 
   inicializarOpcionesDeFiltros();
+  restaurarFiltroActivo();
   actualizarCatalogo();
   renderizarCarrito();
 
@@ -82,10 +88,18 @@ function iniciarAplicacion() {
   });
   searchInput.addEventListener("input", actualizarCatalogo);
 
-  filtersForm.addEventListener("change", actualizarCatalogo);
+  filtersForm.addEventListener("change", () => {
+  guardarFiltroActivo();
+  actualizarCatalogo();
+});
   filtersForm.addEventListener("reset", () => {
-    window.setTimeout(actualizarCatalogo, 0);
-  });
+  StorageUtil.eliminar(
+    StorageUtil.CLAVES.FILTRO_ACTIVO,
+    "session"
+  );
+
+  window.setTimeout(actualizarCatalogo, 0);
+});
 
   modal.addEventListener("show.bs.modal", prepararModal);
   modal.addEventListener("shown.bs.modal", () => {
@@ -112,6 +126,51 @@ function iniciarAplicacion() {
   cartItems.addEventListener("input", validarCantidadEnCarrito);
   cartItems.addEventListener("submit", modificarCantidadEnCarrito);
   cartItems.addEventListener("click", eliminarProductoDelCarrito);
+
+function guardarFiltroActivo() {
+  const filtroSeleccionado = filtersForm.querySelector(
+    'input[type="checkbox"]:checked'
+  );
+
+  if (!filtroSeleccionado) {
+    StorageUtil.eliminar(
+      StorageUtil.CLAVES.FILTRO_ACTIVO,
+      "session"
+    );
+    return;
+  }
+
+  StorageUtil.guardar(
+    StorageUtil.CLAVES.FILTRO_ACTIVO,
+    {
+      campo: filtroSeleccionado.name,
+      valor: filtroSeleccionado.value,
+    },
+    "session"
+  );
+}
+
+function restaurarFiltroActivo() {
+  const filtro = StorageUtil.obtener(
+    StorageUtil.CLAVES.FILTRO_ACTIVO,
+    "session"
+  );
+
+  if (!filtro?.campo || !filtro?.valor) {
+    return;
+  }
+
+  const control = [...filtersForm.querySelectorAll('input[type="checkbox"]')]
+    .find(
+      (input) =>
+        input.name === filtro.campo &&
+        input.value === filtro.valor
+    );
+
+  if (control) {
+    control.checked = true;
+  }
+}
 
   function inicializarOpcionesDeFiltros() {
     for (const campo of camposDeFiltro) {
@@ -356,6 +415,10 @@ function iniciarAplicacion() {
         modalSize.value,
         Number(modalQuantity.value)
       );
+      StorageUtil.guardarInstancia(
+  StorageUtil.CLAVES.CARRITO_ITEMS,
+  carrito
+);
       renderizarCarrito();
       mostrarMensaje(
         document.getElementById("modal-producto-feedback"),
@@ -415,6 +478,8 @@ function iniciarAplicacion() {
       form.dataset.cartForm = "";
       quantityLabel.className = "visually-hidden";
       quantityLabel.textContent = `Cantidad de ${producto}, talle ${item.talle}`;
+      quantity.id = `cantidad-carrito-${index}`;
+      quantityLabel.htmlFor = quantity.id;
       quantity.className = "form-control form-control-sm";
       quantity.type = "number";
       quantity.name = "cantidad";
@@ -490,6 +555,10 @@ function iniciarAplicacion() {
     const item = form.closest("li");
     try {
       carrito.modificarCantidad(item.dataset.producto, item.dataset.talle, cantidad);
+      StorageUtil.guardarInstancia(
+  StorageUtil.CLAVES.CARRITO_ITEMS,
+  carrito
+);
       renderizarCarrito();
       mostrarMensaje(cartFeedback, "La cantidad se actualizó correctamente.", "success");
     } catch (error) {
@@ -506,6 +575,10 @@ function iniciarAplicacion() {
     const item = button.closest("li");
     try {
       carrito.eliminarProducto(item.dataset.producto, item.dataset.talle);
+      StorageUtil.guardarInstancia(
+  StorageUtil.CLAVES.CARRITO_ITEMS,
+  carrito
+);
       renderizarCarrito();
       mostrarMensaje(cartFeedback, "El producto se eliminó del carrito.", "success");
     } catch (error) {
