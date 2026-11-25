@@ -51,6 +51,9 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
+- [fix/rc45-49-ao4] test(AO4): resolver RC45-RC49 y completar cobertura solicitada
+  PR: [#130](https://github.com/dantebiondi666-prog/tienda-online/pull/130) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
+
 - [fix/rc33-rc44-ao4] [AO4] Correcciones de seguimiento RC33 y RC35–RC44
   PR: [#129](https://github.com/dantebiondi666-prog/tienda-online/pull/129) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
 

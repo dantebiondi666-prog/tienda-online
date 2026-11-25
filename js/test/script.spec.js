@@ -624,6 +624,152 @@ describe("Ramas defensivas del controlador", function () {
   });
 });
 
+describe("Cobertura pendiente del modal y del carrito", function () {
+  it("cancela la apertura del modal cuando el producto no existe", function () {
+    const modal = document.getElementById("modalProducto");
+    const formulario = document.getElementById("modal-producto-form");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    const talle = document.getElementById("modalProductoTalle");
+    const feedback = document.getElementById("catalogo-feedback");
+    const contenidoAnterior = modal.innerHTML;
+    const cantidadAnterior = cantidad.value;
+    const talleAnterior = talle.value;
+    const reset = spyOn(formulario, "reset").and.callThrough();
+    const boton = document.createElement("button");
+    boton.dataset.producto = "Producto inexistente";
+
+    const evento = new window.Event("show.bs.modal", {
+      bubbles: true,
+      cancelable: true,
+    });
+    Object.defineProperty(evento, "relatedTarget", { value: boton });
+
+    expect(modal.dispatchEvent(evento)).toBeFalse();
+
+    expect(evento.defaultPrevented).toBeTrue();
+    expect(feedback.textContent).toBe(
+      "No se pudo encontrar el producto seleccionado."
+    );
+    expect(feedback.classList.contains("text-danger")).toBeTrue();
+    expect(reset).not.toHaveBeenCalled();
+    expect(modal.innerHTML).toBe(contenidoAnterior);
+    expect(cantidad.value).toBe(cantidadAnterior);
+    expect(talle.value).toBe(talleAnterior);
+    expect(modal.querySelector('[type="submit"]').disabled).toBeTrue();
+    expect(modal.classList.contains("show")).toBeFalse();
+    expect(modal.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("limpia la validación al restablecer el modal con cantidad inválida", async function () {
+    abrirProducto("Remera");
+    seleccionarTalle("M");
+
+    const formulario = document.getElementById("modal-producto-form");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    const talle = document.getElementById("modalProductoTalle");
+    const feedback = document.getElementById("modal-cantidad-feedback");
+    const boton = document.querySelector('#modalProducto [type="submit"]');
+
+    talle.querySelector('option[value="M"]').defaultSelected = true;
+    cantidad.defaultValue = "0";
+    cantidad.value = "0";
+    disparar(cantidad, "input");
+
+    expect(cantidad.classList.contains("is-invalid")).toBeTrue();
+    expect(cantidad.getAttribute("aria-invalid")).toBe("true");
+    expect(feedback.textContent).toBe(
+      "Ingresá una cantidad entera mayor que cero."
+    );
+
+    formulario.reset();
+    await new Promise((resolve) => window.setTimeout(resolve, 0));
+
+    expect(talle.value).toBe("M");
+    expect(cantidad.value).toBe("0");
+    expect(cantidad.classList.contains("is-invalid")).toBeFalse();
+    expect(cantidad.classList.contains("is-valid")).toBeFalse();
+    expect(cantidad.hasAttribute("aria-invalid")).toBeFalse();
+    expect(feedback.textContent).toBe("");
+    expect(feedback.classList.contains("text-danger")).toBeFalse();
+    expect(feedback.classList.contains("text-success")).toBeFalse();
+    expect(boton.disabled).toBeTrue();
+  });
+
+  it("rechaza el submit inválido del modal y conserva el carrito", function () {
+    agregarProducto("Remera", "M", "2");
+
+    const formulario = document.getElementById("modal-producto-form");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    const items = document.getElementById("carrito-items");
+    const total = document.getElementById("carrito-total");
+    const feedback = document.getElementById("carrito-feedback");
+    const contenidoAnterior = items.innerHTML;
+    const totalAnterior = total.textContent;
+    const feedbackAnterior = feedback.textContent;
+    const guardadoAnterior = localStorage.getItem("app:carrito:items");
+    const agregar = spyOn(Carrito.prototype, "agregarProducto").and.callThrough();
+    const guardar = spyOn(window.Storage.prototype, "setItem").and.callThrough();
+
+    cantidad.value = "0";
+    const evento = new window.Event("submit", {
+      bubbles: true,
+      cancelable: true,
+    });
+    formulario.dispatchEvent(evento);
+
+    expect(evento.defaultPrevented).toBeTrue();
+    expect(agregar).not.toHaveBeenCalled();
+    expect(guardar).not.toHaveBeenCalled();
+    expect(items.innerHTML).toBe(contenidoAnterior);
+    expect(total.textContent).toBe(totalAnterior);
+    expect(feedback.textContent).toBe(feedbackAnterior);
+    expect(localStorage.getItem("app:carrito:items")).toBe(guardadoAnterior);
+    expect(cantidad.classList.contains("is-invalid")).toBeTrue();
+    expect(document.getElementById("modal-cantidad-feedback").textContent).toBe(
+      "Ingresá una cantidad entera mayor que cero."
+    );
+    expect(document.querySelector('#modalProducto [type="submit"]').disabled)
+      .toBeTrue();
+  });
+
+  it("ignora un input del carrito que no es un campo de cantidad", function () {
+    agregarProducto("Remera", "M", "2");
+
+    const linea = lineaCarrito("Remera", "M");
+    const cantidad = linea.querySelector("[data-cart-quantity]");
+    const boton = linea.querySelector('[type="submit"]');
+    const inputAjeno = document.createElement("input");
+    inputAjeno.type = "number";
+    inputAjeno.value = "0";
+    linea.querySelector("form").append(inputAjeno);
+
+    const contenidoAnterior = linea.innerHTML;
+    const feedback = document.getElementById("carrito-feedback");
+    const feedbackAnterior = feedback.outerHTML;
+    const totalAnterior = document.getElementById("carrito-total").textContent;
+    const guardadoAnterior = localStorage.getItem("app:carrito:items");
+    const modificar = spyOn(Carrito.prototype, "modificarCantidad").and.callThrough();
+    const guardar = spyOn(window.Storage.prototype, "setItem").and.callThrough();
+    const evento = new window.Event("input", {
+      bubbles: true,
+      cancelable: true,
+    });
+
+    inputAjeno.dispatchEvent(evento);
+
+    expect(evento.defaultPrevented).toBeFalse();
+    expect(modificar).not.toHaveBeenCalled();
+    expect(guardar).not.toHaveBeenCalled();
+    expect(lineaCarrito("Remera", "M")).toBe(linea);
+    expect(linea.innerHTML).toBe(contenidoAnterior);
+    expect(cantidad.value).toBe("2");
+    expect(feedback.outerHTML).toBe(feedbackAnterior);
+    expect(boton.disabled).toBeFalse();
+    expect(document.getElementById("carrito-total").textContent).toBe(totalAnterior);
+    expect(localStorage.getItem("app:carrito:items")).toBe(guardadoAnterior);
+  });
+});
+
 
 describe("Flujo 4 - Resumen de compra", function () {
   it("muestra ítems, subtotales y total del resumen", function () {
