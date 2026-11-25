@@ -554,6 +554,77 @@ describe("Flujo 3 - Gestionar carrito", function () {
   });
 });
 
+describe("Ramas defensivas del controlador", function () {
+  it("ignora un submit que no corresponde al formulario del carrito", function () {
+    agregarProducto("Remera", "M", "2");
+    const linea = lineaCarrito("Remera", "M");
+    const formularioAjeno = document.createElement("form");
+    linea.append(formularioAjeno);
+    const modificarCantidad = spyOn(Carrito.prototype, "modificarCantidad");
+    const evento = new window.Event("submit", {
+      bubbles: true,
+      cancelable: true,
+    });
+
+    formularioAjeno.dispatchEvent(evento);
+
+    expect(evento.defaultPrevented).toBeFalse();
+    expect(modificarCantidad).not.toHaveBeenCalled();
+    expect(linea.querySelector("[data-cart-quantity]").value).toBe("2");
+  });
+
+  it("conserva el producto al hacer clic fuera del botón Eliminar", function () {
+    agregarProducto("Remera", "M");
+    const linea = lineaCarrito("Remera", "M");
+    const eliminarProducto = spyOn(Carrito.prototype, "eliminarProducto");
+
+    linea.querySelector("strong").click();
+
+    expect(eliminarProducto).not.toHaveBeenCalled();
+    expect(lineaCarrito("Remera", "M")).toBe(linea);
+  });
+
+  it("mantiene el foco y deja pasar una tecla distinta de Tab", function () {
+    abrirProducto("Remera");
+    const modal = document.getElementById("modalProducto");
+    const botonCerrar = modal.querySelector(
+      '.modal-footer button[data-bs-dismiss="modal"]'
+    );
+    botonCerrar.focus();
+    const evento = new window.KeyboardEvent("keydown", {
+      key: "ArrowRight",
+      bubbles: true,
+      cancelable: true,
+    });
+
+    botonCerrar.dispatchEvent(evento);
+
+    expect(evento.defaultPrevented).toBeFalse();
+    expect(document.activeElement).toBe(botonCerrar);
+  });
+
+  it("propaga sin modificar un valor lanzado que no es Error", function () {
+    agregarProducto("Remera", "M");
+    const valorLanzado = "Fallo inesperado";
+    spyOn(Carrito.prototype, "eliminarProducto").and.callFake(function () {
+      throw valorLanzado;
+    });
+
+    const errores = [];
+    window.addEventListener("error", function (evento) {
+      errores.push(evento.error);
+      evento.preventDefault();
+    }, { once: true });
+
+    lineaCarrito("Remera", "M")
+      .querySelector('[data-cart-action="remove"]')
+      .click();
+
+    expect(errores).toEqual([valorLanzado]);
+  });
+});
+
+
 describe("Flujo 4 - Resumen de compra", function () {
   it("muestra ítems, subtotales y total del resumen", function () {
     agregarProducto("Remera", "M", "2");

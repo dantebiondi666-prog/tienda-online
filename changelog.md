@@ -6,7 +6,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
-## [Release Actividad Obligatoria N.º 4] - 2026-11-22
+## [Release Actividad Obligatoria N°4] - 2026-11-22
 
 ### Added
 
@@ -51,7 +51,26 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
-- [fix/rc1-15-testing-ao4] [Fix RC1-RC15] Completar las pruebas del controlador y de Storage, y actualizar el informe de testing de AO4 con la cobertura y las capturas de Jasmine. Se verificaron 137 pruebas en Node y 106 en el navegador, ambas ejecuciones con 0 fallos.
+- [fix/rc33-rc44-ao4] [AO4] Correcciones de seguimiento RC33 y RC35–RC44
+  PR: [#129](https://github.com/dantebiondi666-prog/tienda-online/pull/129) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
+
+- [fix/rc16-rc19-logica-dominio] fix(AO4): resolver RC16-RC23 y documentar RC28-RC31
+  PR: [#127](https://github.com/dantebiondi666-prog/tienda-online/pull/127) - @juanmartinbritos7-cmd (Desarrollador JavaScript POO)
+  Issues:
+  [#113](https://github.com/dantebiondi666-prog/tienda-online/issues/113),
+  [#114](https://github.com/dantebiondi666-prog/tienda-online/issues/114),
+  [#115](https://github.com/dantebiondi666-prog/tienda-online/issues/115),
+  [#116](https://github.com/dantebiondi666-prog/tienda-online/issues/116),
+  [#117](https://github.com/dantebiondi666-prog/tienda-online/issues/117),
+  [#118](https://github.com/dantebiondi666-prog/tienda-online/issues/118),
+  [#119](https://github.com/dantebiondi666-prog/tienda-online/issues/119),
+  [#120](https://github.com/dantebiondi666-prog/tienda-online/issues/120),
+  [#121](https://github.com/dantebiondi666-prog/tienda-online/issues/121),
+  [#122](https://github.com/dantebiondi666-prog/tienda-online/issues/122),
+  [#123](https://github.com/dantebiondi666-prog/tienda-online/issues/123) y
+  [#124](https://github.com/dantebiondi666-prog/tienda-online/issues/124)
+
+- [fix/rc1-15-testing-ao4] [AO4] Correcciones de testing RC1–RC15
   PR: [#128](https://github.com/dantebiondi666-prog/tienda-online/pull/128) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
 
 - [fix/producto-eliminar-normalizar-texto] [Fix AO4] Eliminar función normalizarTexto sin uso en Producto.js

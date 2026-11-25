@@ -317,6 +317,37 @@ describe("guardarInstancia / cargarInstancia", function () {
 });
 
 describe("Errores y robustez", function () {
+
+    it("devuelve false aunque falle console.error al registrar un error", function () {
+    const errorStorage = new Error("No se pudo escribir");
+    spyOn(Storage.prototype, "setItem").and.throwError(errorStorage);
+    console.error.and.throwError(new Error("No se pudo registrar el error"));
+
+    expect(StorageUtil.guardar("clave-con-error", "valor")).toBeFalse();
+    expect(console.error).toHaveBeenCalledWith("StorageUtil.guardar:", errorStorage);
+  });
+
+  it("devuelve false y no guarda la clave si el valor se serializa a undefined", function () {
+    expect(StorageUtil.guardar("sin-valor", undefined)).toBeFalse();
+    expect(localStorage.getItem("sin-valor")).toBeNull();
+    expect(console.error).toHaveBeenCalledWith(
+      "StorageUtil.guardar:",
+      jasmine.objectContaining({ message: "El valor no se puede serializar como JSON." })
+    );
+  });
+
+  it("conserva el valor anterior si el nuevo valor se serializa a undefined", function () {
+    const valorAnterior = { tema: "claro" };
+    expect(StorageUtil.guardar("preferencias", valorAnterior)).toBeTrue();
+
+    expect(StorageUtil.actualizar("preferencias", undefined)).toBeFalse();
+    expect(StorageUtil.obtener("preferencias")).toEqual(valorAnterior);
+    expect(console.error).toHaveBeenCalledWith(
+      "StorageUtil.actualizar:",
+      jasmine.objectContaining({ message: "El valor no se puede serializar como JSON." })
+    );
+  });
+  
   it("captura el error de cuota, devuelve false y registra el problema", function () {
     spyOn(Storage.prototype, "setItem").and.throwError(
       new DOMException("lleno", "QuotaExceededError")
