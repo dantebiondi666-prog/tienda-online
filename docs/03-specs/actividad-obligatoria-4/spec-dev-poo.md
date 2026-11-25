@@ -24,50 +24,46 @@ Se propone implementar cuatro clases principales.
 
 Representa los productos disponibles en la tienda.
 
-Propiedades:
-- nombre
-- categoria
-- tipo
-- estilo
-- talles
-- precio
+Propiedades: `nombre`, `categoria`, `tipo`, `estilo`, `talles` y `precio`.
 
-Métodos:
-- `constructor()`
-- `verificarTalleDisponible(talle)`
-- `toJSON()`
-- `fromJSON(json)`
+Métodos: `constructor()`, `verificarTalleDisponible(talle)`, `toJSON()` y `fromJSON(json)`.
+
+`verificarTalleDisponible(talle)` recibe una cadena y devuelve `true` si el talle está disponible para ese producto, o `false` si no lo está. Quita los espacios de los extremos y compara sin distinguir mayúsculas de minúsculas. Si recibe una cadena vacía, solo espacios o un valor de otro tipo, lanza un `Error`. El controlador lo usa al validar el talle seleccionado en el modal.
 
 **Clase Catalogo**
 
 Administra los productos disponibles.
 
-Propiedades:
-- productos
+Propiedad: `productos`.
 
-Métodos:
-- `constructor(productos)`
-- `buscarProducto(nombre)`
-- `filtrarProductos(campo, valor)`
-- `obtenerOpcionesFiltro(campo)`
-- `toJSON()`
-- `fromJSON(json)`
+Métodos: `constructor(productos)`, `buscarProducto(nombre)`, `filtrarProductos(campo, valor)`, `buscarYFiltrar(termino, filtros)`, `obtenerOpcionesFiltro(campo)`, `toJSON()` y `fromJSON(json)`.
+
+`buscarYFiltrar(termino = "", filtros = {})` devuelve un arreglo de instancias de `Producto`. Si se indica un término, busca por nombre exacto después de quitar espacios de los extremos y normalizar mayúsculas, minúsculas y tildes. Un término vacío deja disponible el catálogo completo para aplicar los filtros.
+
+Los filtros se reciben como un objeto con arreglos de cadenas por campo (`categoria`, `tipo`, `talle` y `estilo`). Dentro de un campo alcanza con que coincida uno de los valores (OR). Entre campos se exige que coincidan todos los filtros activos (AND). Los arreglos vacíos se ignoran y el resultado es `[]` si no hay coincidencias. El controlador lee el buscador y los filtros seleccionados, llama al método y renderiza el arreglo devuelto.
 
 **Clase ItemCarrito**
 
 Representa un producto seleccionado para la compra.
 
-Propiedades:
-- producto
-- talle
-- cantidad
-- precio
+Propiedades: `producto`, `talle`, `cantidad` y `precio`.
 
-Métodos:
-- `constructor(producto, talle, cantidad, precio)`
-- `calcularSubtotal()`
-- `toJSON()`
-- `fromJSON(json)`
+Métodos: `constructor(producto, talle, cantidad, precio)`, `calcularSubtotal()`, `toJSON()` y `fromJSON(json)`. Expone el método estático `ItemCarrito.esCantidadValida(cantidad)`.
+
+`ItemCarrito.esCantidadValida(cantidad)` devuelve `true` cuando la cantidad es un número entero mayor que cero. Devuelve `false` para cero, negativos, decimales y valores de otro tipo, incluso una cadena como `"2"`. El controlador convierte el valor del campo a número antes de llamar al método, tanto en el modal como al editar una cantidad en el carrito.
+
+**Ejemplo con el catálogo de la tienda**
+
+```js
+const [producto] = catalogo.buscarYFiltrar("PANTALON", { talle: ["42"] });
+producto.nombre;                       // "Pantalón"
+producto.verificarTalleDisponible(" 42 "); // true
+ItemCarrito.esCantidadValida(2);        // true
+ItemCarrito.esCantidadValida("2");      // false
+```
+
+Las pruebas de estas interfaces están en [`models.spec.js`](../../../js/test/models.spec.js).
+
 
 **Clase Carrito**
 
