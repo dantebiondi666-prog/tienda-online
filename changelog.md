@@ -51,6 +51,9 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
+- [fix/rc51-ao4] docs(AO4): resolver RC51 y actualizar evidencias de testing
+  PR: [#131](https://github.com/dantebiondi666-prog/tienda-online/pull/131) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
+
 - [fix/rc45-49-ao4] test(AO4): resolver RC45-RC49 y completar cobertura solicitada
   PR: [#130](https://github.com/dantebiondi666-prog/tienda-online/pull/130) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
 
