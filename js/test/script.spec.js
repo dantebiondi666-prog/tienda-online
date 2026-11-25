@@ -1,5 +1,7 @@
+import Carrito from "../models/Carrito.js";
 import fs from "node:fs/promises";
 import { JSDOM } from "jsdom";
+
 
 const archivoHtml = new URL("../../index.html", import.meta.url);
 const nombresGlobales = [
@@ -217,6 +219,117 @@ describe("Flujo 2 - Consultar producto y talle", function () {
     ]);
   });
 
+  it("devuelve el foco al botón de origen y limpia el modal al cerrarse", function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const botonOrigen = [...document.querySelectorAll("#product-grid button")].find(
+    (boton) => boton.dataset.producto === "Remera"
+  );
+
+  const cantidad = document.getElementById("modalProductoCantidad");
+  cantidad.value = "3";
+
+  modal.dispatchEvent(
+    new window.Event("hidden.bs.modal", {
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(document.activeElement).toBe(botonOrigen);
+  expect(cantidad.value).toBe("1");
+});
+
+it("lleva el foco al último elemento al presionar Shift+Tab desde el primero", function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const botonCerrarSuperior = modal.querySelector(".btn-close");
+  const botonCerrarInferior = modal.querySelector(
+    '.modal-footer button[data-bs-dismiss="modal"]'
+  );
+
+  botonCerrarSuperior.focus();
+
+  modal.dispatchEvent(
+    new window.KeyboardEvent("keydown", {
+      key: "Tab",
+      shiftKey: true,
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(document.activeElement).toBe(botonCerrarInferior);
+});
+
+it("devuelve el foco al primer elemento al presionar Tab desde el último", function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const botonCerrarSuperior = modal.querySelector(".btn-close");
+  const botonCerrarInferior = modal.querySelector(
+    '.modal-footer button[data-bs-dismiss="modal"]'
+  );
+
+  botonCerrarInferior.focus();
+
+  modal.dispatchEvent(
+    new window.KeyboardEvent("keydown", {
+      key: "Tab",
+      shiftKey: false,
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(document.activeElement).toBe(botonCerrarSuperior);
+});
+
+it("restablece el formulario del modal al ejecutar reset", async function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const formulario = document.getElementById("modal-producto-form");
+  const talle = document.getElementById("modalProductoTalle");
+  const cantidad = document.getElementById("modalProductoCantidad");
+  const botonAgregar = modal.querySelector('[type="submit"]');
+
+  talle.value = "M";
+  disparar(talle, "change");
+
+  cantidad.value = "3";
+  disparar(cantidad, "input");
+
+  expect(botonAgregar.disabled).toBeFalse();
+
+  formulario.reset();
+
+  await new Promise((resolve) => window.setTimeout(resolve, 0));
+
+  expect(talle.value).toBe("");
+  expect(cantidad.value).toBe("1");
+  expect(botonAgregar.disabled).toBeTrue();
+  expect(document.getElementById("modal-talle-feedback").textContent).toBe("");
+});
+
+it("enfoca el botón de cerrar cuando el modal termina de abrirse", function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const botonCerrar = modal.querySelector(".btn-close");
+
+  modal.dispatchEvent(
+    new window.Event("shown.bs.modal", {
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(document.activeElement).toBe(botonCerrar);
+});
+
   it("marca un talle vacío como inválido y mantiene deshabilitado agregar", function () {
     abrirProducto("Remera");
     seleccionarTalle("");
@@ -319,6 +432,25 @@ describe("Flujo 3 - Gestionar carrito", function () {
     ]).toEqual(["2", moneda(30000), "El carrito se actualizó correctamente."]);
   });
 
+  it("muestra un mensaje de error si falla el agregado al carrito", function () {
+  spyOn(Carrito.prototype, "agregarProducto").and.throwError(
+    new Error("No se pudo agregar el producto")
+  );
+
+  abrirProducto("Remera");
+  seleccionarTalle("M");
+
+  const cantidad = document.getElementById("modalProductoCantidad");
+  cantidad.value = "1";
+  disparar(cantidad, "input");
+
+  enviarFormulario(document.getElementById("modal-producto-form"));
+
+  expect(
+    document.getElementById("modal-producto-feedback").textContent
+  ).toBe("No se pudo agregar el producto");
+});
+
   it("suma la cantidad al agregar el mismo producto con el mismo talle", function () {
     agregarProducto("Remera", "M", "1");
     agregarProducto("Remera", "M", "2");
@@ -349,6 +481,25 @@ describe("Flujo 3 - Gestionar carrito", function () {
     ]).toEqual(["4", moneda(60000), "La cantidad se actualizó correctamente."]);
   });
 
+  it("muestra un mensaje de error si falla la modificación de cantidad", function () {
+  agregarProducto("Remera", "M", "2");
+
+  spyOn(Carrito.prototype, "modificarCantidad").and.throwError(
+    new Error("No se pudo modificar la cantidad")
+  );
+
+  const linea = lineaCarrito("Remera", "M");
+  const cantidad = linea.querySelector("[data-cart-quantity]");
+
+  cantidad.value = "4";
+  disparar(cantidad, "input");
+  enviarFormulario(linea.querySelector("form"));
+
+  expect(
+    document.getElementById("carrito-feedback").textContent
+  ).toBe("No se pudo modificar la cantidad");
+});
+
   it("deshabilita la actualización e ignora una cantidad inválida", function () {
     agregarProducto("Remera", "M", "2");
     const linea = lineaCarrito("Remera", "M");
@@ -375,6 +526,22 @@ describe("Flujo 3 - Gestionar carrito", function () {
       document.getElementById("carrito-feedback").textContent,
     ]).toEqual([0, "El producto se eliminó del carrito."]);
   });
+
+  it("muestra un mensaje de error si falla la eliminación del producto", function () {
+  agregarProducto("Remera", "M");
+
+  spyOn(Carrito.prototype, "eliminarProducto").and.throwError(
+    new Error("No se pudo eliminar el producto")
+  );
+
+  lineaCarrito("Remera", "M")
+    .querySelector('[data-cart-action="remove"]')
+    .click();
+
+  expect(
+    document.getElementById("carrito-feedback").textContent
+  ).toBe("No se pudo eliminar el producto");
+});
 
   it("muestra el estado vacío y total cero al quitar el último producto", function () {
     agregarProducto("Remera", "M");
