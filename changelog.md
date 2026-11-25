@@ -51,6 +51,9 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ### Fixed
 
+- [fix/rc33-rc44-ao4] [AO4] Correcciones de seguimiento RC33 y RC35–RC44
+  PR: [#129](https://github.com/dantebiondi666-prog/tienda-online/pull/129) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
+
 - [fix/rc16-rc19-logica-dominio] fix(AO4): resolver RC16-RC23 y documentar RC28-RC31
   PR: [#127](https://github.com/dantebiondi666-prog/tienda-online/pull/127) - @juanmartinbritos7-cmd (Desarrollador JavaScript POO)
   Issues:
