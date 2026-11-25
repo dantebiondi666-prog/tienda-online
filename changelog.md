@@ -16,9 +16,21 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 - [feature/tester-qa-specs] [AO4] Tester QA: testing de las clases del dominio y documentación de testing
   PR: [#105](https://github.com/dantebiondi666-prog/tienda-online/pull/105) - @LucasFUces (Tester QA)
-  Issue:
+    Issues:
   [#100](https://github.com/dantebiondi666-prog/tienda-online/issues/100)
 
+  Faltantes de cobertura y casos límite identificados (RC31):
+  - [#114](https://github.com/dantebiondi666-prog/tienda-online/issues/114) - Apertura y cierre del modal de productos.
+  - [#115](https://github.com/dantebiondi666-prog/tienda-online/issues/115) - Eliminación del filtro persistido.
+  - [#116](https://github.com/dantebiondi666-prog/tienda-online/issues/116) - Restauración del filtro persistido.
+  - [#117](https://github.com/dantebiondi666-prog/tienda-online/issues/117) - Productos sin imagen configurada.
+  - [#118](https://github.com/dantebiondi666-prog/tienda-online/issues/118) - Selección de productos inexistentes.
+  - [#119](https://github.com/dantebiondi666-prog/tienda-online/issues/119) - Validaciones del formulario del modal.
+  - [#120](https://github.com/dantebiondi666-prog/tienda-online/issues/120) - Eventos del carrito sin controles válidos.
+  - [#121](https://github.com/dantebiondi666-prog/tienda-online/issues/121) - Navegación por teclado dentro del modal.
+  - [#122](https://github.com/dantebiondi666-prog/tienda-online/issues/122) - Tratamiento de excepciones del controlador.
+  - [#123](https://github.com/dantebiondi666-prog/tienda-online/issues/123) - Fallos en el registro de errores de StorageUtil.
+  - [#124](https://github.com/dantebiondi666-prog/tienda-online/issues/124) - Valores no serializables en JSON.
 
 - [feature/dev-eventos-dom] [AO4] Desarrollador JS Eventos + DOM: implementar interfaz interactiva
   PR: [#107](https://github.com/dantebiondi666-prog/tienda-online/pull/107) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)

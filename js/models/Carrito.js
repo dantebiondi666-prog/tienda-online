@@ -101,7 +101,7 @@ export default class Carrito {
    * @throws {Error} Si no existe la línea o la cantidad no es válida.
    */
   modificarCantidad(producto, talle, cantidad) {
-    if (!Number.isInteger(cantidad) || cantidad <= 0) {
+    if (!ItemCarrito.esCantidadValida(cantidad)) {
       throw new Error("La cantidad debe ser un entero positivo.");
     }
     const existente = this.buscarEnCarrito(producto, talle);
