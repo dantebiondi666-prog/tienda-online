@@ -133,6 +133,27 @@ describe("actualizar", function () {
   it("devuelve false cuando la clave que se quiere actualizar no existe", function () {
     expect(StorageUtil.actualizar("inexistente", { activo: true })).toBeFalse();
   });
+
+  it("devuelve false y registra el error si falla setItem al actualizar", function () {
+  localStorage.setItem(
+    "preferencias",
+    JSON.stringify({ tema: "claro" })
+  );
+
+  spyOn(Storage.prototype, "setItem").and.throwError(
+    new DOMException("lleno", "QuotaExceededError")
+  );
+
+  expect(
+    StorageUtil.actualizar("preferencias", { tema: "oscuro" })
+  ).toBeFalse();
+
+  expect(console.error).toHaveBeenCalled();
+
+  expect(StorageUtil.obtener("preferencias")).toEqual({
+    tema: "claro"
+  });
+});
 });
 
 describe("eliminar y listar", function () {
@@ -146,6 +167,23 @@ describe("eliminar y listar", function () {
   it("devuelve true al eliminar una clave que no existe", function () {
     expect(StorageUtil.eliminar("inexistente")).toBeTrue();
   });
+
+  it("devuelve false y registra el error si falla removeItem al eliminar", function () {
+  localStorage.setItem(
+    "app:carrito:items",
+    JSON.stringify(["item"])
+  );
+
+  spyOn(Storage.prototype, "removeItem").and.throwError(
+    new Error("No se pudo eliminar")
+  );
+
+  expect(
+    StorageUtil.eliminar("app:carrito:items")
+  ).toBeFalse();
+
+  expect(console.error).toHaveBeenCalled();
+});
 
   it("lista todas las claves cuando no se especifica prefijo", function () {
     StorageUtil.guardar("app:carrito:items", []);
@@ -180,6 +218,24 @@ describe("eliminar y listar", function () {
 
     expect(StorageUtil.listar("app:", "session")).toEqual(["app:session"]);
   });
+
+  it("devuelve un array vacío y registra el error si el prefijo no es string", function () {
+  expect(StorageUtil.listar(123)).toEqual([]);
+
+  expect(console.error).toHaveBeenCalled();
+});
+
+it("devuelve un array vacío y registra el error si falla el recorrido de las claves", function () {
+  localStorage.setItem("app:prueba", JSON.stringify({ activo: true }));
+
+  spyOn(Storage.prototype, "key").and.throwError(
+    new Error("No se pudieron consultar las claves")
+  );
+
+  expect(StorageUtil.listar("app:")).toEqual([]);
+
+  expect(console.error).toHaveBeenCalled();
+});
 });
 
 describe("limpiar", function () {
@@ -214,6 +270,16 @@ describe("limpiar", function () {
       conservar: true
     });
   });
+
+  it("devuelve false y registra el error si falla clear al limpiar", function () {
+  spyOn(Storage.prototype, "clear").and.throwError(
+    new Error("No se pudo limpiar")
+  );
+
+  expect(StorageUtil.limpiar("local")).toBeFalse();
+
+  expect(console.error).toHaveBeenCalled();
+});
 });
 
 describe("guardarInstancia / cargarInstancia", function () {

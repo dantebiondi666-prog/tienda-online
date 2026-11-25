@@ -6,6 +6,8 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+## [Release Actividad Obligatoria N.º 4] - 2026-11-22
+
 ### Added
 
 - [feature/dev-poo-logica-negocio] [AO4] Desarrollador JavaScript POO: implementar lógica de negocio orientada a objetos
@@ -48,6 +50,9 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   [#99](https://github.com/dantebiondi666-prog/tienda-online/issues/99)
 
 ### Fixed
+
+- [fix/rc1-15-testing-ao4] [Fix RC1-RC15] Completar las pruebas del controlador y de Storage, y actualizar el informe de testing de AO4 con la cobertura y las capturas de Jasmine. Se verificaron 137 pruebas en Node y 106 en el navegador, ambas ejecuciones con 0 fallos.
+  PR: [#128](https://github.com/dantebiondi666-prog/tienda-online/pull/128) - @dantebiondi666-prog (Desarrollador JS Eventos + DOM)
 
 - [fix/producto-eliminar-normalizar-texto] [Fix AO4] Eliminar función normalizarTexto sin uso en Producto.js
   PR: [#111](https://github.com/dantebiondi666-prog/tienda-online/pull/111) - [**@juanmartinbritos7-cmd**](https://github.com/juanmartinbritos7-cmd) (Desarrollador JavaScript POO)

@@ -416,112 +416,58 @@ Durante la ejecución se registró una respuesta HTTP 404 para
 `/favicon.ico`, sin impacto en los resultados de Jasmine.
 
 
-## 11. Actividad Obligatoria N.º 4 — Testing de la nueva arquitectura
+## 11. Actividad Obligatoria N.º 4 — Testing con Jasmine
 
-La Actividad Obligatoria N.º 4 reemplaza el simulador basado en `prompt()` y `alert()` por una aplicación con clases del dominio, una capa de storage y un controlador de eventos y DOM. El testing se reorganiza en un archivo spec por módulo. Esta sección documenta la estructura, la ejecución de cada módulo, las métricas y las evidencias. La suite de storage ya está implementada; la refactorización de las pruebas del controlador queda pendiente de la integración de Eventos + DOM.
+Las pruebas de la Actividad 4 cubren el controlador de eventos y DOM, las clases del dominio y la capa de almacenamiento. Jasmine ejecuta las tres suites en Node. La suite del controlador usa JSDOM para cargar el HTML de la aplicación y simular las interacciones del usuario.
 
-### 11.1 Nueva estructura de testing
+### 11.1 Suites ejecutadas
 
-| Archivo | Módulo que prueba | Estado |
-|---|---|---|
-| `js/test/models.spec.js` | Clases de `js/models/` (`Producto`, `Catalogo`, `ItemCarrito`, `Carrito`) | Implementado: 52 tests |
-| `js/test/storage.spec.js` | `js/utils/storage.js` | Implementado: 32 tests en 7 grupos (`CLAVES`, `guardar / obtener`, `actualizar`, `eliminar y listar`, `limpiar`, `guardarInstancia / cargarInstancia`, `Errores y robustez`) |
-| `js/test/script.spec.js` | Funciones puras del simulador de AO3 (`js/script.js`) | 22 tests de AO3; se refactoriza para el controlador al integrar `js/script.js` |
-| `js/test/integracion.spec.js` | Orquestadores de AO3 con mocks de `prompt()` y `alert()` | 43 tests de AO3; se migran al controlador al eliminar `prompt()` y `alert()` |
-| `js/test/test-runner.html` | Runner de Jasmine 5.1.1 para el navegador | Carga los specs clásicos y `models.spec.js` y `storage.spec.js` como módulos ES6 |
-| `js/test/node-setup.js` | Entorno de Node para Jasmine y `c8` | Configurado para módulos ES6 y Storage en memoria cuando Node no provee `localStorage` |
+| Archivo | Alcance | Pruebas | Aprobadas | Fallidas |
+|---|---|---:|---:|---:|
+| `js/test/script.spec.js` | Controlador de eventos y DOM de `js/script.js` | 31 | 31 | 0 |
+| `js/test/models.spec.js` | Clases `Producto`, `Catalogo`, `ItemCarrito` y `Carrito` | 63 | 63 | 0 |
+| `js/test/storage.spec.js` | Operaciones de `js/utils/storage.js`, serialización y manejo de errores de Storage | 43 | 43 | 0 |
+| **Total** | | **137** | **137** | **0** |
 
-`models.spec.js` tiene un `describe` por clase, con un bloque por categoría: **Constructores** (parámetros válidos, valores por defecto y rechazo de datos inválidos), **Métodos de negocio** (flujos normales, casos borde y validaciones de errores), **Serialización** (`toJSON()` y `fromJSON()`, incluida la ida y vuelta con objetos anidados) y **Encapsulamiento** (propiedades privadas y métodos que no alteran sus argumentos).
+### 11.2 Cómo reproducir la ejecución
 
-`storage.spec.js` cubre las seis claves y las operaciones del módulo, incluida la serialización de un `Carrito` con sus items y el manejo de errores.
+Desde la raíz del repositorio, en PowerShell:
 
-### 11.2 Cómo ejecutar los tests de cada módulo
-
-**En Node (terminal):**
-
-```bash
-npm install
-npm test
-npm run cobertura
+```powershell
+npm.cmd ci
+npm.cmd run cobertura -- --seed=67394
 ```
 
-- `npm test` ejecuta todas las suites de Jasmine.
-- `npm run cobertura` ejecuta las mismas suites con `c8` y genera el reporte de cobertura en la terminal y en `coverage/index.html`.
-- Para ejecutar un solo módulo: `npx jasmine js/test/models.spec.js`.
-- Para ejecutar la suite de Storage de forma aislada: `npx jasmine js/test/storage.spec.js`.
-- La suite de Storage también se incluye en `npm test` y `npm run cobertura`, y se carga desde `js/test/test-runner.html`.
-- El proyecto declara `"type": "module"` en `package.json`, necesario para importar las clases ES6 desde Node.
+El comando `cobertura` ejecuta las tres suites con Jasmine y usa `c8` para generar el reporte en la terminal y en `coverage/index.html`. La semilla `67394` reproduce el orden de ejecución registrado. El resultado fue **137 specs, 0 failures**.
 
-En Node, `node-setup.js` provee un Storage en memoria solo cuando no existe `localStorage`; `localStorage` y `sessionStorage` usan instancias separadas. En el navegador se utiliza el Storage real del entorno.
-El error de cuota se simula con `spyOn(Storage.prototype, "setItem")`, que hace que `setItem` lance un `QuotaExceededError`.
+### 11.3 Cobertura
 
-**En el navegador:**
+| Archivo o conjunto | Sentencias | Ramas | Funciones | Líneas |
+|---|---:|---:|---:|---:|
+| **Total medido** | **97,16 %** | **94,24 %** | **100 %** | **97,16 %** |
+| `js/script.js` | 93,68 % | 83,14 % | 100 % | 93,68 % |
+| `js/models/` | 100 % | 100 % | 100 % | 100 % |
+| `js/services/PersistenciaService.js` | 100 % | 100 % | 100 % | 100 % |
+| `js/utils/storage.js` | 97,89 % | 93,54 % | 100 % | 97,89 % |
 
-Los módulos ES6 no se pueden cargar abriendo el archivo con doble clic (`file://`), por lo que `js/test/test-runner.html` se sirve desde un servidor local:
+El reporte HTML permite consultar las líneas y ramas sin cubrir. Los casos pendientes se concentran en `js/script.js` y `js/utils/storage.js`.
 
-```bash
-npx --yes http-server . -p 8080 -c-1
+### 11.4 Evidencias de ejecución
+
+**Runner HTML — 106 pruebas, 0 fallos.** Ejecuta las suites de modelos y Storage. Desde la raíz del proyecto, iniciar el servidor:
+
+```powershell
+npx.cmd --yes http-server . -p 8080 -c-1
 ```
 
-Luego se abre `http://localhost:8080/js/test/test-runner.html`. Jasmine ejecuta todas las suites y muestra el resultado.
+Abrir `http://127.0.0.1:8080/js/test/test-runner.html` en el navegador.
 
-**Con Playwright MCP:**
+![Jasmine en el navegador: 106 pruebas, 0 fallos](capturas/jasmine-ao4-navegador.png)
 
-El runner se abre en un navegador real mediante Playwright MCP desde GitHub Copilot Agent, que ejecuta las suites, informa los resultados y captura la pantalla.
+**Jasmine en Node — 137 pruebas, 0 fallos.** Ejecuta las suites de modelos, Storage y controlador. Desde la raíz del proyecto:
 
-### 11.3 Resultados
+```powershell
+npm.cmd test -- --seed=67394
+```
 
-| Suite | Tests | PASS | FAIL |
-|---|---|---|---|
-| `script.spec.js` (AO3) | 22 | 22 | 0 |
-| `integracion.spec.js` (AO3) | 43 | 43 | 0 |
-| `models.spec.js` | 52 | 52 | 0 |
-| `storage.spec.js` | 32 | 32 | 0 |
-| **Total** | **149** | **149** | **0** |
-
-`npm test`: 149 specs, 0 failures. `npm run cobertura`: 149 specs, 0 failures.
-
-La ejecución en el navegador mediante Playwright MCP informó 117 specs, 117 pasaron y 0 fallaron (evidencia histórica previa a la suite de Storage); la consola solo registró el 404 de `favicon.ico`, sin impacto en los resultados. La ejecución manual final en el navegador, con el runner servido desde un servidor local, informó 149 specs y 0 failures.
-
-### 11.4 Cobertura
-
-Medida con `c8` sobre `js/models/`, `js/utils/` y `js/script.js` (`npm run cobertura`):
-
-| Archivo | Líneas | Ramas | Funciones |
-|---|---|---|---|
-| **Todos los archivos medidos** | **95,2 %** | **90,84 %** | **98,73 %** |
-| `storage.js` | 92,98 % | 84,21 % | 100 % |
-| **`js/models/` (conjunto)** | **98,84 %** | **100 %** | **97,72 %** |
-| `Carrito.js` | 100 % | 100 % | 100 % |
-| `Catalogo.js` | 100 % | 100 % | 100 % |
-| `ItemCarrito.js` | 100 % | 100 % | 100 % |
-| `Producto.js` | 95,33 % | 100 % | 92,3 % |
-| `js/script.js` (código de AO3) | 92,83 % | 85,02 % | 100 % |
-
-**Código sin cubrir:** en `storage.js`, las líneas 200-202 y 234-236 corresponden a ramas de error difíciles de simular. Las líneas 6 a 12 de `Producto.js` corresponden a la función `normalizarTexto`, que está definida pero no se utiliza ni se exporta, por lo que ningún test puede ejecutarla. Se reportó como Issue #103 para el Desarrollador JS POO. Las líneas sin cubrir de `js/script.js` son las ya declaradas en la sección 9.2 (validaciones defensivas de funciones puras y arranque automático del simulador).
-
-### 11.5 Capturas
-
-Ejecución manual de Jasmine en el navegador (117 tests):
-
-![Jasmine, 117 tests](capturas/jasmine-117-tests-pass.png)
-
-Ejecución mediante Playwright MCP (117 tests):
-
-![Jasmine con Playwright MCP, 117 tests](capturas/jasmine-playwright-117-tests-pass.png)
-
-Ejecución manual final en el navegador, con servidor local (149 specs, 0 failures):
-
-[Jasmine en el navegador, 149 specs](capturas/jasmine-149-tests-pass.png)
-
-### 11.6 Issues reportadas
-
-| Issue | Descripción | Rol asignado |
-|---|---|---|
-| #103 | Función `normalizarTexto` sin uso en `js/models/Producto.js` | Desarrollador JS POO |
-
-### 11.7 Pendiente de integración
-
-- Refactorización de `script.spec.js` e `integracion.spec.js` para el controlador de eventos y DOM, cuando se elimine `prompt()` y `alert()`.
-- Capturas finales con todas las suites y métricas de cobertura definitivas.
-- Seguimiento de la Issue #110.
+![Jasmine en Node: 137 pruebas, 0 fallos](capturas/jasmine-ao4-node.png)
