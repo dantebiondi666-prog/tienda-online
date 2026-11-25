@@ -360,6 +360,34 @@ describe("Errores y robustez", function () {
     );
   });
 
+    it("captura el error de cuota con el nombre alternativo de Firefox", function () {
+    spyOn(Storage.prototype, "setItem").and.throwError(
+      new DOMException("lleno", "NS_ERROR_DOM_QUOTA_REACHED")
+    );
+
+    expect(StorageUtil.guardar("lleno", "valor")).toBeFalse();
+    expect(localStorage.getItem("lleno")).toBeNull();
+
+    expect(console.error).toHaveBeenCalledWith(
+      "StorageUtil.guardar:",
+      "Almacenamiento lleno: no hay espacio disponible."
+    );
+  });
+
+  it("registra una DOMException que no corresponde a un error de cuota", function () {
+    const error = new DOMException("Acceso denegado", "SecurityError");
+
+    spyOn(Storage.prototype, "setItem").and.throwError(error);
+
+    expect(StorageUtil.guardar("clave", "valor")).toBeFalse();
+    expect(localStorage.getItem("clave")).toBeNull();
+
+    expect(console.error).toHaveBeenCalledWith(
+      "StorageUtil.guardar:",
+      error
+    );
+  });
+
   it("devuelve null y registra el error al leer JSON corrupto", function () {
     localStorage.setItem("corrupto", "{ JSON inválido");
 
