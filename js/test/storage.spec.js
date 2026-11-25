@@ -2,7 +2,7 @@ import StorageUtil from "../utils/storage.js";
 import Producto from "../models/Producto.js";
 import ItemCarrito from "../models/ItemCarrito.js";
 import Carrito from "../models/Carrito.js";
-
+import PersistenciaService from "../services/PersistenciaService.js";
 function crearCarrito() {
   const producto = new Producto(
     "Remera",
@@ -275,5 +275,55 @@ describe("Errores y robustez", function () {
 
     expect(StorageUtil.guardar("clave", "valor")).toBeFalse();
     expect(console.error).toHaveBeenCalled();
+  });
+});
+
+describe("PersistenciaService", function () {
+  it("carga un carrito vacío cuando no hay datos guardados", function () {
+    const carrito = PersistenciaService.cargarCarrito();
+
+    expect(carrito instanceof Carrito).toBeTrue();
+    expect(carrito.items.length).toBe(0);
+  });
+
+  it("guarda correctamente el carrito", function () {
+    const carrito = crearCarrito();
+
+    expect(PersistenciaService.guardarCarrito(carrito)).toBeTrue();
+  });
+
+  it("recupera el carrito guardado como una instancia de Carrito", function () {
+    const carrito = crearCarrito();
+
+    PersistenciaService.guardarCarrito(carrito);
+
+    const recuperado = PersistenciaService.cargarCarrito();
+
+    expect(recuperado instanceof Carrito).toBeTrue();
+    expect(recuperado.toJSON()).toEqual(carrito.toJSON());
+  });
+
+  it("guarda correctamente el filtro activo", function () {
+    const filtro = { campo: "talle", valor: "M" };
+
+    expect(PersistenciaService.guardarFiltro(filtro)).toBeTrue();
+  });
+
+  it("recupera el filtro activo guardado", function () {
+    const filtro = { campo: "talle", valor: "M" };
+
+    PersistenciaService.guardarFiltro(filtro);
+
+    expect(PersistenciaService.cargarFiltro()).toEqual(filtro);
+  });
+
+  it("elimina correctamente el filtro activo", function () {
+    PersistenciaService.guardarFiltro({
+      campo: "talle",
+      valor: "M"
+    });
+
+    expect(PersistenciaService.eliminarFiltro()).toBeTrue();
+    expect(PersistenciaService.cargarFiltro()).toBeNull();
   });
 });

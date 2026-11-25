@@ -59,6 +59,9 @@ js/
 - Mockup Actividad N°1: [docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png](docs/01-mockup/actividad-obligatoria-1/diseño-inicial.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
 - Mockup Actividad N°2 (con sistema de diseño aplicado): [docs/01-mockup/actividad-obligatoria-2/diseño-con-estilos.png](docs/01-mockup/actividad-obligatoria-2/diseño-con-estilos.png) — [versión online en Figma](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=11-29&t=T4j3hsvIoAFLkWTN-1)
 - Mockup Primer Parcial (Bootstrap): [docs/01-mockup/primer-parcial/disenio-bootstrap.png](docs/01-mockup/primer-parcial/disenio-bootstrap.png) — [versión online en FigJam](https://www.figma.com/board/boi5W7q2aUFtEtuo8al7dY/E-commerce-dise%C3%B1o-inicial?node-id=0-1)
+- - Mockup Actividad Obligatoria N.º 4 (resumen de compra y estados vacío, éxito y error): [Ver diseño](docs/01-mockup/actividad-obligatoria-4/resumen-compra-estados.png).
+- - Mockup Actividad Obligatoria N.º 4 (carrusel de productos destacados): [Ver diseño](docs/01-mockup/actividad-obligatoria-4/carrusel-destacados.png).
+- - Mockup Actividad Obligatoria N.º 4 (carrito y sus controles): [Ver diseño](docs/01-mockup/actividad-obligatoria-4/carrito-controles.png).
 - Índice de testing HTML/CSS y entregas anteriores: [docs/04-testing/testing-doc.md](docs/04-testing/testing-doc.md)
 - Controlador de la Actividad Obligatoria N.º 4: [js/script.js](js/script.js)
 - Clases del dominio: [js/models/](js/models/)
