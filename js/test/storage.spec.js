@@ -2,7 +2,7 @@ import StorageUtil from "../utils/storage.js";
 import Producto from "../models/Producto.js";
 import ItemCarrito from "../models/ItemCarrito.js";
 import Carrito from "../models/Carrito.js";
-
+import PersistenciaService from "../services/PersistenciaService.js";
 function crearCarrito() {
   const producto = new Producto(
     "Remera",
@@ -133,6 +133,27 @@ describe("actualizar", function () {
   it("devuelve false cuando la clave que se quiere actualizar no existe", function () {
     expect(StorageUtil.actualizar("inexistente", { activo: true })).toBeFalse();
   });
+
+  it("devuelve false y registra el error si falla setItem al actualizar", function () {
+  localStorage.setItem(
+    "preferencias",
+    JSON.stringify({ tema: "claro" })
+  );
+
+  spyOn(Storage.prototype, "setItem").and.throwError(
+    new DOMException("lleno", "QuotaExceededError")
+  );
+
+  expect(
+    StorageUtil.actualizar("preferencias", { tema: "oscuro" })
+  ).toBeFalse();
+
+  expect(console.error).toHaveBeenCalled();
+
+  expect(StorageUtil.obtener("preferencias")).toEqual({
+    tema: "claro"
+  });
+});
 });
 
 describe("eliminar y listar", function () {
@@ -146,6 +167,23 @@ describe("eliminar y listar", function () {
   it("devuelve true al eliminar una clave que no existe", function () {
     expect(StorageUtil.eliminar("inexistente")).toBeTrue();
   });
+
+  it("devuelve false y registra el error si falla removeItem al eliminar", function () {
+  localStorage.setItem(
+    "app:carrito:items",
+    JSON.stringify(["item"])
+  );
+
+  spyOn(Storage.prototype, "removeItem").and.throwError(
+    new Error("No se pudo eliminar")
+  );
+
+  expect(
+    StorageUtil.eliminar("app:carrito:items")
+  ).toBeFalse();
+
+  expect(console.error).toHaveBeenCalled();
+});
 
   it("lista todas las claves cuando no se especifica prefijo", function () {
     StorageUtil.guardar("app:carrito:items", []);
@@ -180,6 +218,24 @@ describe("eliminar y listar", function () {
 
     expect(StorageUtil.listar("app:", "session")).toEqual(["app:session"]);
   });
+
+  it("devuelve un array vacío y registra el error si el prefijo no es string", function () {
+  expect(StorageUtil.listar(123)).toEqual([]);
+
+  expect(console.error).toHaveBeenCalled();
+});
+
+it("devuelve un array vacío y registra el error si falla el recorrido de las claves", function () {
+  localStorage.setItem("app:prueba", JSON.stringify({ activo: true }));
+
+  spyOn(Storage.prototype, "key").and.throwError(
+    new Error("No se pudieron consultar las claves")
+  );
+
+  expect(StorageUtil.listar("app:")).toEqual([]);
+
+  expect(console.error).toHaveBeenCalled();
+});
 });
 
 describe("limpiar", function () {
@@ -214,6 +270,16 @@ describe("limpiar", function () {
       conservar: true
     });
   });
+
+  it("devuelve false y registra el error si falla clear al limpiar", function () {
+  spyOn(Storage.prototype, "clear").and.throwError(
+    new Error("No se pudo limpiar")
+  );
+
+  expect(StorageUtil.limpiar("local")).toBeFalse();
+
+  expect(console.error).toHaveBeenCalled();
+});
 });
 
 describe("guardarInstancia / cargarInstancia", function () {
@@ -251,6 +317,37 @@ describe("guardarInstancia / cargarInstancia", function () {
 });
 
 describe("Errores y robustez", function () {
+
+    it("devuelve false aunque falle console.error al registrar un error", function () {
+    const errorStorage = new Error("No se pudo escribir");
+    spyOn(Storage.prototype, "setItem").and.throwError(errorStorage);
+    console.error.and.throwError(new Error("No se pudo registrar el error"));
+
+    expect(StorageUtil.guardar("clave-con-error", "valor")).toBeFalse();
+    expect(console.error).toHaveBeenCalledWith("StorageUtil.guardar:", errorStorage);
+  });
+
+  it("devuelve false y no guarda la clave si el valor se serializa a undefined", function () {
+    expect(StorageUtil.guardar("sin-valor", undefined)).toBeFalse();
+    expect(localStorage.getItem("sin-valor")).toBeNull();
+    expect(console.error).toHaveBeenCalledWith(
+      "StorageUtil.guardar:",
+      jasmine.objectContaining({ message: "El valor no se puede serializar como JSON." })
+    );
+  });
+
+  it("conserva el valor anterior si el nuevo valor se serializa a undefined", function () {
+    const valorAnterior = { tema: "claro" };
+    expect(StorageUtil.guardar("preferencias", valorAnterior)).toBeTrue();
+
+    expect(StorageUtil.actualizar("preferencias", undefined)).toBeFalse();
+    expect(StorageUtil.obtener("preferencias")).toEqual(valorAnterior);
+    expect(console.error).toHaveBeenCalledWith(
+      "StorageUtil.actualizar:",
+      jasmine.objectContaining({ message: "El valor no se puede serializar como JSON." })
+    );
+  });
+  
   it("captura el error de cuota, devuelve false y registra el problema", function () {
     spyOn(Storage.prototype, "setItem").and.throwError(
       new DOMException("lleno", "QuotaExceededError")
@@ -260,6 +357,34 @@ describe("Errores y robustez", function () {
     expect(console.error).toHaveBeenCalled();
     expect(console.error.calls.mostRecent().args[1]).toBe(
       "Almacenamiento lleno: no hay espacio disponible."
+    );
+  });
+
+    it("captura el error de cuota con el nombre alternativo de Firefox", function () {
+    spyOn(Storage.prototype, "setItem").and.throwError(
+      new DOMException("lleno", "NS_ERROR_DOM_QUOTA_REACHED")
+    );
+
+    expect(StorageUtil.guardar("lleno", "valor")).toBeFalse();
+    expect(localStorage.getItem("lleno")).toBeNull();
+
+    expect(console.error).toHaveBeenCalledWith(
+      "StorageUtil.guardar:",
+      "Almacenamiento lleno: no hay espacio disponible."
+    );
+  });
+
+  it("registra una DOMException que no corresponde a un error de cuota", function () {
+    const error = new DOMException("Acceso denegado", "SecurityError");
+
+    spyOn(Storage.prototype, "setItem").and.throwError(error);
+
+    expect(StorageUtil.guardar("clave", "valor")).toBeFalse();
+    expect(localStorage.getItem("clave")).toBeNull();
+
+    expect(console.error).toHaveBeenCalledWith(
+      "StorageUtil.guardar:",
+      error
     );
   });
 
@@ -275,5 +400,55 @@ describe("Errores y robustez", function () {
 
     expect(StorageUtil.guardar("clave", "valor")).toBeFalse();
     expect(console.error).toHaveBeenCalled();
+  });
+});
+
+describe("PersistenciaService", function () {
+  it("carga un carrito vacío cuando no hay datos guardados", function () {
+    const carrito = PersistenciaService.cargarCarrito();
+
+    expect(carrito instanceof Carrito).toBeTrue();
+    expect(carrito.items.length).toBe(0);
+  });
+
+  it("guarda correctamente el carrito", function () {
+    const carrito = crearCarrito();
+
+    expect(PersistenciaService.guardarCarrito(carrito)).toBeTrue();
+  });
+
+  it("recupera el carrito guardado como una instancia de Carrito", function () {
+    const carrito = crearCarrito();
+
+    PersistenciaService.guardarCarrito(carrito);
+
+    const recuperado = PersistenciaService.cargarCarrito();
+
+    expect(recuperado instanceof Carrito).toBeTrue();
+    expect(recuperado.toJSON()).toEqual(carrito.toJSON());
+  });
+
+  it("guarda correctamente el filtro activo", function () {
+    const filtro = { campo: "talle", valor: "M" };
+
+    expect(PersistenciaService.guardarFiltro(filtro)).toBeTrue();
+  });
+
+  it("recupera el filtro activo guardado", function () {
+    const filtro = { campo: "talle", valor: "M" };
+
+    PersistenciaService.guardarFiltro(filtro);
+
+    expect(PersistenciaService.cargarFiltro()).toEqual(filtro);
+  });
+
+  it("elimina correctamente el filtro activo", function () {
+    PersistenciaService.guardarFiltro({
+      campo: "talle",
+      valor: "M"
+    });
+
+    expect(PersistenciaService.eliminarFiltro()).toBeTrue();
+    expect(PersistenciaService.cargarFiltro()).toBeNull();
   });
 });

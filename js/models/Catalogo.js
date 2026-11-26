@@ -94,6 +94,44 @@ export default class Catalogo {
   }
 
   /**
+   * Combina la búsqueda por nombre con los filtros seleccionados.
+   * Los valores de un mismo campo se combinan mediante OR.
+   * Los diferentes campos se combinan mediante AND.
+   * @param {string} termino
+   * @param {Object<string, string[]>} filtros
+   * @returns {Producto[]}
+   */
+  buscarYFiltrar(termino = "", filtros = {}) {
+    let productos = this.productos;
+
+    if (termino.trim()) {
+      const encontrado = this.buscarProducto(termino);
+      productos = encontrado ? [encontrado] : [];
+    }
+
+    for (const [campo, valores] of Object.entries(filtros)) {
+      if (valores.length === 0) {
+        continue;
+      }
+
+      const coincidencias = new Set();
+
+      for (const valor of valores) {
+        for (const producto of this.filtrarProductos(campo, valor)) {
+          coincidencias.add(producto);
+        }
+      }
+
+      productos = productos.filter((producto) =>
+        coincidencias.has(producto)
+      );
+    }
+
+    return productos;
+  }
+
+
+  /**
    * Obtiene los valores únicos de un campo de filtro en orden de catálogo.
    * @param {string} campo
    * @returns {string[]}

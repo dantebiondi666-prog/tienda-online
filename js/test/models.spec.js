@@ -241,7 +241,7 @@ describe("Catalogo", function () {
       ]);
     });
 
-    it("busca por nombre sin distinguir mayúsculas ni tildes", function () {
+    it("buscarYFiltrar normaliza mayúsculas y tildes", function () {
       expect(catalogo.buscarProducto("PANTALON").nombre).toBe("Pantalón");
       expect(catalogo.buscarProducto("Producto ausente")).toBeNull();
     });
@@ -270,7 +270,65 @@ describe("Catalogo", function () {
       ).toEqual(["Camisa", "Vestido"]);
     });
 
-    it("obtiene opciones únicas del catálogo y admite campos con distintas mayúsculas", function () {
+    
+    // RC16 - Búsqueda y combinación de filtros
+
+    it("devuelve todos los productos sin búsqueda ni filtros", function () {
+      expect(catalogo.buscarYFiltrar()).toEqual(catalogo.productos);
+    });
+
+    it("busca por nombre sin distinguir mayúsculas ni tildes", function () {
+      const resultado = catalogo.buscarYFiltrar("PANTALON");
+      expect(resultado.map((producto) => producto.nombre))
+        .toEqual(["Pantalón"]);
+    });
+
+    it("combina valores del mismo campo mediante OR", function () {
+      const resultado = catalogo.buscarYFiltrar("", {
+        tipo: ["jean", "camisa"]
+      });
+
+      expect(resultado.map((producto) => producto.nombre))
+        .toEqual(["Pantalón", "Camisa"]);
+    });
+
+    it("combina diferentes campos mediante AND", function () {
+      const resultado = catalogo.buscarYFiltrar("", {
+        categoria: ["Indumentaria"],
+        estilo: ["formal"]
+      });
+
+      expect(resultado.map((producto) => producto.nombre))
+        .toEqual(["Camisa"]);
+    });
+
+    it("combina la búsqueda por nombre con los filtros", function () {
+      const resultado = catalogo.buscarYFiltrar("Camisa", {
+        talle: ["M"]
+      });
+
+      expect(resultado.map((producto) => producto.nombre))
+        .toEqual(["Camisa"]);
+    });
+
+    it("devuelve un array vacío cuando no existen coincidencias", function () {
+      expect(catalogo.buscarYFiltrar("Producto ausente")).toEqual([]);
+
+      expect(catalogo.buscarYFiltrar("Pantalón", {
+        estilo: ["formal"]
+      })).toEqual([]);
+    });
+
+    it("ignora los campos sin valores seleccionados", function () {
+      const resultado = catalogo.buscarYFiltrar("", {
+        categoria: [],
+        estilo: []
+      });
+
+      expect(resultado).toEqual(catalogo.productos);
+    });
+
+it("obtiene opciones únicas del catálogo y admite campos con distintas mayúsculas", function () {
       expect(catalogo.obtenerOpcionesFiltro("TALLE")).toEqual([
         "38",
         "40",
@@ -424,6 +482,29 @@ describe("ItemCarrito", function () {
   });
 
   describe("Métodos de negocio", function () {
+        it("acepta cantidades enteras positivas", function () {
+      [1, 2, 10, 100].forEach(function (cantidad) {
+        expect(ItemCarrito.esCantidadValida(cantidad)).toBeTrue();
+      });
+    });
+
+    it("rechaza cantidades menores o iguales a cero", function () {
+      [0, -1, -10].forEach(function (cantidad) {
+        expect(ItemCarrito.esCantidadValida(cantidad)).toBeFalse();
+      });
+    });
+
+    it("rechaza cantidades decimales", function () {
+      [0.5, 1.5, 2.7].forEach(function (cantidad) {
+        expect(ItemCarrito.esCantidadValida(cantidad)).toBeFalse();
+      });
+    });
+
+    it("rechaza cantidades de tipo inválido", function () {
+      ["2", "", null, undefined, NaN, Infinity, true].forEach(function (cantidad) {
+        expect(ItemCarrito.esCantidadValida(cantidad)).toBeFalse();
+      });
+    });
     it("calcula el subtotal con el precio unitario y la cantidad", function () {
       const item = new ItemCarrito(crearProducto(), "L", 3, 2400);
 

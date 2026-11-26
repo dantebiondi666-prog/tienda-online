@@ -10,6 +10,16 @@ export default class ItemCarrito {
   #precio;
 
   /**
+   * Determina si una cantidad es un número entero positivo.
+   * @param {number} cantidad
+   * @returns {boolean}
+   */
+  static esCantidadValida(cantidad) {
+    return Number.isInteger(cantidad) && cantidad > 0;
+  }
+
+
+  /**
    * Crea una línea validando producto, talle, cantidad y precio.
    * @param {Producto|Object} producto
    * @param {string} talle
@@ -29,7 +39,7 @@ export default class ItemCarrito {
     }
     this.#talle = talleNormalizado;
 
-    if (!Number.isInteger(cantidad) || cantidad <= 0) {
+    if (!ItemCarrito.esCantidadValida(cantidad)) {
       throw new Error("La cantidad debe ser un entero positivo.");
     }
     this.#cantidad = cantidad;
