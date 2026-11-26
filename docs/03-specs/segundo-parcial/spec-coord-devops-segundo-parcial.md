@@ -244,7 +244,7 @@ Esta sección se completará durante el desarrollo con las revisiones efectivame
 
 | Revisión | PR | Rol | Archivos revisados | Resultado |
 |---|---|---|---|---|
-| Review 1 | Pendiente | Pendiente | Pendiente | Pendiente |
+| Review 1 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Desarrollador JS Asíncrono - Fetch & APIs | apiService.js, productos.json, script.js, index.html, changelog.md, package.json, script.spec.js y SPEC | Request Changes: RC01 y RC02 |
 | Review 2 | Pendiente | Pendiente | Pendiente | Pendiente |
 | Review 3 | Pendiente | Pendiente | Pendiente | Pendiente |
 | Review 4 | Pendiente | Pendiente | Pendiente | Pendiente |
@@ -258,7 +258,191 @@ Para cada revisión se registrará:
 - Observaciones y validaciones manuales.
 - Request Changes y líneas afectadas.
 - Resolución y resultado final.
+### Code Review N.º 1 - PR #137
 
+#### Información general
+
+- Fecha: 26/11/2026.
+- Responsable del desarrollo: Dante Biondi.
+- Rol: Desarrollador JS Asíncrono - Fetch & APIs.
+- PR: [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137).
+- Issue: [#135](https://github.com/dantebiondi666-prog/tienda-online/issues/135).
+- Rama: feature/dev-async-fetch-api.
+- Destino previsto: develop.
+- Herramienta de IA utilizada: ChatGPT.
+
+#### Contexto proporcionado a la IA
+
+- Consigna y rúbrica del Segundo Parcial.
+- Capturas del diff del PR #137.
+- api/productos.json.
+- js/api/apiService.js.
+- js/script.js.
+- js/data/productos.js (archivo eliminado).
+- index.html.
+- changelog.md.
+- package.json.
+- js/test/script.spec.js.
+- docs/03-specs/segundo-parcial/spec-dev-async-fetch.md.
+- Resultados de la ejecución local de Jasmine.
+
+#### Prompt exacto utilizado para la validación final
+
+La revisión inicial se realizó de forma iterativa mediante
+capturas del diff y resultados de terminal. Posteriormente,
+se utilizó el siguiente prompt para consolidar y validar
+los hallazgos de la revisión:
+
+```text
+Realizá una revisión técnica exhaustiva del PR #137,
+correspondiente al Desarrollador JS Asíncrono — Fetch & APIs,
+contrastando los cambios con la consigna del segundo parcial.
+
+Utilizá como contexto las capturas del diff, api/productos.json,
+js/api/apiService.js, js/script.js, index.html, changelog.md,
+package.json, script.spec.js, el SPEC del desarrollador y
+los resultados de Jasmine.
+
+Verificá el cumplimiento de los requisitos, las regresiones,
+el manejo de errores, la cobertura, la integración con POO
+y DOM, y justificá los Request Changes realizados indicando
+los archivos y las líneas correspondientes.
+```
+
+#### Aspectos técnicos revisados
+
+- Selección y justificación de la fuente JSON.
+- Implementación de Fetch y async/await.
+- Validación de respuestas HTTP.
+- Manejo de respuestas JSON inválidas.
+- Estados de carga, éxito y error.
+- Aplicación de map(), filter() y reduce().
+- Validación y sanitización de productos.
+- Integración con las clases POO existentes.
+- Integración con el DOM y PersistenciaService.
+- Separación de responsabilidades.
+- Documentación JSDoc.
+- Trazabilidad mediante changelog, PR e issue.
+- Compatibilidad con las suites de testing existentes.
+
+#### Validación manual
+
+Para revisar el código sin modificar la rama del
+Coordinador, se creó un worktree independiente.
+
+Comandos utilizados:
+
+```powershell
+git fetch origin
+git worktree add --detach ../tienda-online-review-137 origin/feature/dev-async-fetch-api
+cd ../tienda-online-review-137
+npm.cmd ci
+npm.cmd test
+```
+
+#### Resultados de Jasmine
+
+| Métrica | Resultado |
+|---|---:|
+| Tests ejecutados | 150 |
+| Tests aprobados | 113 |
+| Tests fallidos | 37 |
+| Porcentaje de aprobación | 75,33% |
+| Seed | 58552 |
+| Tiempo de ejecución | 1,077 segundos |
+
+Se identificaron fallos relacionados con la búsqueda,
+los filtros, el modal de productos, el carrito y el
+resumen de compra.
+
+La causa probable corresponde a la falta de adaptación
+de los tests existentes a la inicialización asíncrona
+del catálogo y a la ausencia de un mock de Fetch en
+la preparación de la suite inspeccionada.
+
+Los resultados confirman una regresión en la ejecución
+de los tests, pero no demuestran por sí solos que todas
+las funcionalidades estén rotas en el navegador.
+
+#### Request Changes publicados
+
+| RC | Archivo | Línea del diff | Prioridad | Estado |
+|---|---|---:|---|---|
+| RC01 | js/script.js | 110 | Alta | Pendiente |
+| RC02 | js/api/apiService.js | 58 | Media | Pendiente |
+
+##### RC01 - Regresión de las pruebas existentes
+
+La función iniciarAplicacion() incorpora una carga
+asíncrona mediante await cargarCatalogo().
+
+Sin embargo, script.spec.js, en la línea 71, dispara
+DOMContentLoaded sin esperar explícitamente que finalice
+la carga del catálogo.
+
+Se solicitó adaptar las pruebas existentes, simular las
+respuestas de Fetch y sincronizar la inicialización
+asíncrona.
+
+Responsables: Desarrollador JS Asíncrono y Tester QA/JS.
+
+Criterio de aceptación: ejecutar la suite existente
+sin regresiones y obtener 0 failures.
+
+##### RC02 - Cobertura del servicio API
+
+El comando cobertura de package.json no incluye
+el directorio js/api/.
+
+Se solicitó incorporar el nuevo servicio a la
+configuración de c8 y agregar las pruebas correspondientes
+a Fetch y al procesamiento de los datos.
+
+Responsable principal: Tester QA/JS, en coordinación
+con el Desarrollador JS Asíncrono.
+
+Criterio de aceptación: generar un informe de cobertura
+que incluya apiService.js y los resultados de sus tests.
+
+#### Resultado de la revisión
+
+- Revisión asistida por IA: realizada.
+- Validación manual mediante Jasmine: realizada.
+- Comentarios inline publicados: 2.
+- Request Changes enviado: sí.
+- Aprobación del Coordinador: pendiente.
+- Lighthouse baseline: pendiente de verificar.
+- Merge hacia develop: pendiente.
+
+#### Conclusión
+
+La implementación presenta una arquitectura coherente
+con los requerimientos del Segundo Parcial.
+
+Sin embargo, se decidió solicitar modificaciones debido
+a los fallos detectados en la suite de testing y a la
+configuración incompleta de cobertura.
+
+Se deberá realizar una nueva validación después de
+resolver las observaciones, antes de aprobar e integrar
+la Pull Request.
+
+#### Seguimiento de las correcciones
+
+- [x] Revisar el diff mediante IA.
+- [x] Ejecutar las pruebas existentes.
+- [x] Identificar regresiones.
+- [x] Publicar comentarios inline.
+- [x] Enviar Request Changes.
+- [ ] Verificar resolución de RC01.
+- [ ] Verificar resolución de RC02.
+- [ ] Ejecutar nuevamente Jasmine.
+- [ ] Verificar cobertura actualizada.
+- [ ] Confirmar Lighthouse baseline.
+- [ ] Aprobar PR.
+- [ ] Mergear hacia develop.
+
+---
 ## 13. Registro de Request Changes del docente
 
 | RC | Descripción | Prioridad | Responsable | Issue | PR | Estado |
