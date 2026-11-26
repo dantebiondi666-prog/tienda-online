@@ -1,220 +1,810 @@
+import Carrito from "../models/Carrito.js";
+import fs from "node:fs/promises";
+import { JSDOM } from "jsdom";
 
-/**
- * Actividad Obligatoria N.º 3 — Programación Web I
- * Proyecto: Remer Us
- * Rol: Tester JavaScript / QA Engineer
- * Responsable: Juan Martin Britos
- *
- * Pruebas unitarias con Jasmine.
- * Issue asociada: #88
- */
 
-// SUITE 1 — Consultar y filtrar catálogo
+const archivoHtml = new URL("../../index.html", import.meta.url);
+const nombresGlobales = [
+  "window",
+  "document",
+  "localStorage",
+  "sessionStorage",
+  "Event",
+  "CustomEvent",
+  "KeyboardEvent",
+  "MouseEvent",
+  "HTMLElement",
+  "HTMLInputElement",
+  "HTMLSelectElement",
+  "HTMLFormElement",
+  "Node",
+  "DOMException",
+  "alert",
+  "prompt",
+];
+let contadorImportaciones = 0;
+let dom;
+let descriptoresAnteriores;
+
+describe("Controlador de eventos con DOM", function () {
+beforeEach(async function () {
+  const html = await fs.readFile(archivoHtml, "utf8");
+  dom = new JSDOM(html, {
+    url: "http://localhost/",
+    pretendToBeVisual: true,
+  });
+
+  const globalesJSDOM = {
+    window: dom.window,
+    document: dom.window.document,
+    localStorage: dom.window.localStorage,
+    sessionStorage: dom.window.sessionStorage,
+    Event: dom.window.Event,
+    CustomEvent: dom.window.CustomEvent,
+    KeyboardEvent: dom.window.KeyboardEvent,
+    MouseEvent: dom.window.MouseEvent,
+    HTMLElement: dom.window.HTMLElement,
+    HTMLInputElement: dom.window.HTMLInputElement,
+    HTMLSelectElement: dom.window.HTMLSelectElement,
+    HTMLFormElement: dom.window.HTMLFormElement,
+    Node: dom.window.Node,
+    DOMException: dom.window.DOMException,
+    alert: jasmine.createSpy("alert"),
+    prompt: jasmine.createSpy("prompt"),
+  };
+
+  descriptoresAnteriores = new Map(
+    nombresGlobales.map((nombre) => [
+      nombre,
+      Object.getOwnPropertyDescriptor(globalThis, nombre),
+    ])
+  );
+  for (const [nombre, valor] of Object.entries(globalesJSDOM)) {
+    Object.defineProperty(globalThis, nombre, {
+      configurable: true,
+      writable: true,
+      value: valor,
+    });
+  }
+
+  await import(`../script.js?prueba=${++contadorImportaciones}`);
+  document.dispatchEvent(new window.Event("DOMContentLoaded"));
+});
+
+afterEach(function () {
+  expect(globalThis.alert).not.toHaveBeenCalled();
+  expect(globalThis.prompt).not.toHaveBeenCalled();
+
+  if (dom) {
+    dom.window.close();
+    dom = undefined;
+  }
+  for (const nombre of nombresGlobales) {
+    const descriptor = descriptoresAnteriores.get(nombre);
+    if (descriptor) {
+      Object.defineProperty(globalThis, nombre, descriptor);
+    } else {
+      delete globalThis[nombre];
+    }
+  }
+  descriptoresAnteriores = undefined;
+});
+
+function disparar(elemento, tipo) {
+  elemento.dispatchEvent(new window.Event(tipo, { bubbles: true, cancelable: true }));
+}
+
+function abrirProducto(nombre) {
+  const boton = [...document.querySelectorAll("#product-grid button")].find(
+    (elemento) => elemento.dataset.producto === nombre
+  );
+  boton.click();
+
+  const evento = new window.Event("show.bs.modal", {
+    bubbles: true,
+    cancelable: true,
+  });
+  Object.defineProperty(evento, "relatedTarget", { value: boton });
+  document.getElementById("modalProducto").dispatchEvent(evento);
+}
+
+function seleccionarTalle(talle) {
+  const selector = document.getElementById("modalProductoTalle");
+  selector.value = talle;
+  disparar(selector, "change");
+}
+
+function enviarFormulario(formulario) {
+  disparar(formulario, "submit");
+}
+
+function agregarProducto(nombre, talle, cantidad = "1") {
+  abrirProducto(nombre);
+  seleccionarTalle(talle);
+  const campoCantidad = document.getElementById("modalProductoCantidad");
+  campoCantidad.value = cantidad;
+  disparar(campoCantidad, "input");
+  enviarFormulario(document.getElementById("modal-producto-form"));
+}
+
+function lineaCarrito(nombre, talle) {
+  return document.querySelector(
+    `#carrito-items li[data-producto="${nombre}"][data-talle="${talle}"]`
+  );
+}
+
+function moneda(valor) {
+  return new Intl.NumberFormat("es-AR", {
+    style: "currency",
+    currency: "ARS",
+    maximumFractionDigits: 0,
+  }).format(valor);
+}
+
 describe("Flujo 1 - Consultar y filtrar catálogo", function () {
-  const productos = [
-    {
-      nombre: "Remera",
-      categoria: "Indumentaria superior",
-      tipo: "remera",
-      estilo: "casual",
-      talles: ["S", "M", "L"],
-      precio: 15000
-    },
-    {
-      nombre: "Campera",
-      categoria: "Abrigo",
-      tipo: "campera",
-      estilo: "urban",
-      talles: ["M", "L", "XL"],
-      precio: 48000
+  it("busca por nombre sin distinguir mayúsculas ni tildes", function () {
+    const busqueda = document.getElementById("busqueda");
+    busqueda.value = "PANTALON";
+    disparar(busqueda, "input");
+
+    expect(document.querySelector("#product-grid h3").textContent).toBe("Pantalón");
+  });
+
+  it("envía la búsqueda y muestra el producto coincidente", function () {
+    const busqueda = document.getElementById("busqueda");
+    busqueda.value = "Campera";
+    enviarFormulario(document.getElementById("busqueda-form"));
+
+    expect(document.querySelector("#product-grid h3").textContent).toBe("Campera");
+  });
+
+  it("muestra el feedback cuando la búsqueda no encuentra productos", function () {
+    const busqueda = document.getElementById("busqueda");
+    busqueda.value = "Zapato";
+    disparar(busqueda, "input");
+
+    expect(document.getElementById("catalogo-feedback").textContent).toBe(
+      'No se encontró un producto llamado "Zapato".'
+    );
+  });
+
+  it("aplica en conjunto los filtros de categoría, tipo, talle y estilo", function () {
+    const filtros = document.getElementById("filtros-form");
+    for (const [campo, valor] of [
+      ["categoria", "Abrigo"],
+      ["tipo", "campera"],
+      ["talle", "XL"],
+      ["estilo", "urban"],
+    ]) {
+      const checkbox = filtros.querySelector(
+        `input[name="${campo}"][value="${valor}"]`
+      );
+      checkbox.checked = true;
+      disparar(checkbox, "change");
     }
-  ];
 
-  it("filtra productos correctamente por tipo", function () {
-    const resultado = filtrarProductos(productos, "tipo", "remera");
-    expect(resultado.length).toBe(1);
-    expect(resultado[0].nombre).toBe("Remera");
+    expect(document.querySelector("#product-grid h3").textContent).toBe("Campera");
   });
 
-  it("filtra por talle sin distinguir mayúsculas", function () {
-    const resultado = filtrarProductos(productos, "talle", "xl");
-    expect(resultado.length).toBe(1);
-    expect(resultado[0].nombre).toBe("Campera");
-  });
+  it("restablece los filtros y vuelve a mostrar todo el catálogo", async function () {
+    const filtros = document.getElementById("filtros-form");
+    const categoria = filtros.querySelector(
+      'input[name="categoria"][value="Abrigo"]'
+    );
+    categoria.checked = true;
+    disparar(categoria, "change");
+    filtros.reset();
+    await new Promise((resolve) => window.setTimeout(resolve, 0));
 
-  it("devuelve un array vacío si no hay coincidencias", function () {
-    const resultado = filtrarProductos(productos, "tipo", "pantalon");
-    expect(resultado).toEqual([]);
-  });
-
-  it("rechaza un campo de filtro inválido", function () {
-    expect(function () {
-      filtrarProductos(productos, "color", "rojo");
-    }).toThrowError("El campo de filtro no es válido.");
+    expect(document.querySelectorAll("#product-grid article").length).toBe(3);
   });
 });
 
-// SUITE 2 — Consultar producto y disponibilidad de talle
 describe("Flujo 2 - Consultar producto y talle", function () {
-  const productos = [
-    {
-      nombre: "Remera",
-      categoria: "Indumentaria superior",
-      tipo: "remera",
-      estilo: "casual",
-      talles: ["S", "M", "L"],
-      precio: 15000
-    }
-  ];
+  it("abre el detalle con categoría, tipo, estilo, precio y talles reales", function () {
+    abrirProducto("Pantalón");
 
-  it("encuentra un producto existente por nombre", function () {
-    const resultado = buscarProducto(productos, "remera");
-    expect(resultado.nombre).toBe("Remera");
-  });
-
-  it("devuelve null cuando el producto no existe", function () {
-    const resultado = buscarProducto(productos, "Campera");
-    expect(resultado).toBeNull();
-  });
-
-  it("confirma un talle disponible", function () {
-    const resultado = verificarTalleDisponible(productos[0], "m");
-    expect(resultado).toBeTrue();
-  });
-
-  it("rechaza un talle vacío", function () {
-    expect(function () {
-      verificarTalleDisponible(productos[0], "");
-    }).toThrowError("El talle debe ser una cadena no vacía.");
-  });
-});
-
-// SUITE 3 — Gestionar carrito
-describe("Flujo 3 - Gestionar carrito", function () {
-  it("agrega un producto a un carrito vacío", function () {
-    const resultado = agregarAlCarrito([], "Remera", "M", 2, 15000);
-
-    expect(resultado.length).toBe(1);
-    expect(resultado[0].cantidad).toBe(2);
-    expect(resultado[0].precio).toBe(15000);
-  });
-
-  it("suma cantidades si el producto y talle ya existen", function () {
-    const carritoInicial = [
-      { producto: "Remera", talle: "M", cantidad: 1, precio: 15000 }
-    ];
-
-    const resultado = agregarAlCarrito(
-      carritoInicial, "Remera", "M", 2, 15000
-    );
-
-    expect(resultado.length).toBe(1);
-    expect(resultado[0].cantidad).toBe(3);
-    expect(carritoInicial[0].cantidad).toBe(1);
-  });
-
-  it("modifica la cantidad sin alterar el carrito original", function () {
-    const carritoInicial = [
-      { producto: "Remera", talle: "M", cantidad: 1, precio: 15000 }
-    ];
-
-    const resultado = modificarCantidad(
-      carritoInicial, "Remera", "M", 4
-    );
-
-    expect(resultado[0].cantidad).toBe(4);
-    expect(carritoInicial[0].cantidad).toBe(1);
-  });
-
-  it("elimina un producto del carrito", function () {
-    const carritoInicial = [
-      { producto: "Remera", talle: "M", cantidad: 1, precio: 15000 }
-    ];
-
-    const resultado = eliminarDelCarrito(
-      carritoInicial, "Remera", "M"
-    );
-
-    expect(resultado).toEqual([]);
-    expect(carritoInicial.length).toBe(1);
-  });
-
-  it("agrega un producto aunque no pertenezca al catálogo", function () {
-    const resultado = agregarAlCarrito([], "Producto inexistente", "M", 1, 1000);
-
-    expect(resultado).toEqual([
-      { producto: "Producto inexistente", talle: "M", cantidad: 1, precio: 1000 }
+    expect([
+      document.getElementById("modalProductoCategoria").textContent,
+      document.getElementById("modalProductoTipo").textContent,
+      document.getElementById("modalProductoEstilo").textContent,
+      document.getElementById("modalProductoPrecio").textContent,
+      document.getElementById("modalProductoTalles").textContent,
+    ]).toEqual([
+      "Indumentaria inferior",
+      "pantalon",
+      "casual",
+      moneda(22000),
+      "Talles disponibles: 38 / 40 / 42",
     ]);
   });
 
-  it("rechaza cantidades cero, negativas, decimales y no numéricas", function () {
-    [0, -1, 1.5, "2", NaN].forEach(function (cantidad) {
-      expect(function () {
-        agregarAlCarrito([], "Remera", "M", cantidad, 15000);
-      }).toThrowError("La cantidad debe ser un entero positivo.");
-    });
+  it("devuelve el foco al botón de origen y limpia el modal al cerrarse", function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const botonOrigen = [...document.querySelectorAll("#product-grid button")].find(
+    (boton) => boton.dataset.producto === "Remera"
+  );
+
+  const cantidad = document.getElementById("modalProductoCantidad");
+  cantidad.value = "3";
+
+  modal.dispatchEvent(
+    new window.Event("hidden.bs.modal", {
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(document.activeElement).toBe(botonOrigen);
+  expect(cantidad.value).toBe("1");
+});
+
+it("lleva el foco al último elemento al presionar Shift+Tab desde el primero", function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const botonCerrarSuperior = modal.querySelector(".btn-close");
+  const botonCerrarInferior = modal.querySelector(
+    '.modal-footer button[data-bs-dismiss="modal"]'
+  );
+
+  botonCerrarSuperior.focus();
+
+  modal.dispatchEvent(
+    new window.KeyboardEvent("keydown", {
+      key: "Tab",
+      shiftKey: true,
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(document.activeElement).toBe(botonCerrarInferior);
+});
+
+it("devuelve el foco al primer elemento al presionar Tab desde el último", function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const botonCerrarSuperior = modal.querySelector(".btn-close");
+  const botonCerrarInferior = modal.querySelector(
+    '.modal-footer button[data-bs-dismiss="modal"]'
+  );
+
+  botonCerrarInferior.focus();
+
+  modal.dispatchEvent(
+    new window.KeyboardEvent("keydown", {
+      key: "Tab",
+      shiftKey: false,
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(document.activeElement).toBe(botonCerrarSuperior);
+});
+
+it("restablece el formulario del modal al ejecutar reset", async function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const formulario = document.getElementById("modal-producto-form");
+  const talle = document.getElementById("modalProductoTalle");
+  const cantidad = document.getElementById("modalProductoCantidad");
+  const botonAgregar = modal.querySelector('[type="submit"]');
+
+  talle.value = "M";
+  disparar(talle, "change");
+
+  cantidad.value = "3";
+  disparar(cantidad, "input");
+
+  expect(botonAgregar.disabled).toBeFalse();
+
+  formulario.reset();
+
+  await new Promise((resolve) => window.setTimeout(resolve, 0));
+
+  expect(talle.value).toBe("");
+  expect(cantidad.value).toBe("1");
+  expect(botonAgregar.disabled).toBeTrue();
+  expect(document.getElementById("modal-talle-feedback").textContent).toBe("");
+});
+
+it("enfoca el botón de cerrar cuando el modal termina de abrirse", function () {
+  abrirProducto("Remera");
+
+  const modal = document.getElementById("modalProducto");
+  const botonCerrar = modal.querySelector(".btn-close");
+
+  modal.dispatchEvent(
+    new window.Event("shown.bs.modal", {
+      bubbles: true,
+      cancelable: true,
+    })
+  );
+
+  expect(document.activeElement).toBe(botonCerrar);
+});
+
+  it("marca un talle vacío como inválido y mantiene deshabilitado agregar", function () {
+    abrirProducto("Remera");
+    seleccionarTalle("");
+
+    expect([
+      document.getElementById("modal-talle-feedback").textContent,
+      document.querySelector('#modalProducto [type="submit"]').disabled,
+    ]).toEqual(["Seleccioná un talle.", true]);
   });
 
-  it("rechaza un producto o talle vacío al agregar", function () {
-    expect(function () {
-      agregarAlCarrito([], "   ", "M", 1, 15000);
-    }).toThrowError("El nombre del producto no puede estar vacío.");
+  it("rechaza un talle disponible en catálogo pero no para el producto", function () {
+    abrirProducto("Remera");
+    seleccionarTalle("XL");
 
-    expect(function () {
-      agregarAlCarrito([], "Remera", "  ", 1, 15000);
-    }).toThrowError("El talle debe ser una cadena no vacía.");
+    expect(document.getElementById("modal-talle-feedback").textContent).toBe(
+      "Talle XL no disponible."
+    );
   });
 
-  it("rechaza un carrito que no sea un array", function () {
-    expect(function () {
-      agregarAlCarrito(null, "Remera", "M", 1, 15000);
-    }).toThrowError("El carrito debe ser un array.");
+  it("rechaza una cantidad cero con el mensaje correspondiente", function () {
+    abrirProducto("Remera");
+    seleccionarTalle("M");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    cantidad.value = "0";
+    disparar(cantidad, "input");
+
+    expect([
+      document.getElementById("modal-cantidad-feedback").textContent,
+      document.querySelector('#modalProducto [type="submit"]').disabled,
+    ]).toEqual(["Ingresá una cantidad entera mayor que cero.", true]);
   });
 
-  it("rechaza modificar un producto y talle inexistentes", function () {
-    expect(function () {
-      modificarCantidad(
-        [{ producto: "Remera", talle: "M", cantidad: 1, precio: 15000 }],
-        "Campera",
-        "L",
-        2
-      );
-    }).toThrowError("El producto y talle no se encuentran en el carrito.");
+  it("rechaza una cantidad negativa", function () {
+    abrirProducto("Remera");
+    seleccionarTalle("M");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    cantidad.value = "-2";
+    disparar(cantidad, "input");
+
+    expect([
+      cantidad.classList.contains("is-invalid"),
+      document.getElementById("modal-cantidad-feedback").textContent,
+    ]).toEqual([
+      true,
+      "Ingresá una cantidad entera mayor que cero.",
+    ]);
   });
 
-  it("rechaza eliminar un producto y talle inexistentes", function () {
-    expect(function () {
-      eliminarDelCarrito(
-        [{ producto: "Remera", talle: "M", cantidad: 1, precio: 15000 }],
-        "Pantalón",
-        "42"
-      );
-    }).toThrowError("El producto y talle no se encuentran en el carrito.");
+  it("rechaza una cantidad decimal", function () {
+    abrirProducto("Remera");
+    seleccionarTalle("M");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    cantidad.value = "1.5";
+    disparar(cantidad, "input");
+
+    expect([
+      cantidad.classList.contains("is-invalid"),
+      document.getElementById("modal-cantidad-feedback").textContent,
+    ]).toEqual([
+      true,
+      "Ingresá una cantidad entera mayor que cero.",
+    ]);
+  });
+
+  it("rechaza una cantidad vacía", function () {
+    abrirProducto("Remera");
+    seleccionarTalle("M");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    cantidad.value = "";
+    disparar(cantidad, "input");
+
+    expect([
+      cantidad.classList.contains("is-invalid"),
+      document.getElementById("modal-cantidad-feedback").textContent,
+    ]).toEqual([
+      true,
+      "Ingresá una cantidad entera mayor que cero.",
+    ]);
+  });
+
+  it("habilita agregar cuando talle y cantidad son válidos", function () {
+    abrirProducto("Remera");
+    seleccionarTalle("M");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    cantidad.value = "2";
+    disparar(cantidad, "input");
+
+    expect(document.querySelector('#modalProducto [type="submit"]').disabled).toBeFalse();
   });
 });
 
-// SUITE 4 — Resumen de compra
+describe("Flujo 3 - Gestionar carrito", function () {
+  it("agrega un producto y actualiza el total del carrito", function () {
+    agregarProducto("Remera", "M", "2");
+
+    expect([
+      lineaCarrito("Remera", "M").querySelector("[data-cart-quantity]").value,
+      document.getElementById("carrito-total").textContent,
+      document.getElementById("carrito-feedback").textContent,
+    ]).toEqual(["2", moneda(30000), "El carrito se actualizó correctamente."]);
+  });
+
+  it("muestra un mensaje de error si falla el agregado al carrito", function () {
+  spyOn(Carrito.prototype, "agregarProducto").and.throwError(
+    new Error("No se pudo agregar el producto")
+  );
+
+  abrirProducto("Remera");
+  seleccionarTalle("M");
+
+  const cantidad = document.getElementById("modalProductoCantidad");
+  cantidad.value = "1";
+  disparar(cantidad, "input");
+
+  enviarFormulario(document.getElementById("modal-producto-form"));
+
+  expect(
+    document.getElementById("modal-producto-feedback").textContent
+  ).toBe("No se pudo agregar el producto");
+});
+
+  it("suma la cantidad al agregar el mismo producto con el mismo talle", function () {
+    agregarProducto("Remera", "M", "1");
+    agregarProducto("Remera", "M", "2");
+
+    expect(document.querySelectorAll("#carrito-items li").length).toBe(1);
+    expect(lineaCarrito("Remera", "M").querySelector("[data-cart-quantity]").value).toBe("3");
+  });
+
+  it("crea otra línea al agregar el producto con un talle distinto", function () {
+    agregarProducto("Remera", "M");
+    agregarProducto("Remera", "L");
+
+    expect(document.querySelectorAll("#carrito-items li").length).toBe(2);
+  });
+
+  it("actualiza una cantidad válida desde el formulario del carrito", function () {
+    agregarProducto("Remera", "M", "2");
+    const linea = lineaCarrito("Remera", "M");
+    const cantidad = linea.querySelector("[data-cart-quantity]");
+    cantidad.value = "4";
+    disparar(cantidad, "input");
+    enviarFormulario(linea.querySelector("form"));
+
+    expect([
+      lineaCarrito("Remera", "M").querySelector("[data-cart-quantity]").value,
+      document.getElementById("carrito-total").textContent,
+      document.getElementById("carrito-feedback").textContent,
+    ]).toEqual(["4", moneda(60000), "La cantidad se actualizó correctamente."]);
+  });
+
+  it("muestra un mensaje de error si falla la modificación de cantidad", function () {
+  agregarProducto("Remera", "M", "2");
+
+  spyOn(Carrito.prototype, "modificarCantidad").and.throwError(
+    new Error("No se pudo modificar la cantidad")
+  );
+
+  const linea = lineaCarrito("Remera", "M");
+  const cantidad = linea.querySelector("[data-cart-quantity]");
+
+  cantidad.value = "4";
+  disparar(cantidad, "input");
+  enviarFormulario(linea.querySelector("form"));
+
+  expect(
+    document.getElementById("carrito-feedback").textContent
+  ).toBe("No se pudo modificar la cantidad");
+});
+
+  it("deshabilita la actualización e ignora una cantidad inválida", function () {
+    agregarProducto("Remera", "M", "2");
+    const linea = lineaCarrito("Remera", "M");
+    const cantidad = linea.querySelector("[data-cart-quantity]");
+    cantidad.value = "0";
+    disparar(cantidad, "input");
+    const boton = linea.querySelector('[type="submit"]');
+    enviarFormulario(linea.querySelector("form"));
+
+    expect([
+      boton.disabled,
+      cantidad.value,
+      cantidad.classList.contains("is-invalid"),
+      document.getElementById("carrito-total").textContent,
+    ]).toEqual([true, "0", true, moneda(30000)]);
+  });
+
+  it("elimina una línea al hacer clic en eliminar", function () {
+    agregarProducto("Remera", "M");
+    lineaCarrito("Remera", "M").querySelector('[data-cart-action="remove"]').click();
+
+    expect([
+      document.querySelectorAll("#carrito-items li").length,
+      document.getElementById("carrito-feedback").textContent,
+    ]).toEqual([0, "El producto se eliminó del carrito."]);
+  });
+
+  it("muestra un mensaje de error si falla la eliminación del producto", function () {
+  agregarProducto("Remera", "M");
+
+  spyOn(Carrito.prototype, "eliminarProducto").and.throwError(
+    new Error("No se pudo eliminar el producto")
+  );
+
+  lineaCarrito("Remera", "M")
+    .querySelector('[data-cart-action="remove"]')
+    .click();
+
+  expect(
+    document.getElementById("carrito-feedback").textContent
+  ).toBe("No se pudo eliminar el producto");
+});
+
+  it("muestra el estado vacío y total cero al quitar el último producto", function () {
+    agregarProducto("Remera", "M");
+    lineaCarrito("Remera", "M").querySelector('[data-cart-action="remove"]').click();
+
+    expect([
+      document.getElementById("carrito-vacio").hidden,
+      document.getElementById("carrito-total").textContent,
+    ]).toEqual([false, moneda(0)]);
+  });
+});
+
+describe("Ramas defensivas del controlador", function () {
+  it("ignora un submit que no corresponde al formulario del carrito", function () {
+    agregarProducto("Remera", "M", "2");
+    const linea = lineaCarrito("Remera", "M");
+    const formularioAjeno = document.createElement("form");
+    linea.append(formularioAjeno);
+    const modificarCantidad = spyOn(Carrito.prototype, "modificarCantidad");
+    const evento = new window.Event("submit", {
+      bubbles: true,
+      cancelable: true,
+    });
+
+    formularioAjeno.dispatchEvent(evento);
+
+    expect(evento.defaultPrevented).toBeFalse();
+    expect(modificarCantidad).not.toHaveBeenCalled();
+    expect(linea.querySelector("[data-cart-quantity]").value).toBe("2");
+  });
+
+  it("conserva el producto al hacer clic fuera del botón Eliminar", function () {
+    agregarProducto("Remera", "M");
+    const linea = lineaCarrito("Remera", "M");
+    const eliminarProducto = spyOn(Carrito.prototype, "eliminarProducto");
+
+    linea.querySelector("strong").click();
+
+    expect(eliminarProducto).not.toHaveBeenCalled();
+    expect(lineaCarrito("Remera", "M")).toBe(linea);
+  });
+
+  it("mantiene el foco y deja pasar una tecla distinta de Tab", function () {
+    abrirProducto("Remera");
+    const modal = document.getElementById("modalProducto");
+    const botonCerrar = modal.querySelector(
+      '.modal-footer button[data-bs-dismiss="modal"]'
+    );
+    botonCerrar.focus();
+    const evento = new window.KeyboardEvent("keydown", {
+      key: "ArrowRight",
+      bubbles: true,
+      cancelable: true,
+    });
+
+    botonCerrar.dispatchEvent(evento);
+
+    expect(evento.defaultPrevented).toBeFalse();
+    expect(document.activeElement).toBe(botonCerrar);
+  });
+
+  it("propaga sin modificar un valor lanzado que no es Error", function () {
+    agregarProducto("Remera", "M");
+    const valorLanzado = "Fallo inesperado";
+    spyOn(Carrito.prototype, "eliminarProducto").and.callFake(function () {
+      throw valorLanzado;
+    });
+
+    const errores = [];
+    window.addEventListener("error", function (evento) {
+      errores.push(evento.error);
+      evento.preventDefault();
+    }, { once: true });
+
+    lineaCarrito("Remera", "M")
+      .querySelector('[data-cart-action="remove"]')
+      .click();
+
+    expect(errores).toEqual([valorLanzado]);
+  });
+});
+
+describe("Cobertura pendiente del modal y del carrito", function () {
+  it("cancela la apertura del modal cuando el producto no existe", function () {
+    const modal = document.getElementById("modalProducto");
+    const formulario = document.getElementById("modal-producto-form");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    const talle = document.getElementById("modalProductoTalle");
+    const feedback = document.getElementById("catalogo-feedback");
+    const contenidoAnterior = modal.innerHTML;
+    const cantidadAnterior = cantidad.value;
+    const talleAnterior = talle.value;
+    const reset = spyOn(formulario, "reset").and.callThrough();
+    const boton = document.createElement("button");
+    boton.dataset.producto = "Producto inexistente";
+
+    const evento = new window.Event("show.bs.modal", {
+      bubbles: true,
+      cancelable: true,
+    });
+    Object.defineProperty(evento, "relatedTarget", { value: boton });
+
+    expect(modal.dispatchEvent(evento)).toBeFalse();
+
+    expect(evento.defaultPrevented).toBeTrue();
+    expect(feedback.textContent).toBe(
+      "No se pudo encontrar el producto seleccionado."
+    );
+    expect(feedback.classList.contains("text-danger")).toBeTrue();
+    expect(reset).not.toHaveBeenCalled();
+    expect(modal.innerHTML).toBe(contenidoAnterior);
+    expect(cantidad.value).toBe(cantidadAnterior);
+    expect(talle.value).toBe(talleAnterior);
+    expect(modal.querySelector('[type="submit"]').disabled).toBeTrue();
+    expect(modal.classList.contains("show")).toBeFalse();
+    expect(modal.getAttribute("aria-hidden")).toBe("true");
+  });
+
+  it("limpia la validación al restablecer el modal con cantidad inválida", async function () {
+    abrirProducto("Remera");
+    seleccionarTalle("M");
+
+    const formulario = document.getElementById("modal-producto-form");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    const talle = document.getElementById("modalProductoTalle");
+    const feedback = document.getElementById("modal-cantidad-feedback");
+    const boton = document.querySelector('#modalProducto [type="submit"]');
+
+    talle.querySelector('option[value="M"]').defaultSelected = true;
+    cantidad.defaultValue = "0";
+    cantidad.value = "0";
+    disparar(cantidad, "input");
+
+    expect(cantidad.classList.contains("is-invalid")).toBeTrue();
+    expect(cantidad.getAttribute("aria-invalid")).toBe("true");
+    expect(feedback.textContent).toBe(
+      "Ingresá una cantidad entera mayor que cero."
+    );
+
+    formulario.reset();
+    await new Promise((resolve) => window.setTimeout(resolve, 0));
+
+    expect(talle.value).toBe("M");
+    expect(cantidad.value).toBe("0");
+    expect(cantidad.classList.contains("is-invalid")).toBeFalse();
+    expect(cantidad.classList.contains("is-valid")).toBeFalse();
+    expect(cantidad.hasAttribute("aria-invalid")).toBeFalse();
+    expect(feedback.textContent).toBe("");
+    expect(feedback.classList.contains("text-danger")).toBeFalse();
+    expect(feedback.classList.contains("text-success")).toBeFalse();
+    expect(boton.disabled).toBeTrue();
+  });
+
+  it("rechaza el submit inválido del modal y conserva el carrito", function () {
+    agregarProducto("Remera", "M", "2");
+
+    const formulario = document.getElementById("modal-producto-form");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    const items = document.getElementById("carrito-items");
+    const total = document.getElementById("carrito-total");
+    const feedback = document.getElementById("carrito-feedback");
+    const contenidoAnterior = items.innerHTML;
+    const totalAnterior = total.textContent;
+    const feedbackAnterior = feedback.textContent;
+    const guardadoAnterior = localStorage.getItem("app:carrito:items");
+    const agregar = spyOn(Carrito.prototype, "agregarProducto").and.callThrough();
+    const guardar = spyOn(window.Storage.prototype, "setItem").and.callThrough();
+
+    cantidad.value = "0";
+    const evento = new window.Event("submit", {
+      bubbles: true,
+      cancelable: true,
+    });
+    formulario.dispatchEvent(evento);
+
+    expect(evento.defaultPrevented).toBeTrue();
+    expect(agregar).not.toHaveBeenCalled();
+    expect(guardar).not.toHaveBeenCalled();
+    expect(items.innerHTML).toBe(contenidoAnterior);
+    expect(total.textContent).toBe(totalAnterior);
+    expect(feedback.textContent).toBe(feedbackAnterior);
+    expect(localStorage.getItem("app:carrito:items")).toBe(guardadoAnterior);
+    expect(cantidad.classList.contains("is-invalid")).toBeTrue();
+    expect(document.getElementById("modal-cantidad-feedback").textContent).toBe(
+      "Ingresá una cantidad entera mayor que cero."
+    );
+    expect(document.querySelector('#modalProducto [type="submit"]').disabled)
+      .toBeTrue();
+  });
+
+  it("ignora un input del carrito que no es un campo de cantidad", function () {
+    agregarProducto("Remera", "M", "2");
+
+    const linea = lineaCarrito("Remera", "M");
+    const cantidad = linea.querySelector("[data-cart-quantity]");
+    const boton = linea.querySelector('[type="submit"]');
+    const inputAjeno = document.createElement("input");
+    inputAjeno.type = "number";
+    inputAjeno.value = "0";
+    linea.querySelector("form").append(inputAjeno);
+
+    const contenidoAnterior = linea.innerHTML;
+    const feedback = document.getElementById("carrito-feedback");
+    const feedbackAnterior = feedback.outerHTML;
+    const totalAnterior = document.getElementById("carrito-total").textContent;
+    const guardadoAnterior = localStorage.getItem("app:carrito:items");
+    const modificar = spyOn(Carrito.prototype, "modificarCantidad").and.callThrough();
+    const guardar = spyOn(window.Storage.prototype, "setItem").and.callThrough();
+    const evento = new window.Event("input", {
+      bubbles: true,
+      cancelable: true,
+    });
+
+    inputAjeno.dispatchEvent(evento);
+
+    expect(evento.defaultPrevented).toBeFalse();
+    expect(modificar).not.toHaveBeenCalled();
+    expect(guardar).not.toHaveBeenCalled();
+    expect(lineaCarrito("Remera", "M")).toBe(linea);
+    expect(linea.innerHTML).toBe(contenidoAnterior);
+    expect(cantidad.value).toBe("2");
+    expect(feedback.outerHTML).toBe(feedbackAnterior);
+    expect(boton.disabled).toBeFalse();
+    expect(document.getElementById("carrito-total").textContent).toBe(totalAnterior);
+    expect(localStorage.getItem("app:carrito:items")).toBe(guardadoAnterior);
+  });
+});
+
+
 describe("Flujo 4 - Resumen de compra", function () {
-  it("calcula correctamente un subtotal", function () {
-    expect(calcularSubtotal(15000, 2)).toBe(30000);
+  it("muestra ítems, subtotales y total del resumen", function () {
+    agregarProducto("Remera", "M", "2");
+    agregarProducto("Campera", "L", "1");
+
+    expect([
+      [...document.querySelectorAll("#resumen-items li")].map((item) => item.textContent),
+      document.getElementById("resumen-total").textContent,
+      document.getElementById("resumen-vacio").hidden,
+    ]).toEqual([
+      [
+        `Remera (talle M) × 2: ${moneda(30000)}`,
+        `Campera (talle L) × 1: ${moneda(48000)}`,
+      ],
+      moneda(78000),
+      true,
+    ]);
   });
 
-  it("devuelve total cero para un carrito vacío", function () {
-    expect(calcularTotal([])).toBe(0);
+  it("muestra el mensaje de resumen vacío", function () {
+    expect([
+      document.getElementById("resumen-vacio").textContent,
+      document.getElementById("resumen-vacio").hidden,
+      document.getElementById("resumen-total").textContent,
+    ]).toEqual(["Agregá productos para ver el resumen.", false, moneda(0)]);
   });
+});
 
-  it("calcula el total de varios productos", function () {
-    const carrito = [
-      { producto: "Remera", talle: "M", cantidad: 2, precio: 15000 },
-      { producto: "Campera", talle: "L", cantidad: 1, precio: 48000 }
-    ];
-
-    expect(calcularTotal(carrito)).toBe(78000);
+describe("Flujo 5 - Sin prompt ni alert", function () {
+  it("no invoca diálogos nativos durante el flujo del controlador", function () {
+    expect({
+      alert: globalThis.alert.calls.count(),
+      prompt: globalThis.prompt.calls.count(),
+    }).toEqual({ alert: 0, prompt: 0 });
   });
-
-  it("rechaza cantidades negativas al calcular subtotales", function () {
-    expect(function () {
-      calcularSubtotal(15000, -1);
-    }).toThrowError("La cantidad debe ser un entero positivo.");
-  });
+});
 });
