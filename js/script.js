@@ -232,8 +232,8 @@ function restaurarFiltroActivo() {
 
   function actualizarCatalogo() {
     if (!catalogoDisponible) {
-  return;
-}
+      return;
+    }
     
     const termino = searchInput.value.trim();
     const filtros = {};
@@ -366,9 +366,9 @@ function renderizarCarrusel() {
 
   function prepararModal(evento) {
     if (!catalogoDisponible) {
-  evento.preventDefault();
-  return;
-}
+    evento.preventDefault();
+    return;
+  }
     const boton = evento.relatedTarget;
     const nombre = boton?.dataset.producto;
     const producto = nombre ? catalogo.buscarProducto(nombre) : null;

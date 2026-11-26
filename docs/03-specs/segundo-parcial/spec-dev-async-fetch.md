@@ -242,26 +242,26 @@ Se realizarán únicamente las modificaciones necesarias para implementar la car
 
 ## 13. Criterios de aceptación
 
-- [ ] Se selecciona y justifica la fuente de datos.
-- [ ] Se crea el archivo `api/productos.json` con los datos del catálogo existente.
-- [ ] Los datos del catálogo se obtienen de forma asíncrona mediante Fetch.
-- [ ] Se utilizan promesas mediante async/await.
-- [ ] Se verifica el estado HTTP de la respuesta.
-- [ ] Se implementa el manejo de errores mediante try/catch.
-- [ ] Se muestran los estados de carga, éxito y error en la interfaz.
-- [ ] Se aplican las funciones de orden superior map(), filter() y reduce().
-- [ ] Se validan y sanitizan los datos obtenidos.
-- [ ] Se mantiene la separación de responsabilidades mediante un módulo de API.
-- [ ] Se documentan las funciones correspondientes mediante JSDoc.
-- [ ] Los datos obtenidos se integran con las clases POO existentes.
-- [ ] El catálogo y el carrusel se renderizan dinámicamente.
-- [ ] Se mantienen las funcionalidades de búsqueda, filtrado y consulta de productos.
-- [ ] Se mantiene el funcionamiento del carrito y del resumen de compra.
-- [ ] Se conserva la persistencia del carrito y los filtros.
+- [x] Se selecciona y justifica la fuente de datos.
+- [x] Se crea el archivo `api/productos.json` con los datos del catálogo existente.
+- [x] Los datos del catálogo se obtienen de forma asíncrona mediante Fetch.
+- [x] Se utilizan promesas mediante async/await.
+- [x] Se verifica el estado HTTP de la respuesta.
+- [x] Se implementa el manejo de errores mediante try/catch.
+- [x] Se muestran los estados de carga, éxito y error en la interfaz.
+- [x] Se aplican las funciones de orden superior map(), filter() y reduce().
+- [x] Se validan y sanitizan los datos obtenidos.
+- [x] Se mantiene la separación de responsabilidades mediante un módulo de API.
+- [x] Se documentan las funciones correspondientes mediante JSDoc.
+- [x] Los datos obtenidos se integran con las clases POO existentes.
+- [x] El catálogo y el carrusel se renderizan dinámicamente.
+- [x] Se mantienen las funcionalidades de búsqueda, filtrado y consulta de productos.
+- [x] Se mantiene el funcionamiento del carrito y del resumen de compra.
+- [x] Se conserva la persistencia del carrito y los filtros.
 - [ ] Se coordinan los casos de prueba con el Tester QA/JS.
 - [ ] Se responden y resuelven las issues correspondientes al rol, si se reportan.
 - [ ] Se documenta el uso de IA y los ajustes manuales realizados.
-- [ ] Se crea la Pull Request hacia develop y se registra en changelog.md.
+- [x] Se crea la Pull Request hacia develop y se registra en changelog.md.
 
 ## 14. Uso previsto de IA
 
@@ -275,4 +275,115 @@ Los prompts utilizados, las respuestas obtenidas, los ajustes manuales y los res
 
 # AFTER
 
-Pendiente de completar una vez finalizada la implementación.
+## 15. Implementación realizada
+
+Se implementó la carga asíncrona del catálogo mediante Fetch, utilizando el archivo `api/productos.json` como fuente de datos.
+
+Los cambios realizados fueron:
+
+- Creación de `api/productos.json` con los productos originales.
+- Creación de `js/api/apiService.js`.
+- Eliminación de `js/data/productos.js` para evitar duplicar la fuente de datos.
+- Adaptación de la inicialización de `js/script.js` mediante async/await.
+- Implementación de los estados de carga, éxito y error.
+- Generación dinámica de las sugerencias de búsqueda.
+- Validación, sanitización y procesamiento de los datos obtenidos.
+- Integración con las clases POO y el sistema de persistencia existente.
+
+## 16. Uso de IA
+
+**Herramienta utilizada:** ChatGPT.
+
+La herramienta se utilizó para analizar la arquitectura existente, desarrollar el servicio de API, adaptar el controlador, revisar la integración y contrastar la implementación con la rúbrica del Segundo Parcial.
+
+### Prompts utilizados
+
+#### Implementación del JSON y servicio de API
+
+```text
+dale arranquemos con eso, antes fijate lo que subio el desarrollador de librerias, ya abrio PR. de paso revisemos q no haya nada q quede mal o algo asi
+```
+
+#### Integración con el controlador
+
+```text
+igual el mensaje es al pedo pasarselo porq cuando lo suba al repo lo va a ver y hasta entonces no creo q haga nada, sigamos
+```
+
+#### Revisión de la implementación
+
+```text
+listo, contrastalo exhaustivamente contra la rubrica de lo que pide el parcial para que no nos falte nada de nada y tengamos los 2,5pts
+```
+
+Como contexto se utilizaron la consigna del Segundo Parcial, el material del Encuentro N.º 15, la especificación técnica del rol y los archivos del repositorio correspondientes a la arquitectura existente.
+
+### Ajustes y verificaciones manuales
+
+Se incorporaron los cambios de forma progresiva sobre los archivos existentes, conservando las funciones de renderizado, los eventos y las operaciones del carrito.
+
+Se verificó el funcionamiento desde un servidor HTTP local y se corrigió la indentación de los bloques de protección incorporados en `actualizarCatalogo()` y `prepararModal()`.
+
+## 17. Procesamiento de datos implementado
+
+| Función | Aplicación |
+|---|---|
+| map() | Normalización y transformación de los registros obtenidos. |
+| filter() | Descarte de productos inválidos y duplicados. |
+| reduce() | Construcción del mapa de imágenes asociado a los productos. |
+
+Se reutilizó `Producto.fromJSON()` para validar los datos correspondientes al dominio, complementando estas validaciones con la comprobación de la información de las imágenes.
+
+## 18. Integración con POO y Storage
+
+Los productos obtenidos mediante Fetch se utilizan para construir una instancia de `Catalogo`.
+
+Se mantienen las clases `Producto`, `Catalogo`, `Carrito` e `ItemCarrito`, sin duplicar sus reglas de negocio.
+
+Se conserva la utilización de `PersistenciaService` para administrar el almacenamiento del carrito y los filtros.
+
+La recuperación y renderización del carrito se realiza antes de solicitar los productos, permitiendo que las operaciones sobre el carrito persistido continúen disponibles ante un error en la carga del catálogo.
+
+## 19. Verificación funcional
+
+Se verificó manualmente el funcionamiento de la aplicación desde un servidor local.
+
+Se comprobó la carga del catálogo, la generación dinámica de las tarjetas, el carrusel, las sugerencias de búsqueda, los filtros, la consulta de productos y las operaciones del carrito.
+
+También se verificaron los estados de carga y error, manteniendo la persistencia de los datos del usuario.
+
+La validación automatizada mediante Jasmine y las auditorías Lighthouse correspondientes serán realizadas por el Tester QA/JS.
+
+## 20. Coordinación con otros roles
+
+### Tester QA/JS
+
+El módulo `js/api/apiService.js` exporta por defecto el objeto `ApiService`, que contiene los siguientes métodos:
+
+- `fetchData(endpoint)`: obtiene los datos de forma asíncrona y rechaza la promesa ante errores de red, errores HTTP o JSON inválido.
+- `procesarProductos(datos)`: valida, normaliza y descarta registros inválidos o duplicados.
+- `crearMapaImagenes(productos)`: construye un Map mediante reduce().
+
+La inicialización de `script.js` ahora es asíncrona. Las pruebas existentes deberán contemplar la simulación de Fetch y esperar a que finalice la carga del catálogo.
+
+Los casos previstos para las nuevas suites se encuentran detallados en la sección 11 de esta especificación.
+
+### Desarrollador JS Librerías Externas
+
+Se revisaron los cambios correspondientes a la PR #136 para verificar su compatibilidad con la carga asíncrona del catálogo.
+
+Se conservaron las funciones `renderizarCatalogo()` y `renderizarCarrito()` para facilitar la integración posterior de AOS.
+
+La integración de la librería deberá realizarse después de la auditoría Lighthouse post-fetch.
+
+### Coordinador/DevOps
+
+La implementación queda disponible para su revisión mediante una Pull Request hacia develop, asociada a la Issue #135.
+
+## 21. Issues y observaciones
+
+- Issue principal: #135.
+- Issues reportadas por QA: pendientes de su revisión.
+- Observaciones del Coordinador: pendientes de code review.
+
+Se actualizará esta sección en caso de recibir observaciones o solicitudes de corrección.
