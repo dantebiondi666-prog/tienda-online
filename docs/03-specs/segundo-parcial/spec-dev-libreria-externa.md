@@ -53,7 +53,7 @@ Verificación de no duplicación: los estilos propios (`css/`) no definen animac
 - [x] No hay `prompt()`, `alert()` ni `console.log` nuevos.
 - [x] La suite existente (`npm test`) sigue pasando.
 - [x] `docs/06-librerias/libreria-doc.md` completo, con capturas.
-- [ ] `changelog.md` actualizado con el link a la PR y a la Issue #134.
+- [x] `changelog.md` actualizado con el link a la PR y a la Issue #134.
 - [ ] Coordinación con el Tester QA para `library.spec.js` y con el Coordinador para la revisión de la PR.
 
 ---

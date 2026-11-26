@@ -6,6 +6,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Added
+
+- [feature/dev-libreria-externa-aos] [Segundo Parcial] Desarrollador JS Librerías Externas: integrar AOS por CDN con wrapper en catálogo y carrito
+  PR: [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) - @LucasFUces (Desarrollador JS Librerías Externas)
+  Issue:
+  [#134](https://github.com/dantebiondi666-prog/tienda-online/issues/134)
+
 ## [Release Actividad Obligatoria N°4] - 2026-11-22
 
 ### Added
