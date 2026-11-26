@@ -364,11 +364,12 @@ function renderizarCarrusel() {
     }
   }
 
-  function prepararModal(evento) {
+    function prepararModal(evento) {
     if (!catalogoDisponible) {
-    evento.preventDefault();
-    return;
-  }
+      evento.preventDefault();
+      return;
+    }
+
     const boton = evento.relatedTarget;
     const nombre = boton?.dataset.producto;
     const producto = nombre ? catalogo.buscarProducto(nombre) : null;

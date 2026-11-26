@@ -260,7 +260,7 @@ Se realizarán únicamente las modificaciones necesarias para implementar la car
 - [x] Se conserva la persistencia del carrito y los filtros.
 - [ ] Se coordinan los casos de prueba con el Tester QA/JS.
 - [ ] Se responden y resuelven las issues correspondientes al rol, si se reportan.
-- [ ] Se documenta el uso de IA y los ajustes manuales realizados.
+- [x] Se documenta el uso de IA y los ajustes manuales realizados.
 - [x] Se crea la Pull Request hacia develop y se registra en changelog.md.
 
 ## 14. Uso previsto de IA

@@ -6,6 +6,13 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Added
+
+- [feature/dev-async-fetch-api] [Segundo Parcial] Desarrollador JS Asíncrono: implementar carga del catálogo mediante Fetch
+  PR: [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) - @dantebiondi666-prog (Desarrollador JS Asíncrono - Fetch & APIs)
+  Issue:
+  [#135](https://github.com/dantebiondi666-prog/tienda-online/issues/135)
+
 ## [Release Actividad Obligatoria N°4] - 2026-11-22
 
 ### Added
