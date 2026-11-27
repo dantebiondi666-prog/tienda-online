@@ -155,11 +155,24 @@ En la integración simulada se obtuvo una cobertura del 100% en `apiService.js` 
 ### Auditorías Lighthouse
 
 | Categoría | Baseline (TC11) | Post-fetch (TC12) | Post-library (TC13) | Correcciones locales | Umbral |
-|---|---:|---:|---|---:|---:|
-| Performance | 93 | 96 | Pendiente | 97 | 95 |
-| Accessibility | 100 | 100 | Pendiente | 100 | 95 |
-| Best Practices | 96 | 96 | Pendiente | 100 | 95 |
-| SEO | 91 | 91 | Pendiente | 100 | 95 |
+|---|---:|---:|---:|---:|---:|
+| Performance | 93 | 96 | 97 | 97 | 95 |
+| Accessibility | 100 | 100 | 100 | 100 | 95 |
+| Best Practices | 96 | 96 | 96 | 100 | 95 |
+| SEO | 91 | 91 | 91 | 100 | 95 |
+
+Las tres auditorías Lighthouse del Segundo Parcial
+se encuentran documentadas.
+
+La integración de Fetch y AOS no introdujo regresiones
+detectadas en las puntuaciones de Lighthouse.
+
+Las correcciones del PR #143 alcanzaron el umbral
+mínimo de 95 puntos en las cuatro categorías
+durante la auditoría local del Coordinador.
+
+Queda pendiente la validación final sobre la versión
+completamente integrada del proyecto.
 
 Las cuatro categorías alcanzaron el mínimo requerido en la auditoría local de las correcciones. Esta se realizó con Google Chrome y `http-server`, mientras que TC11 y TC12 se realizaron con Microsoft Edge y un servidor local de Python. Los resultados no permiten atribuir todas las diferencias exclusivamente a las modificaciones del código.
 

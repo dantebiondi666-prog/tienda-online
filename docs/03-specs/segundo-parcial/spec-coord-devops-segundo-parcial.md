@@ -1928,12 +1928,33 @@ de RC02 y la documentación de Lighthouse post-fetch.
 
 #### Comparación de auditorías Lighthouse
 
-| Categoría | Baseline TC11 | Post-fetch TC12 | Post-library TC13 | Umbral |
-|---|---:|---:|---|---:|
-| Performance | 93 | 96 | Pendiente | 95 |
-| Accessibility | 100 | 100 | Pendiente | 95 |
-| Best Practices | 96 | 96 | Pendiente | 95 |
-| SEO | 91 | 91 | Pendiente | 95 |
+| Categoría | Baseline TC11 | Post-fetch TC12 | Post-library TC13 | Post-correcciones | Umbral |
+|---|---:|---:|---:|---:|---:|
+| Performance | 93 | 96 | 97 | 97 | 95 |
+| Accessibility | 100 | 100 | 100 | 100 | 95 |
+| Best Practices | 96 | 96 | 96 | 100 | 95 |
+| SEO | 91 | 91 | 91 | 100 | 95 |
+
+#### Validación de Lighthouse post-library
+
+- Fecha: 27/11/2026.
+- Responsable: Sebastian Viel (@Zikoloogo).
+- Commit de documentación: 16b2aa0.
+- Test Case: TC13.
+- Performance: 97.
+- Accessibility: 100.
+- Best Practices: 96.
+- SEO: 91.
+- Resultado: sin regresiones detectadas respecto de TC12.
+
+Las correcciones de SEO y favicon todavía no estaban
+incorporadas en la rama auditada.
+
+Se confirma la documentación de los tres momentos
+de auditoría Lighthouse requeridos.
+
+Queda pendiente la auditoría final sobre la versión
+completamente integrada del proyecto.
 
 La mejora observada en Performance no puede atribuirse
 exclusivamente a Fetch debido a la variabilidad
@@ -2040,7 +2061,7 @@ Queda pendiente la validación final del Tester QA.
 - [x] Merge del PR #136.
 - [x] Actualización de la rama del Coordinador.
 - [x] Resolución del conflicto en changelog.md.
-- [ ] Lighthouse post-library.
+- [x] Lighthouse post-library.
 - [ ] Revisión e integración del testing avanzado.
 - [ ] Corrección de Performance y SEO.
 - [ ] Validación final del proyecto.
@@ -2242,8 +2263,8 @@ del 95,49% y una cobertura de ramas del 88,67%.
 |---|---|---|---|
 | OBS01 | Incorporar develop con AOS a la rama del Tester | Alta | Resuelto |
 | OBS02 | Verificar y documentar las suites compatibles con test-runner.html | Media | Pendiente |
-| OBS03 | Completar Lighthouse post-library (TC13) | Alta | Pendiente |
-| OBS04 | Actualizar los índices de testing | Media | Pendiente |
+| OBS03 | Completar Lighthouse post-library (TC13) | Alta | Documentado - pendiente evidencia específica de Accessibility |
+| OBS04 | Actualizar los índices de testing | Media | Actualizado - pendiente de revisión final del contenido |
 | OBS05 | Completar el SPEC y changelog del Tester | Alta | Pendiente |
 | OBS06 | Crear el PR para la revisión definitiva | Alta | Pendiente |
 
@@ -2306,6 +2327,34 @@ La observación OBS01 queda resuelta.
 
 Queda pendiente la revisión del PR definitivo y la
 verificación de los entregables restantes.
+
+#### Revalidación del testing de integración de AOS
+
+- Commit revisado: efb42e4.
+- Jasmine: 231 specs, 0 failures.
+- Seed: 88851.
+- Tiempo: 1,249 s.
+- Seed de cobertura: 67194.
+- Tiempo de cobertura: 1,790 s.
+- Cobertura de sentencias: 98,35%.
+- Cobertura de ramas: 97,11%.
+- Cobertura de funciones: 100%.
+- Cobertura de líneas: 98,35%.
+- Cobertura de apiService.js: 100%.
+- Cobertura de animaciones.js: 100%.
+
+Se verificó la incorporación de una prueba de
+integración de AOS mediante JSDOM y mocks,
+contemplando el catálogo, carrito, movimiento
+reducido y ausencia de la librería externa.
+
+Se verificó la modificación de ambos archivos
+testing-doc.md.
+
+No se detectaron regresiones automatizadas.
+
+La aprobación definitiva queda pendiente de
+la creación del PR del Tester QA.
 
 #### Conclusión
 
