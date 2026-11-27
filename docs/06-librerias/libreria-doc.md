@@ -42,7 +42,8 @@ La librería queda encapsulada en un módulo. Es el único archivo que conoce el
 | `prefiereMovimientoReducido()` | Detecta `prefers-reduced-motion: reduce`. |
 | `iniciar()` | Inicializa AOS una sola vez con `{ duration: 500, easing: "ease-out", once: true, offset: 40, startEvent: "load" }`. |
 | `animar(elemento, efecto, retraso)` | Agrega `data-aos` y `data-aos-delay` al elemento. |
-| `refrescar()` | Llama a `AOS.refreshHard()` para detectar los elementos nuevos. |
+| `refrescar()` | Llama a `AOS.refreshHard()` para detectar los elementos nuevos. Si falla, restaura la visibilidad del contenido. |
+| `restaurarContenido()` | Quita `data-aos`, `data-aos-delay` y las clases de AOS de todos los elementos y desactiva el wrapper, para que el contenido siempre quede visible. |
 
 Decisiones de diseño:
 

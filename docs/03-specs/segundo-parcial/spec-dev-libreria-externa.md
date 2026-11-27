@@ -136,8 +136,32 @@ const Animaciones = {
   },
 
   /**
+   * Desactiva las animaciones y devuelve la visibilidad al contenido. Quita los
+   * atributos y clases de AOS de todos los elementos configurados, porque el CSS
+   * de AOS oculta los elementos con `data-aos` hasta que la librería los anima.
+   * Después de llamarlo, `animar()` y `refrescar()` no hacen nada.
+   * @returns {boolean} `true` si el contenido quedó restaurado; `false` si no fue posible.
+   */
+  restaurarContenido() {
+    estaIniciada = false;
+    try {
+      const elementos =
+        globalThis.document?.querySelectorAll("[data-aos]") ?? [];
+      for (const elemento of elementos) {
+        elemento.removeAttribute("data-aos");
+        elemento.removeAttribute("data-aos-delay");
+        elemento.classList.remove("aos-init", "aos-animate");
+      }
+      return true;
+    } catch {
+      return false;
+    }
+  },
+
+  /**
    * Inicializa AOS una sola vez. No hace nada si AOS no está disponible o si
-   * el usuario prefiere movimiento reducido.
+   * el usuario prefiere movimiento reducido. Si la inicialización falla,
+   * restaura la visibilidad del contenido.
    * @returns {boolean} `true` si AOS quedó inicializado; `false` si no fue posible.
    */
   iniciar() {
@@ -160,6 +184,7 @@ const Animaciones = {
       estaIniciada = true;
       return true;
     } catch {
+      this.restaurarContenido();
       return false;
     }
   },
@@ -189,7 +214,9 @@ const Animaciones = {
   },
 
   /**
-   * Actualiza en AOS la colección de elementos que deben animarse.
+   * Actualiza en AOS la colección de elementos que deben animarse. Si AOS falla
+   * al refrescar, restaura la visibilidad del contenido y desactiva las
+   * animaciones para que la aplicación siga funcionando sin ellas.
    * @returns {boolean} `true` si AOS se refrescó correctamente.
    */
   refrescar() {
@@ -205,6 +232,7 @@ const Animaciones = {
       globalThis.AOS.refreshHard();
       return true;
     } catch {
+      this.restaurarContenido();
       return false;
     }
   },
@@ -237,6 +265,7 @@ Animaciones.refrescar();
 
 1. **`startEvent: "load"`.** La primera versión llamaba a `AOS.init()` con el evento por defecto (`DOMContentLoaded`). Como la llamada ya ocurría dentro de un manejador de ese evento, AOS nunca se inicializaba: los elementos tenían `data-aos` pero nunca recibían las clases `aos-init` y `aos-animate`, y quedaban invisibles. Se corrigió con `startEvent: "load"`.
 2. **Reescritura del wrapper para `prefers-reduced-motion` y degradación segura.** Con el movimiento reducido activado en el sistema, AOS no se iniciaba pero el código igual escribía `data-aos`, y los elementos quedaban ocultos. Se agregaron `prefiereMovimientoReducido()` y los indicadores internos `seIntentoIniciar` y `estaIniciada`; ahora `animar()` y `refrescar()` no hacen nada si AOS no está iniciado. Se comprobó en tres escenarios: animaciones activas, movimiento reducido y CDN bloqueado.
+3. **Recuperación ante fallos de AOS (Code Review N.º 2, RC01).** Si `AOS.refreshHard()` lanzaba una excepción, `refrescar()` devolvía `false` pero los elementos conservaban `data-aos` y el CSS de AOS los dejaba invisibles. Se agregó `restaurarContenido()`, que quita `data-aos`, `data-aos-delay` y las clases `aos-init` y `aos-animate`, y desactiva el wrapper; se invoca desde el `catch` de `refrescar()` y de `iniciar()`. Se comprobó simulando una excepción en `refreshHard()` con JSDOM: el contenido queda visible y la aplicación sigue funcionando sin animaciones.
 
 ### 2.3 Resumen de los 2 puntos de integración y mejora en la experiencia de usuario
 
