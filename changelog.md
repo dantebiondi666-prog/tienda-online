@@ -47,6 +47,12 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   - Cobertura general de líneas del 98,35%.
   - Cobertura del 100% en apiService.js y animaciones.js.
   - Identificación de observaciones pendientes para la revisión definitiva del Tester QA.
+  - Revisión y revalidación del PR #144 del Tester QA.
+  - Resolución y aceptación de los seis Request Changes.
+  - Siete instancias de Code Review asistidas por IA sobre tres PR distintos.
+  - Integración del testing avanzado: 235 specs, 0 failures.
+  - Cobertura general de líneas del 98,91%.
+  - Lighthouse de integración local: 98/100/100/100.
 
   Documentación: [SPEC Coordinador / DevOps](docs/03-specs/segundo-parcial/spec-coord-devops-segundo-parcial.md).
 - [feature/dev-libreria-externa-aos] [Segundo Parcial] Desarrollador JS Librerías Externas: integrar AOS por CDN con wrapper en catálogo y carrito

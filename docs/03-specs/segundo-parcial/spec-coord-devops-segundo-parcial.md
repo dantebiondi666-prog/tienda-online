@@ -249,7 +249,8 @@ Esta sección se completará durante el desarrollo con las revisiones efectivame
 | Review 3 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Revalidación del Desarrollador JS Asíncrono | script.spec.js, api.spec.js, package.json, diff de commits y resultados de cobertura | RC01 y RC02 resueltos - LGTM y Approve |
 | Review 4 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Revalidación del Desarrollador JS Librerías Externas | animaciones.js, diff de commits, Jasmine, Node.js, JSDOM y git merge-tree | RC01 aceptado - RC02 pendiente - Approve pendiente |
 | Review 5 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Revalidación definitiva de AOS | Diff de integración, Jasmine, cobertura y git merge-base | RC02 resuelto - LGTM - Approve - Merge |
-| Review 6 | PR pendiente de creación | Tester QA/JS | Revisión de suites, integración simulada, Jasmine y cobertura | Validación preliminar satisfactoria - 230 specs, 0 failures |
+| Review 6 | PR #144 | Tester QA/JS | Testing avanzado, integración y auditorías Lighthouse | Request Changes - RC01 y RC02 pendientes |s
+| Review 7 | PR #144 | Tester QA/JS | Revalidación de RC01 y RC02 | LGTM - Approve - Mergeado |s
 
 Para cada revisión se registrará:
 
@@ -2415,6 +2416,78 @@ de la creación del PR, la revisión de su versión
 final y la verificación de los entregables restantes.
 
 ---
+### Code Review N.º 7 - Revalidación del PR #144
+
+- Fecha: 27/11/2026.
+- PR: #144.
+- Responsable: Sebastian Viel (@Zikoloogo).
+- Herramienta de IA: ChatGPT.
+- Commits de corrección: 0732d6f y c69ac5e.
+
+#### Resolución de Request Changes
+
+| ID | Corrección | Estado |
+|---|---|---|
+| RC01 | Registro del PR en changelog y cobertura documentada en testing-doc.md | Aceptado |
+| RC02 | Captura de Accessibility incorporada al TC13 | Aceptado |
+
+#### Validación del proyecto combinado
+
+- Jasmine: 235 specs, 0 failures.
+- Seed: 28495.
+- Tiempo: 1,329 s.
+- Seed de cobertura: 84387.
+- Tiempo de cobertura: 1,974 s.
+- Cobertura de sentencias: 98,91%.
+- Cobertura de ramas: 97,36%.
+- Cobertura de funciones: 100%.
+- Cobertura de líneas: 98,91%.
+
+#### Lighthouse de integración local
+
+| Categoría | Resultado | Umbral |
+|---|---:|---:|
+| Performance | 98 | 95 |
+| Accessibility | 100 | 95 |
+| Best Practices | 100 | 95 |
+| SEO | 100 | 95 |
+
+Evidencia:
+
+![Lighthouse integración final](../../04-testing/capturas/lighthouse-correcciones/lighthouse-integracion-final.png)
+
+Los resultados corresponden a la integración local
+simulada de QA y las correcciones del Coordinador.
+
+#### Resultado
+
+- RC01 y RC02 aceptados.
+- LGTM y Approve publicados.
+- PR #144 integrado hacia develop.
+- Rama del Coordinador sincronizada con develop.
+
+Se registran siete instancias de Code Review
+asistidas por IA, correspondientes a tres PR distintos.
+
+Queda pendiente completar el requisito de cuatro
+PR distintos revisados.
+
+#### Validación posterior a la integración de QA
+
+- Rama: feature/coord-devops-segundo-parcial.
+- Jasmine: 235 specs, 0 failures.
+- Seed: 96464.
+- Tiempo: 1,328 s.
+- Seed de cobertura: 91573.
+- Tiempo de cobertura: 2,042 s.
+- Cobertura de líneas: 98,91%.
+- Cobertura de ramas: 97,36%.
+- Cobertura de funciones: 100%.
+
+Se confirma que la integración definitiva de QA
+en la rama del Coordinador no introdujo regresiones
+en las pruebas automatizadas.
+
 ---
 ## 13. Registro de Request Changes del docente
 
