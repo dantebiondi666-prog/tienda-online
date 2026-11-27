@@ -246,7 +246,7 @@ Esta sección se completará durante el desarrollo con las revisiones efectivame
 |---|---|---|---|---|
 | Review 1 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Desarrollador JS Asíncrono - Fetch & APIs | apiService.js, productos.json, script.js, index.html, changelog.md, package.json, script.spec.js y SPEC | Request Changes: RC01 y RC02 |
 | Review 2 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Desarrollador JS Librerías Externas | animaciones.js, script.js, index.html, changelog.md, libreria-doc.md, SPEC y capturas | Request Changes: RC01 y RC02 |
-| Review 3 | Pendiente | Pendiente | Pendiente | Pendiente |
+| Review 3 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Revalidación del Desarrollador JS Asíncrono | script.spec.js, api.spec.js, package.json, diff de commits y resultados de cobertura | RC01 y RC02 resueltos - LGTM y Approve |
 | Review 4 | Pendiente | Pendiente | Pendiente | Pendiente |
 
 Para cada revisión se registrará:
@@ -799,7 +799,403 @@ las observaciones.
 - [ ] Verificar Lighthouse post-library.
 
 ---
+### Code Review N.º 3 - Revalidación del PR #137
 
+#### Información general
+
+- Fecha: 26/11/2026.
+- Responsable del desarrollo: Dante Biondi.
+- Rol: Desarrollador JS Asíncrono - Fetch & APIs.
+- PR: [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137).
+- Issue: [#135](https://github.com/dantebiondi666-prog/tienda-online/issues/135).
+- Rama: feature/dev-async-fetch-api.
+- Destino: develop.
+- Herramienta de IA utilizada: ChatGPT.
+- Commit inicial revisado: 1a7b7c9.
+- Commit final revisado: 4aa3e4a.
+- Resultado: LGTM y Approve.
+
+#### Objetivo de la revalidación
+
+Verificar la resolución de las observaciones RC01 y RC02
+publicadas durante la primera Code Review del Coordinador.
+
+Comprobar que las correcciones no generen nuevas
+regresiones y que las pruebas existentes se conserven.
+
+#### Contexto proporcionado a la IA
+
+- Consigna y rúbrica del Segundo Parcial.
+- Resultados de la primera Code Review.
+- Diff entre los commits 1a7b7c9 y 4aa3e4a.
+- js/test/script.spec.js.
+- js/test/api.spec.js.
+- package.json.
+- Historial de commits.
+- Resultados actualizados de Jasmine.
+- Informe de cobertura generado mediante c8.
+- Captura del Approve publicado en GitHub.
+
+#### Prompt exacto utilizado para la validación final
+
+La revalidación inicial se realizó de forma iterativa
+mediante resultados de terminal y revisión del diff.
+
+Después de publicar el Approve, se utilizó el siguiente
+prompt para consolidar y documentar los hallazgos:
+
+```text
+Realizá una revalidación técnica del PR #137, correspondiente al Desarrollador JS Asíncrono — Fetch & APIs, después de las correcciones RC01 y RC02 solicitadas por el Coordinador/DevOps.
+
+Utilizá como contexto el diff entre los commits 1a7b7c9 y 4aa3e4a, las modificaciones de script.spec.js y package.json, la nueva suite api.spec.js, los resultados de Jasmine y el informe actualizado de cobertura.
+
+Verificá la resolución de las observaciones, la conservación de las pruebas existentes, la simulación de Fetch, la sincronización asíncrona mediante MutationObserver y los nuevos casos de testing.
+
+Justificá técnicamente el LGTM y Approve otorgados, detallando las evidencias, los resultados anteriores y posteriores a las correcciones, y las validaciones pendientes antes del merge.
+```
+
+#### Commits de resolución identificados
+
+| Commit | Descripción |
+|---|---|
+| 9f94946 | test(async): resolver RC01 y RC02 de la PR #137 |
+| 4aa3e4a | docs(async): retirar mensaje de coordinacion de la spec |
+
+#### Archivos modificados
+
+| Archivo | Modificación |
+|---|---|
+| js/test/api.spec.js | Nueva suite de pruebas del servicio API |
+| js/test/script.spec.js | Adaptación de los tests a Fetch |
+| package.json | Actualización de testing y cobertura |
+| changelog.md | Actualización de documentación |
+| spec-dev-async-fetch.md | Actualización de evidencias |
+
+El diff registra cinco archivos modificados,
+342 inserciones y nueve eliminaciones.
+
+La inspección detallada se concentró en los archivos
+de testing y package.json. Los cambios específicos
+de documentación quedan pendientes de revisión detallada.
+
+#### Validación manual
+
+Se reutilizó el worktree independiente creado durante
+la primera revisión del PR #137.
+
+Comandos utilizados:
+
+```powershell
+git fetch origin
+cd C:\Users\juanm\tienda-online-review-137
+git switch --detach origin/feature/dev-async-fetch-api
+git log -5 --oneline
+npm.cmd test
+npm.cmd run cobertura
+```
+
+Para inspeccionar las modificaciones realizadas:
+
+```powershell
+git --no-pager reflog -4 --oneline
+git --no-pager diff --stat 'HEAD@{1}' HEAD
+git --no-pager diff 1a7b7c9 HEAD -- js/test/script.spec.js package.json
+git --no-pager show HEAD:js/test/api.spec.js
+```
+
+#### Revalidación de RC01 - Regresión del testing
+
+Durante la primera revisión se detectaron 37 fallos
+debido a la incompatibilidad de las pruebas existentes
+con la inicialización asíncrona del catálogo.
+
+El desarrollador modificó la preparación de los tests
+para incorporar respuestas simuladas de Fetch.
+
+Se utiliza Promise.all() para cargar el HTML y el JSON
+de productos:
+
+```javascript
+const [html, productosJson] = await Promise.all([
+  fs.readFile(archivoHtml, "utf8"),
+  fs.readFile(archivoProductos, "utf8"),
+]);
+```
+
+Se incorpora un mock de Fetch mediante Jasmine:
+
+```javascript
+fetch: jasmine.createSpy("fetch").and.resolveTo({
+  ok: true,
+  status: 200,
+  json: jasmine.createSpy("json")
+    .and.resolveTo(JSON.parse(productosJson)),
+}),
+```
+
+También se incorpora MutationObserver para esperar
+la finalización de la carga del catálogo mediante
+el atributo aria-busy.
+
+```javascript
+const cargaFinalizada = new Promise((resolve) => {
+  const grilla = document.getElementById("product-grid");
+
+  observadorCarga = new window.MutationObserver(() => {
+    if (grilla.getAttribute("aria-busy") === "false") {
+      observadorCarga.disconnect();
+      resolve();
+    }
+  });
+
+  observadorCarga.observe(grilla, {
+    attributes: true,
+    attributeFilter: ["aria-busy"],
+  });
+});
+```
+
+Posteriormente se dispara DOMContentLoaded y se espera
+la finalización de la carga:
+
+```javascript
+document.dispatchEvent(new window.Event("DOMContentLoaded"));
+await cargaFinalizada;
+```
+
+Aspectos verificados:
+
+- Simulación de Fetch sin depender de un servidor HTTP.
+- Sincronización de la inicialización asíncrona.
+- Verificación del endpoint solicitado.
+- Comprobación de que el buscador queda habilitado.
+- Restauración de variables globales entre pruebas.
+- Limpieza del MutationObserver.
+- Conservación de los casos de prueba existentes.
+
+Resultado: 167 specs y 0 failures.
+
+Estado de RC01: RESUELTO.
+
+#### Revalidación de RC02 - Cobertura del servicio API
+
+Se verificó que package.json incorpora el directorio
+js/api/ a la configuración de cobertura:
+
+```text
+--include="js/api/*.js"
+```
+
+También se agregó js/test/api.spec.js a los comandos
+de testing y cobertura.
+
+La nueva suite incorpora 17 casos de prueba.
+
+| Categoría | Cantidad |
+|---|---:|
+| Fetch y manejo de errores | 6 |
+| Procesamiento de productos | 9 |
+| Construcción del mapa de imágenes | 2 |
+| Total | 17 |
+
+Casos contemplados:
+
+1. Consulta exitosa al endpoint predeterminado.
+2. Consulta a un endpoint personalizado.
+3. Error HTTP 404.
+4. Error HTTP 500.
+5. Error de conexión.
+6. Respuesta JSON inválida.
+7. Normalización de textos y talles.
+8. Conservación de datos originales sin mutaciones.
+9. Respuesta que no es un array.
+10. Catálogo vacío.
+11. Colección sin productos válidos.
+12. Registros inválidos según las reglas del dominio.
+13. Imágenes, identificadores y rutas inválidas.
+14. Nombres de productos duplicados.
+15. Identificadores de imagen duplicados.
+16. Construcción del mapa de imágenes.
+17. Construcción de un mapa vacío.
+
+La ejecución de cobertura confirma que apiService.js
+alcanza el 100% de sentencias, ramas, funciones y líneas.
+
+Estado de RC02: RESUELTO.
+
+#### Comparación de resultados
+
+| Indicador | Primera revisión | Revalidación |
+|---|---:|---:|
+| Tests ejecutados | 150 | 167 |
+| Tests aprobados | 113 | 167 |
+| Tests fallidos | 37 | 0 |
+| Porcentaje de aprobación | 75,33% | 100% |
+| Cobertura de apiService.js | No incluida | 100% |
+| Request Changes resueltos | 0 de 2 | 2 de 2 |
+
+#### Evidencias de ejecución
+
+| Comando | Resultado | Seed | Tiempo |
+|---|---|---|---|
+| npm.cmd test | 167 specs, 0 failures | 93819 | 1,096 segundos |
+| npm.cmd run cobertura | 167 specs, 0 failures | 03147 | 1,561 segundos |
+
+Las dos ejecuciones finalizaron correctamente utilizando
+diferentes semillas de aleatorización.
+
+#### Informe actualizado de cobertura
+
+| Archivo | Sentencias | Ramas | Funciones | Líneas |
+|---|---:|---:|---:|---:|
+| script.js | 95,45% | 88,67% | 100% | 95,45% |
+| apiService.js | 100% | 100% | 100% | 100% |
+| Carrito.js | 100% | 100% | 100% | 100% |
+| Catalogo.js | 100% | 100% | 100% | 100% |
+| ItemCarrito.js | 100% | 100% | 100% | 100% |
+| Producto.js | 100% | 100% | 100% | 100% |
+| PersistenciaService.js | 100% | 100% | 100% | 100% |
+| storage.js | 100% | 100% | 100% | 100% |
+| General | 98,21% | 96,82% | 100% | 98,21% |
+
+#### Observaciones adicionales para QA
+
+El controlador script.js todavía presenta las siguientes
+líneas sin cobertura:
+
+- 152-162.
+- 178-180.
+- 194-204.
+- 235-236.
+- 324-325.
+- 369-371.
+
+Se recomienda ampliar las pruebas de integración con
+el DOM, especialmente los estados de error del catálogo
+y la conservación del carrito ante errores de Fetch.
+
+También se recomienda verificar el comportamiento de
+MutationObserver si la carga termina antes de que
+comience la observación.
+
+Estas observaciones no invalidan la resolución de
+RC01 y RC02, pero deberán considerarse durante
+el testing avanzado.
+
+El 100% de cobertura de apiService.js no garantiza
+por sí solo la ausencia de todos los errores posibles.
+
+#### Estado de los Request Changes
+
+| RC | Archivo original | Línea original | Prioridad | Estado |
+|---|---|---:|---|---|
+| RC01 | js/script.js | 110 | Alta | Resuelto |
+| RC02 | js/api/apiService.js | 58 | Media | Resuelto |
+
+#### Justificación del LGTM y Approve
+
+La aprobación técnica se fundamenta en:
+
+- Resolución de las dos observaciones solicitadas.
+- Conservación de las pruebas existentes.
+- Adaptación de los tests a la carga asíncrona.
+- Incorporación de 17 nuevos casos de prueba.
+- Eliminación de los 37 fallos detectados inicialmente.
+- Cobertura del 100% para apiService.js.
+- Cobertura general de líneas del 98,21%.
+- Coincidencia entre el commit probado localmente
+  y el último commit mostrado en GitHub.
+- Ausencia de conflictos con la rama de destino
+  según la evidencia de GitHub.
+
+Se publicó una revisión con Approve y LGTM en el PR #137.
+
+La aprobación técnica no implica realizar el merge
+inmediatamente.
+
+#### Coordinación de la integración
+
+Antes del merge se deberá confirmar que el Tester QA
+haya realizado la auditoría Lighthouse baseline
+sobre la versión anterior a Fetch y AOS.
+
+Orden previsto:
+
+1. Confirmar Lighthouse baseline.
+2. Verificar los checks de GitHub, si están configurados.
+3. Integrar el PR #137 hacia develop.
+4. Realizar Lighthouse post-fetch.
+5. Actualizar la rama del PR #136 de AOS.
+6. Resolver los conflictos de integración identificados.
+7. Revalidar las correcciones de AOS.
+8. Integrar la librería hacia develop.
+9. Realizar Lighthouse post-library.
+
+#### Resultado de la revalidación
+
+- Revisión asistida por IA: realizada.
+- Inspección del diff actualizado: realizada.
+- Validación mediante Jasmine: realizada.
+- Informe de cobertura: verificado.
+- Request Changes resueltos: 2 de 2.
+- LGTM del Coordinador: publicado.
+- Approve del Coordinador: publicado.
+- Conflictos con la rama de destino: ninguno informado.
+- Lighthouse baseline: pendiente de confirmar.
+- Merge hacia develop: pendiente.
+
+#### Conclusión
+
+La revalidación demuestra una mejora concreta en
+la calidad del proyecto mediante el proceso de
+Code Review asistido por IA.
+
+Se corrigieron las regresiones de testing y se
+incorporó el servicio API a la cobertura automatizada.
+
+Los resultados justifican la aprobación técnica
+del PR #137.
+
+El merge continúa sujeto a la confirmación del
+Lighthouse baseline y al orden de integración
+establecido por el Coordinador.
+
+La revisión se realizó sobre el diff, las capturas
+y los resultados de terminal proporcionados a ChatGPT.
+
+No se realizaron nuevas ejecuciones desde ChatGPT
+ni se verificó directamente el funcionamiento en
+un navegador real durante esta revalidación.
+
+#### Seguimiento
+
+- [x] Revisar los commits de resolución.
+- [x] Inspeccionar las modificaciones de testing.
+- [x] Verificar la resolución de RC01.
+- [x] Verificar la resolución de RC02.
+- [x] Ejecutar Jasmine.
+- [x] Verificar la cobertura actualizada.
+- [x] Confirmar el commit final revisado.
+- [x] Publicar LGTM.
+- [x] Publicar Approve.
+- [ ] Verificar los checks de GitHub, si corresponde.
+- [ ] Confirmar Lighthouse baseline.
+- [ ] Resolver los hilos de comentarios corregidos.
+- [ ] Realizar merge hacia develop.
+- [ ] Coordinar Lighthouse post-fetch.
+
+#### Aclaración sobre el registro de revisiones
+
+Esta revisión corresponde a una revalidación del PR #137
+y se registra como una tercera instancia de Code Review.
+
+No se contabiliza como un tercer PR distinto.
+
+Se mantiene un registro separado de las revisiones
+realizadas y de los PR distintos revisados para
+cumplir con el mínimo establecido en la rúbrica.
+
+---
 ---
 ## 13. Registro de Request Changes del docente
 
