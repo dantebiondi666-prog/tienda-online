@@ -62,7 +62,10 @@ Diagnósticos:
 ### Accessibility: 100
 
 - El puntaje se mantiene en 100, igual que en el baseline y en el post-fetch.
+- No se detectaron auditorías fallidas. Quedan 10 ítems de revisión manual (foco por teclado, orden de tabulación, landmarks HTML5, roles ARIA, etc.), que Lighthouse no puede validar automáticamente.
 - Las animaciones de AOS no introducen fallos de accesibilidad detectables automáticamente. El wrapper respeta `prefers-reduced-motion`, verificado en `library.spec.js`.
+
+![Captura Accessibility](./capturas/tc-13/lighthouse-post-library-accessibility.png)
 
 ### Best Practices: 96
 
