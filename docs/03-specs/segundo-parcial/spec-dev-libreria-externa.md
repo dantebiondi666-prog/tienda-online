@@ -54,7 +54,7 @@ Verificación de no duplicación: los estilos propios (`css/`) no definen animac
 - [x] La suite existente (`npm test`) sigue pasando.
 - [x] `docs/06-librerias/libreria-doc.md` completo, con capturas.
 - [x] `changelog.md` actualizado con el link a la PR y a la Issue #134.
-- [ ] Coordinación con el Tester QA para `library.spec.js` y con el Coordinador para la revisión de la PR.
+- [x] Coordinación con el Tester QA para `library.spec.js` y con el Coordinador para la revisión de la PR.
 
 ---
 
@@ -277,4 +277,10 @@ Animaciones.refrescar();
 
 ### 2.4 Coordinación con otros roles e issues respondidas
 
-[PENDIENTE]
+**Coordinador/DevOps (@juanmartinbritos7-cmd).** Revisó el PR #136 en el Code Review N.º 2 con dos observaciones. RC01 (degradación segura ante errores de actualización de AOS) se resolvió en `31c3196` agregando `restaurarContenido()`, y el Coordinador lo aceptó técnicamente tras repetir la prueba con Node, JSDOM y Jasmine. RC02 (conflictos con la funcionalidad Fetch) se resolvió en `bcb1e8b`; queda a la espera de su revalidación definitiva y del Approve.
+
+**Desarrollador JS Asíncrono (@dantebiondi666-prog).** Una vez mergeado su PR #137 en `develop` (`d1fd091`), se actualizó la rama desde `develop` y se resolvieron los conflictos de `js/script.js` y `changelog.md` conservando ambas contribuciones: la carga asíncrona del catálogo con `ApiService` y las animaciones de AOS (`Animaciones.iniciar()` al inicio de `iniciarAplicacion()` y `animar`/`refrescar` en catálogo y carrito). Se verificó con `npm test` (167 specs, 0 failures) y en el navegador, con el catálogo cargado por Fetch.
+
+**Tester QA/JS (Sebas).** Se le solicitó la prueba automatizada del escenario del RC01 para `library.spec.js` (un `refreshHard()` que lanza una excepción deja los elementos sin `data-aos` ni `data-aos-delay`, y `animar()` devuelve `false`), con la API del wrapper y la advertencia de importar el módulo de forma dinámica por sus indicadores internos. La auditoría Lighthouse post-fetch está a su cargo.
+
+**Issues y revisiones.** Issue de la tarea: #134. Se respondieron en el PR #136 los hilos RC01 y RC02 del Code Review N.º 2, indicando los commits de resolución.
