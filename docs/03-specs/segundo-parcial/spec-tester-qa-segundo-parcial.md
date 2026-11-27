@@ -21,7 +21,7 @@ Además voy a reportar como issues de GitHub todos los problemas encontrados, as
 
 La consigna del Segundo Parcial exige testing de funciones asíncronas y de la integración de la librería externa, con cobertura de casos de éxito y error, y auditorías de rendimiento y accesibilidad en tres momentos con un umbral mínimo de Performance ≥ 95. La tarea también responde a `plan.md`: RNF-04 (mantenibilidad), RNF-05 (trazabilidad) y RNF-06 (colaboración), y a CA-14 (testing documentado con evidencia).
 
-Issue asociada: [#NN](https://github.com/dantebiondi666-prog/tienda-online/issues/NN)
+Issue asociada: [#141](https://github.com/dantebiondi666-prog/tienda-online/issues/141)
 
 ## 3. Criterios de aceptación
 
