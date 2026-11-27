@@ -4,6 +4,7 @@ import { JSDOM } from "jsdom";
 
 
 const archivoHtml = new URL("../../index.html", import.meta.url);
+const archivoProductos = new URL("../../api/productos.json", import.meta.url);
 const nombresGlobales = [
   "window",
   "document",
@@ -21,14 +22,19 @@ const nombresGlobales = [
   "DOMException",
   "alert",
   "prompt",
+  "fetch",
 ];
 let contadorImportaciones = 0;
 let dom;
 let descriptoresAnteriores;
+let observadorCarga;
 
 describe("Controlador de eventos con DOM", function () {
 beforeEach(async function () {
-  const html = await fs.readFile(archivoHtml, "utf8");
+  const [html, productosJson] = await Promise.all([
+    fs.readFile(archivoHtml, "utf8"),
+    fs.readFile(archivoProductos, "utf8"),
+  ]);
   dom = new JSDOM(html, {
     url: "http://localhost/",
     pretendToBeVisual: true,
@@ -51,6 +57,11 @@ beforeEach(async function () {
     DOMException: dom.window.DOMException,
     alert: jasmine.createSpy("alert"),
     prompt: jasmine.createSpy("prompt"),
+    fetch: jasmine.createSpy("fetch").and.resolveTo({
+      ok: true,
+      status: 200,
+      json: jasmine.createSpy("json").and.resolveTo(JSON.parse(productosJson)),
+    }),
   };
 
   descriptoresAnteriores = new Map(
@@ -68,12 +79,35 @@ beforeEach(async function () {
   }
 
   await import(`../script.js?prueba=${++contadorImportaciones}`);
+
+  // Esperar el estado final del catálogo, incluida la conversión de la respuesta a JSON.
+  const cargaFinalizada = new Promise((resolve) => {
+    const grilla = document.getElementById("product-grid");
+    observadorCarga = new window.MutationObserver(() => {
+      if (grilla.getAttribute("aria-busy") === "false") {
+        observadorCarga.disconnect();
+        resolve();
+      }
+    });
+    observadorCarga.observe(grilla, {
+      attributes: true,
+      attributeFilter: ["aria-busy"],
+    });
+  });
+
   document.dispatchEvent(new window.Event("DOMContentLoaded"));
+  await cargaFinalizada;
+
+  expect(globalThis.fetch).toHaveBeenCalledOnceWith("api/productos.json");
+  expect(document.getElementById("busqueda").disabled).toBeFalse();
 });
 
 afterEach(function () {
   expect(globalThis.alert).not.toHaveBeenCalled();
   expect(globalThis.prompt).not.toHaveBeenCalled();
+
+  observadorCarga?.disconnect();
+  observadorCarga = undefined;
 
   if (dom) {
     dom.window.close();
