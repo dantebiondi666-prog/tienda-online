@@ -103,9 +103,9 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   [#103](https://github.com/dantebiondi666-prog/tienda-online/issues/103)
 - [backport/release-tercera-entrega] [Backport] Backport de release/tercera-entrega hacia develop
   PR: [#98](https://github.com/dantebiondi666-prog/tienda-online/pull/98) - @LucasFUces (Coordinador / DevOps)
-  
+
 - [fix/lighthouse-performance-seo] [Segundo Parcial] Correcciones de Performance, SEO y Best Practices.
-  PR: Pendiente de creación.
+  PR: [#142](https://github.com/dantebiondi666-prog/tienda-online/pull/142) - @juanmartinbritos7-cmd (Coordinador / DevOps).
   Responsable: @juanmartinbritos7-cmd (Coordinador / DevOps).
   Issues:
   - [#139](https://github.com/dantebiondi666-prog/tienda-online/issues/139)
