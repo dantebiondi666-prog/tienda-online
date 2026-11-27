@@ -12,6 +12,17 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) - @LucasFUces (Desarrollador JS Librerías Externas)
   Issue:
   [#134](https://github.com/dantebiondi666-prog/tienda-online/issues/134)
+- [feature/dev-async-fetch-api] [Segundo Parcial] Desarrollador JS Asíncrono: implementar carga del catálogo mediante Fetch
+  PR: [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) - @dantebiondi666-prog (Desarrollador JS Asíncrono - Fetch & APIs)
+  Issue:
+  [#135](https://github.com/dantebiondi666-prog/tienda-online/issues/135)
+
+### Fixed
+
+- [feature/dev-async-fetch-api] [Segundo Parcial] Corregir RC01 y RC02: simular Fetch y esperar la carga del catálogo en los tests existentes; agregar pruebas del servicio API e incluir `js/api/*.js` en la cobertura de c8.
+  PR: [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) - @dantebiondi666-prog (Desarrollador JS Asíncrono - Fetch & APIs)
+  Issue: [#135](https://github.com/dantebiondi666-prog/tienda-online/issues/135)
+  Revisión: [RC01](https://github.com/dantebiondi666-prog/tienda-online/pull/137#discussion_r4713873747) y [RC02](https://github.com/dantebiondi666-prog/tienda-online/pull/137#discussion_r4713883086).
 
 ## [Release Actividad Obligatoria N°4] - 2026-11-22
 
