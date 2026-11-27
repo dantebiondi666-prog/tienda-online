@@ -249,6 +249,7 @@ Esta sección se completará durante el desarrollo con las revisiones efectivame
 | Review 3 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Revalidación del Desarrollador JS Asíncrono | script.spec.js, api.spec.js, package.json, diff de commits y resultados de cobertura | RC01 y RC02 resueltos - LGTM y Approve |
 | Review 4 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Revalidación del Desarrollador JS Librerías Externas | animaciones.js, diff de commits, Jasmine, Node.js, JSDOM y git merge-tree | RC01 aceptado - RC02 pendiente - Approve pendiente |
 | Review 5 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Revalidación definitiva de AOS | Diff de integración, Jasmine, cobertura y git merge-base | RC02 resuelto - LGTM - Approve - Merge |
+| Review 6 | PR pendiente de creación | Tester QA/JS | Revisión de suites, integración simulada, Jasmine y cobertura | Validación preliminar satisfactoria - 230 specs, 0 failures |
 
 Para cada revisión se registrará:
 
@@ -2059,6 +2060,242 @@ adicionales de revisión y no como PR independientes.
 
 Queda pendiente alcanzar el mínimo de cuatro PR
 distintos revisados establecido en la rúbrica.
+
+---
+### Code Review N.º 6 - Revisión preliminar del Tester QA/JS
+
+#### Información general
+
+- Fecha: 27/11/2026.
+- Responsable: Sebastian Viel (@Zikoloogo).
+- Rol: Tester QA/JS.
+- Issue: [#141](https://github.com/dantebiondi666-prog/tienda-online/issues/141).
+- Rama: feature/tester-qa-js-testing-suite.
+- Destino previsto: develop.
+- Herramienta de IA: ChatGPT.
+- Commit revisado: 3b165d3.
+- Commit de develop utilizado: 3d41731.
+- Pull Request: pendiente de creación.
+- Resultado: validación técnica preliminar satisfactoria.
+
+#### Objetivo
+
+Verificar las pruebas automatizadas desarrolladas
+por el Tester QA, su compatibilidad con Fetch y AOS,
+la conservación de las pruebas existentes y la
+evolución de la cobertura del proyecto.
+
+#### Contexto proporcionado a la IA
+
+- Historial de commits de la rama del Tester.
+- Diff de api.spec.js y package.json.
+- Contenido completo de library.spec.js.
+- Contenido de test-runner.html.
+- Resultados de git merge-tree.
+- Resultados de Jasmine y c8.
+- Auditorías Lighthouse TC11 y TC12.
+- Resultados de las revisiones anteriores.
+
+#### Solicitudes realizadas a la IA
+
+La revisión se realizó de forma iterativa mediante
+ChatGPT, proporcionando el código de las suites,
+los resultados de terminal y las evidencias
+de la integración simulada.
+
+Se solicitó analizar los casos de prueba incorporados,
+la configuración de Jasmine, el aislamiento de mocks,
+la recuperación ante fallos de AOS y la cobertura.
+
+#### Análisis de api.spec.js
+
+Se identificaron 32 pruebas adicionales que complementan
+las pruebas desarrolladas en el PR #137.
+
+| Grupo de pruebas | Cantidad |
+|---|---:|
+| Errores HTTP 400, 403 y 503 | 3 |
+| Extensiones de imágenes válidas | 7 |
+| Rutas de imágenes inválidas | 8 |
+| Identificadores válidos | 4 |
+| Identificadores inválidos | 4 |
+| Validación de precios | 2 |
+| Nombres repetidos | 1 |
+| Contrato con productos.json real | 3 |
+| Total | 32 |
+
+Se destaca la verificación del archivo JSON real
+y de la existencia de las imágenes asociadas
+a los productos.
+
+#### Análisis de library.spec.js
+
+Se identificaron 31 pruebas específicas del
+wrapper de animaciones AOS.
+
+| Método | Cantidad de pruebas |
+|---|---:|
+| prefiereMovimientoReducido() | 4 |
+| estaDisponible() | 5 |
+| iniciar() | 7 |
+| animar() | 6 |
+| refrescar() | 4 |
+| restaurarContenido() | 5 |
+| Total | 31 |
+
+Aspectos verificados:
+
+- Ausencia de la librería externa.
+- Preferencia de movimiento reducido.
+- Inicialización y configuración de AOS.
+- Excepciones durante la inicialización.
+- Excepciones durante el refresco.
+- Eliminación de atributos y clases de animación.
+- Desactivación del wrapper ante excepciones.
+- Restauración de las propiedades globales.
+
+Las pruebas utilizan mocks de AOS y nuevas instancias
+del módulo mediante importaciones dinámicas.
+
+#### Análisis de package.json
+
+Se incorporó library.spec.js a los comandos
+npm test y npm run cobertura.
+
+Se conservaron las suites anteriores y la
+configuración de cobertura de c8.
+
+#### Simulación de integración
+
+Se verificó previamente la compatibilidad
+de las ramas mediante:
+
+```powershell
+git merge-tree --write-tree origin/develop origin/feature/tester-qa-js-testing-suite
+echo $LASTEXITCODE
+```
+
+Resultado: código de salida 0.
+
+No se detectaron conflictos de integración.
+
+Posteriormente se creó un worktree independiente
+para ejecutar las pruebas sobre la integración
+simulada de ambas ramas.
+
+```powershell
+git worktree add --detach ../tienda-online-review-qa origin/develop
+cd C:\Users\juanm\tienda-online-review-qa
+git merge --no-commit --no-ff origin/feature/tester-qa-js-testing-suite
+npm.cmd ci
+npm.cmd test
+npm.cmd run cobertura
+```
+
+La integración se realizó exclusivamente con fines
+de validación, sin efectuar commits ni push sobre
+las ramas del equipo.
+
+#### Resultados de Jasmine
+
+| Comando | Resultado | Seed | Tiempo |
+|---|---|---|---|
+| npm.cmd test | 230 specs, 0 failures | 51185 | 1,107 s |
+| npm.cmd run cobertura | 230 specs, 0 failures | 87764 | 1,599 s |
+
+Se conservaron las 167 pruebas anteriores y se
+incorporaron 63 pruebas adicionales.
+
+No se detectaron regresiones en la suite automatizada.
+
+#### Comparación de cobertura general
+
+| Indicador | Antes de QA | Después de QA |
+|---|---:|---:|
+| Sentencias | 95,41% | 98,35% |
+| Ramas | 94,16% | 97,10% |
+| Funciones | 97,91% | 100% |
+| Líneas | 95,41% | 98,35% |
+| Pruebas ejecutadas | 167 | 230 |
+| Pruebas fallidas | 0 | 0 |
+
+#### Comparación de cobertura de animaciones.js
+
+| Indicador | Antes de QA | Después de QA |
+|---|---:|---:|
+| Sentencias | 59,28% | 100% |
+| Ramas | 31,25% | 100% |
+| Funciones | 66,66% | 100% |
+| Líneas | 59,28% | 100% |
+
+La incorporación de library.spec.js permitió alcanzar
+el 100% de cobertura del wrapper de AOS.
+
+El módulo apiService.js conserva el 100% de cobertura.
+
+El archivo script.js mantiene una cobertura de líneas
+del 95,49% y una cobertura de ramas del 88,67%.
+
+#### Observaciones preliminares
+
+| ID | Observación | Prioridad | Estado |
+|---|---|---|---|
+| OBS01 | Incorporar develop con AOS a la rama del Tester | Alta | Pendiente |
+| OBS02 | Verificar y documentar las suites compatibles con test-runner.html | Media | Pendiente |
+| OBS03 | Completar Lighthouse post-library (TC13) | Alta | Pendiente |
+| OBS04 | Actualizar los índices de testing | Media | Pendiente |
+| OBS05 | Completar el SPEC y changelog del Tester | Alta | Pendiente |
+| OBS06 | Crear el PR para la revisión definitiva | Alta | Pendiente |
+
+Estas observaciones corresponden a una revisión
+preliminar y todavía no constituyen Request Changes
+formales publicados en GitHub.
+
+#### Observaciones sobre dependencias
+
+Durante npm.cmd ci se detectaron advertencias
+de dependencias obsoletas y cinco vulnerabilidades
+de severidad moderada.
+
+No se modificaron las dependencias ni se ejecutó
+npm audit fix --force, para evitar introducir
+cambios incompatibles.
+
+Queda pendiente analizar el informe de npm audit
+y determinar el alcance de las vulnerabilidades.
+
+#### Limitaciones
+
+Las pruebas del wrapper utilizan objetos simulados,
+por lo que la cobertura obtenida no demuestra por
+sí sola la correcta visualización de las animaciones
+en un navegador real.
+
+Tres pruebas del contrato con productos.json
+están diseñadas para ejecutarse exclusivamente
+en Node.js.
+
+El runner del navegador solamente incorpora
+models.spec.js y storage.spec.js.
+
+La integración evaluada fue una simulación local
+y no representa un merge definitivo hacia develop.
+
+#### Conclusión
+
+La revisión preliminar del trabajo del Tester QA
+obtuvo resultados satisfactorios.
+
+Las 230 pruebas se ejecutaron sin fallos y la
+cobertura general de líneas alcanzó el 98,35%.
+
+Se verificó la compatibilidad de integración con
+Fetch y AOS y una cobertura del 100% en ambos
+módulos específicos.
+
+El LGTM y Approve definitivos quedan pendientes
+de la creación del PR, la revisión de su versión
+final y la verificación de los entregables restantes.
 
 ---
 ---
