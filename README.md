@@ -28,7 +28,7 @@ Ofrecer una experiencia simple para consultar prendas, comparar sus característ
 - Lighthouse (auditorías de rendimiento, accesibilidad, buenas prácticas y SEO).
 - ChatGPT (asistencia de IA para revisiones de código y coordinación técnica).
 
-Fetch y AOS ya se integraron en `develop`. Las correcciones de Lighthouse se incorporaron a la rama del Coordinador/DevOps; el testing avanzado y la validación final del Segundo Parcial siguen pendientes de integración.
+Fetch, AOS y el testing avanzado de QA ya se integraron en `develop` mediante los PR #137, #136 y #144. La rama del Coordinador/DevOps incorpora además las correcciones de Lighthouse del PR #143 y se encuentra validada localmente. Su integración definitiva mediante el PR #138 y la publicación del Segundo Parcial siguen pendientes.
 
 ## Funcionalidades previstas
 
@@ -87,7 +87,7 @@ js/
 - Specs: [Actividad N°1](docs/03-specs/actividad-obligatoria-1/) · [Actividad N°2](docs/03-specs/actividad-obligatoria-2/) · [Primer Parcial](docs/03-specs/primer-parcial/) · [Actividad N°3](docs/03-specs/actividad-obligatoria-3/) · [Actividad N°4](docs/03-specs/actividad-obligatoria-4/)
 - Prompts de IA utilizados: [docs/02-prompts/prompts.md](docs/02-prompts/prompts.md)
 - Redacción del README: generado con GitHub Copilot (modo Agente) a partir de un prompt específico y revisado manualmente por el equipo — ver la consulta documentada en: [docs/03-specs/actividad-obligatoria-1/spec-ux.md](docs/03-specs/actividad-obligatoria-1/spec-ux.md)
-- Sitio publicado (GitHub Pages, rama `release/cuarta-entrega`): https://dantebiondi666-prog.github.io/tienda-online/
+- Sitio de la entrega anterior (GitHub Pages; rama de referencia `release/cuarta-entrega`): https://dantebiondi666-prog.github.io/tienda-online/
 
 ## Segundo Parcial
 
@@ -110,7 +110,7 @@ Evolucionar la aplicación desarrollada en la Actividad Obligatoria N.º 4 media
 
 ### Arquitectura del Segundo Parcial
 
-Estructura de los archivos principales en la rama del Coordinador/DevOps, después de incorporar Fetch, AOS y las correcciones de Lighthouse:
+Estructura de los archivos principales en la rama del Coordinador/DevOps, después de incorporar Fetch, AOS, las correcciones de Lighthouse y el testing avanzado del PR #144:
 
 ```text
 api/
@@ -134,49 +134,42 @@ js/
     ├── models.spec.js
     ├── storage.spec.js
     ├── api.spec.js
+    ├── library.spec.js
+    ├── testing-doc.md
     └── test-runner.html
 ```
 
-El archivo `js/test/library.spec.js` y las ampliaciones de `api.spec.js` se encuentran en la rama del Tester QA y se validaron mediante una integración simulada. Su incorporación definitiva sigue pendiente.
+Las suites `library.spec.js`, las ampliaciones de `api.spec.js` y las pruebas de integración de `script.spec.js` se incorporaron mediante el PR #144. La rama del Coordinador fue sincronizada con `develop` y validada posteriormente.
 
 ### Testing y cobertura
 
-| Indicador | Fetch + AOS y correcciones Lighthouse | Integración simulada de QA con develop |
-|---|---:|---:|
-| Pruebas ejecutadas | 167 | 230 |
-| Fallos | 0 | 0 |
-| Sentencias | 95,41% | 98,35% |
-| Ramas | 94,16% | 97,10% |
-| Funciones | 97,91% | 100% |
-| Líneas | 95,41% | 98,35% |
+| Indicador | Antes de QA | Simulación preliminar de QA | Rama del Coordinador después de integrar QA |
+|---|---:|---:|---:|
+| Pruebas ejecutadas | 167 | 230 | 235 |
+| Fallos | 0 | 0 | 0 |
+| Sentencias | 95,41% | 98,35% | 98,91% |
+| Ramas | 94,16% | 97,10% | 97,36% |
+| Funciones | 97,91% | 100% | 100% |
+| Líneas | 95,41% | 98,35% | 98,91% |
 
-En la integración simulada se obtuvo una cobertura del 100% en `apiService.js` y `animaciones.js`. Esta validación se realizó en un worktree independiente, combinando `develop` (`3d41731`) con la rama del Tester (`3b165d3`), sin modificar las ramas del equipo. No representa todavía una validación de la versión final que incluirá también las correcciones de Lighthouse.
+La simulación preliminar combinó `develop` (`3d41731`) con la rama de QA (`3b165d3`) en un worktree independiente. Se conserva como antecedente.
+
+La validación posterior a la integración de QA en `feature/coord-devops-segundo-parcial` obtuvo 235 pruebas sin fallos (`npm test`, seed 96464; `npm run cobertura`, seed 91573). La cobertura de líneas de `script.js` fue 97,04%; `apiService.js` y `animaciones.js` alcanzaron el 100%. Los resultados corresponden a la rama del Coordinador, no a una release publicada.
 
 ### Auditorías Lighthouse
 
-| Categoría | Baseline (TC11) | Post-fetch (TC12) | Post-library (TC13) | Correcciones locales | Umbral |
-|---|---:|---:|---:|---:|---:|
-| Performance | 93 | 96 | 97 | 97 | 95 |
-| Accessibility | 100 | 100 | 100 | 100 | 95 |
-| Best Practices | 96 | 96 | 96 | 100 | 95 |
-| SEO | 91 | 91 | 91 | 100 | 95 |
+| Categoría | Baseline (TC11) | Post-fetch (TC12) | Post-library (TC13) | Correcciones locales | Integración local combinada | Umbral |
+|---|---:|---:|---:|---:|---:|---:|
+| Performance | 93 | 96 | 97 | 97 | 98 | 95 |
+| Accessibility | 100 | 100 | 100 | 100 | 100 | 95 |
+| Best Practices | 96 | 96 | 96 | 100 | 100 | 95 |
+| SEO | 91 | 91 | 91 | 100 | 100 | 95 |
 
-Las tres auditorías Lighthouse del Segundo Parcial
-se encuentran documentadas.
+Las tres auditorías requeridas están documentadas. No se detectaron regresiones en las puntuaciones tras incorporar Fetch y AOS. Las correcciones del PR #143 permitieron alcanzar el umbral de 95 puntos en las cuatro categorías en la auditoría local; la integración combinada también superó ese mínimo.
 
-La integración de Fetch y AOS no introdujo regresiones
-detectadas en las puntuaciones de Lighthouse.
+Las auditorías de QA utilizaron Microsoft Edge y un servidor local de Python; las del Coordinador utilizaron Google Chrome y `http-server`. Las diferencias entre mediciones no pueden atribuirse exclusivamente a los cambios de código. La auditoría de integración combinada se realizó antes del merge definitivo de los aportes y no sustituye la comprobación del sitio publicado.
 
-Las correcciones del PR #143 alcanzaron el umbral
-mínimo de 95 puntos en las cuatro categorías
-durante la auditoría local del Coordinador.
-
-Queda pendiente la validación final sobre la versión
-completamente integrada del proyecto.
-
-Las cuatro categorías alcanzaron el mínimo requerido en la auditoría local de las correcciones. Esta se realizó con Google Chrome y `http-server`, mientras que TC11 y TC12 se realizaron con Microsoft Edge y un servidor local de Python. Los resultados no permiten atribuir todas las diferencias exclusivamente a las modificaciones del código.
-
-La auditoría de las correcciones no sustituye el TC13 ni la validación final de QA.
+Evidencia: [Lighthouse de integración local](docs/04-testing/capturas/lighthouse-correcciones/lighthouse-integracion-final.png).
 
 ### Coordinación e integración
 
@@ -188,14 +181,16 @@ El equipo organiza las tareas mediante GitHub Projects y utiliza ramas independi
 - [x] Lighthouse post-fetch (TC12).
 - [x] Integración de AOS (#136).
 - [x] Incorporación de las correcciones de Lighthouse a la rama del Coordinador (#143), con aprobación de otro integrante.
-- [x] Validación preliminar del testing avanzado.
-- [ ] Lighthouse post-library (TC13).
-- [ ] Revisión formal e integración del PR del Tester QA.
-- [ ] Completar el requisito de revisiones de PR de la rúbrica.
-- [ ] Integración del PR del Coordinador (#138) y validación final del conjunto.
+- [x] Lighthouse post-library (TC13).
+- [x] Revisión formal, revalidación e integración de QA (#144).
+- [x] Sincronización de la rama del Coordinador con `develop` y validación automatizada posterior.
+- [x] Auditoría Lighthouse de la integración local combinada.
+- [ ] Completar el requisito de cuatro PR distintos revisados según la rúbrica.
+- [ ] Integración del PR del Coordinador (#138) hacia `develop`.
 - [ ] Preparación de `release/segundo-parcial`, configuración de GitHub Pages y entrega.
+- [ ] Verificación del sitio publicado.
 
-Se documentaron seis instancias de revisión asistidas por IA: cinco sobre dos PR distintos y una revisión preliminar de la rama de QA. Las revalidaciones no se contabilizan como PR independientes. El PR #142 se cerró sin merge y fue reemplazado por el #143 para respetar el flujo de integración acordado con el equipo.
+Se documentaron siete instancias de revisión asistidas por IA sobre tres PR distintos de compañeros (#137, #136 y #144), con seis Request Changes aceptados. El PR #138 recibió además una revisión asistida por IA de Dante; su tratamiento se registra separadamente en el SPEC. El cómputo de una autorrevisión como cuarto PR de la rúbrica requiere confirmación. Las revalidaciones no se contabilizan como PR independientes. El PR #142 se cerró sin merge y fue reemplazado por el #143 para respetar el flujo de integración acordado.
 
 ### Documentación y seguimiento
 
@@ -212,11 +207,15 @@ Se documentaron seis instancias de revisión asistidas por IA: cinco sobre dos P
 - [PR de AOS #136](https://github.com/dantebiondi666-prog/tienda-online/pull/136)
 - [PR de correcciones Lighthouse #143](https://github.com/dantebiondi666-prog/tienda-online/pull/143)
 - [Issue de QA #141](https://github.com/dantebiondi666-prog/tienda-online/issues/141)
-- [Rama del Tester QA (TC11, TC12 y suites pendientes de integración)](https://github.com/dantebiondi666-prog/tienda-online/tree/feature/tester-qa-js-testing-suite)
+- [PR del Tester QA #144](https://github.com/dantebiondi666-prog/tienda-online/pull/144)
+- [SPEC del Tester QA](docs/03-specs/segundo-parcial/spec-tester-qa-segundo-parcial.md)
+- [TC11 — Lighthouse baseline](docs/04-testing/test-case-11-lighthouse-baseline.md)
+- [TC12 — Lighthouse post-fetch](docs/04-testing/test-case-12-lighthouse-post-fetch.md)
+- [TC13 — Lighthouse post-library](docs/04-testing/test-case-13-lighthouse-post-library.md)
 - [GitHub Projects - Kanban](https://github.com/users/dantebiondi666-prog/projects/3)
 - [Changelog del proyecto](changelog.md)
 
-**Estado al 27/11/2026:** Fetch y AOS integrados en `develop`; correcciones de Lighthouse incorporadas a la rama del Coordinador. Testing avanzado validado preliminarmente, pendiente de integración definitiva. La release del Segundo Parcial aún no está publicada.
+**Estado al 27/11/2026:** Fetch, AOS y QA integrados en `develop`; correcciones de Lighthouse incorporadas a la rama del Coordinador, sincronizada y validada con 235 pruebas sin fallos. El PR #138 está en revisión. La release del Segundo Parcial, la actualización de GitHub Pages y la entrega siguen pendientes.
 
 ## Cómo ejecutar el proyecto y los tests
 
@@ -228,7 +227,7 @@ npx --yes http-server . -p 8080 -c-1
 ```
 
 - Sitio: `http://localhost:8080/`
-- Tests de Jasmine en el navegador: `http://localhost:8080/js/test/test-runner.html` (runner disponible para las suites compatibles; en la revisión preliminar se verificó que incluye `models.spec.js` y `storage.spec.js`).
+- Tests de Jasmine en el navegador: `http://localhost:8080/js/test/test-runner.html` (runner para `models.spec.js` y `storage.spec.js`; `script.spec.js`, `api.spec.js` y `library.spec.js` se ejecutan en Node.js según la documentación de QA).
 - Tests en la terminal: `npm test` (en PowerShell, `npm.cmd test` si la ejecución de scripts está bloqueada).
 - Tests con medición de cobertura (`c8`): `npm run cobertura` (o `npm.cmd run cobertura` en PowerShell; el reporte HTML queda en `coverage/index.html`).
 

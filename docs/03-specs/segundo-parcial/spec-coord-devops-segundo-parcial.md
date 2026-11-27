@@ -251,6 +251,7 @@ Esta sección se completará durante el desarrollo con las revisiones efectivame
 | Review 5 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Revalidación definitiva de AOS | Diff de integración, Jasmine, cobertura y git merge-base | RC02 resuelto - LGTM - Approve - Merge |
 | Review 6 | PR #144 | Tester QA/JS | Testing avanzado, integración y auditorías Lighthouse | Request Changes - RC01 y RC02 pendientes |s
 | Review 7 | PR #144 | Tester QA/JS | Revalidación de RC01 y RC02 | LGTM - Approve - Mergeado |s
+| Review 8 | PR #138 | Coordinador/DevOps | Revisión externa y autorrevisión asistida por IA | Pendiente de aprobación |
 
 Para cada revisión se registrará:
 
@@ -2488,7 +2489,178 @@ Se confirma que la integración definitiva de QA
 en la rama del Coordinador no introdujo regresiones
 en las pruebas automatizadas.
 
+### Anexo de trazabilidad de las revisiones asistidas por IA
+
+#### Review 5 - Revalidación del PR #136
+
+Herramienta: ChatGPT.
+
+Modalidad: conversación iterativa mediante capturas,
+resultados de terminal y archivos del diff.
+
+Mensajes textuales del Coordinador durante la revisión:
+
+```text
+y donde estaria ese documento
+```
+
+También se proporcionaron resultados de los siguientes
+comandos como entradas para el análisis:
+
+```powershell
+git --no-pager log -1 --oneline
+git merge-base --is-ancestor origin/develop HEAD
+git --no-pager diff origin/develop HEAD -- js/script.js changelog.md
+npm.cmd test
+npm.cmd run cobertura
+```
+
+Archivos utilizados como contexto:
+
+- js/script.js
+- changelog.md
+- docs/04-testing/test-case-12-lighthouse-post-fetch.md
+
+Resultado: revalidación de la integración de Fetch
+y AOS, aceptación de las correcciones y merge del PR #136.
+
+#### Review 6 - Revisión del PR #144
+
+Herramienta: ChatGPT.
+
+Modalidad: revisión iterativa mediante resultados
+de terminal, capturas de GitHub y diffs de código.
+
+Entradas técnicas proporcionadas durante la conversación:
+
+```powershell
+git --no-pager show --stat efb42e4
+git --no-pager diff 16b2aa0 efb42e4 -- js/test/script.spec.js
+git --no-pager diff efb42e4 HEAD -- js/test/script.spec.js
+Get-Content changelog.md -Encoding UTF8 -TotalCount 65
+Get-ChildItem docs/04-testing/capturas/tc-13
+```
+
+Archivos utilizados como contexto:
+
+- js/test/api.spec.js
+- js/test/library.spec.js
+- js/test/script.spec.js
+- js/test/test-runner.html
+- package.json
+- changelog.md
+- docs/04-testing/test-case-13-lighthouse-post-library.md
+- SPEC del Tester QA.
+
+También se proporcionaron las capturas de Jasmine,
+cobertura y descripción del PR #144.
+
+Ubicación de las observaciones inline:
+
+| ID | Archivo | Ubicación |
+|---|---|---|
+| RC01 | spec-tester-qa-segundo-parcial.md | Línea 102, sección AT CLOSE |
+| RC02 | test-case-13-lighthouse-post-library.md | Apartado Accessibility: 100 |
+
+PR:
+https://github.com/dantebiondi666-prog/tienda-online/pull/144
+
+#### Review 7 - Revalidación del PR #144
+
+Herramienta: ChatGPT.
+
+Entradas técnicas proporcionadas:
+
+```powershell
+git --no-pager show --stat 0732d6f
+git --no-pager diff 79bb61a 0732d6f -- changelog.md
+git --no-pager show --stat c69ac5e
+git --no-pager diff 0732d6f c69ac5e -- docs/04-testing/test-case-13-lighthouse-post-library.md changelog.md
+git --no-pager ls-tree -r --name-only origin/feature/tester-qa-js-testing-suite -- docs/04-testing/capturas/tc-13
+```
+
+Archivos utilizados como contexto:
+
+- changelog.md
+- js/test/testing-doc.md
+- docs/04-testing/test-case-13-lighthouse-post-library.md
+- Captura de Accessibility del TC13.
+
+Resultado: RC01 y RC02 aceptados, LGTM,
+Approve e integración del PR #144 hacia develop.
+
+#### Aclaración metodológica
+
+Estas revisiones se desarrollaron mediante consultas
+iterativas y entrega de evidencias técnicas a ChatGPT.
+
+Los comandos anteriores corresponden a entradas reales
+aportadas durante las conversaciones, no a prompts
+formales redactados retrospectivamente.
+
+Se conserva esta distinción para garantizar la
+trazabilidad y autenticidad de las revisiones.
+
 ---
+
+### Code Review N.º 8 - Revisión del PR #138
+
+- Fecha: 27/11/2026.
+- PR: #138.
+- Rama: feature/coord-devops-segundo-parcial.
+- Commit de referencia: a127ae9.
+- Responsable de la contribución: Juan Martin Britos.
+- Revisor externo: Dante Biondi, con asistencia de IA.
+- Revalidación complementaria: ChatGPT.
+
+#### Contexto proporcionado
+
+- README.md.
+- changelog.md.
+- SPEC del Coordinador/DevOps.
+- feature-template.md.
+- release-template.md.
+- Capturas de las cinco observaciones de Dante.
+- Diff de las correcciones realizadas.
+
+#### Observaciones y tratamiento
+
+| ID | Observación | Estado |
+|---|---|---|
+| RC01 | Completar cuatro PR distintos revisados | Cuarto PR analizado; aceptación según rúbrica pendiente |
+| RC02 | Completar trazabilidad de prompts e inline | Anexo incorporado; evidencia restante pendiente |
+| RC03 | Actualizar README después de QA | Corregido y revalidado |
+| RC04 | Reubicar el fix de Lighthouse | Corregido y revalidado |
+| RC05 | Regularizar descripción del PR | Corregido; pendiente de revisión externa |
+
+#### Resultado
+
+Se verificaron las modificaciones del README
+y del changelog mediante git diff.
+
+Las correcciones son documentales y no modifican
+la lógica JavaScript previamente validada.
+
+Se registran ocho instancias de revisión asistida
+por IA correspondientes a cuatro PR distintos:
+
+- PR #137: Fetch y APIs.
+- PR #136: Librería AOS.
+- PR #144: Tester QA.
+- PR #138: Coordinador/DevOps.
+
+Las primeras tres PR corresponden a contribuciones
+de compañeros. La cuarta corresponde a una revisión
+externa de Dante y una autorrevisión complementaria.
+
+Queda sujeta a confirmación docente la aceptación
+de esta modalidad para el mínimo de la rúbrica.
+
+PR:
+https://github.com/dantebiondi666-prog/tienda-online/pull/138
+
+Aprobación definitiva pendiente de Dante.
+
 ## 13. Registro de Request Changes del docente
 
 | RC | Descripción | Prioridad | Responsable | Issue | PR | Estado |
