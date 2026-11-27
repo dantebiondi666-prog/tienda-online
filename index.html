@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="css/components.css" />
     <link rel="stylesheet" href="css/responsive.css" />
     <link rel="stylesheet" href="css/bootstrap-overrides.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
   </head>
   <body>
     <header>
@@ -35,11 +36,7 @@
           autocomplete="name"
           autocomplete="email"
         />
-        <datalist id="sugerencias-busqueda">
-          <option value="Remera"></option>
-          <option value="Pantalón"></option>
-          <option value="Campera"></option>
-        </datalist>
+        <datalist id="sugerencias-busqueda"></datalist>
       </form>
       </div>
       <nav aria-label="Navegación principal">
@@ -105,8 +102,10 @@
 
         <section id="catalogo" class="col-12 col-lg-9" aria-labelledby="catalogo-titulo">
           <h2 id="catalogo-titulo">Catálogo de productos</h2>
-          <p id="catalogo-feedback" class="mt-2" role="status" aria-live="polite"></p>
-          <div id="carouselDestacados" class="carousel slide carousel-destacados mb-4" data-bs-ride="carousel" aria-label="Productos destacados">
+          <p id="catalogo-feedback" class="mt-2" role="status" aria-live="polite">
+                Cargando productos...
+          </p>
+          <div id="carouselDestacados" class="carousel slide carousel-destacados mb-4" data-bs-ride="carousel" aria-label="Productos destacados" hidden>
   <div class="carousel-indicators"></div>
 <div class="carousel-inner"></div>
   <button class="carousel-control-prev" type="button" data-bs-target="#carouselDestacados" data-bs-slide="prev">
@@ -118,7 +117,7 @@
     <span class="visually-hidden">Siguiente</span>
   </button>
 </div>
-<div id="product-grid" class="row g-3"></div>
+<div id="product-grid" class="row g-3" aria-busy="true"></div>
         </section>
       </div>
 
@@ -323,6 +322,7 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script type="module" src="js/script.js"></script>
   </body>
 </html>

@@ -8,9 +8,9 @@
     "doc": "docs"
   },
   "scripts": {
-  "test": "jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/models.spec.js js/test/storage.spec.js",
-  "cobertura": "c8 --all --include=js/script.js --include=\"js/models/*.js\" --include=\"js/utils/*.js\" --include=\"js/services/*.js\" --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/models.spec.js js/test/storage.spec.js"
-},
+    "test": "jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/models.spec.js js/test/storage.spec.js js/test/api.spec.js",
+    "cobertura": "c8 --all --include=js/script.js --include=\"js/models/*.js\" --include=\"js/utils/*.js\" --include=\"js/services/*.js\" --include=\"js/api/*.js\" --reporter=text --reporter=html jasmine --helper=js/test/node-setup.js js/test/script.spec.js js/test/models.spec.js js/test/storage.spec.js js/test/api.spec.js"
+  },
 
   "keywords": [],
   "author": "",

@@ -1,7 +1,8 @@
 import PersistenciaService from "./services/PersistenciaService.js";
 import Catalogo from "./models/Catalogo.js";
 import ItemCarrito from "./models/ItemCarrito.js";
-import datosProductos from "./data/productos.js";
+import ApiService from "./api/apiService.js";
+import Animaciones from "./utils/animaciones.js";
 
 const camposDeFiltro = ["categoria", "tipo", "talle", "estilo"];
 const formatoMoneda = new Intl.NumberFormat("es-AR", {
@@ -12,14 +13,25 @@ const formatoMoneda = new Intl.NumberFormat("es-AR", {
 
 document.addEventListener("DOMContentLoaded", iniciarAplicacion);
 
-function iniciarAplicacion() {
-  const catalogo = new Catalogo(datosProductos);
- const carrito = PersistenciaService.cargarCarrito();
+/**
+ * Inicializa la aplicación y obtiene el catálogo de forma asíncrona.
+ * El carrito persistido se recupera independientemente de la carga del catálogo.
+ * @returns {Promise<void>}
+ */
+async function iniciarAplicacion() {
+  Animaciones.iniciar();
+  let catalogo = null;
+  let imagesByProduct = new Map();
+  let catalogoDisponible = false;
+
+  const carrito = PersistenciaService.cargarCarrito();
   const productGrid = document.getElementById("product-grid");
   const searchForm = document.getElementById("busqueda-form");
   const searchInput = document.getElementById("busqueda");
+  const searchSuggestions = document.getElementById("sugerencias-busqueda");
   const filtersForm = document.getElementById("filtros-form");
   const catalogFeedback = document.getElementById("catalogo-feedback");
+  const carousel = document.getElementById("carouselDestacados");
   const modal = document.getElementById("modalProducto");
   const modalForm = document.getElementById("modal-producto-form");
   const modalSize = document.getElementById("modalProductoTalle");
@@ -32,55 +44,59 @@ function iniciarAplicacion() {
   const summaryItems = document.getElementById("resumen-items");
   const summaryEmpty = document.getElementById("resumen-vacio");
   const summaryTotal = document.getElementById("resumen-total");
-  const imagesByProduct = new Map(
-  datosProductos.map((producto) => [
-    producto.nombre,
-    producto.imagen,
-  ])
-);
+
   const state = {
     productoModal: null,
     botonOrigenModal: null,
   };
 
- inicializarOpcionesDeFiltros();
-restaurarFiltroActivo();
-actualizarCatalogo();
-renderizarCarrusel();
-renderizarCarrito();
+  const controlesCatalogo = [
+    searchInput,
+    ...filtersForm.querySelectorAll("fieldset, button"),
+  ];
 
   searchForm.addEventListener("submit", (evento) => {
     evento.preventDefault();
     actualizarCatalogo();
   });
+
   searchInput.addEventListener("input", actualizarCatalogo);
 
   filtersForm.addEventListener("change", () => {
-  guardarFiltroActivo();
-  actualizarCatalogo();
-});
-  filtersForm.addEventListener("reset", () => {
-  PersistenciaService.eliminarFiltro();
+    if (!catalogoDisponible) return;
 
-  window.setTimeout(actualizarCatalogo, 0);
-});
+    guardarFiltroActivo();
+    actualizarCatalogo();
+  });
+
+  filtersForm.addEventListener("reset", () => {
+    if (!catalogoDisponible) return;
+
+    PersistenciaService.eliminarFiltro();
+    window.setTimeout(actualizarCatalogo, 0);
+  });
 
   modal.addEventListener("show.bs.modal", prepararModal);
+
   modal.addEventListener("shown.bs.modal", () => {
     modal.querySelector(".btn-close").focus();
   });
+
   modal.addEventListener("hidden.bs.modal", () => {
     if (state.botonOrigenModal?.isConnected) {
       state.botonOrigenModal.focus();
     }
+
     state.productoModal = null;
     modalForm.reset();
   });
+
   modal.addEventListener("keydown", mantenerFocoEnModal);
 
   modalSize.addEventListener("change", () => validarFormularioModal(true));
   modalQuantity.addEventListener("input", () => validarFormularioModal(true));
   modalForm.addEventListener("submit", agregarProductoAlCarrito);
+
   modalForm.addEventListener("reset", () => {
     window.setTimeout(() => {
       validarFormularioModal(false);
@@ -90,6 +106,70 @@ renderizarCarrito();
   cartItems.addEventListener("input", validarCantidadEnCarrito);
   cartItems.addEventListener("submit", modificarCantidadEnCarrito);
   cartItems.addEventListener("click", eliminarProductoDelCarrito);
+
+  renderizarCarrito();
+
+  await cargarCatalogo();
+
+  /**
+   * Obtiene, procesa y renderiza los productos del catálogo.
+   * Gestiona los estados visuales de carga, éxito y error.
+   * @returns {Promise<void>}
+   */
+  async function cargarCatalogo() {
+    productGrid.setAttribute("aria-busy", "true");
+    carousel.hidden = true;
+
+    controlesCatalogo.forEach((control) => {
+      control.disabled = true;
+    });
+
+    mostrarMensaje(catalogFeedback, "Cargando productos...", "neutral");
+
+    try {
+      const datos = await ApiService.fetchData();
+      const productos = ApiService.procesarProductos(datos);
+
+      catalogo = new Catalogo(productos);
+      imagesByProduct = ApiService.crearMapaImagenes(productos);
+
+      inicializarOpcionesDeFiltros();
+      restaurarFiltroActivo();
+
+      searchSuggestions.replaceChildren(
+        ...catalogo.productos.map((producto) => {
+          const option = document.createElement("option");
+          option.value = producto.nombre;
+          return option;
+        })
+      );
+
+      catalogoDisponible = true;
+
+      actualizarCatalogo();
+      renderizarCarrusel();
+
+      carousel.hidden = false;
+    } catch (error) {
+      catalogoDisponible = false;
+
+      productGrid.replaceChildren();
+      searchSuggestions.replaceChildren();
+      carousel.hidden = true;
+
+      mostrarMensaje(
+        catalogFeedback,
+        "No se pudieron cargar los productos. Recargá la página para volver a intentarlo.",
+        "error"
+      );
+    } finally {
+      productGrid.setAttribute("aria-busy", "false");
+
+      controlesCatalogo.forEach((control) => {
+        control.disabled = !catalogoDisponible;
+      });
+    }
+  }
 
 function guardarFiltroActivo() {
   const filtroSeleccionado = filtersForm.querySelector(
@@ -153,6 +233,9 @@ function restaurarFiltroActivo() {
   }
 
   function actualizarCatalogo() {
+    if (!catalogoDisponible) {
+      return;
+    }
     
     const termino = searchInput.value.trim();
     const filtros = {};
@@ -237,7 +320,7 @@ function renderizarCarrusel() {
   function renderizarCatalogo(productos) {
     productGrid.replaceChildren();
 
-    for (const producto of productos) {
+    for (const [indice, producto] of productos.entries()) {
       const imagen = imagesByProduct.get(producto.nombre);
       if (!imagen) {
         throw new Error(`No hay una imagen configurada para ${producto.nombre}.`);
@@ -279,11 +362,18 @@ function renderizarCarrusel() {
 
       figure.append(image);
       article.append(figure, title, category, price, sizes, detailsButton);
+      Animaciones.animar(article, "fade-up", Math.min(indice * 50, 300));
       productGrid.append(article);
     }
+    Animaciones.refrescar();
   }
 
-  function prepararModal(evento) {
+    function prepararModal(evento) {
+    if (!catalogoDisponible) {
+      evento.preventDefault();
+      return;
+    }
+
     const boton = evento.relatedTarget;
     const nombre = boton?.dataset.producto;
     const producto = nombre ? catalogo.buscarProducto(nombre) : null;
@@ -452,6 +542,7 @@ const cantidadValida = ItemCarrito.esCantidadValida(cantidad);
       listItem.className = "list-group-item";
       listItem.dataset.producto = producto;
       listItem.dataset.talle = item.talle;
+      Animaciones.animar(listItem, "fade-right", Math.min(index * 50, 300));
       header.className = "d-flex flex-wrap justify-content-between gap-2";
       details.className = "d-flex flex-wrap gap-3";
       form.className = "d-flex flex-wrap align-items-end gap-2 mt-2";
@@ -489,8 +580,10 @@ const cantidadValida = ItemCarrito.esCantidadValida(cantidad);
       summaryItem.className = "list-group-item";
       summaryItem.textContent =
         `${producto} (talle ${item.talle}) × ${item.cantidad}: ${formatoMoneda.format(subtotal)}`;
+      Animaciones.animar(summaryItem, "fade-right", Math.min(index * 50, 300));
       summaryItems.append(summaryItem);
     });
+    Animaciones.refrescar();
   }
 
   function validarCantidadEnCarrito(evento) {
