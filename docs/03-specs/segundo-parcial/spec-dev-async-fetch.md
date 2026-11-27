@@ -318,6 +318,14 @@ listo, contrastalo exhaustivamente contra la rubrica de lo que pide el parcial p
 
 Como contexto se utilizaron la consigna del Segundo Parcial, el material del Encuentro N.º 15, la especificación técnica del rol y los archivos del repositorio correspondientes a la arquitectura existente.
 
+#### Corrección de RC01 y RC02
+
+```text
+chat, ya cargo juan los 2 requested changes. resolvamoslos, carguemos changelog y asi mergeamos lo antes posbile
+```
+
+Se utilizó ChatGPT para analizar la review del Coordinador, adaptar la preparación asíncrona de los tests existentes, generar las pruebas del servicio API y actualizar la configuración de cobertura. Las propuestas se revisaron y verificaron mediante Jasmine y c8 sobre los archivos de la rama.
+
 ### Ajustes y verificaciones manuales
 
 Se incorporaron los cambios de forma progresiva sobre los archivos existentes, conservando las funciones de renderizado, los eventos y las operaciones del carrito.
@@ -352,7 +360,26 @@ Se comprobó la carga del catálogo, la generación dinámica de las tarjetas, e
 
 También se verificaron los estados de carga y error, manteniendo la persistencia de los datos del usuario.
 
-La validación automatizada mediante Jasmine y las auditorías Lighthouse correspondientes serán realizadas por el Tester QA/JS.
+### Verificación automatizada de RC01 y RC02
+
+Se reprodujo el resultado reportado por el Coordinador sobre el commit `1a7b7c9`: **150 specs, 37 failures**, utilizando la semilla `58552`.
+
+Después de adaptar la preparación de `script.spec.js`, los **150 tests existentes finalizaron con 0 failures** con la misma semilla.
+
+Se agregaron **17 tests** en `js/test/api.spec.js` para verificar Fetch con el endpoint predeterminado y uno personalizado, HTTP 404/500, errores de red, JSON inválido, normalización sin modificar los datos de entrada, descarte de registros inválidos, duplicados y creación del mapa de imágenes.
+
+La ejecución de `npm test -- --seed=58552` finalizó con **167 specs, 0 failures**. `npm run cobertura -- --seed=58552` también finalizó con **167 specs, 0 failures** y generó los informes de texto y HTML incluyendo `js/api/apiService.js`.
+
+Una segunda ejecución, `npm test -- --seed=67394`, finalizó con **167 specs, 0 failures** para comprobar el aislamiento de los mocks con otro orden de ejecución.
+
+| Alcance | Sentencias | Ramas | Funciones | Líneas |
+|---|---:|---:|---:|---:|
+| `js/api/apiService.js` | 100 % | 100 % | 100 % | 100 % |
+| Total del proyecto medido por c8 | 98,21 % | 96,82 % | 100 % | 98,21 % |
+
+Estas verificaciones se ejecutaron en Node.js 24.22.3 sobre Linux. En PowerShell, los comandos equivalentes utilizan `npm.cmd`.
+
+La revisión de QA, la nueva validación del Coordinador y las auditorías Lighthouse continúan pendientes. Los resultados de Jasmine y c8 no reemplazan la auditoría baseline requerida antes del merge.
 
 ## 20. Coordinación con otros roles
 
@@ -364,7 +391,9 @@ El módulo `js/api/apiService.js` exporta por defecto el objeto `ApiService`, qu
 - `procesarProductos(datos)`: valida, normaliza y descarta registros inválidos o duplicados.
 - `crearMapaImagenes(productos)`: construye un Map mediante reduce().
 
-La inicialización de `script.js` ahora es asíncrona. Las pruebas existentes deberán contemplar la simulación de Fetch y esperar a que finalice la carga del catálogo.
+La inicialización de `script.js` es asíncrona. Para responder a RC01, `script.spec.js` simula Fetch con los datos de `api/productos.json` y espera mediante `MutationObserver` a que la grilla indique `aria-busy="false"`. Luego verifica que se realizó una única petición y que la búsqueda quedó habilitada. Cada prueba restaura el Fetch original y desconecta el observador.
+
+Para responder a RC02, ambos comandos de `package.json` ejecutan `api.spec.js` y el comando de cobertura incluye `js/api/*.js`. Estas correcciones quedan disponibles en la PR #137 para su validación conjunta con el Tester QA/JS; no se considera confirmada esa coordinación hasta recibir su revisión.
 
 Los casos previstos para las nuevas suites se encuentran detallados en la sección 11 de esta especificación.
 
@@ -384,6 +413,11 @@ La implementación queda disponible para su revisión mediante una Pull Request 
 
 - Issue principal: #135.
 - Issues reportadas por QA: pendientes de su revisión.
-- Observaciones del Coordinador: pendientes de code review.
+- Observaciones del Coordinador: [review N.º 1 de la PR #137](https://github.com/dantebiondi666-prog/tienda-online/pull/137#pullrequestreview-6081149483).
 
-Se actualizará esta sección en caso de recibir observaciones o solicitudes de corrección.
+| Observación | Corrección implementada | Evidencia |
+|---|---|---|
+| [RC01](https://github.com/dantebiondi666-prog/tienda-online/pull/137#discussion_r4713873747): regresión de la suite por la inicialización asíncrona | Mock de Fetch aislado y espera explícita de la carga del catálogo en `script.spec.js`. | 150 tests existentes sin fallos; suite ampliada a 167 tests sin fallos con seed `58552`. |
+| [RC02](https://github.com/dantebiondi666-prog/tienda-online/pull/137#discussion_r4713883086): servicio API fuera de la cobertura | Nueva suite `api.spec.js`, incluida en ambos comandos, y directorio `js/api/` incorporado a c8. | `apiService.js` incluido en el informe con 100 % en las cuatro métricas. |
+
+Las correcciones y su trazabilidad se registraron en `changelog.md`. Quedan pendientes la nueva validación y aprobación del Coordinador, la coordinación con QA y la verificación del Lighthouse baseline antes de integrar en `develop`.
