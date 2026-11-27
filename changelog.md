@@ -9,7 +9,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 ### Added
 
 - [feature/coord-devops-segundo-parcial] [Segundo Parcial] Coordinador / DevOps: gestión, coordinación, revisión técnica y documentación del proyecto.
-  PR: Pendiente de creación.
+  PR: [#138](https://github.com/dantebiondi666-prog/tienda-online/pull/138) - @juanmartinbritos7-cmd (Coordinador / DevOps).
   Responsable: @juanmartinbritos7-cmd (Coordinador / DevOps).
   Issue: [#133](https://github.com/dantebiondi666-prog/tienda-online/issues/133).
 
