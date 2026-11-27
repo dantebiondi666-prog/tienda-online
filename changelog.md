@@ -16,6 +16,14 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) - @dantebiondi666-prog (Desarrollador JS Asíncrono - Fetch & APIs)
   Issue:
   [#135](https://github.com/dantebiondi666-prog/tienda-online/issues/135)
+- [feature/tester-qa-js-testing-suite] [Segundo Parcial] Tester QA/JS: suite de testing en Jasmine y auditorías Lighthouse
+  PR: [#144](https://github.com/dantebiondi666-prog/tienda-online/pull/144) - @Zikoloogo (Tester QA/JS)
+  Issue:
+  [#141](https://github.com/dantebiondi666-prog/tienda-online/issues/141)
+
+  Hallazgos de las auditorías Lighthouse (TC11 a TC13):
+  - [#139](https://github.com/dantebiondi666-prog/tienda-online/issues/139) - Performance: recursos que bloquean el renderizado.
+  - [#140](https://github.com/dantebiondi666-prog/tienda-online/issues/140) - SEO: falta meta description.
 
 ### Fixed
 
