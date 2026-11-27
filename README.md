@@ -22,6 +22,13 @@ Ofrecer una experiencia simple para consultar prendas, comparar sus característ
 - c8 (medición de cobertura de los tests)
 - Playwright MCP (ejecución de las suites de Jasmine en un navegador real)
 - PlantUML (diagramas de actividades y diagrama de clases)
+- Fetch API y programación asíncrona mediante Promises y async/await (Segundo Parcial).
+- JSON como fuente de datos para la carga dinámica del catálogo (Segundo Parcial).
+- AOS (Animate On Scroll) 2.3.4 mediante CDN jsDelivr, encapsulada en un módulo wrapper (Segundo Parcial).
+- Lighthouse (auditorías de rendimiento, accesibilidad, buenas prácticas y SEO).
+- ChatGPT (asistencia de IA para revisiones de código y coordinación técnica).
+
+Las incorporaciones correspondientes al Segundo Parcial se encuentran en proceso de integración y validación.
 
 ## Funcionalidades previstas
 
@@ -42,11 +49,19 @@ El mockup de la página principal fue diseñado en Figma, siguiendo lineamientos
 
 ```text
 js/
-├── script.js            # Controlador principal: eventos y manipulación del DOM
-├── models/              # Clases del dominio: Producto, Catalogo, ItemCarrito y Carrito
+├── script.js                # Controlador principal: eventos y DOM
+├── data/
+│   └── productos.js         # Datos del catálogo de productos
+├── models/
+│   ├── Producto.js          # Representación de productos
+│   ├── Catalogo.js          # Búsqueda y filtrado
+│   ├── ItemCarrito.js       # Ítems y validación de cantidades
+│   └── Carrito.js           # Gestión del carrito de compras
+├── services/
+│   └── PersistenciaService.js # Gestión de la persistencia
 ├── utils/
-│   └── storage.js       # Capa de abstracción de localStorage y sessionStorage
-└── test/                # Specs de Jasmine, runner del navegador y documentación de testing
+│   └── storage.js           # Abstracción de Web Storage
+└── test/                    # Suites de Jasmine y documentación
 ```
 
 ## Documentación
@@ -74,6 +89,88 @@ js/
 - Redacción del README: generado con GitHub Copilot (modo Agente) a partir de un prompt específico y revisado manualmente por el equipo — ver la consulta documentada en: [docs/03-specs/actividad-obligatoria-1/spec-ux.md](docs/03-specs/actividad-obligatoria-1/spec-ux.md)
 - Sitio publicado (GitHub Pages, rama `release/cuarta-entrega`): https://dantebiondi666-prog.github.io/tienda-online/
 
+## Segundo Parcial
+
+### Objetivos
+
+Evolucionar la aplicación desarrollada en la Actividad
+Obligatoria N.º 4 mediante programación asíncrona,
+consumo de datos utilizando Fetch, integración de una
+librería externa y ampliación del testing automatizado.
+
+### Funcionalidades planificadas
+
+- Carga asíncrona del catálogo mediante Fetch API.
+- Consumo de productos desde una fuente JSON.
+- Procesamiento de datos mediante map(), filter() y reduce().
+- Estados de carga, éxito y error.
+- Validación y normalización de productos.
+- Integración de AOS mediante CDN.
+- Animaciones en el catálogo, carrito y resumen de compra.
+- Respeto de la preferencia de movimiento reducido.
+- Degradación segura ante fallos de la librería externa.
+- Ampliación de las pruebas automatizadas con Jasmine.
+- Auditorías comparativas mediante Lighthouse.
+- Revisiones de código asistidas por inteligencia artificial.
+
+### Arquitectura prevista para el Segundo Parcial
+
+```text
+api/
+└── productos.json
+
+js/
+├── script.js
+├── api/
+│   └── apiService.js
+├── models/
+├── services/
+│   └── PersistenciaService.js
+├── utils/
+│   ├── storage.js
+│   └── animaciones.js
+└── test/
+    ├── script.spec.js
+    ├── models.spec.js
+    ├── storage.spec.js
+    ├── api.spec.js
+    └── library.spec.js
+```
+
+### Coordinación e integración
+
+El proyecto utiliza GitHub Projects para organizar
+las tareas mediante un tablero Kanban.
+
+Cada funcionalidad se desarrolla en una rama
+independiente y se integra mediante Pull Requests
+revisadas por el Coordinador/DevOps con asistencia
+de inteligencia artificial.
+
+El orden previsto de integración es:
+
+1. Correcciones de la Actividad Obligatoria N.º 4.
+2. Backport hacia develop.
+3. Auditoría Lighthouse baseline.
+4. Integración de Fetch y APIs.
+5. Auditoría Lighthouse post-fetch.
+6. Integración de la librería externa AOS.
+7. Auditoría Lighthouse post-library.
+8. Validación final de testing y cobertura.
+9. Preparación de release/segundo-parcial.
+10. Publicación y entrega del Segundo Parcial.
+
+### Documentación y seguimiento
+
+- [SPECs del Segundo Parcial](docs/03-specs/segundo-parcial/)
+- [SPEC del Coordinador/DevOps](docs/03-specs/segundo-parcial/spec-coord-devops-segundo-parcial.md)
+- [Issue del Coordinador/DevOps #133](https://github.com/dantebiondi666-prog/tienda-online/issues/133)
+- [PR de Fetch y APIs #137](https://github.com/dantebiondi666-prog/tienda-online/pull/137)
+- [PR de integración de AOS #136](https://github.com/dantebiondi666-prog/tienda-online/pull/136)
+- [GitHub Projects - Kanban](https://github.com/users/dantebiondi666-prog/projects/3)
+- [Changelog del proyecto](changelog.md)
+
+Estado: Segundo Parcial en desarrollo, revisión e integración.
 ## Cómo ejecutar el proyecto y los tests
 
 Como el proyecto utiliza módulos ES6, los archivos no se pueden abrir con doble clic (`file://`): hay que servirlos desde un servidor local.
@@ -97,11 +194,11 @@ npx --yes http-server . -p 8080 -c-1
 | Juan Martin Britos | Desarrollador JS POO (lógica de negocio) |
 | Sebastian Viel | Desarrollador JS Local y Session Storage |
 
-## Integrantes
+## Roles del Segundo Parcial
 
-| Nombre y apellido | Usuario de GitHub | Matrícula | Carrera | Materia |
-|---|---|---|---|---|
-| Lucas Ivan Fischer | LucasFUces | 152159 | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
-| Dante Biondi | dantebiondi666-prog | 156462 | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
-| Juan Martin Britos | juanmartinbritos7-cmd | 155984 | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
-| Sebastian Viel | Zikoloogo | 156880 | Tecnicatura Universitaria en Programación de Sistemas | Programación Web I |
+| Integrante | Rol |
+|---|---|
+| Juan Martin Britos | Coordinador / DevOps |
+| Dante Biondi | Desarrollador JS Asíncrono - Fetch & APIs |
+| Lucas Ivan Fischer | Desarrollador JS Librerías Externas |
+| Sebastian Viel | Tester QA / JS |

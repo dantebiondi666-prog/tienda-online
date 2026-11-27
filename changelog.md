@@ -6,6 +6,31 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Added
+
+- [feature/coord-devops-segundo-parcial] [Segundo Parcial] Coordinador / DevOps: gestión, coordinación, revisión técnica y documentación del proyecto.
+  PR: Pendiente de creación.
+  Responsable: @juanmartinbritos7-cmd (Coordinador / DevOps).
+  Issue: [#133](https://github.com/dantebiondi666-prog/tienda-online/issues/133).
+
+  Contribuciones realizadas:
+  - Publicación de la Release v1.2-cuarta-entrega.
+  - Backport de la AO4 hacia develop mediante el PR [#132](https://github.com/dantebiondi666-prog/tienda-online/pull/132).
+  - Elaboración del SPEC inicial del Coordinador.
+  - Organización y seguimiento de tareas mediante GitHub Projects.
+  - Actualización del README con los objetivos, tecnologías, arquitectura prevista y roles del Segundo Parcial.
+  - Revisión técnica asistida por ChatGPT del PR [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137).
+  - Revisión técnica asistida por ChatGPT del PR [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136).
+  - Publicación de cuatro observaciones técnicas mediante comentarios inline.
+  - Detección de 37 fallos en las pruebas del PR #137.
+  - Identificación de conflictos de integración entre Fetch y AOS.
+  - Revalidación del PR #137: 167 tests, 0 failures y 98,21% de cobertura general de líneas.
+  - Verificación de la resolución de RC01 y RC02 del PR #137.
+  - LGTM y Approve del PR #137.
+  - Documentación de tres instancias de Code Review en el SPEC del Coordinador.
+
+  Documentación: [SPEC Coordinador / DevOps](docs/03-specs/segundo-parcial/spec-coord-devops-segundo-parcial.md).
+
 ## [Release Actividad Obligatoria N°4] - 2026-11-22
 
 ### Added
