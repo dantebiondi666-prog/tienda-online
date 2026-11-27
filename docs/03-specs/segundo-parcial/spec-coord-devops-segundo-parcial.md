@@ -1996,6 +1996,38 @@ SPEC del desarrollador JS Asíncrono.
 Estas advertencias no impidieron el commit ni el push.
 No se modificó la documentación del desarrollador.
 
+#### Correcciones de Lighthouse - PR #143
+
+- Issues relacionadas: #139 y #140.
+- Rama: fix/lighthouse-performance-seo.
+- PR original: #142, cerrado sin merge.
+- PR definitivo: #143.
+- Reviewer: Dante Biondi.
+- Resultado: aprobado.
+- Destino: feature/coord-devops-segundo-parcial.
+- Commit de integración: b26800d.
+
+Por acuerdo con el equipo, las correcciones fueron
+integradas primero en la rama del Coordinador/DevOps.
+
+| Categoría | Resultado local | Umbral |
+|---|---:|---:|
+| Performance | 97 | 95 |
+| Accessibility | 100 | 95 |
+| Best Practices | 100 | 95 |
+| SEO | 100 | 95 |
+
+Testing: 167 specs, 0 failures.
+Cobertura general de líneas: 95,41%.
+
+Evidencia:
+[Auditoría Lighthouse post-correcciones](../../04-testing/lighthouse-post-correcciones.md).
+
+La integración definitiva hacia develop se realizará
+mediante el PR #138.
+
+Queda pendiente la validación final del Tester QA.
+
 #### Estado de integración
 
 - [x] Lighthouse baseline.
