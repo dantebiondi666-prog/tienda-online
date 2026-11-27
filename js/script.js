@@ -2,6 +2,7 @@ import PersistenciaService from "./services/PersistenciaService.js";
 import Catalogo from "./models/Catalogo.js";
 import ItemCarrito from "./models/ItemCarrito.js";
 import ApiService from "./api/apiService.js";
+import Animaciones from "./utils/animaciones.js";
 
 const camposDeFiltro = ["categoria", "tipo", "talle", "estilo"];
 const formatoMoneda = new Intl.NumberFormat("es-AR", {
@@ -18,6 +19,7 @@ document.addEventListener("DOMContentLoaded", iniciarAplicacion);
  * @returns {Promise<void>}
  */
 async function iniciarAplicacion() {
+  Animaciones.iniciar();
   let catalogo = null;
   let imagesByProduct = new Map();
   let catalogoDisponible = false;
@@ -318,7 +320,7 @@ function renderizarCarrusel() {
   function renderizarCatalogo(productos) {
     productGrid.replaceChildren();
 
-    for (const producto of productos) {
+    for (const [indice, producto] of productos.entries()) {
       const imagen = imagesByProduct.get(producto.nombre);
       if (!imagen) {
         throw new Error(`No hay una imagen configurada para ${producto.nombre}.`);
@@ -360,8 +362,10 @@ function renderizarCarrusel() {
 
       figure.append(image);
       article.append(figure, title, category, price, sizes, detailsButton);
+      Animaciones.animar(article, "fade-up", Math.min(indice * 50, 300));
       productGrid.append(article);
     }
+    Animaciones.refrescar();
   }
 
     function prepararModal(evento) {
@@ -538,6 +542,7 @@ const cantidadValida = ItemCarrito.esCantidadValida(cantidad);
       listItem.className = "list-group-item";
       listItem.dataset.producto = producto;
       listItem.dataset.talle = item.talle;
+      Animaciones.animar(listItem, "fade-right", Math.min(index * 50, 300));
       header.className = "d-flex flex-wrap justify-content-between gap-2";
       details.className = "d-flex flex-wrap gap-3";
       form.className = "d-flex flex-wrap align-items-end gap-2 mt-2";
@@ -575,8 +580,10 @@ const cantidadValida = ItemCarrito.esCantidadValida(cantidad);
       summaryItem.className = "list-group-item";
       summaryItem.textContent =
         `${producto} (talle ${item.talle}) × ${item.cantidad}: ${formatoMoneda.format(subtotal)}`;
+      Animaciones.animar(summaryItem, "fade-right", Math.min(index * 50, 300));
       summaryItems.append(summaryItem);
     });
+    Animaciones.refrescar();
   }
 
   function validarCantidadEnCarrito(evento) {
