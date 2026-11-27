@@ -247,7 +247,7 @@ Esta sección se completará durante el desarrollo con las revisiones efectivame
 | Review 1 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Desarrollador JS Asíncrono - Fetch & APIs | apiService.js, productos.json, script.js, index.html, changelog.md, package.json, script.spec.js y SPEC | Request Changes: RC01 y RC02 |
 | Review 2 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Desarrollador JS Librerías Externas | animaciones.js, script.js, index.html, changelog.md, libreria-doc.md, SPEC y capturas | Request Changes: RC01 y RC02 |
 | Review 3 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Revalidación del Desarrollador JS Asíncrono | script.spec.js, api.spec.js, package.json, diff de commits y resultados de cobertura | RC01 y RC02 resueltos - LGTM y Approve |
-| Review 4 | Pendiente | Pendiente | Pendiente | Pendiente |
+| Review 4 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Revalidación del Desarrollador JS Librerías Externas | animaciones.js, diff de commits, Jasmine, Node.js, JSDOM y git merge-tree | RC01 aceptado - RC02 pendiente - Approve pendiente |
 
 Para cada revisión se registrará:
 
@@ -1194,6 +1194,491 @@ No se contabiliza como un tercer PR distinto.
 Se mantiene un registro separado de las revisiones
 realizadas y de los PR distintos revisados para
 cumplir con el mínimo establecido en la rúbrica.
+
+---
+### Code Review N.º 4 - Revalidación del PR #136
+
+#### Información general
+
+- Responsable del desarrollo: Lucas Ivan Fischer.
+- Usuario de GitHub: @LucasFUces.
+- Rol: Desarrollador JS Librerías Externas.
+- PR: [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136).
+- Issue: [#134](https://github.com/dantebiondi666-prog/tienda-online/issues/134).
+- Rama: feature/dev-libreria-externa-aos.
+- Destino: develop.
+- Herramienta de IA utilizada: ChatGPT.
+- Commit inicial revisado: 6dba04b.
+- Commit final revisado: c9ebd75.
+- Resultado: aceptación técnica parcial.
+- LGTM y Approve: pendientes.
+
+#### Objetivo de la revalidación
+
+Verificar las correcciones correspondientes a RC01 y RC02
+solicitadas durante la segunda Code Review.
+
+Comprobar la recuperación del contenido ante fallos de AOS,
+la conservación de las pruebas existentes y el estado
+de los conflictos de integración con Fetch.
+
+#### Contexto proporcionado a la IA
+
+- Consigna y rúbrica del Segundo Parcial.
+- Resultados de la segunda Code Review.
+- Diff entre los commits 6dba04b y c9ebd75.
+- js/utils/animaciones.js.
+- Historial de commits.
+- Método restaurarContenido().
+- Resultados de Jasmine.
+- Prueba aislada mediante Node.js y JSDOM.
+- Nueva simulación mediante git merge-tree.
+- Estado de los Request Changes publicados en GitHub.
+
+#### Prompt exacto utilizado para la validación final
+
+La revalidación inicial se realizó de forma iterativa
+mediante resultados de terminal y revisión del diff.
+
+Posteriormente se utilizó el siguiente prompt para
+consolidar y documentar los resultados:
+
+```text
+Realizá una revalidación técnica del PR #136, correspondiente al Desarrollador JS Librerías Externas, después de las correcciones solicitadas por el Coordinador/DevOps.
+
+Utilizá como contexto el diff entre los commits 6dba04b y c9ebd75, las modificaciones de js/utils/animaciones.js, la incorporación del método restaurarContenido(), los resultados de Jasmine, la prueba aislada mediante Node.js y JSDOM y la nueva simulación de integración mediante git merge-tree.
+
+Verificá la recuperación ante excepciones de AOS, la eliminación de atributos y clases de animación, la desactivación del wrapper y la ausencia de regresiones en las pruebas existentes.
+
+Compará los resultados anteriores y posteriores a la corrección.
+
+Justificá la aceptación técnica de RC01 y la decisión de mantener abierto RC02 debido a los conflictos de integración con Fetch.
+
+Detallá las evidencias, las limitaciones de las pruebas realizadas y los requisitos pendientes para otorgar el LGTM y Approve definitivo del PR #136.
+```
+
+#### Commits de resolución identificados
+
+| Commit | Descripción |
+|---|---|
+| 31c3196 | Restaurar visibilidad del contenido ante fallos de AOS (RC01) |
+| c9ebd75 | Documentar restaurarContenido y ajuste RC01 en SPEC y documentación |
+
+#### Archivos modificados
+
+| Archivo | Modificación |
+|---|---|
+| js/utils/animaciones.js | Recuperación ante excepciones de AOS |
+| docs/06-librerias/libreria-doc.md | Actualización de la documentación |
+| spec-dev-libreria-externa.md | Registro de la corrección de RC01 |
+
+El resumen de cambios registra tres archivos modificados,
+65 inserciones y siete eliminaciones.
+
+La inspección detallada se concentró en animaciones.js.
+Los cambios de documentación no se inspeccionaron
+íntegramente durante esta revalidación.
+
+#### Validación manual
+
+Se reutilizó el worktree independiente creado durante
+la segunda revisión del PR #136.
+
+Comandos utilizados:
+
+```powershell
+git fetch origin
+cd C:\Users\juanm\tienda-online-review-136
+git switch --detach origin/feature/dev-libreria-externa-aos
+git --no-pager log -5 --oneline
+git --no-pager reflog -4 --oneline
+git --no-pager diff --stat 'HEAD@{1}' HEAD
+git --no-pager diff 6dba04b HEAD -- js/utils/animaciones.js
+git --no-pager show HEAD:js/utils/animaciones.js
+npm.cmd test
+```
+
+#### Revalidación de RC01 - Recuperación ante fallos de AOS
+
+Durante la segunda Code Review se detectó que el wrapper
+capturaba las excepciones de AOS, pero conservaba los
+atributos de animación aplicados a los elementos del DOM.
+
+Esto podía ocasionar que determinados elementos
+permanecieran ocultos debido a los estilos CSS de AOS.
+
+El desarrollador incorporó el siguiente método:
+
+```javascript
+restaurarContenido() {
+  estaIniciada = false;
+  try {
+    const elementos =
+      globalThis.document?.querySelectorAll("[data-aos]") ?? [];
+
+    for (const elemento of elementos) {
+      elemento.removeAttribute("data-aos");
+      elemento.removeAttribute("data-aos-delay");
+      elemento.classList.remove("aos-init", "aos-animate");
+    }
+    return true;
+  } catch {
+    return false;
+  }
+},
+```
+
+La implementación permite:
+
+- Desactivar el estado de inicialización del wrapper.
+- Identificar los elementos configurados para utilizar AOS.
+- Eliminar los atributos data-aos y data-aos-delay.
+- Eliminar las clases aos-init y aos-animate.
+- Capturar posibles excepciones durante la recuperación.
+- Intentar conservar la disponibilidad del contenido.
+
+También se modificaron los bloques catch de los
+métodos iniciar() y refrescar():
+
+```javascript
+} catch {
+  this.restaurarContenido();
+  return false;
+}
+```
+
+De esta manera, ante excepciones durante la inicialización
+o el refresco de AOS, el wrapper intenta restaurar
+el contenido y desactivar las animaciones.
+
+La recuperación durante iniciar() se verificó mediante
+inspección del código.
+
+La recuperación durante refrescar() se comprobó
+mediante una prueba aislada.
+
+#### Prueba aislada mediante Node.js y JSDOM
+
+Se reprodujo el escenario de fallo identificado
+durante la segunda Code Review.
+
+Código utilizado:
+
+```javascript
+import Animaciones from "./js/utils/animaciones.js";
+import { JSDOM } from "jsdom";
+
+const dom = new JSDOM("<article>Producto de prueba</article>");
+
+globalThis.window = dom.window;
+globalThis.document = dom.window.document;
+
+const elemento = document.querySelector("article");
+
+globalThis.AOS = {
+  init() {},
+  refreshHard() {
+    throw new Error("Fallo simulado de AOS");
+  }
+};
+
+console.log("Inicializacion:", Animaciones.iniciar());
+console.log("Animacion:", Animaciones.animar(elemento));
+console.log("Refresco:", Animaciones.refrescar());
+
+console.log(
+  "Conserva data-aos:",
+  elemento.hasAttribute("data-aos")
+);
+
+console.log(
+  "Conserva data-aos-delay:",
+  elemento.hasAttribute("data-aos-delay")
+);
+
+dom.window.close();
+```
+
+Resultado obtenido:
+
+```text
+Inicializacion: true
+Animacion: true
+Refresco: false
+Conserva data-aos: false
+Conserva data-aos-delay: false
+```
+
+#### Comparación antes y después de la corrección
+
+| Indicador | Primera revisión | Revalidación |
+|---|---|---|
+| Inicialización | true | true |
+| Animación | true | true |
+| Refresco ante excepción | false | false |
+| Conserva data-aos | true | false |
+| Conserva data-aos-delay | true | false |
+
+La prueba demuestra que los atributos de animación
+se eliminan correctamente ante la excepción simulada.
+
+En la segunda ejecución se incorporaron window y document
+al entorno global para permitir que el nuevo método
+consultara los elementos del DOM.
+
+La eliminación de las clases aos-init y aos-animate
+se verificó mediante inspección del código, pero no
+mediante una comprobación específica en esta prueba.
+
+JSDOM no reproduce completamente el renderizado visual
+de un navegador real.
+
+Estado de RC01: ACEPTADO TÉCNICAMENTE para el escenario
+reproducido, con validación visual complementaria pendiente.
+
+#### Validación mediante Jasmine
+
+Se ejecutó nuevamente la suite automatizada.
+
+```powershell
+npm.cmd test
+```
+
+Resultado:
+
+```text
+150 specs, 0 failures
+Randomized with seed 30697
+```
+
+Tiempo de ejecución: 1,1 segundos.
+
+#### Comparación de resultados de testing
+
+| Indicador | Primera revisión | Revalidación |
+|---|---:|---:|
+| Tests ejecutados | 150 | 150 |
+| Tests aprobados | 150 | 150 |
+| Tests fallidos | 0 | 0 |
+| Porcentaje de aprobación | 100% | 100% |
+| Seed | 05932 | 30697 |
+| Tiempo de ejecución | 1,31 s | 1,1 s |
+
+No se detectaron regresiones en las pruebas existentes.
+
+La diferencia en los tiempos de ejecución no permite
+concluir que exista una mejora de rendimiento del sitio.
+
+Todavía no se dispone de una suite específica
+library.spec.js en la versión revisada.
+
+#### Accesibilidad y degradación segura
+
+| Requisito | Resultado |
+|---|---|
+| Integración mediante CDN | Implementada previamente |
+| Encapsulamiento en wrapper | Correcto |
+| Preferencia de movimiento reducido | Se conserva |
+| Captura de excepciones | Correcta |
+| Recuperación durante iniciar() | Implementada |
+| Recuperación durante refrescar() | Verificada |
+| Eliminación de atributos | Verificada |
+| Eliminación de clases | Verificada mediante inspección |
+| Desactivación del wrapper | Implementada |
+| Visibilidad efectiva en navegador | Pendiente |
+| Testing específico de AOS | Pendiente |
+
+La corrección mejora la degradación segura de la
+aplicación al intentar conservar el contenido principal
+cuando falla una funcionalidad visual secundaria.
+
+#### Revalidación de RC02 - Integración con Fetch
+
+Durante la segunda Code Review se identificaron
+conflictos potenciales de integración entre las ramas
+de Fetch y AOS.
+
+Los archivos afectados en aquella simulación fueron:
+
+- js/script.js.
+- changelog.md.
+
+Se repitió la simulación con las ramas actualizadas:
+
+```powershell
+git fetch origin
+git merge-tree --write-tree origin/feature/dev-async-fetch-api HEAD
+echo $LASTEXITCODE
+```
+
+Código de salida informado:
+
+```text
+1
+```
+
+El código de salida 1 indica que continúan existiendo
+conflictos de integración.
+
+| Indicador | Primera revisión | Revalidación |
+|---|---|---|
+| Simulación ejecutada | Sí | Sí |
+| Código de salida | 1 | 1 |
+| Conflictos detectados | Sí | Sí |
+| Integración definitiva | Pendiente | Pendiente |
+
+No se dispone de la salida completa de la segunda
+simulación, por lo que no se puede asegurar que los
+conflictos actuales correspondan exactamente a los
+mismos archivos de la primera revisión.
+
+Estado de RC02: PENDIENTE.
+
+#### Criterios de aceptación de RC02
+
+Para considerar resuelta esta observación será necesario:
+
+1. Confirmar Lighthouse baseline.
+2. Integrar el PR #137 hacia develop.
+3. Realizar Lighthouse post-fetch.
+4. Actualizar la rama de AOS desde develop.
+5. Resolver los conflictos de integración.
+6. Conservar la carga asíncrona mediante Fetch.
+7. Conservar las animaciones de AOS.
+8. Mantener el tratamiento de errores de Fetch.
+9. Conservar el método restaurarContenido().
+10. Preservar las funcionalidades de DOM, POO y storage.
+11. Conservar las contribuciones de ambos desarrolladores
+    en el changelog.
+12. Ejecutar nuevamente Jasmine.
+13. Verificar la ausencia de conflictos con develop.
+14. Comprobar el funcionamiento conjunto de ambas
+    funcionalidades en un navegador.
+
+#### Estado de los Request Changes
+
+| RC | Archivo original | Línea original | Prioridad | Estado |
+|---|---|---:|---|---|
+| RC01 | js/utils/animaciones.js | 107 | Alta | Aceptado técnicamente |
+| RC02 | js/script.js | 17 | Alta | Pendiente |
+
+Se publicó una devolución técnica en el PR #136
+informando la aceptación parcial de las correcciones.
+
+También se respondió al comentario inline de RC02
+indicando que continúan existiendo conflictos de integración.
+
+El LGTM y Approve definitivos permanecen pendientes.
+
+#### Limitaciones de la revalidación
+
+- No se realizó una nueva prueba visual en navegador real.
+- No se simuló una excepción específica durante AOS.init().
+- No se comprobó experimentalmente la eliminación
+  de las clases aos-init y aos-animate.
+- No se verificaron llamadas posteriores a animar()
+  y refrescar() después de desactivar el wrapper.
+- No se dispone todavía de testing específico de AOS.
+- No se dispone de la salida completa de la segunda
+  simulación de integración.
+- Las auditorías Lighthouse continúan pendientes
+  de confirmación.
+
+Estas limitaciones deberán considerarse durante
+las próximas etapas de testing e integración.
+
+#### Observaciones adicionales para QA
+
+Se recomienda incorporar pruebas específicas para:
+
+- Inicialización exitosa de AOS.
+- Ausencia de la librería externa.
+- Preferencia de movimiento reducido.
+- Excepciones durante AOS.init().
+- Excepciones durante AOS.refreshHard().
+- Eliminación de atributos y clases de animación.
+- Comportamiento del wrapper después de una excepción.
+- Restauración efectiva de la visibilidad del contenido.
+- Funcionamiento conjunto de Fetch y AOS.
+
+#### Resultado de la revalidación
+
+- Revisión asistida por IA: realizada.
+- Inspección del diff actualizado: realizada.
+- Validación mediante Jasmine: realizada.
+- Prueba aislada mediante Node.js y JSDOM: satisfactoria.
+- Simulación mediante git merge-tree: conflictos detectados.
+- Request Changes aceptados: 1 de 2.
+- RC01: aceptado técnicamente.
+- RC02: pendiente.
+- LGTM definitivo: pendiente.
+- Approve: pendiente.
+- Merge hacia develop: pendiente.
+
+#### Conclusión
+
+La cuarta Code Review permitió verificar la corrección
+de RC01 mediante inspección del código y una prueba
+aislada que reproduce el escenario de fallo original.
+
+La incorporación del método restaurarContenido()
+mejora la tolerancia a fallos del wrapper de AOS.
+
+Las 150 pruebas existentes continúan ejecutándose
+sin fallos.
+
+Sin embargo, la simulación mediante git merge-tree
+indica que todavía existen conflictos entre las
+ramas de Fetch y AOS.
+
+Por este motivo, se considera justificada la aceptación
+técnica de RC01 y la decisión de mantener abierto RC02.
+
+La aprobación definitiva del PR #136 queda condicionada
+a la resolución y validación de la integración.
+
+La revisión se realizó utilizando el diff, las capturas
+y los resultados de terminal proporcionados a ChatGPT.
+
+No se realizaron nuevas ejecuciones desde ChatGPT.
+
+#### Seguimiento
+
+- [x] Revisar los nuevos commits.
+- [x] Inspeccionar restaurarContenido().
+- [x] Ejecutar Jasmine.
+- [x] Repetir la prueba aislada mediante Node.js y JSDOM.
+- [x] Verificar la eliminación de atributos de AOS.
+- [x] Aceptar técnicamente RC01.
+- [x] Repetir la simulación de integración.
+- [x] Publicar devolución técnica en el PR.
+- [x] Mantener abierto RC02.
+- [ ] Confirmar Lighthouse baseline.
+- [ ] Integrar el PR #137 hacia develop.
+- [ ] Confirmar Lighthouse post-fetch.
+- [ ] Actualizar la rama de AOS desde develop.
+- [ ] Resolver los conflictos de integración.
+- [ ] Verificar Fetch y AOS conjuntamente.
+- [ ] Comprobar la recuperación visual en navegador.
+- [ ] Ejecutar nuevamente Jasmine.
+- [ ] Validar definitivamente RC02.
+- [ ] Publicar LGTM y Approve.
+- [ ] Integrar el PR #136 hacia develop.
+- [ ] Confirmar Lighthouse post-library.
+
+#### Aclaración sobre el registro de revisiones
+
+Esta revisión corresponde a una revalidación del PR #136
+y se registra como la cuarta instancia de Code Review
+asistida por inteligencia artificial.
+
+No representa un cuarto PR distinto.
+
+Hasta el momento se revisaron dos PR diferentes
+mediante cuatro instancias de revisión técnica.
+
+Se mantiene un registro separado para cumplir con
+el mínimo de PR distintos establecido en la rúbrica.
 
 ---
 ---
