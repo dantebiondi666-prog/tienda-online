@@ -245,7 +245,7 @@ Esta sección se completará durante el desarrollo con las revisiones efectivame
 | Revisión | PR | Rol | Archivos revisados | Resultado |
 |---|---|---|---|---|
 | Review 1 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Desarrollador JS Asíncrono - Fetch & APIs | apiService.js, productos.json, script.js, index.html, changelog.md, package.json, script.spec.js y SPEC | Request Changes: RC01 y RC02 |
-| Review 2 | Pendiente | Pendiente | Pendiente | Pendiente |
+| Review 2 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Desarrollador JS Librerías Externas | animaciones.js, script.js, index.html, changelog.md, libreria-doc.md, SPEC y capturas | Request Changes: RC01 y RC02 |
 | Review 3 | Pendiente | Pendiente | Pendiente | Pendiente |
 | Review 4 | Pendiente | Pendiente | Pendiente | Pendiente |
 
@@ -441,6 +441,364 @@ la Pull Request.
 - [ ] Confirmar Lighthouse baseline.
 - [ ] Aprobar PR.
 - [ ] Mergear hacia develop.
+
+### Code Review N.º 2 - PR #136
+
+#### Información general
+
+- Fecha: 26/11/2026.
+- Responsable del desarrollo: Lucas Ivan Fischer.
+- Rol: Desarrollador JS Librerías Externas.
+- PR: [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136).
+- Issue: [#134](https://github.com/dantebiondi666-prog/tienda-online/issues/134).
+- Rama: feature/dev-libreria-externa-aos.
+- Destino: develop.
+- Herramienta de IA utilizada: ChatGPT.
+
+#### Contexto proporcionado a la IA
+
+- Consigna y rúbrica del Segundo Parcial.
+- Capturas del diff del PR #136.
+- js/utils/animaciones.js.
+- js/script.js.
+- index.html.
+- changelog.md.
+- docs/06-librerias/libreria-doc.md.
+- docs/03-specs/segundo-parcial/spec-dev-libreria-externa.md.
+- docs/06-librerias/screenshots/aos-catalogo.png.
+- docs/06-librerias/screenshots/aos-carrito.png.
+- docs/06-librerias/screenshots/aos-sin-libreria.png.
+- Resultados de Jasmine.
+- Resultados de la prueba aislada con Node.js y JSDOM.
+- Resultados de la simulación de integración con Git.
+
+#### Prompt exacto utilizado para la validación final
+
+La revisión inicial se realizó de forma iterativa mediante
+capturas del código y resultados de terminal.
+
+Posteriormente, se utilizó el siguiente prompt para
+consolidar y validar los hallazgos:
+
+```text
+Realizá una revisión técnica exhaustiva del PR #136, correspondiente al Desarrollador JS Librerías Externas, contrastando los cambios con la consigna y la rúbrica del segundo parcial.
+
+Utilizá como contexto las capturas del diff, el SPEC del desarrollador, js/utils/animaciones.js, js/script.js, index.html, changelog.md, libreria-doc.md, las capturas de implementación, los resultados de Jasmine, la prueba aislada con Node.js y JSDOM y la simulación de integración mediante git merge-tree.
+
+Verificá la integración de AOS mediante CDN, la configuración del wrapper, la accesibilidad, el movimiento reducido, la degradación segura, los puntos de integración con el DOM y la compatibilidad con Fetch.
+
+Justificá los dos Request Changes realizados, indicando los archivos, líneas, evidencias, prioridades y criterios de aceptación.
+```
+
+#### Aspectos técnicos revisados
+
+- Selección y justificación de la librería AOS.
+- Integración de AOS 2.3.4 mediante CDN.
+- Configuración e inicialización de la librería.
+- Encapsulamiento mediante un módulo wrapper.
+- Separación de responsabilidades.
+- Integración dinámica con el DOM.
+- Animaciones en el catálogo, carrito y resumen.
+- Consistencia visual con el diseño existente.
+- Preferencia de movimiento reducido.
+- Manejo de errores y degradación segura.
+- Documentación técnica y capturas.
+- Compatibilidad con las pruebas existentes.
+- Compatibilidad de integración con Fetch.
+- Trazabilidad mediante PR, issue y changelog.
+
+#### Evaluación según la rúbrica
+
+| Criterio | Puntaje máximo | Resultado de revisión |
+|---|---:|---|
+| Selección y justificación | 0,5 | Correcto |
+| Integración técnica | 0,8 | Implementada, requiere corrección del wrapper |
+| Implementación | 0,5 | Integración en catálogo, carrito y resumen |
+| Documentación | 0,5 | Completa |
+| Participación técnica | 0,2 | Pendiente de resolución y merge |
+
+La evaluación corresponde a una revisión técnica
+preliminar y no representa una calificación definitiva.
+
+#### Puntos de integración identificados
+
+| Componente | Efecto | Línea de script.js |
+|---|---|---:|
+| Catálogo de productos | fade-up | 284 |
+| Carrito | fade-right | 459 |
+| Resumen de compra | fade-right | 497 |
+
+La librería se encuentra encapsulada en el módulo
+js/utils/animaciones.js.
+
+El controlador utiliza el wrapper sin depender
+directamente del objeto global AOS.
+
+#### Validación manual mediante Jasmine
+
+Para revisar la implementación sin modificar la rama
+del Coordinador, se creó un worktree independiente.
+
+Comandos utilizados:
+
+```powershell
+git fetch origin
+git worktree add --detach ../tienda-online-review-136 origin/feature/dev-libreria-externa-aos
+cd ../tienda-online-review-136
+npm.cmd ci
+npm.cmd test
+```
+
+#### Resultados de Jasmine
+
+| Métrica | Resultado |
+|---|---:|
+| Tests ejecutados | 150 |
+| Tests aprobados | 150 |
+| Tests fallidos | 0 |
+| Porcentaje de aprobación | 100% |
+| Seed | 05932 |
+| Tiempo de ejecución | 1,31 segundos |
+
+No se detectaron regresiones en la suite existente.
+
+Sin embargo, esta ejecución todavía no incluye las
+pruebas específicas de library.spec.js, correspondientes
+al Tester QA/JS.
+
+#### Validación del manejo de errores de AOS
+
+Se realizó una prueba aislada mediante Node.js y JSDOM
+para comprobar el comportamiento del wrapper cuando
+AOS.refreshHard() genera una excepción.
+
+Código utilizado:
+
+```javascript
+import Animaciones from "./js/utils/animaciones.js";
+import { JSDOM } from "jsdom";
+
+const dom = new JSDOM("<article>Producto de prueba</article>");
+const elemento = dom.window.document.querySelector("article");
+
+globalThis.AOS = {
+  init() {},
+  refreshHard() {
+    throw new Error("Fallo simulado de AOS");
+  }
+};
+
+console.log("Inicializacion:", Animaciones.iniciar());
+console.log("Animacion:", Animaciones.animar(elemento));
+console.log("Refresco:", Animaciones.refrescar());
+console.log("Conserva data-aos:", elemento.hasAttribute("data-aos"));
+console.log("Conserva data-aos-delay:", elemento.hasAttribute("data-aos-delay"));
+
+dom.window.close();
+```
+
+El código se ejecutó mediante Node.js, sin modificar
+los archivos del repositorio.
+
+Resultados obtenidos:
+
+```text
+Inicializacion: true
+Animacion: true
+Refresco: false
+Conserva data-aos: true
+Conserva data-aos-delay: true
+```
+
+La prueba confirma que el wrapper conserva los
+atributos de animación después de una excepción.
+
+Esto puede generar problemas de visibilidad cuando
+el CSS de AOS permanece cargado.
+
+La prueba con JSDOM confirma la permanencia de los
+atributos, pero no demuestra directamente la
+invisibilidad visual en un navegador real.
+
+#### Validación de integración con Fetch
+
+Se realizó una simulación de integración entre las
+ramas de los desarrolladores de Fetch y AOS.
+
+Comandos utilizados:
+
+```powershell
+git fetch origin
+git merge-tree --write-tree origin/feature/dev-async-fetch-api HEAD
+$LASTEXITCODE
+```
+
+Resultados:
+
+```text
+Auto-merging changelog.md
+CONFLICT (content): Merge conflict in changelog.md
+Auto-merging index.html
+Auto-merging js/script.js
+CONFLICT (content): Merge conflict in js/script.js
+```
+
+Código de salida: 1.
+
+| Archivo | Resultado |
+|---|---|
+| changelog.md | Conflicto confirmado |
+| js/script.js | Conflicto confirmado |
+| index.html | Combinación automática |
+
+La simulación permitió identificar conflictos entre
+las dos ramas sin modificar sus archivos de trabajo
+ni realizar un merge hacia develop.
+
+La compatibilidad funcional conjunta deberá verificarse
+después de resolver los conflictos.
+
+#### Request Changes publicados
+
+| RC | Archivo | Línea del diff | Prioridad | Estado |
+|---|---|---:|---|---|
+| RC01 | js/utils/animaciones.js | 107 | Alta | Pendiente |
+| RC02 | js/script.js | 17 | Alta | Pendiente |
+
+##### RC01 - Degradación segura incompleta ante errores de AOS
+
+El método refrescar() captura las excepciones generadas
+por AOS.refreshHard(), pero no elimina los atributos
+de animación configurados previamente.
+
+La prueba aislada confirmó que data-aos y
+data-aos-delay permanecen después de un fallo.
+
+Se solicitó implementar un mecanismo de recuperación
+que garantice la visibilidad de los elementos y permita
+continuar utilizando la aplicación sin animaciones.
+
+Responsable principal: Desarrollador JS Librerías Externas.
+
+Responsable de validación: Tester QA/JS.
+
+Criterios de aceptación:
+
+- El contenido permanece visible ante errores de refreshHard().
+- La aplicación continúa funcionando sin animaciones.
+- Se incorpora una prueba automatizada para este escenario.
+- Se verifica la recuperación visual en el navegador.
+- La suite existente mantiene 0 failures.
+
+##### RC02 - Coordinación de la integración entre Fetch y AOS
+
+La simulación realizada mediante git merge-tree
+identificó conflictos en js/script.js y changelog.md.
+
+Se solicitó actualizar la rama de AOS desde develop
+después de integrar el PR #137 y realizar la auditoría
+Lighthouse post-fetch.
+
+La resolución deberá conservar las funcionalidades
+implementadas por ambos desarrolladores.
+
+Responsables: Desarrollador JS Librerías Externas,
+Desarrollador JS Asíncrono y Coordinador/DevOps.
+
+Criterios de aceptación:
+
+- Ausencia de conflictos con develop actualizado.
+- Conservación de la inicialización asíncrona.
+- Animaciones aplicadas a productos cargados mediante Fetch.
+- Conservación del funcionamiento del carrito y resumen.
+- Conservación de ambos aportes en changelog.md.
+- Ejecución de Jasmine con 0 failures.
+
+#### Coordinación entre roles
+
+Se estableció el siguiente orden de integración:
+
+1. Verificar Lighthouse baseline.
+2. Resolver las observaciones del PR #137.
+3. Aprobar e integrar Fetch hacia develop.
+4. Realizar Lighthouse post-fetch.
+5. Actualizar la rama de AOS desde develop.
+6. Resolver los conflictos de integración.
+7. Validar las correcciones del PR #136.
+8. Aprobar e integrar AOS hacia develop.
+9. Realizar Lighthouse post-library.
+
+El desarrollador de AOS puede avanzar con RC01 mientras
+se resuelven las observaciones correspondientes a Fetch.
+
+#### Observaciones sobre el SPEC del desarrollador
+
+El SPEC contiene la planificación inicial, el prompt
+utilizado en Copilot Agent, los fragmentos del código
+final y los ajustes manuales realizados.
+
+La sección 2.4, correspondiente a la coordinación con
+otros roles e issues respondidas, permanece pendiente.
+
+Deberá completarse al finalizar las correcciones.
+
+No se verificó todavía que el commit inicial del SPEC
+sea anterior a los commits de implementación.
+
+#### Resultado de la revisión
+
+- Revisión asistida por IA: realizada.
+- Validación mediante Jasmine: realizada.
+- Prueba aislada mediante Node.js y JSDOM: realizada.
+- Simulación de integración mediante Git: realizada.
+- Tests aprobados: 150 de 150.
+- Conflictos identificados: 2 archivos.
+- Comentarios inline publicados: 2.
+- Request Changes enviado: sí.
+- Aprobación del Coordinador: pendiente.
+- Merge hacia develop: pendiente.
+
+#### Conclusión
+
+La implementación de AOS cumple estructuralmente
+con los principales requisitos del Segundo Parcial.
+
+La selección de la librería está justificada, su
+integración mediante CDN está documentada y el wrapper
+mantiene la separación de responsabilidades.
+
+Sin embargo, se identificó una recuperación incompleta
+ante errores de actualización de AOS y conflictos de
+integración con la funcionalidad Fetch.
+
+Por estos motivos, se decidió solicitar modificaciones
+antes de aprobar la Pull Request.
+
+Se realizará una nueva validación una vez resueltas
+las observaciones.
+
+#### Seguimiento de las correcciones
+
+- [x] Revisar el diff mediante IA.
+- [x] Revisar el SPEC del desarrollador.
+- [x] Verificar la documentación de la librería.
+- [x] Ejecutar las pruebas existentes.
+- [x] Simular errores de actualización de AOS.
+- [x] Simular la integración con Fetch.
+- [x] Identificar conflictos entre ramas.
+- [x] Publicar comentarios inline.
+- [x] Enviar Request Changes.
+- [ ] Verificar resolución de RC01.
+- [ ] Verificar integración del PR #137.
+- [ ] Verificar Lighthouse post-fetch.
+- [ ] Verificar resolución de RC02.
+- [ ] Ejecutar nuevamente Jasmine.
+- [ ] Verificar las pruebas específicas de AOS.
+- [ ] Aprobar PR.
+- [ ] Mergear hacia develop.
+- [ ] Verificar Lighthouse post-library.
+
+---
 
 ---
 ## 13. Registro de Request Changes del docente
