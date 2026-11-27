@@ -2356,6 +2356,48 @@ No se detectaron regresiones automatizadas.
 La aprobación definitiva queda pendiente de
 la creación del PR del Tester QA.
 
+#### Revisión formal del PR #144
+
+- Fecha: 27/11/2026.
+- PR: #144.
+- Commit revisado: 79bb61a.
+- Herramienta de IA: ChatGPT.
+- Jasmine: 235 specs, 0 failures.
+- Seed: 94205.
+- Tiempo: 1,291 s.
+- Seed de cobertura: 14162.
+- Tiempo de cobertura: 2,045 s.
+- Cobertura de sentencias: 98,91%.
+- Cobertura de ramas: 97,36%.
+- Cobertura de funciones: 100%.
+- Cobertura de líneas: 98,91%.
+- Cobertura de apiService.js: 100%.
+- Cobertura de animaciones.js: 100%.
+- Cobertura de líneas de script.js: 97,04%.
+
+Se verificaron cuatro pruebas adicionales relacionadas
+con los estados de carga, error de red, HTTP 500
+y carga exitosa del catálogo.
+
+#### Request Changes publicados
+
+| ID | Observación | Prioridad | Estado |
+|---|---|---|---|
+| RC01 | Registrar el PR #144 en changelog.md | Alta | Pendiente |
+| RC02 | Incorporar evidencia de Accessibility del TC13 | Media | Pendiente |
+
+Ambas observaciones fueron publicadas mediante
+comentarios inline en GitHub.
+
+Resultado: Request Changes.
+
+La implementación técnica resulta satisfactoria.
+El LGTM y Approve quedan pendientes de la resolución
+de las observaciones documentales.
+
+PR revisado:
+https://github.com/dantebiondi666-prog/tienda-online/pull/144
+
 #### Conclusión
 
 La revisión preliminar del trabajo del Tester QA
