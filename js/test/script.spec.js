@@ -906,6 +906,9 @@ describe("Integración de animaciones AOS", function () {
     aos,
     movimientoReducido = false,
     productosExtendidos = false,
+    fetchSimulado,
+    esperarCarga = true,
+    prepararEstadoError = false,
   }) {
     const [html, productosJson] = await Promise.all([
       fs.readFile(archivoHtml, "utf8"),
@@ -915,10 +918,30 @@ describe("Integración de animaciones AOS", function () {
     const productosRespuesta = productosExtendidos
       ? crearProductosParaDemora(productos)
       : productos;
+    const fetchAplicacion =
+      fetchSimulado ??
+      jasmine.createSpy("fetch").and.resolveTo({
+        ok: true,
+        status: 200,
+        json: jasmine
+          .createSpy("json")
+          .and.resolveTo(productosRespuesta),
+      });
     dom = new JSDOM(html, {
       url: "http://localhost/",
       pretendToBeVisual: true,
     });
+
+    if (prepararEstadoError) {
+      const documento = dom.window.document;
+      documento
+        .getElementById("product-grid")
+        .append(documento.createElement("article"));
+      const sugerencia = documento.createElement("option");
+      sugerencia.value = "Producto anterior";
+      documento.getElementById("sugerencias-busqueda").append(sugerencia);
+      documento.getElementById("carouselDestacados").hidden = false;
+    }
 
     const globalesJSDOM = {
       window: dom.window,
@@ -937,13 +960,7 @@ describe("Integración de animaciones AOS", function () {
       DOMException: dom.window.DOMException,
       alert: jasmine.createSpy("alert"),
       prompt: jasmine.createSpy("prompt"),
-      fetch: jasmine.createSpy("fetch").and.resolveTo({
-        ok: true,
-        status: 200,
-        json: jasmine
-          .createSpy("json")
-          .and.resolveTo(productosRespuesta),
-      }),
+      fetch: fetchAplicacion,
     };
 
     descriptoresAnteriores = new Map(
@@ -980,7 +997,10 @@ describe("Integración de animaciones AOS", function () {
     });
 
     document.dispatchEvent(new window.Event("DOMContentLoaded"));
-    await cargaFinalizada;
+    if (esperarCarga) {
+      await cargaFinalizada;
+    }
+    return { cargaFinalizada, fetch: fetchAplicacion, productos: productosRespuesta };
   }
 
   function disparar(elemento, tipo) {
@@ -1046,6 +1066,30 @@ describe("Integración de animaciones AOS", function () {
     }).format(valor);
   }
 
+  function controlesCatalogo() {
+    return [
+      document.getElementById("busqueda"),
+      ...document.querySelectorAll("#filtros-form fieldset, #filtros-form button"),
+    ];
+  }
+
+  function expectErrorDeCarga() {
+    const feedback = document.getElementById("catalogo-feedback");
+    expect(document.getElementById("product-grid").children.length).toBe(0);
+    expect(
+      document.getElementById("sugerencias-busqueda").children.length,
+    ).toBe(0);
+    expect(document.getElementById("carouselDestacados").hidden).toBeTrue();
+    expect(feedback.textContent).toBe(
+      "No se pudieron cargar los productos. Recargá la página para volver a intentarlo.",
+    );
+    expect(feedback.classList.contains("text-danger")).toBeTrue();
+    expect(document.getElementById("product-grid").getAttribute("aria-busy")).toBe(
+      "false",
+    );
+    expect(controlesCatalogo().every((control) => control.disabled)).toBeTrue();
+  }
+
   beforeEach(function () {
     descriptoresAnteriores = undefined;
     dom = undefined;
@@ -1053,6 +1097,73 @@ describe("Integración de animaciones AOS", function () {
 
   afterEach(function () {
     cerrarAplicacion();
+  });
+
+  it("mantiene los controles bloqueados mientras el catálogo está cargando", async function () {
+    let resolverFetch;
+    const respuestaPendiente = new Promise((resolve) => {
+      resolverFetch = resolve;
+    });
+    const fetchSimulado = jasmine
+      .createSpy("fetch")
+      .and.returnValue(respuestaPendiente);
+    const { cargaFinalizada, productos } = await iniciarAplicacion({
+      fetchSimulado,
+      esperarCarga: false,
+    });
+
+    expect(fetchSimulado).toHaveBeenCalledOnceWith("api/productos.json");
+    expect(document.getElementById("product-grid").getAttribute("aria-busy")).toBe(
+      "true",
+    );
+    expect(document.getElementById("catalogo-feedback").textContent).toBe(
+      "Cargando productos...",
+    );
+    expect(controlesCatalogo().every((control) => control.disabled)).toBeTrue();
+
+    resolverFetch({
+      ok: true,
+      status: 200,
+      json: jasmine.createSpy("json").and.resolveTo(productos),
+    });
+    await cargaFinalizada;
+  });
+
+  it("limpia el catálogo y mantiene el estado de error si fetch falla", async function () {
+    const fetchSimulado = jasmine
+      .createSpy("fetch")
+      .and.callFake(() => Promise.reject(new Error("Fallo de red")));
+    await iniciarAplicacion({
+      fetchSimulado,
+      prepararEstadoError: true,
+    });
+
+    expect(fetchSimulado).toHaveBeenCalledOnceWith("api/productos.json");
+    expectErrorDeCarga();
+  });
+
+  it("limpia el catálogo y mantiene el estado de error ante HTTP 500", async function () {
+    const fetchSimulado = jasmine.createSpy("fetch").and.resolveTo({
+      ok: false,
+      status: 500,
+    });
+    await iniciarAplicacion({
+      fetchSimulado,
+      prepararEstadoError: true,
+    });
+
+    expect(fetchSimulado).toHaveBeenCalledOnceWith("api/productos.json");
+    expectErrorDeCarga();
+  });
+
+  it("habilita el catálogo y muestra el carrusel después de una carga exitosa", async function () {
+    await iniciarAplicacion({});
+
+    expect(document.getElementById("product-grid").getAttribute("aria-busy")).toBe(
+      "false",
+    );
+    expect(document.getElementById("carouselDestacados").hidden).toBeFalse();
+    expect(controlesCatalogo().every((control) => !control.disabled)).toBeTrue();
   });
 
   it("anima con AOS y conserva el render normal sin movimiento o sin la librería", async function () {

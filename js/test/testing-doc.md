@@ -82,21 +82,21 @@ El runner HTML (`test-runner.html`) incluye únicamente `models.spec.js` y `stor
 |---|---|---:|
 | `js/test/api.spec.js` | Servicio `ApiService`: `fetchData`, `procesarProductos` y `crearMapaImagenes`, errores HTTP y de red, validación de datos y contrato con `api/productos.json` | 49 |
 | `js/test/library.spec.js` | Wrapper `Animaciones` de la librería AOS: inicialización, `animar`, `refrescar`, `restaurarContenido`, movimiento reducido y CDN no disponible | 31 |
-| `js/test/script.spec.js` (bloque "Integración de animaciones AOS") | Integración de AOS en el catálogo y el carrito: `data-aos`, retrasos escalonados con tope de 300 ms, `AOS.init` una sola vez, `refreshHard` y render sin animaciones con movimiento reducido o sin la librería | 1 |
+| `js/test/script.spec.js` (bloque "Integración de animaciones AOS") | Integración de AOS (`data-aos`, retrasos escalonados con tope de 300 ms, `AOS.init` una sola vez, `refreshHard` y render sin animaciones con movimiento reducido o sin la librería) y estados de carga, error de red, HTTP 500 y éxito del catálogo | 5 |
 
-Las 17 pruebas originales de `api.spec.js` corresponden a la [PR #137](https://github.com/dantebiondi666-prog/tienda-online/pull/137); el rol Tester QA/JS agregó 32 casos (HTTP 400/403/503, extensiones e identificadores de imagen, precio NaN y decimal, nombres repetidos en el mapa de imágenes y contrato con el JSON real). Con las dos suites, `npm test` ejecuta **231 pruebas en Node**, a razón de 150 de AO4 más 49 de `api.spec.js`, 31 de `library.spec.js` y 1 de integración de AOS en `script.spec.js`.
+Las 17 pruebas originales de `api.spec.js` corresponden a la [PR #137](https://github.com/dantebiondi666-prog/tienda-online/pull/137); el rol Tester QA/JS agregó 32 casos (HTTP 400/403/503, extensiones e identificadores de imagen, precio NaN y decimal, nombres repetidos en el mapa de imágenes y contrato con el JSON real). Con las dos suites, `npm test` ejecuta **235 pruebas en Node**, a razón de 150 de AO4 más 49 de `api.spec.js`, 31 de `library.spec.js` y 5 nuevas en `script.spec.js` (1 de integración de AOS y 4 del estado de carga y de error del catálogo).
 
-Con la librería integrada (`develop` con los PR #136 y #137 incorporado a la rama del tester), `npm test -- --seed=48572` ejecutó **231 pruebas con 0 fallos** y `npm run cobertura -- --seed=43488` midió:
+Con la librería integrada (`develop` con los PR #136 y #137 incorporado a la rama del tester), `npm test -- --seed=82574` ejecutó **235 pruebas con 0 fallos** y `npm run cobertura -- --seed=68382` midió:
 
 | Archivo o conjunto | Sentencias | Ramas | Funciones | Líneas |
 |---|---:|---:|---:|---:|
-| **Total medido** | **98,35 %** | **97,11 %** | **100 %** | **98,35 %** |
-| `js/script.js` | 95,49 % | 88,67 % | 100 % | 95,49 % |
+| **Total medido** | **98,91 %** | **97,36 %** | **100 %** | **98,91 %** |
+| `js/script.js` | 97,04 % | 89,71 % | 100 % | 97,04 % |
 | `js/api/apiService.js` | 100 % | 100 % | 100 % | 100 % |
 | `js/utils/animaciones.js` | 100 % | 100 % | 100 % | 100 % |
 | `js/models/`, `js/services/` y `js/utils/storage.js` | 100 % | 100 % | 100 % | 100 % |
 
-Las líneas sin cubrir pertenecen a `js/script.js`: 154–164, 180–182, 196–206, 237–238, 326–327 y 373–375. Los puntos de integración de AOS (`iniciar`, `animar` y `refrescar`) están cubiertos.
+Las líneas de `js/script.js` que siguen sin cubrir pueden consultarse en `coverage/index.html`. Los puntos de integración de AOS y el estado de carga y de error de `cargarCatalogo()` están cubiertos.
 
 ### 4.2 Auditorías Lighthouse
 

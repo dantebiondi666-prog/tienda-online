@@ -626,4 +626,4 @@ Umbral definido: ≥ 95 en las cuatro categorías. No se detectaron regresiones 
 
 **Evidencias:** `docs/04-testing/capturas/tc-11/`, `tc-12/` y `tc-13/`.
 
-**Suites de Jasmine y cobertura:** el detalle de `api.spec.js`, `library.spec.js`, los resultados de `npm test` (231 pruebas, 0 fallos), la cobertura y la distinción entre suites exclusivas de Node y suites que corren en el navegador está en [`js/test/testing-doc.md`](../../js/test/testing-doc.md).
+**Suites de Jasmine y cobertura:** el detalle de `api.spec.js`, `library.spec.js`, los resultados de `npm test` (235 pruebas, 0 fallos), la cobertura y la distinción entre suites exclusivas de Node y suites que corren en el navegador está en [`js/test/testing-doc.md`](../../js/test/testing-doc.md).
