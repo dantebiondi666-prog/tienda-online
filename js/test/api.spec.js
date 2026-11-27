@@ -259,4 +259,166 @@ describe("ApiService", function () {
       expect(imagenes.size).toBe(0);
     });
   });
+
+  // ---------------------------------------------------------------------------
+  // Casos agregados por QA (Tester QA/JS, issue #141)
+  // ---------------------------------------------------------------------------
+
+  describe("fetchData: otros errores HTTP (QA)", function () {
+    let descriptorFetch;
+
+    beforeEach(function () {
+      descriptorFetch = Object.getOwnPropertyDescriptor(globalThis, "fetch");
+    });
+
+    afterEach(function () {
+      if (descriptorFetch) {
+        Object.defineProperty(globalThis, "fetch", descriptorFetch);
+      } else {
+        delete globalThis.fetch;
+      }
+    });
+
+    for (const status of [400, 403, 503]) {
+      it(`rechaza HTTP ${status} con el código en el mensaje`, async function () {
+        const json = jasmine.createSpy("json");
+        Object.defineProperty(globalThis, "fetch", {
+          configurable: true,
+          writable: true,
+          value: jasmine.createSpy("fetch").and.resolveTo({ ok: false, status, json }),
+        });
+
+        await expectAsync(ApiService.fetchData())
+          .toBeRejectedWithError(Error, `HTTP error! status: ${status}`);
+        expect(json).not.toHaveBeenCalled();
+      });
+    }
+  });
+
+  describe("procesarProductos: casos borde de imagen (QA)", function () {
+    const imagenBase = crearRegistro().imagen;
+
+    for (const extension of ["jpg", "jpeg", "png", "webp", "gif", "avif", "JPG"]) {
+      it(`acepta una imagen .${extension}`, function () {
+        const registro = crearRegistro({
+          imagen: { ...imagenBase, src: `assets/img/foto.${extension}` },
+        });
+
+        expect(ApiService.procesarProductos([registro])[0].imagen.src)
+          .toBe(`assets/img/foto.${extension}`);
+      });
+    }
+
+    for (const src of [
+      "assets/img/foto.svg",
+      "assets/img/foto.bmp",
+      "assets/img/foto",
+      "assets/img/sub/foto.jpg",
+      "assets/img/foto.jpg?v=2",
+      "https://sitio.com/assets/img/foto.jpg",
+      "/assets/img/foto.jpg",
+      "img/foto.jpg",
+    ]) {
+      it(`descarta la ruta no permitida "${src}"`, function () {
+        const valido = crearRegistro({
+          nombre: "Campera",
+          imagen: { id: "camperas", src: "assets/img/campera-beige.jpg", alt: "Campera" },
+        });
+        const invalido = crearRegistro({ imagen: { ...imagenBase, src } });
+
+        expect(ApiService.procesarProductos([invalido, valido])).toEqual([valido]);
+      });
+    }
+
+    for (const id of ["a", "remera_blanca", "remera-blanca", "R2D2"]) {
+      it(`acepta el identificador de imagen "${id}"`, function () {
+        const registro = crearRegistro({ imagen: { ...imagenBase, id } });
+
+        expect(ApiService.procesarProductos([registro])[0].imagen.id).toBe(id);
+      });
+    }
+
+    for (const id of ["-remera", "_remera", "remera.blanca", ""]) {
+      it(`descarta el identificador de imagen "${id}"`, function () {
+        const valido = crearRegistro({
+          nombre: "Campera",
+          imagen: { id: "camperas", src: "assets/img/campera-beige.jpg", alt: "Campera" },
+        });
+        const invalido = crearRegistro({ imagen: { ...imagenBase, id } });
+
+        expect(ApiService.procesarProductos([invalido, valido])).toEqual([valido]);
+      });
+    }
+  });
+
+  describe("procesarProductos: precio (QA)", function () {
+    it("descarta un precio NaN", function () {
+      const valido = crearRegistro({
+        nombre: "Campera",
+        imagen: { id: "camperas", src: "assets/img/campera-beige.jpg", alt: "Campera" },
+      });
+
+      expect(ApiService.procesarProductos([crearRegistro({ precio: NaN }), valido]))
+        .toEqual([valido]);
+    });
+
+    it("conserva un precio decimal sin redondearlo", function () {
+      const resultado = ApiService.procesarProductos([crearRegistro({ precio: 15999.99 })]);
+
+      expect(resultado[0].precio).toBe(15999.99);
+    });
+  });
+
+  describe("crearMapaImagenes: nombres repetidos (QA)", function () {
+    it("conserva la imagen del último producto con el mismo nombre", function () {
+      const primera = { id: "a", src: "assets/img/a.jpg", alt: "A" };
+      const segunda = { id: "b", src: "assets/img/b.jpg", alt: "B" };
+
+      const imagenes = ApiService.crearMapaImagenes([
+        crearRegistro({ imagen: primera }),
+        crearRegistro({ imagen: segunda }),
+      ]);
+
+      expect(imagenes.size).toBe(1);
+      expect(imagenes.get("Remera")).toEqual(segunda);
+    });
+  });
+
+  describe("Contrato con api/productos.json real (QA)", function () {
+    const esNode = typeof process !== "undefined" && Boolean(process.versions?.node);
+    let datos;
+    let existeArchivo;
+
+    beforeAll(async function () {
+      if (!esNode) return;
+      const fs = await import("node:fs");
+      const urlJson = new URL("../../api/productos.json", import.meta.url);
+      datos = JSON.parse(fs.readFileSync(urlJson, "utf8"));
+      existeArchivo = (rutaRelativa) =>
+        fs.existsSync(new URL(`../../${rutaRelativa}`, import.meta.url));
+    });
+
+    it("el JSON entregado es un array con productos", function () {
+      if (!esNode) pending("Solo se ejecuta en Node (usa el sistema de archivos).");
+
+      expect(Array.isArray(datos)).toBeTrue();
+      expect(datos.length).toBeGreaterThan(0);
+    });
+
+    it("procesarProductos no descarta ningún producto del JSON real", function () {
+      if (!esNode) pending("Solo se ejecuta en Node (usa el sistema de archivos).");
+
+      expect(ApiService.procesarProductos(datos).length).toBe(datos.length);
+    });
+
+    it("cada imagen del JSON real apunta a un archivo existente", function () {
+      if (!esNode) pending("Solo se ejecuta en Node (usa el sistema de archivos).");
+
+      for (const producto of ApiService.procesarProductos(datos)) {
+        expect(existeArchivo(producto.imagen.src))
+          .withContext(`Falta el archivo: ${producto.imagen.src}`)
+          .toBeTrue();
+      }
+    });
+  });
 });
