@@ -320,10 +320,6 @@ Como contexto se utilizaron la consigna del Segundo Parcial, el material del Enc
 
 #### Corrección de RC01 y RC02
 
-```text
-chat, ya cargo juan los 2 requested changes. resolvamoslos, carguemos changelog y asi mergeamos lo antes posbile
-```
-
 Se utilizó ChatGPT para analizar la review del Coordinador, adaptar la preparación asíncrona de los tests existentes, generar las pruebas del servicio API y actualizar la configuración de cobertura. Las propuestas se revisaron y verificaron mediante Jasmine y c8 sobre los archivos de la rama.
 
 ### Ajustes y verificaciones manuales
