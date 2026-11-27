@@ -136,6 +136,33 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 - [backport/release-tercera-entrega] [Backport] Backport de release/tercera-entrega hacia develop
   PR: [#98](https://github.com/dantebiondi666-prog/tienda-online/pull/98) - @LucasFUces (Coordinador / DevOps)
 
+- [fix/lighthouse-performance-seo] [Segundo Parcial] Correcciones de Performance, SEO y Best Practices.
+  PR: [#143](https://github.com/dantebiondi666-prog/tienda-online/pull/143) - @juanmartinbritos7-cmd (Coordinador / DevOps).
+  Responsable: @juanmartinbritos7-cmd (Coordinador / DevOps).
+  Issues:
+  - [#139](https://github.com/dantebiondi666-prog/tienda-online/issues/139)
+  - [#140](https://github.com/dantebiondi666-prog/tienda-online/issues/140)
+
+  Correcciones implementadas:
+  - Optimización de Google Fonts mediante preconnect.
+  - Eliminación de @import en css/styles.css.
+  - Incorporación del atributo defer en Bootstrap.
+  - Incorporación de meta description.
+  - Declaración de favicon para evitar el error 404.
+
+  Resultados de Lighthouse:
+  - Performance: 97.
+  - Accessibility: 100.
+  - Best Practices: 100.
+  - SEO: 100.
+
+  Validación automatizada:
+  - 167 specs, 0 failures.
+  - Cobertura de líneas: 95,41%.
+  - Cobertura de ramas: 94,16%.
+  - Cobertura de funciones: 97,91%.
+
+  Evidencia: [Lighthouse post-correcciones](docs/04-testing/lighthouse-post-correcciones.md).
 
 ## [Release Actividad Obligatoria N.º 3] - 2026-11-02
 
