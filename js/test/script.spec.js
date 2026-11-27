@@ -842,3 +842,309 @@ describe("Flujo 5 - Sin prompt ni alert", function () {
   });
 });
 });
+
+describe("Integración de animaciones AOS", function () {
+  const nombresGlobales = [
+    "window",
+    "document",
+    "localStorage",
+    "sessionStorage",
+    "Event",
+    "CustomEvent",
+    "KeyboardEvent",
+    "MouseEvent",
+    "HTMLElement",
+    "HTMLInputElement",
+    "HTMLSelectElement",
+    "HTMLFormElement",
+    "Node",
+    "DOMException",
+    "alert",
+    "prompt",
+    "fetch",
+    "AOS",
+    "matchMedia",
+  ];
+  let contadorImportaciones = 0;
+  let dom;
+  let descriptoresAnteriores;
+  let observadorCarga;
+
+  function definirGlobal(nombre, valor) {
+    Object.defineProperty(globalThis, nombre, {
+      configurable: true,
+      writable: true,
+      value: valor,
+    });
+  }
+
+  function crearAOS() {
+    return {
+      init: jasmine.createSpy("AOS.init"),
+      refreshHard: jasmine.createSpy("AOS.refreshHard"),
+    };
+  }
+
+  function crearProductosParaDemora(productos) {
+    const resultado = [...productos];
+    for (let indice = 1; resultado.length < 8; indice += 1) {
+      const original = productos[(indice - 1) % productos.length];
+      resultado.push({
+        ...original,
+        nombre: `Prenda de prueba ${indice}`,
+        imagen: {
+          ...original.imagen,
+          id: `prenda-prueba-${indice}`,
+          alt: `Imagen de prueba ${indice}`,
+        },
+      });
+    }
+    return resultado;
+  }
+
+  async function iniciarAplicacion({
+    aos,
+    movimientoReducido = false,
+    productosExtendidos = false,
+  }) {
+    const [html, productosJson] = await Promise.all([
+      fs.readFile(archivoHtml, "utf8"),
+      fs.readFile(archivoProductos, "utf8"),
+    ]);
+    const productos = JSON.parse(productosJson);
+    const productosRespuesta = productosExtendidos
+      ? crearProductosParaDemora(productos)
+      : productos;
+    dom = new JSDOM(html, {
+      url: "http://localhost/",
+      pretendToBeVisual: true,
+    });
+
+    const globalesJSDOM = {
+      window: dom.window,
+      document: dom.window.document,
+      localStorage: dom.window.localStorage,
+      sessionStorage: dom.window.sessionStorage,
+      Event: dom.window.Event,
+      CustomEvent: dom.window.CustomEvent,
+      KeyboardEvent: dom.window.KeyboardEvent,
+      MouseEvent: dom.window.MouseEvent,
+      HTMLElement: dom.window.HTMLElement,
+      HTMLInputElement: dom.window.HTMLInputElement,
+      HTMLSelectElement: dom.window.HTMLSelectElement,
+      HTMLFormElement: dom.window.HTMLFormElement,
+      Node: dom.window.Node,
+      DOMException: dom.window.DOMException,
+      alert: jasmine.createSpy("alert"),
+      prompt: jasmine.createSpy("prompt"),
+      fetch: jasmine.createSpy("fetch").and.resolveTo({
+        ok: true,
+        status: 200,
+        json: jasmine
+          .createSpy("json")
+          .and.resolveTo(productosRespuesta),
+      }),
+    };
+
+    descriptoresAnteriores = new Map(
+      nombresGlobales.map((nombre) => [
+        nombre,
+        Object.getOwnPropertyDescriptor(globalThis, nombre),
+      ]),
+    );
+    for (const [nombre, valor] of Object.entries(globalesJSDOM)) {
+      definirGlobal(nombre, valor);
+    }
+    definirGlobal("AOS", aos);
+    definirGlobal(
+      "matchMedia",
+      jasmine
+        .createSpy("matchMedia")
+        .and.returnValue({ matches: movimientoReducido }),
+    );
+
+    await import(`../script.js?integracion-aos=${++contadorImportaciones}`);
+
+    const cargaFinalizada = new Promise((resolve) => {
+      const grilla = document.getElementById("product-grid");
+      observadorCarga = new window.MutationObserver(() => {
+        if (grilla.getAttribute("aria-busy") === "false") {
+          observadorCarga.disconnect();
+          resolve();
+        }
+      });
+      observadorCarga.observe(grilla, {
+        attributes: true,
+        attributeFilter: ["aria-busy"],
+      });
+    });
+
+    document.dispatchEvent(new window.Event("DOMContentLoaded"));
+    await cargaFinalizada;
+  }
+
+  function disparar(elemento, tipo) {
+    elemento.dispatchEvent(
+      new window.Event(tipo, { bubbles: true, cancelable: true }),
+    );
+  }
+
+  function agregarProducto(nombre, talle) {
+    const boton = [...document.querySelectorAll("#product-grid button")].find(
+      (elemento) => elemento.dataset.producto === nombre,
+    );
+    boton.click();
+
+    const modal = document.getElementById("modalProducto");
+    const evento = new window.Event("show.bs.modal", {
+      bubbles: true,
+      cancelable: true,
+    });
+    Object.defineProperty(evento, "relatedTarget", { value: boton });
+    modal.dispatchEvent(evento);
+
+    const selectorTalle = document.getElementById("modalProductoTalle");
+    selectorTalle.value = talle;
+    disparar(selectorTalle, "change");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    cantidad.value = "1";
+    disparar(cantidad, "input");
+    disparar(document.getElementById("modal-producto-form"), "submit");
+  }
+
+  function expectSinAtributosAOS() {
+    expect(document.querySelectorAll("[data-aos]").length).toBe(0);
+    expect(document.querySelectorAll("[data-aos-delay]").length).toBe(0);
+  }
+
+  function cerrarAplicacion() {
+    observadorCarga?.disconnect();
+    observadorCarga = undefined;
+
+    if (dom) {
+      dom.window.close();
+      dom = undefined;
+    }
+    if (descriptoresAnteriores) {
+      for (const nombre of nombresGlobales) {
+        const descriptor = descriptoresAnteriores.get(nombre);
+        if (descriptor) {
+          Object.defineProperty(globalThis, nombre, descriptor);
+        } else {
+          delete globalThis[nombre];
+        }
+      }
+      descriptoresAnteriores = undefined;
+    }
+  }
+
+  function monedaIntegracion(valor) {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      maximumFractionDigits: 0,
+    }).format(valor);
+  }
+
+  beforeEach(function () {
+    descriptoresAnteriores = undefined;
+    dom = undefined;
+  });
+
+  afterEach(function () {
+    cerrarAplicacion();
+  });
+
+  it("anima con AOS y conserva el render normal sin movimiento o sin la librería", async function () {
+    const aosMovimientoReducido = crearAOS();
+    await iniciarAplicacion({
+      aos: aosMovimientoReducido,
+      movimientoReducido: true,
+    });
+
+    expect(aosMovimientoReducido.init).not.toHaveBeenCalled();
+    expect(
+      [...document.querySelectorAll("#product-grid article h3")].map(
+        (titulo) => titulo.textContent,
+      ),
+    ).toEqual(["Remera", "Pantalón", "Campera"]);
+    agregarProducto("Remera", "M");
+    expect(document.querySelectorAll("#carrito-items li").length).toBe(1);
+    expect(document.querySelectorAll("#resumen-items li").length).toBe(1);
+    expectSinAtributosAOS();
+    cerrarAplicacion();
+
+    await iniciarAplicacion({ aos: undefined });
+    expect(
+      [...document.querySelectorAll("#product-grid article h3")].map(
+        (titulo) => titulo.textContent,
+      ),
+    ).toEqual(["Remera", "Pantalón", "Campera"]);
+    agregarProducto("Remera", "M");
+    expect(document.querySelectorAll("#carrito-items li").length).toBe(1);
+    expect(document.querySelectorAll("#resumen-items li").length).toBe(1);
+    expect(document.getElementById("carrito-total").textContent).toBe(
+      monedaIntegracion(15000),
+    );
+    expectSinAtributosAOS();
+    cerrarAplicacion();
+
+    const aos = crearAOS();
+    await iniciarAplicacion({
+      aos,
+      productosExtendidos: true,
+    });
+
+    const tarjetas = [...document.querySelectorAll("#product-grid article")];
+    const retrasosCatalogo = tarjetas.map(
+      (tarjeta) => tarjeta.getAttribute("data-aos-delay"),
+    );
+    expect(tarjetas.map((tarjeta) => tarjeta.getAttribute("data-aos"))).toEqual(
+      Array(8).fill("fade-up"),
+    );
+    expect(retrasosCatalogo).toEqual(
+      [0, 50, 100, 150, 200, 250, 300, 300].map(String),
+    );
+    expect(aos.init).toHaveBeenCalledTimes(1);
+    expect(aos.refreshHard).toHaveBeenCalled();
+
+    aos.refreshHard.calls.reset();
+    const busqueda = document.getElementById("busqueda");
+    busqueda.value = "Remera";
+    disparar(busqueda, "input");
+    expect(aos.refreshHard).toHaveBeenCalledTimes(1);
+
+    busqueda.value = "";
+    disparar(busqueda, "input");
+    aos.refreshHard.calls.reset();
+    for (const [nombre, talle] of [
+      ["Remera", "S"],
+      ["Remera", "M"],
+      ["Remera", "L"],
+      ["Pantalón", "38"],
+      ["Pantalón", "40"],
+      ["Pantalón", "42"],
+      ["Campera", "M"],
+    ]) {
+      agregarProducto(nombre, talle);
+    }
+
+    const lineasCarrito = [
+      ...document.querySelectorAll("#carrito-items li"),
+    ];
+    const lineasResumen = [
+      ...document.querySelectorAll("#resumen-items li"),
+    ];
+    const retrasosEsperados = [0, 50, 100, 150, 200, 250, 300].map(String);
+    for (const lineas of [lineasCarrito, lineasResumen]) {
+      expect(lineas.map((linea) => linea.getAttribute("data-aos"))).toEqual(
+        Array(7).fill("fade-right"),
+      );
+      expect(
+        lineas.map((linea) => linea.getAttribute("data-aos-delay")),
+      ).toEqual(retrasosEsperados);
+    }
+    expect(aos.refreshHard).toHaveBeenCalledTimes(7);
+    expect(aos.init).toHaveBeenCalledTimes(1);
+  });
+});

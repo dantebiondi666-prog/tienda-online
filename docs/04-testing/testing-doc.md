@@ -2,7 +2,7 @@
 
 **Proyecto:** Tienda Online  
 **Entrega:** Primer Parcial — Programación Web I  
-**Alcance:** Test Cases TC6–TC10 y retest final sobre la release desplegada  
+**Alcance:** Test Cases TC6–TC10 y retest final sobre la release desplegada. El Segundo Parcial (TC11–TC13, auditorías Lighthouse) se documenta en la sección final de este archivo.  
 **Herramienta de retest final:** Playwright MCP  
 **Deployment evaluado:** https://dantebiondi666-prog.github.io/tienda-online/  
 **Fecha del retest final:** 2026-10-19  
@@ -39,6 +39,9 @@ La documentación de TC1 a TC5 se conserva en este archivo como antecedente hist
 - [TC8 — Modal de detalle de producto (Bootstrap)](./test-case-8.md)
 - [TC9 — Componente HTML avanzado details/summary](./test-case-9.md)
 - [TC10 — Componente HTML avanzado datalist](./test-case-10.md)
+- [TC11 — Lighthouse: baseline inicial](./test-case-11-lighthouse-baseline.md)
+- [TC12 — Lighthouse: post-fetch](./test-case-12-lighthouse-post-fetch.md)
+- [TC13 — Lighthouse: post-librería externa](./test-case-13-lighthouse-post-library.md)
 
 # Testing del Primer Parcial — TC6 a TC10
 
@@ -598,3 +601,29 @@ Se confirmó:
 Los cinco Test Cases correspondientes al Primer Parcial obtuvieron resultado `PASS` durante el retest final ejecutado mediante Playwright MCP sobre la release desplegada.
 
 No se detectaron bugs relevantes que requirieran nuevas Issues o correcciones adicionales.
+
+---
+
+# Segundo Parcial — Testing funcional y auditorías Lighthouse (TC11 a TC13)
+
+**Rol:** Tester QA/JS · **Issue:** [#141](https://github.com/dantebiondi666-prog/tienda-online/issues/141) · **Spec:** `docs/03-specs/segundo-parcial/spec-tester-qa-segundo-parcial.md`
+**Herramienta:** Lighthouse en Microsoft Edge (ventana InPrivate, modo Navigation, dispositivo Mobile), servidor local `python -m http.server 8080`.
+
+Las tres auditorías se ejecutaron sobre la misma URL y con la misma configuración, en tres momentos de la integración:
+
+| Test Case | Momento | Performance | Accessibility | Best Practices | SEO |
+|---|---|---:|---:|---:|---:|
+| [TC11](./test-case-11-lighthouse-baseline.md) | Baseline, antes de integrar las features | 93 | 100 | 96 | 91 |
+| [TC12](./test-case-12-lighthouse-post-fetch.md) | Después de integrar Fetch (PR #137) | 96 | 100 | 96 | 91 |
+| [TC13](./test-case-13-lighthouse-post-library.md) | Después de integrar la librería AOS (PR #136) | 97 | 100 | 96 | 91 |
+
+Umbral definido: ≥ 95 en las cuatro categorías. No se detectaron regresiones entre momentos. SEO (91) es la única categoría que no alcanza el umbral, por la falta de meta description. El error de consola de Best Practices corresponde al `favicon.ico` inexistente (404 del servidor local).
+
+**Issues derivadas del baseline:**
+
+- [Issue #139](https://github.com/dantebiondi666-prog/tienda-online/issues/139) — Performance: recursos que bloquean el renderizado.
+- [Issue #140](https://github.com/dantebiondi666-prog/tienda-online/issues/140) — SEO: falta meta description.
+
+**Evidencias:** `docs/04-testing/capturas/tc-11/`, `tc-12/` y `tc-13/`.
+
+**Suites de Jasmine y cobertura:** el detalle de `api.spec.js`, `library.spec.js`, los resultados de `npm test` (231 pruebas, 0 fallos), la cobertura y la distinción entre suites exclusivas de Node y suites que corren en el navegador está en [`js/test/testing-doc.md`](../../js/test/testing-doc.md).
