@@ -2240,7 +2240,7 @@ del 95,49% y una cobertura de ramas del 88,67%.
 
 | ID | Observación | Prioridad | Estado |
 |---|---|---|---|
-| OBS01 | Incorporar develop con AOS a la rama del Tester | Alta | Pendiente |
+| OBS01 | Incorporar develop con AOS a la rama del Tester | Alta | Resuelto |
 | OBS02 | Verificar y documentar las suites compatibles con test-runner.html | Media | Pendiente |
 | OBS03 | Completar Lighthouse post-library (TC13) | Alta | Pendiente |
 | OBS04 | Actualizar los índices de testing | Media | Pendiente |
@@ -2281,6 +2281,32 @@ models.spec.js y storage.spec.js.
 La integración evaluada fue una simulación local
 y no representa un merge definitivo hacia develop.
 
+#### Revalidación posterior a la incorporación de develop
+
+- Fecha: 27/11/2026.
+- Commit revisado: 3a3f898.
+- Incorporación de AOS desde develop: verificada.
+- Jasmine: 230 specs, 0 failures.
+- Seed de Jasmine: 37271.
+- Tiempo de ejecución: 1,127 s.
+- Seed de cobertura: 12503.
+- Tiempo de ejecución de cobertura: 1,744 s.
+- Cobertura de sentencias: 98,35%.
+- Cobertura de ramas: 97,10%.
+- Cobertura de funciones: 100%.
+- Cobertura de líneas: 98,35%.
+- Cobertura de apiService.js: 100%.
+- Cobertura de animaciones.js: 100%.
+
+Se verificaron directamente las pruebas sobre la rama
+actualizada del Tester QA, sin necesidad de realizar
+una integración simulada.
+
+La observación OBS01 queda resuelta.
+
+Queda pendiente la revisión del PR definitivo y la
+verificación de los entregables restantes.
+
 #### Conclusión
 
 La revisión preliminar del trabajo del Tester QA
@@ -2307,7 +2333,21 @@ final y la verificación de los entregables restantes.
 
 ## 14. Obstáculos y reasignaciones
 
-Se documentarán las dificultades reales encontradas durante la coordinación, las decisiones tomadas, las reasignaciones formales y sus respectivas justificaciones.
+### Limitaciones de permisos en GitHub
+
+- Se detectaron limitaciones para actualizar los estados
+  del tablero Kanban.
+- El acceso a Settings > Pages devolvió un error 404.
+- Se informó a Dante Biondi, propietario del repositorio,
+  para coordinar las operaciones que requieren permisos
+  adicionales.
+- Se solicitó actualizar los estados de las issues
+  #134, #139 y #140.
+- La configuración de GitHub Pages se realizará cuando
+  esté disponible la rama release/segundo-parcial.
+
+Estado: coordinación realizada, ejecución pendiente
+de confirmación.
 
 ## 15. Evidencias finales
 
