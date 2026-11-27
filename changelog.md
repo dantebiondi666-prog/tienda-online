@@ -105,7 +105,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   PR: [#98](https://github.com/dantebiondi666-prog/tienda-online/pull/98) - @LucasFUces (Coordinador / DevOps)
 
 - [fix/lighthouse-performance-seo] [Segundo Parcial] Correcciones de Performance, SEO y Best Practices.
-  PR: [#142](https://github.com/dantebiondi666-prog/tienda-online/pull/142) - @juanmartinbritos7-cmd (Coordinador / DevOps).
+  PR: [#143](https://github.com/dantebiondi666-prog/tienda-online/pull/143) - @juanmartinbritos7-cmd (Coordinador / DevOps).
   Responsable: @juanmartinbritos7-cmd (Coordinador / DevOps).
   Issues:
   - [#139](https://github.com/dantebiondi666-prog/tienda-online/issues/139)
