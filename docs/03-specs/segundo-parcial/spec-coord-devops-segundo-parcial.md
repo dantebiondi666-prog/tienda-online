@@ -248,6 +248,7 @@ Esta sección se completará durante el desarrollo con las revisiones efectivame
 | Review 2 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Desarrollador JS Librerías Externas | animaciones.js, script.js, index.html, changelog.md, libreria-doc.md, SPEC y capturas | Request Changes: RC01 y RC02 |
 | Review 3 | [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) | Revalidación del Desarrollador JS Asíncrono | script.spec.js, api.spec.js, package.json, diff de commits y resultados de cobertura | RC01 y RC02 resueltos - LGTM y Approve |
 | Review 4 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Revalidación del Desarrollador JS Librerías Externas | animaciones.js, diff de commits, Jasmine, Node.js, JSDOM y git merge-tree | RC01 aceptado - RC02 pendiente - Approve pendiente |
+| Review 5 | [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) | Revalidación definitiva de AOS | Diff de integración, Jasmine, cobertura y git merge-base | RC02 resuelto - LGTM - Approve - Merge |
 
 Para cada revisión se registrará:
 
@@ -1679,6 +1680,353 @@ mediante cuatro instancias de revisión técnica.
 
 Se mantiene un registro separado para cumplir con
 el mínimo de PR distintos establecido en la rúbrica.
+
+---
+### Code Review N.º 5 - Revalidación definitiva del PR #136
+
+#### Información general
+
+- Fecha: 27/11/2026.
+- Responsable: Lucas Ivan Fischer (@LucasFUces).
+- Rol: Desarrollador JS Librerías Externas.
+- PR: [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136).
+- Issue: [#134](https://github.com/dantebiondi666-prog/tienda-online/issues/134).
+- Rama: feature/dev-libreria-externa-aos.
+- Destino: develop.
+- Herramienta de IA: ChatGPT.
+- Commit de resolución: bcb1e8b.
+- Commit final revisado: 850c820.
+- Resultado: LGTM y Approve.
+- Commit de integración: 3d41731.
+
+#### Objetivo
+
+Verificar la resolución definitiva de RC02,
+correspondiente a los conflictos de integración
+entre Fetch y la librería externa AOS.
+
+#### Contexto proporcionado a la IA
+
+- Resultados de las Code Reviews N.º 2 y N.º 4.
+- Historial de commits actualizado.
+- Diff de js/script.js y changelog.md.
+- Resultados de Jasmine.
+- Informe de cobertura mediante c8.
+- Resultado de git merge-base.
+- Test Case 12 de Lighthouse post-fetch.
+- Captura de la integración del PR #136.
+
+#### Solicitudes realizadas a la IA
+
+La revisión se realizó de forma iterativa mediante
+ChatGPT, proporcionando los resultados de terminal,
+el diff actualizado y las evidencias de testing.
+
+Se solicitó verificar la conservación de Fetch,
+la incorporación correcta de AOS, la resolución
+de conflictos y la ausencia de regresiones.
+
+No se utilizó un único prompt formal independiente
+durante esta instancia de revisión.
+
+#### Commits revisados
+
+| Commit | Descripción |
+|---|---|
+| bcb1e8b | Actualizar rama AOS desde develop y resolver conflictos RC02 |
+| 850c820 | Completar sección de coordinación y checklist del SPEC |
+
+#### Validación manual
+
+Se reutilizó el worktree independiente del PR #136.
+
+```powershell
+cd C:\Users\juanm\tienda-online-review-136
+git switch --detach origin/feature/dev-libreria-externa-aos
+git --no-pager log -1 --oneline
+git merge-base --is-ancestor origin/develop HEAD
+echo $LASTEXITCODE
+git --no-pager diff origin/develop HEAD -- js/script.js changelog.md
+npm.cmd test
+npm.cmd run cobertura
+```
+
+El comando git merge-base finalizó con código de
+salida 0, confirmando que develop se encuentra
+incorporado en la rama de AOS.
+
+#### Resolución de RC02
+
+Se inspeccionaron las modificaciones de js/script.js
+y changelog.md.
+
+Aspectos verificados:
+
+- Conservación de la importación de ApiService.
+- Conservación de la inicialización asíncrona.
+- Incorporación del módulo Animaciones.
+- Inicialización del wrapper de AOS.
+- Animaciones fade-up en el catálogo.
+- Animaciones fade-right en el carrito.
+- Animaciones fade-right en el resumen de compra.
+- Actualización de AOS después de renderizar elementos.
+- Conservación de la contribución de Dante en changelog.md.
+- Incorporación de la contribución de Lucas en changelog.md.
+
+El diff no muestra eliminaciones de la lógica
+asíncrona incorporada por el PR #137.
+
+Estado de RC02: RESUELTO Y VERIFICADO.
+
+#### Resultados de Jasmine
+
+| Comando | Resultado | Seed | Tiempo |
+|---|---|---|---|
+| npm.cmd test | 167 specs, 0 failures | 69736 | 1,012 s |
+| npm.cmd run cobertura | 167 specs, 0 failures | 54751 | 1,563 s |
+
+Las 167 pruebas existentes se ejecutaron correctamente.
+
+No se detectaron regresiones en la suite automatizada
+después de incorporar AOS a la versión con Fetch.
+
+#### Comparación de cobertura
+
+| Indicador | Fetch | Fetch + AOS |
+|---|---:|---:|
+| Sentencias | 98,21% | 95,41% |
+| Ramas | 96,82% | 94,16% |
+| Funciones | 100% | 97,91% |
+| Líneas | 98,21% | 95,41% |
+| Tests ejecutados | 167 | 167 |
+| Tests fallidos | 0 | 0 |
+
+#### Cobertura por archivo
+
+| Archivo | Sentencias | Ramas | Funciones | Líneas |
+|---|---:|---:|---:|---:|
+| script.js | 95,49% | 88,67% | 100% | 95,49% |
+| apiService.js | 100% | 100% | 100% | 100% |
+| Carrito.js | 100% | 100% | 100% | 100% |
+| Catalogo.js | 100% | 100% | 100% | 100% |
+| ItemCarrito.js | 100% | 100% | 100% | 100% |
+| Producto.js | 100% | 100% | 100% | 100% |
+| PersistenciaService.js | 100% | 100% | 100% | 100% |
+| storage.js | 100% | 100% | 100% | 100% |
+| animaciones.js | 59,28% | 31,25% | 66,66% | 59,28% |
+| General | 95,41% | 94,16% | 97,91% | 95,41% |
+
+La disminución de la cobertura coincide con la
+incorporación del nuevo módulo animaciones.js,
+que todavía no cuenta con su suite específica
+en la rama evaluada.
+
+El Tester QA deberá incorporar library.spec.js
+y verificar nuevamente la cobertura.
+
+#### Estado definitivo de los Request Changes
+
+| RC | Descripción | Estado |
+|---|---|---|
+| RC01 | Recuperación ante fallos de AOS | Aceptado técnicamente |
+| RC02 | Integración con Fetch | Resuelto y verificado |
+
+#### Justificación del LGTM y Approve
+
+La aprobación técnica se fundamenta en:
+
+- Resolución de las dos observaciones originales.
+- Incorporación de develop en la rama de AOS.
+- Conservación de la carga asíncrona del catálogo.
+- Integración del wrapper de animaciones.
+- Conservación de las contribuciones en el changelog.
+- Ejecución de 167 pruebas sin fallos.
+- Lighthouse post-fetch documentado sin regresiones.
+
+Se publicó el LGTM y Approve en el PR #136.
+
+Posteriormente se realizó el merge hacia develop,
+obteniendo el commit de integración 3d41731.
+
+#### Limitaciones y seguimiento
+
+No se verificó directamente el renderizado visual
+en un navegador real durante esta revisión.
+
+Queda pendiente la incorporación del testing específico
+de AOS, la actualización del informe de cobertura y
+la auditoría Lighthouse post-library.
+
+Estas validaciones serán coordinadas con el Tester QA.
+
+#### Conclusión
+
+La revalidación confirma que la resolución de los
+conflictos conserva las funcionalidades de Fetch
+y AOS sin regresiones detectadas en Jasmine.
+
+Se considera justificada la aprobación técnica
+y la integración del PR #136 hacia develop.
+
+---
+### Registro de coordinación e integración del Segundo Parcial
+
+#### Lighthouse baseline - Test Case 11
+
+- Fecha: 26/11/2026.
+- Responsable: Sebastian Viel (@Zikoloogo).
+- Rama auditada: develop.
+- Commit de referencia: 95706d5.
+- Commit del SPEC inicial de QA: d8aff21.
+- Commit de documentación del baseline: 56c5177.
+- Navegador: Microsoft Edge, ventana InPrivate.
+- Configuración: Navigation, Mobile.
+
+El informe no identifica expresamente el hash auditado.
+95706d5 corresponde a la referencia de develop observada
+antes de integrar las funcionalidades del Segundo Parcial.
+
+#### Integración de Fetch - PR #137
+
+- Responsable: Dante Biondi.
+- Commit aprobado: 4aa3e4a.
+- Request Changes resueltos: 2 de 2.
+- Testing: 167 specs, 0 failures.
+- Cobertura general de líneas: 98,21%.
+- Commit de integración: d1fd091.
+- Estado: integrado en develop.
+
+Se autorizó el merge después de verificar que el
+Lighthouse baseline se encontraba documentado.
+
+#### Lighthouse post-fetch - Test Case 12
+
+- Fecha: 27/11/2026.
+- Responsable: Sebastian Viel.
+- Rama: feature/tester-qa-js-testing-suite.
+- Commit de documentación: e1c135c.
+- Configuración: Navigation, Mobile, Edge InPrivate.
+- Resultado: sin regresiones respecto del baseline.
+
+La rama auditada incluye Fetch y todavía no incorpora AOS.
+
+El informe no indica expresamente el hash exacto auditado.
+
+#### Integración de AOS - PR #136
+
+- Responsable: Lucas Ivan Fischer.
+- Commit aprobado: 850c820.
+- Request Changes técnicamente aceptados: 2 de 2.
+- Testing: 167 specs, 0 failures.
+- Cobertura general de líneas: 95,41%.
+- Commit de integración: 3d41731.
+- Estado: integrado en develop.
+
+Se autorizó el merge después de comprobar la resolución
+de RC02 y la documentación de Lighthouse post-fetch.
+
+#### Comparación de auditorías Lighthouse
+
+| Categoría | Baseline TC11 | Post-fetch TC12 | Post-library TC13 | Umbral |
+|---|---:|---:|---|---:|
+| Performance | 93 | 96 | Pendiente | 95 |
+| Accessibility | 100 | 100 | Pendiente | 95 |
+| Best Practices | 96 | 96 | Pendiente | 95 |
+| SEO | 91 | 91 | Pendiente | 95 |
+
+La mejora observada en Performance no puede atribuirse
+exclusivamente a Fetch debido a la variabilidad
+entre ejecuciones de Lighthouse.
+
+#### Issues de calidad identificadas
+
+| Issue | Descripción | Estado |
+|---|---|---|
+| #139 | Recursos que bloquean el renderizado | En progreso |
+| #140 | Ausencia de meta description | En progreso |
+| #141 | Testing avanzado y auditorías Lighthouse | En progreso |
+
+Las issues #139 y #140 fueron destinadas al
+Coordinador/DevOps según el informe de QA.
+
+Se deberán coordinar las correcciones y verificar
+posteriormente sus resultados mediante Lighthouse.
+
+#### Seguimiento del Kanban
+
+Se identificaron las issues correspondientes
+a los cuatro roles del Segundo Parcial.
+
+- #133: Coordinador/DevOps.
+- #134: Desarrollador JS Librerías Externas.
+- #135: Desarrollador JS Asíncrono.
+- #141: Tester QA/JS.
+- #139: Correcciones de Performance.
+- #140: Correcciones de SEO.
+
+Se detectaron dificultades para modificar directamente
+los estados del tablero GitHub Projects.
+
+Queda pendiente confirmar los permisos de escritura
+y actualizar las tarjetas correspondientes a las
+funcionalidades ya integradas.
+
+#### Actualización de la rama del Coordinador
+
+- Fecha: 27/11/2026.
+- Rama: feature/coord-devops-segundo-parcial.
+- Commits propios antes de la integración: 7.
+- Commits pendientes desde develop: 17.
+- Conflicto identificado: changelog.md.
+- Resolución: conservación de las contribuciones
+  del Coordinador y ambos desarrolladores.
+- Commit de integración: 6b53159.
+- Push: exitoso.
+- Estado final: 8 commits por delante y 0 por detrás
+  de origin/develop al momento de la verificación.
+
+Se incorporaron correctamente las funcionalidades
+de Fetch y AOS sin perder la documentación previa
+del Coordinador/DevOps.
+
+Durante la verificación mediante git diff --cached --check
+se detectaron advertencias de espacios finales en el
+SPEC del desarrollador JS Asíncrono.
+
+Estas advertencias no impidieron el commit ni el push.
+No se modificó la documentación del desarrollador.
+
+#### Estado de integración
+
+- [x] Lighthouse baseline.
+- [x] Revisión y aprobación de Fetch.
+- [x] Merge del PR #137.
+- [x] Lighthouse post-fetch.
+- [x] Resolución de conflictos entre Fetch y AOS.
+- [x] Revisión y aprobación de AOS.
+- [x] Merge del PR #136.
+- [x] Actualización de la rama del Coordinador.
+- [x] Resolución del conflicto en changelog.md.
+- [ ] Lighthouse post-library.
+- [ ] Revisión e integración del testing avanzado.
+- [ ] Corrección de Performance y SEO.
+- [ ] Validación final del proyecto.
+- [ ] Integración del PR del Coordinador.
+- [ ] Preparación de la rama release.
+- [ ] Configuración de GitHub Pages.
+- [ ] Entrega en Slack y campus.
+
+#### Registro de Code Reviews
+
+Hasta el momento se realizaron cinco instancias
+de Code Review asistidas por inteligencia artificial
+sobre dos PR distintos.
+
+Las revalidaciones se registran como instancias
+adicionales de revisión y no como PR independientes.
+
+Queda pendiente alcanzar el mínimo de cuatro PR
+distintos revisados establecido en la rúbrica.
 
 ---
 ---

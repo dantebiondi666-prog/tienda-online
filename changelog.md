@@ -27,12 +27,17 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   - Revalidación del PR #137: 167 tests, 0 failures y 98,21% de cobertura general de líneas.
   - Verificación de la resolución de RC01 y RC02 del PR #137.
   - LGTM y Approve del PR #137.
-  - Documentación de cuatro instancias de Code Review asistidas por IA, correspondientes a dos PR distintos.
-- Revalidación del PR #136: 150 tests y 0 failures.
-- Verificación de la recuperación ante fallos de AOS mediante Node.js y JSDOM.
-- Aceptación técnica de RC01 del PR #136.
-- Nueva simulación de integración mediante git merge-tree, confirmando la persistencia de conflictos entre Fetch y AOS.
-- Seguimiento de RC02 del PR #136, pendiente de resolución y aprobación definitiva.
+  - Documentación de cinco instancias de Code Review asistidas por IA, correspondientes a dos PR distintos.
+  - Revalidación del PR #136 mediante Node.js y JSDOM.
+  - Aceptación técnica de RC01 del PR #136.
+  - Verificación de Lighthouse baseline y post-fetch.
+  - Merge del PR #137 de Fetch hacia develop (d1fd091).
+  - Revalidación definitiva de RC02 del PR #136.
+  - Validación de Fetch y AOS: 167 specs, 0 failures y 95,41% de cobertura general de líneas.
+  - LGTM y Approve del PR #136.
+  - Merge del PR #136 de AOS hacia develop (3d41731).
+  - Actualización de la rama del Coordinador desde develop.
+  - Resolución del conflicto de changelog.md, conservando las contribuciones de los integrantes.
 
   Documentación: [SPEC Coordinador / DevOps](docs/03-specs/segundo-parcial/spec-coord-devops-segundo-parcial.md).
 - [feature/dev-libreria-externa-aos] [Segundo Parcial] Desarrollador JS Librerías Externas: integrar AOS por CDN con wrapper en catálogo y carrito
