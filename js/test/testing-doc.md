@@ -62,10 +62,54 @@ npx.cmd --yes http-server . -p 8080 -c-1
 
 Abrir `http://127.0.0.1:8080/js/test/test-runner.html?seed=79108`. El runner HTML ejecuta `models.spec.js` y `storage.spec.js`. El resultado fue **111 pruebas con 0 fallos**.
 
-Las pruebas de `script.spec.js` se ejecutan únicamente en Node, ya que utilizan JSDOM para simular el entorno del navegador.
+El runner HTML (`test-runner.html`) incluye únicamente `models.spec.js` y `storage.spec.js`. Las demás suites se ejecutan **solo en Node**:
+
+| Suite | Entorno | Motivo |
+|---|---|---|
+| `js/test/models.spec.js` | Node y navegador | No depende del DOM ni de APIs exclusivas de Node. |
+| `js/test/storage.spec.js` | Node y navegador | Usa solo Storage, disponible en ambos entornos. |
+| `js/test/script.spec.js` | Solo Node | Usa JSDOM para simular el navegador. |
+| `js/test/api.spec.js` | Solo Node | Incluye un test de contrato que lee `api/productos.json` y verifica las imágenes con el sistema de archivos (`node:fs`); en el navegador ese test se marca como pendiente. |
+| `js/test/library.spec.js` | Solo Node | Reemplaza `globalThis.document`, algo que los navegadores no permiten. |
 
 ![Jasmine en el navegador — 111 pruebas, 0 fallos](capturas/jasmine-ao4-navegador.png)
 
-## 4. Informe histórico de AO3
+## 4. Segundo Parcial: testing funcional y auditorías Lighthouse
+
+### 4.1 Suites nuevas
+
+| Suite | Alcance | Pruebas |
+|---|---|---:|
+| `js/test/api.spec.js` | Servicio `ApiService`: `fetchData`, `procesarProductos` y `crearMapaImagenes`, errores HTTP y de red, validación de datos y contrato con `api/productos.json` | 49 |
+| `js/test/library.spec.js` | Wrapper `Animaciones` de la librería AOS: inicialización, `animar`, `refrescar`, `restaurarContenido`, movimiento reducido y CDN no disponible | 31 |
+| `js/test/script.spec.js` (bloque "Integración de animaciones AOS") | Integración de AOS (`data-aos`, retrasos escalonados con tope de 300 ms, `AOS.init` una sola vez, `refreshHard` y render sin animaciones con movimiento reducido o sin la librería) y estados de carga, error de red, HTTP 500 y éxito del catálogo | 5 |
+
+Las 17 pruebas originales de `api.spec.js` corresponden a la [PR #137](https://github.com/dantebiondi666-prog/tienda-online/pull/137); el rol Tester QA/JS agregó 32 casos (HTTP 400/403/503, extensiones e identificadores de imagen, precio NaN y decimal, nombres repetidos en el mapa de imágenes y contrato con el JSON real). Con las dos suites, `npm test` ejecuta **235 pruebas en Node**, a razón de 150 de AO4 más 49 de `api.spec.js`, 31 de `library.spec.js` y 5 nuevas en `script.spec.js` (1 de integración de AOS y 4 del estado de carga y de error del catálogo).
+
+Con la librería integrada (`develop` con los PR #136 y #137 incorporado a la rama del tester), `npm test -- --seed=82574` ejecutó **235 pruebas con 0 fallos** y `npm run cobertura -- --seed=68382` midió:
+
+| Archivo o conjunto | Sentencias | Ramas | Funciones | Líneas |
+|---|---:|---:|---:|---:|
+| **Total medido** | **98,91 %** | **97,36 %** | **100 %** | **98,91 %** |
+| `js/script.js` | 97,04 % | 89,71 % | 100 % | 97,04 % |
+| `js/api/apiService.js` | 100 % | 100 % | 100 % | 100 % |
+| `js/utils/animaciones.js` | 100 % | 100 % | 100 % | 100 % |
+| `js/models/`, `js/services/` y `js/utils/storage.js` | 100 % | 100 % | 100 % | 100 % |
+
+Las líneas de `js/script.js` que siguen sin cubrir pueden consultarse en `coverage/index.html`. Los puntos de integración de AOS y el estado de carga y de error de `cargarCatalogo()` están cubiertos.
+
+### 4.2 Auditorías Lighthouse
+
+Lighthouse (Microsoft Edge, ventana InPrivate, modo Navigation, dispositivo Mobile), sobre la misma URL en cada momento:
+
+| Test Case | Momento | Performance | Accessibility | Best Practices | SEO |
+|---|---|---:|---:|---:|---:|
+| [TC11](../../docs/04-testing/test-case-11-lighthouse-baseline.md) | Baseline | 93 | 100 | 96 | 91 |
+| [TC12](../../docs/04-testing/test-case-12-lighthouse-post-fetch.md) | Post-fetch | 96 | 100 | 96 | 91 |
+| [TC13](../../docs/04-testing/test-case-13-lighthouse-post-library.md) | Post-librería | 97 | 100 | 96 | 91 |
+
+Los tres momentos se midieron sin regresiones. Umbral definido: ≥ 95 en las cuatro categorías; SEO (91) es la única categoría que no lo cumple. Issues derivadas: [#139](https://github.com/dantebiondi666-prog/tienda-online/issues/139) (Performance) y [#140](https://github.com/dantebiondi666-prog/tienda-online/issues/140) (SEO).
+
+## 5. Informe histórico de AO3
 
 El informe de la entrega anterior, incluido su retest, está disponible en el [tag `v1.1-tercera-entrega`](https://github.com/dantebiondi666-prog/tienda-online/blob/v1.1-tercera-entrega/js/test/testing-doc.md).

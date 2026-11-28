@@ -6,6 +6,107 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
 
 ## [Unreleased]
 
+### Added
+
+- [feature/coord-devops-segundo-parcial] [Segundo Parcial] Coordinador / DevOps: gestión, coordinación, revisión técnica y documentación del proyecto.
+  PR: [#138](https://github.com/dantebiondi666-prog/tienda-online/pull/138) - @juanmartinbritos7-cmd (Coordinador / DevOps).
+  Responsable: @juanmartinbritos7-cmd (Coordinador / DevOps).
+  Issue: [#133](https://github.com/dantebiondi666-prog/tienda-online/issues/133).
+
+  Contribuciones realizadas:
+  - Publicación de la Release v1.2-cuarta-entrega.
+  - Backport de la AO4 hacia develop mediante el PR [#132](https://github.com/dantebiondi666-prog/tienda-online/pull/132).
+  - Elaboración del SPEC inicial del Coordinador.
+  - Organización y seguimiento de tareas mediante GitHub Projects.
+  - Actualización del README con los objetivos, tecnologías, arquitectura prevista y roles del Segundo Parcial.
+  - Revisión técnica asistida por ChatGPT del PR [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137).
+  - Revisión técnica asistida por ChatGPT del PR [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136).
+  - Publicación de cuatro observaciones técnicas mediante comentarios inline.
+  - Detección de 37 fallos en las pruebas del PR #137.
+  - Identificación de conflictos de integración entre Fetch y AOS.
+  - Revalidación del PR #137: 167 tests, 0 failures y 98,21% de cobertura general de líneas.
+  - Verificación de la resolución de RC01 y RC02 del PR #137.
+  - LGTM y Approve del PR #137.
+  - Documentación de seis instancias de Code Review asistidas por IA: cinco revisiones sobre dos PR distintos y una revisión preliminar del Tester QA.
+  - Revalidación del PR #136 mediante Node.js y JSDOM.
+  - Aceptación técnica de RC01 del PR #136.
+  - Verificación de Lighthouse baseline y post-fetch.
+  - Merge del PR #137 de Fetch hacia develop (d1fd091).
+  - Revalidación definitiva de RC02 del PR #136.
+  - Validación de Fetch y AOS: 167 specs, 0 failures y 95,41% de cobertura general de líneas.
+  - LGTM y Approve del PR #136.
+  - Merge del PR #136 de AOS hacia develop (3d41731).
+  - Actualización de la rama del Coordinador desde develop.
+  - Resolución del conflicto de changelog.md, conservando las contribuciones de los integrantes.
+  - Coordinación y resolución de las issues #139 y #140 de Lighthouse.
+  - Integración del PR #143 en la rama del Coordinador, con aprobación de Dante.
+  - Auditoría Lighthouse local: Performance 97, Accessibility 100, Best Practices 100 y SEO 100.
+  - Revisión preliminar del testing avanzado del Tester QA.
+  - Simulación de integración mediante git merge-tree y worktree independiente.
+  - Validación de 230 specs, 0 failures.
+  - Cobertura general de líneas del 98,35%.
+  - Cobertura del 100% en apiService.js y animaciones.js.
+  - Identificación de observaciones pendientes para la revisión definitiva del Tester QA.
+  - Revisión y revalidación del PR #144 del Tester QA.
+  - Resolución y aceptación de los seis Request Changes.
+  - Siete instancias de Code Review asistidas por IA sobre tres PR distintos.
+  - Integración del testing avanzado: 235 specs, 0 failures.
+  - Cobertura general de líneas del 98,91%.
+  - Lighthouse de integración local: 98/100/100/100.
+
+  Documentación: [SPEC Coordinador / DevOps](docs/03-specs/segundo-parcial/spec-coord-devops-segundo-parcial.md).
+- [feature/dev-libreria-externa-aos] [Segundo Parcial] Desarrollador JS Librerías Externas: integrar AOS por CDN con wrapper en catálogo y carrito
+  PR: [#136](https://github.com/dantebiondi666-prog/tienda-online/pull/136) - @LucasFUces (Desarrollador JS Librerías Externas)
+  Issue:
+  [#134](https://github.com/dantebiondi666-prog/tienda-online/issues/134)
+- [feature/dev-async-fetch-api] [Segundo Parcial] Desarrollador JS Asíncrono: implementar carga del catálogo mediante Fetch
+  PR: [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) - @dantebiondi666-prog (Desarrollador JS Asíncrono - Fetch & APIs)
+  Issue:
+  [#135](https://github.com/dantebiondi666-prog/tienda-online/issues/135)
+- [feature/tester-qa-js-testing-suite] [Segundo Parcial] Tester QA/JS: suite de testing en Jasmine y auditorías Lighthouse
+  PR: [#144](https://github.com/dantebiondi666-prog/tienda-online/pull/144) - @Zikoloogo (Tester QA/JS)
+  Issue:
+  [#141](https://github.com/dantebiondi666-prog/tienda-online/issues/141)
+
+  Hallazgos de las auditorías Lighthouse (TC11 a TC13):
+  - [#139](https://github.com/dantebiondi666-prog/tienda-online/issues/139) - Performance: recursos que bloquean el renderizado.
+  - [#140](https://github.com/dantebiondi666-prog/tienda-online/issues/140) - SEO: falta meta description.
+
+### Fixed
+
+- [feature/dev-async-fetch-api] [Segundo Parcial] Corregir RC01 y RC02: simular Fetch y esperar la carga del catálogo en los tests existentes; agregar pruebas del servicio API e incluir `js/api/*.js` en la cobertura de c8.
+  PR: [#137](https://github.com/dantebiondi666-prog/tienda-online/pull/137) - @dantebiondi666-prog (Desarrollador JS Asíncrono - Fetch & APIs)
+  Issue: [#135](https://github.com/dantebiondi666-prog/tienda-online/issues/135)
+  Revisión: [RC01](https://github.com/dantebiondi666-prog/tienda-online/pull/137#discussion_r4713873747) y [RC02](https://github.com/dantebiondi666-prog/tienda-online/pull/137#discussion_r4713883086).
+  
+- [fix/lighthouse-performance-seo] [Segundo Parcial] Correcciones de Performance, SEO y Best Practices.
+  PR: [#143](https://github.com/dantebiondi666-prog/tienda-online/pull/143) - @juanmartinbritos7-cmd (Coordinador / DevOps).
+  Responsable: @juanmartinbritos7-cmd (Coordinador / DevOps).
+  Issues:
+  - [#139](https://github.com/dantebiondi666-prog/tienda-online/issues/139)
+  - [#140](https://github.com/dantebiondi666-prog/tienda-online/issues/140)
+
+  Correcciones implementadas:
+  - Optimización de Google Fonts mediante preconnect.
+  - Eliminación de @import en css/styles.css.
+  - Incorporación del atributo defer en Bootstrap.
+  - Incorporación de meta description.
+  - Declaración de favicon para evitar el error 404.
+
+  Resultados de Lighthouse:
+  - Performance: 97.
+  - Accessibility: 100.
+  - Best Practices: 100.
+  - SEO: 100.
+
+  Validación automatizada:
+  - 167 specs, 0 failures.
+  - Cobertura de líneas: 95,41%.
+  - Cobertura de ramas: 94,16%.
+  - Cobertura de funciones: 97,91%.
+
+  Evidencia: [Lighthouse post-correcciones](docs/04-testing/lighthouse-post-correcciones.md).
+
 ## [Release Actividad Obligatoria N°4] - 2026-11-22
 
 ### Added
@@ -85,6 +186,7 @@ Este archivo se actualiza con cada Pull Request para registrar avances y correcc
   [#103](https://github.com/dantebiondi666-prog/tienda-online/issues/103)
 - [backport/release-tercera-entrega] [Backport] Backport de release/tercera-entrega hacia develop
   PR: [#98](https://github.com/dantebiondi666-prog/tienda-online/pull/98) - @LucasFUces (Coordinador / DevOps)
+
 
 
 ## [Release Actividad Obligatoria N.º 3] - 2026-11-02

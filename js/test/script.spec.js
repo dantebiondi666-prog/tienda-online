@@ -4,6 +4,7 @@ import { JSDOM } from "jsdom";
 
 
 const archivoHtml = new URL("../../index.html", import.meta.url);
+const archivoProductos = new URL("../../api/productos.json", import.meta.url);
 const nombresGlobales = [
   "window",
   "document",
@@ -21,14 +22,19 @@ const nombresGlobales = [
   "DOMException",
   "alert",
   "prompt",
+  "fetch",
 ];
 let contadorImportaciones = 0;
 let dom;
 let descriptoresAnteriores;
+let observadorCarga;
 
 describe("Controlador de eventos con DOM", function () {
 beforeEach(async function () {
-  const html = await fs.readFile(archivoHtml, "utf8");
+  const [html, productosJson] = await Promise.all([
+    fs.readFile(archivoHtml, "utf8"),
+    fs.readFile(archivoProductos, "utf8"),
+  ]);
   dom = new JSDOM(html, {
     url: "http://localhost/",
     pretendToBeVisual: true,
@@ -51,6 +57,11 @@ beforeEach(async function () {
     DOMException: dom.window.DOMException,
     alert: jasmine.createSpy("alert"),
     prompt: jasmine.createSpy("prompt"),
+    fetch: jasmine.createSpy("fetch").and.resolveTo({
+      ok: true,
+      status: 200,
+      json: jasmine.createSpy("json").and.resolveTo(JSON.parse(productosJson)),
+    }),
   };
 
   descriptoresAnteriores = new Map(
@@ -68,12 +79,35 @@ beforeEach(async function () {
   }
 
   await import(`../script.js?prueba=${++contadorImportaciones}`);
+
+  // Esperar el estado final del catálogo, incluida la conversión de la respuesta a JSON.
+  const cargaFinalizada = new Promise((resolve) => {
+    const grilla = document.getElementById("product-grid");
+    observadorCarga = new window.MutationObserver(() => {
+      if (grilla.getAttribute("aria-busy") === "false") {
+        observadorCarga.disconnect();
+        resolve();
+      }
+    });
+    observadorCarga.observe(grilla, {
+      attributes: true,
+      attributeFilter: ["aria-busy"],
+    });
+  });
+
   document.dispatchEvent(new window.Event("DOMContentLoaded"));
+  await cargaFinalizada;
+
+  expect(globalThis.fetch).toHaveBeenCalledOnceWith("api/productos.json");
+  expect(document.getElementById("busqueda").disabled).toBeFalse();
 });
 
 afterEach(function () {
   expect(globalThis.alert).not.toHaveBeenCalled();
   expect(globalThis.prompt).not.toHaveBeenCalled();
+
+  observadorCarga?.disconnect();
+  observadorCarga = undefined;
 
   if (dom) {
     dom.window.close();
@@ -807,4 +841,421 @@ describe("Flujo 5 - Sin prompt ni alert", function () {
     }).toEqual({ alert: 0, prompt: 0 });
   });
 });
+});
+
+describe("Integración de animaciones AOS", function () {
+  const nombresGlobales = [
+    "window",
+    "document",
+    "localStorage",
+    "sessionStorage",
+    "Event",
+    "CustomEvent",
+    "KeyboardEvent",
+    "MouseEvent",
+    "HTMLElement",
+    "HTMLInputElement",
+    "HTMLSelectElement",
+    "HTMLFormElement",
+    "Node",
+    "DOMException",
+    "alert",
+    "prompt",
+    "fetch",
+    "AOS",
+    "matchMedia",
+  ];
+  let contadorImportaciones = 0;
+  let dom;
+  let descriptoresAnteriores;
+  let observadorCarga;
+
+  function definirGlobal(nombre, valor) {
+    Object.defineProperty(globalThis, nombre, {
+      configurable: true,
+      writable: true,
+      value: valor,
+    });
+  }
+
+  function crearAOS() {
+    return {
+      init: jasmine.createSpy("AOS.init"),
+      refreshHard: jasmine.createSpy("AOS.refreshHard"),
+    };
+  }
+
+  function crearProductosParaDemora(productos) {
+    const resultado = [...productos];
+    for (let indice = 1; resultado.length < 8; indice += 1) {
+      const original = productos[(indice - 1) % productos.length];
+      resultado.push({
+        ...original,
+        nombre: `Prenda de prueba ${indice}`,
+        imagen: {
+          ...original.imagen,
+          id: `prenda-prueba-${indice}`,
+          alt: `Imagen de prueba ${indice}`,
+        },
+      });
+    }
+    return resultado;
+  }
+
+  async function iniciarAplicacion({
+    aos,
+    movimientoReducido = false,
+    productosExtendidos = false,
+    fetchSimulado,
+    esperarCarga = true,
+    prepararEstadoError = false,
+  }) {
+    const [html, productosJson] = await Promise.all([
+      fs.readFile(archivoHtml, "utf8"),
+      fs.readFile(archivoProductos, "utf8"),
+    ]);
+    const productos = JSON.parse(productosJson);
+    const productosRespuesta = productosExtendidos
+      ? crearProductosParaDemora(productos)
+      : productos;
+    const fetchAplicacion =
+      fetchSimulado ??
+      jasmine.createSpy("fetch").and.resolveTo({
+        ok: true,
+        status: 200,
+        json: jasmine
+          .createSpy("json")
+          .and.resolveTo(productosRespuesta),
+      });
+    dom = new JSDOM(html, {
+      url: "http://localhost/",
+      pretendToBeVisual: true,
+    });
+
+    if (prepararEstadoError) {
+      const documento = dom.window.document;
+      documento
+        .getElementById("product-grid")
+        .append(documento.createElement("article"));
+      const sugerencia = documento.createElement("option");
+      sugerencia.value = "Producto anterior";
+      documento.getElementById("sugerencias-busqueda").append(sugerencia);
+      documento.getElementById("carouselDestacados").hidden = false;
+    }
+
+    const globalesJSDOM = {
+      window: dom.window,
+      document: dom.window.document,
+      localStorage: dom.window.localStorage,
+      sessionStorage: dom.window.sessionStorage,
+      Event: dom.window.Event,
+      CustomEvent: dom.window.CustomEvent,
+      KeyboardEvent: dom.window.KeyboardEvent,
+      MouseEvent: dom.window.MouseEvent,
+      HTMLElement: dom.window.HTMLElement,
+      HTMLInputElement: dom.window.HTMLInputElement,
+      HTMLSelectElement: dom.window.HTMLSelectElement,
+      HTMLFormElement: dom.window.HTMLFormElement,
+      Node: dom.window.Node,
+      DOMException: dom.window.DOMException,
+      alert: jasmine.createSpy("alert"),
+      prompt: jasmine.createSpy("prompt"),
+      fetch: fetchAplicacion,
+    };
+
+    descriptoresAnteriores = new Map(
+      nombresGlobales.map((nombre) => [
+        nombre,
+        Object.getOwnPropertyDescriptor(globalThis, nombre),
+      ]),
+    );
+    for (const [nombre, valor] of Object.entries(globalesJSDOM)) {
+      definirGlobal(nombre, valor);
+    }
+    definirGlobal("AOS", aos);
+    definirGlobal(
+      "matchMedia",
+      jasmine
+        .createSpy("matchMedia")
+        .and.returnValue({ matches: movimientoReducido }),
+    );
+
+    await import(`../script.js?integracion-aos=${++contadorImportaciones}`);
+
+    const cargaFinalizada = new Promise((resolve) => {
+      const grilla = document.getElementById("product-grid");
+      observadorCarga = new window.MutationObserver(() => {
+        if (grilla.getAttribute("aria-busy") === "false") {
+          observadorCarga.disconnect();
+          resolve();
+        }
+      });
+      observadorCarga.observe(grilla, {
+        attributes: true,
+        attributeFilter: ["aria-busy"],
+      });
+    });
+
+    document.dispatchEvent(new window.Event("DOMContentLoaded"));
+    if (esperarCarga) {
+      await cargaFinalizada;
+    }
+    return { cargaFinalizada, fetch: fetchAplicacion, productos: productosRespuesta };
+  }
+
+  function disparar(elemento, tipo) {
+    elemento.dispatchEvent(
+      new window.Event(tipo, { bubbles: true, cancelable: true }),
+    );
+  }
+
+  function agregarProducto(nombre, talle) {
+    const boton = [...document.querySelectorAll("#product-grid button")].find(
+      (elemento) => elemento.dataset.producto === nombre,
+    );
+    boton.click();
+
+    const modal = document.getElementById("modalProducto");
+    const evento = new window.Event("show.bs.modal", {
+      bubbles: true,
+      cancelable: true,
+    });
+    Object.defineProperty(evento, "relatedTarget", { value: boton });
+    modal.dispatchEvent(evento);
+
+    const selectorTalle = document.getElementById("modalProductoTalle");
+    selectorTalle.value = talle;
+    disparar(selectorTalle, "change");
+    const cantidad = document.getElementById("modalProductoCantidad");
+    cantidad.value = "1";
+    disparar(cantidad, "input");
+    disparar(document.getElementById("modal-producto-form"), "submit");
+  }
+
+  function expectSinAtributosAOS() {
+    expect(document.querySelectorAll("[data-aos]").length).toBe(0);
+    expect(document.querySelectorAll("[data-aos-delay]").length).toBe(0);
+  }
+
+  function cerrarAplicacion() {
+    observadorCarga?.disconnect();
+    observadorCarga = undefined;
+
+    if (dom) {
+      dom.window.close();
+      dom = undefined;
+    }
+    if (descriptoresAnteriores) {
+      for (const nombre of nombresGlobales) {
+        const descriptor = descriptoresAnteriores.get(nombre);
+        if (descriptor) {
+          Object.defineProperty(globalThis, nombre, descriptor);
+        } else {
+          delete globalThis[nombre];
+        }
+      }
+      descriptoresAnteriores = undefined;
+    }
+  }
+
+  function monedaIntegracion(valor) {
+    return new Intl.NumberFormat("es-AR", {
+      style: "currency",
+      currency: "ARS",
+      maximumFractionDigits: 0,
+    }).format(valor);
+  }
+
+  function controlesCatalogo() {
+    return [
+      document.getElementById("busqueda"),
+      ...document.querySelectorAll("#filtros-form fieldset, #filtros-form button"),
+    ];
+  }
+
+  function expectErrorDeCarga() {
+    const feedback = document.getElementById("catalogo-feedback");
+    expect(document.getElementById("product-grid").children.length).toBe(0);
+    expect(
+      document.getElementById("sugerencias-busqueda").children.length,
+    ).toBe(0);
+    expect(document.getElementById("carouselDestacados").hidden).toBeTrue();
+    expect(feedback.textContent).toBe(
+      "No se pudieron cargar los productos. Recargá la página para volver a intentarlo.",
+    );
+    expect(feedback.classList.contains("text-danger")).toBeTrue();
+    expect(document.getElementById("product-grid").getAttribute("aria-busy")).toBe(
+      "false",
+    );
+    expect(controlesCatalogo().every((control) => control.disabled)).toBeTrue();
+  }
+
+  beforeEach(function () {
+    descriptoresAnteriores = undefined;
+    dom = undefined;
+  });
+
+  afterEach(function () {
+    cerrarAplicacion();
+  });
+
+  it("mantiene los controles bloqueados mientras el catálogo está cargando", async function () {
+    let resolverFetch;
+    const respuestaPendiente = new Promise((resolve) => {
+      resolverFetch = resolve;
+    });
+    const fetchSimulado = jasmine
+      .createSpy("fetch")
+      .and.returnValue(respuestaPendiente);
+    const { cargaFinalizada, productos } = await iniciarAplicacion({
+      fetchSimulado,
+      esperarCarga: false,
+    });
+
+    expect(fetchSimulado).toHaveBeenCalledOnceWith("api/productos.json");
+    expect(document.getElementById("product-grid").getAttribute("aria-busy")).toBe(
+      "true",
+    );
+    expect(document.getElementById("catalogo-feedback").textContent).toBe(
+      "Cargando productos...",
+    );
+    expect(controlesCatalogo().every((control) => control.disabled)).toBeTrue();
+
+    resolverFetch({
+      ok: true,
+      status: 200,
+      json: jasmine.createSpy("json").and.resolveTo(productos),
+    });
+    await cargaFinalizada;
+  });
+
+  it("limpia el catálogo y mantiene el estado de error si fetch falla", async function () {
+    const fetchSimulado = jasmine
+      .createSpy("fetch")
+      .and.callFake(() => Promise.reject(new Error("Fallo de red")));
+    await iniciarAplicacion({
+      fetchSimulado,
+      prepararEstadoError: true,
+    });
+
+    expect(fetchSimulado).toHaveBeenCalledOnceWith("api/productos.json");
+    expectErrorDeCarga();
+  });
+
+  it("limpia el catálogo y mantiene el estado de error ante HTTP 500", async function () {
+    const fetchSimulado = jasmine.createSpy("fetch").and.resolveTo({
+      ok: false,
+      status: 500,
+    });
+    await iniciarAplicacion({
+      fetchSimulado,
+      prepararEstadoError: true,
+    });
+
+    expect(fetchSimulado).toHaveBeenCalledOnceWith("api/productos.json");
+    expectErrorDeCarga();
+  });
+
+  it("habilita el catálogo y muestra el carrusel después de una carga exitosa", async function () {
+    await iniciarAplicacion({});
+
+    expect(document.getElementById("product-grid").getAttribute("aria-busy")).toBe(
+      "false",
+    );
+    expect(document.getElementById("carouselDestacados").hidden).toBeFalse();
+    expect(controlesCatalogo().every((control) => !control.disabled)).toBeTrue();
+  });
+
+  it("anima con AOS y conserva el render normal sin movimiento o sin la librería", async function () {
+    const aosMovimientoReducido = crearAOS();
+    await iniciarAplicacion({
+      aos: aosMovimientoReducido,
+      movimientoReducido: true,
+    });
+
+    expect(aosMovimientoReducido.init).not.toHaveBeenCalled();
+    expect(
+      [...document.querySelectorAll("#product-grid article h3")].map(
+        (titulo) => titulo.textContent,
+      ),
+    ).toEqual(["Remera", "Pantalón", "Campera"]);
+    agregarProducto("Remera", "M");
+    expect(document.querySelectorAll("#carrito-items li").length).toBe(1);
+    expect(document.querySelectorAll("#resumen-items li").length).toBe(1);
+    expectSinAtributosAOS();
+    cerrarAplicacion();
+
+    await iniciarAplicacion({ aos: undefined });
+    expect(
+      [...document.querySelectorAll("#product-grid article h3")].map(
+        (titulo) => titulo.textContent,
+      ),
+    ).toEqual(["Remera", "Pantalón", "Campera"]);
+    agregarProducto("Remera", "M");
+    expect(document.querySelectorAll("#carrito-items li").length).toBe(1);
+    expect(document.querySelectorAll("#resumen-items li").length).toBe(1);
+    expect(document.getElementById("carrito-total").textContent).toBe(
+      monedaIntegracion(15000),
+    );
+    expectSinAtributosAOS();
+    cerrarAplicacion();
+
+    const aos = crearAOS();
+    await iniciarAplicacion({
+      aos,
+      productosExtendidos: true,
+    });
+
+    const tarjetas = [...document.querySelectorAll("#product-grid article")];
+    const retrasosCatalogo = tarjetas.map(
+      (tarjeta) => tarjeta.getAttribute("data-aos-delay"),
+    );
+    expect(tarjetas.map((tarjeta) => tarjeta.getAttribute("data-aos"))).toEqual(
+      Array(8).fill("fade-up"),
+    );
+    expect(retrasosCatalogo).toEqual(
+      [0, 50, 100, 150, 200, 250, 300, 300].map(String),
+    );
+    expect(aos.init).toHaveBeenCalledTimes(1);
+    expect(aos.refreshHard).toHaveBeenCalled();
+
+    aos.refreshHard.calls.reset();
+    const busqueda = document.getElementById("busqueda");
+    busqueda.value = "Remera";
+    disparar(busqueda, "input");
+    expect(aos.refreshHard).toHaveBeenCalledTimes(1);
+
+    busqueda.value = "";
+    disparar(busqueda, "input");
+    aos.refreshHard.calls.reset();
+    for (const [nombre, talle] of [
+      ["Remera", "S"],
+      ["Remera", "M"],
+      ["Remera", "L"],
+      ["Pantalón", "38"],
+      ["Pantalón", "40"],
+      ["Pantalón", "42"],
+      ["Campera", "M"],
+    ]) {
+      agregarProducto(nombre, talle);
+    }
+
+    const lineasCarrito = [
+      ...document.querySelectorAll("#carrito-items li"),
+    ];
+    const lineasResumen = [
+      ...document.querySelectorAll("#resumen-items li"),
+    ];
+    const retrasosEsperados = [0, 50, 100, 150, 200, 250, 300].map(String);
+    for (const lineas of [lineasCarrito, lineasResumen]) {
+      expect(lineas.map((linea) => linea.getAttribute("data-aos"))).toEqual(
+        Array(7).fill("fade-right"),
+      );
+      expect(
+        lineas.map((linea) => linea.getAttribute("data-aos-delay")),
+      ).toEqual(retrasosEsperados);
+    }
+    expect(aos.refreshHard).toHaveBeenCalledTimes(7);
+    expect(aos.init).toHaveBeenCalledTimes(1);
+  });
 });
